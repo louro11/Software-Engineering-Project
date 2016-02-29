@@ -1,0 +1,163 @@
+package pt.tecnico.phonebook.domain;
+
+/*********************CLASSES*********************/
+
+
+class MyDrive;
+
+class FileSystem;
+
+class User {
+  
+  String username;
+  String password;
+  String name;
+  String mask;
+  
+}
+
+class Entity{
+  
+  String name;
+  Integer entityID;
+  String permission;
+
+}
+
+class Directory extends Entity;
+
+
+class File extends Entity{
+  
+  String owner_username;
+  DateTime date;
+  String content;
+  Double dimension;
+}
+
+
+class Plain extends File;
+
+class Link extends File;
+
+class App extends File;
+
+
+
+
+/**********************RELACOES***********************/
+
+
+
+
+
+relation DomainRootHasMyDriveApplication {
+  .pt.ist.fenixframework.DomainRoot playsRole root {
+    multiplicity 0..1;
+  }
+  
+  MyDrive playsRole mydrive {
+    multiplicity 0..1;
+  }
+}
+
+
+
+/*********************ENTIDADES***********************/
+
+
+relation EntityOwnership {
+  
+  User playsRole owner{
+
+  multiplicity 1;
+  }
+
+  Entity playsRole entity{
+    
+    multiplicity 1..*;
+  }
+}
+
+
+relation DirectoryContainsEntity {
+  
+  Directory playsRole parent{
+
+  multiplicity 1;}
+
+  Entity playsRole entity{
+    
+    multiplicity 2..*;
+  }
+}
+
+
+
+/********************FILE SYSTEM***********************/
+
+
+relation FileSystemContainsDirectory {
+  
+  FileSystem playsRole filesystem;
+
+  Directory playsRole root_directory{
+    
+    multiplicity 1;
+  }
+}
+
+
+relation FileSystemContainsUsers {
+  
+  FileSystem playsRole filesystem;
+
+  User playsRole users{
+    
+    multiplicity 1..*;
+  }
+}
+
+
+
+/*****************MY_DRIVE APPLICATION*****************/
+
+
+/*
+relation MyDriveContainsEntity {
+  
+  MyDrive playsRole mydrive;
+
+  Entity playsRole Entity {
+    
+    multiplicity 1;
+  }
+}
+
+
+relation MyDriveContainsUser {
+  
+  MyDrive playsRole mydrive;
+
+  User playsRole user{
+    
+    multiplicity 1;
+  }
+}
+
+*/
+
+
+relation MyDriveContainsFileSystem {
+  
+  MyDrive playsRole mydrive;
+
+  FileSystem playsRole filesystem{
+    
+    multiplicity 1;
+  }
+}
+
+
+
+/*****************END**********************/
