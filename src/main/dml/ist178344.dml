@@ -1,0 +1,104 @@
+package pt.tecnico.mydrive.domain;
+
+/*************************************************/
+/*                  Classes                     */
+/************************************************/
+class MyDrive;
+
+class FileSystem;
+
+class User{
+    String username;
+    String password;
+    String name;
+    String mask;
+}
+
+class File{
+    String name;
+    Integer id;
+    Integer date;
+    String creatorpermission;
+    String otherpermission;
+
+}
+
+class TextFile extends File{
+    String content;
+}
+
+class Application extends File{
+  String methodid;
+
+}
+
+class links extends File{
+  String path;
+}
+class directory extends File{
+  Integer dimension;
+}
+
+
+
+/**************************************************************/
+/*                            RELATIONS                       */
+/**************************************************************/
+
+relation DomainRootHasMyDriveApplication {
+  .pt.ist.fenixframework.DomainRoot playsRole root {
+    multiplicity 0..1;
+  }
+  MyDrive playsRole mydrive {
+    multiplicity 0..1;
+  }
+}
+
+relation MyDriveHasFileSystem{
+    MyDrive playsRole mydrive { multiplicity 0..1}
+    FileSystem playsRole filesystem { multiplicity 0..1}
+
+}
+
+relation MyDriveHasCurrentUser{
+    MyDrive playsRole mydrive { multiplicity 0..1}
+    User playsRole currentuser { multiplicity 0..1}
+
+}
+
+relation MyDriveHasCurrentDirectory{
+    MyDrive playsRole mydrive { multiplicity 0..1}
+    Directory playsRole currentdirectory { multiplicity 0..1}
+
+}
+
+relation FileSystemHasUsers{
+  FileSystem playsRole filesystem { multiplicity 0..1}
+  User playsRole users { multiplicity 1..*}
+}
+
+relation UserHasHomeDirectory{
+    User playsRole user { multiplicity 0..1}
+    Directory playsRole homedirectory { multiplicity 0..1}
+}
+
+relation FileHasOwner{
+    File playsRole file { multiplicity 0..1}
+    User playsRole owner { multiplicity 0..1}
+}
+
+relation DirectoryHasFiles{
+    Directory playsRole directory { multiplicity 0..1}
+    File playsRole  files { multiplicity 1..*}
+
+}
+
+relation DirectoryHasParentDirectory{
+  Directory playsRole directory { multiplicity 0..1}
+  Directory playsRole Parentdirectory { multiplicity 0..1}
+}
+
+relation DirectoryHasItselfDirectory{
+  Directory playsRole directory { multiplicity 0..1}
+  Directory playsRole Itselfdirectory { multiplicity 0..1}
+}
