@@ -1,0 +1,104 @@
+package pt.tecnico.mydrive.domain;
+ 
+
+/******
+Classes
+******/
+
+ #Describing entities using DML
+ 
+class FileSistem{
+	Users* users;
+}
+
+class Mydrive{
+	FileSistem FS;
+}
+ 
+class File{
+	int id;
+	string name;
+	string path;
+	string owner;
+	string date;
+	string perm;
+}
+
+class TextFile extends File{
+	string content;
+}
+
+class Link extends File{
+	string content;
+}
+
+class App extends File{
+	string content;
+}
+
+class Directory extends File{
+	File content;
+}
+
+class User{
+	string username;
+	string password;
+	string name;
+}
+
+/********
+Relations
+********/
+
+ #Describing relations using DML
+ 
+ relation DomainRootHasFileSystemApplication {
+   .pt.ist.fenixframework.DomainRoot playsRole root {
+     multiplicity 0..1;
+   }
+   FileSystem playsRole filesystem {
+     multiplicity 0..1;
+   }
+ }
+ 
+ relation FileSystemContainsUser{
+ 	FileSystem playsRole filesystem;
+ 	User playsRole user{
+ 		multiplicity *;
+ 	}
+ }
+ 
+ relation UserContainsFile{
+ 	User playsRole user;
+ 	File playsRole file{ 
+ 		multiplicity *;
+ 	}
+ }
+ 
+ relation DirectoryContainsFile{
+ 	Directory playsRole directory;
+ 	File playsRole file{
+ 		multiplicity *;
+ 	}
+ }
+ 
+ relation FileContainsLink{
+ 	File playsRole file;
+ 	Link playsRole link{
+ 		multiplicity 0..1;
+ 	}
+ }
+
+ relation FileContainsTextFile{
+ 	File playsRole file;
+ 	TextFile playsRole textfile{
+ 		multiplicity 0..1;
+ 	}
+ }
+ 
+ relation FileContainsApp{
+ 	File playsRole file;
+ 	App playsRole app{
+ 		multiplicity 0..1;
+ 	}
+ }
