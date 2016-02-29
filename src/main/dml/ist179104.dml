@@ -1,4 +1,4 @@
-package pt.tecnico.phonebook.domain;
+package pt.tecnico.mydrive.domain;
 
 /*********************CLASSES*********************/
 
@@ -16,31 +16,29 @@ class User {
   
 }
 
-class Entity{
+class File{
   
   String name;
-  Integer entityID;
+  Integer fileID;
   String permission;
-
-}
-
-class Directory extends Entity;
-
-
-class File extends Entity{
-  
   String owner_username;
-  DateTime date;
+  DateTime last_modified;
   String content;
   Double dimension;
+
 }
 
+class Directory extends File;
 
-class Plain extends File;
+class Plain extends File{
 
-class Link extends File;
+  String content;
 
-class App extends File;
+}
+
+class Link extends Plain;
+
+class App extends Plain;
 
 
 
@@ -49,6 +47,11 @@ class App extends File;
 
 
 
+
+
+
+
+/*****************MY_DRIVE APPLICATION*****************/
 
 
 relation DomainRootHasMyDriveApplication {
@@ -62,36 +65,12 @@ relation DomainRootHasMyDriveApplication {
 }
 
 
-
-/*********************ENTIDADES***********************/
-
-
-relation EntityOwnership {
+relation MyDriveContainsFileSystem {
   
-  User playsRole owner{
+  MyDrive playsRole mydrive;
 
-  multiplicity 1;
-  }
-
-  Entity playsRole entity{
-    
-    multiplicity 1..*;
-  }
+  FileSystem playsRole filesystem;
 }
-
-
-relation DirectoryContainsEntity {
-  
-  Directory playsRole parent{
-
-  multiplicity 1;}
-
-  Entity playsRole entity{
-    
-    multiplicity 2..*;
-  }
-}
-
 
 
 /********************FILE SYSTEM***********************/
@@ -101,9 +80,9 @@ relation FileSystemContainsDirectory {
   
   FileSystem playsRole filesystem;
 
-  Directory playsRole root_directory{
+  Directory playsRole current_directory{
     
-    multiplicity 1;
+    multiplicity 1..*;
   }
 }
 
@@ -118,46 +97,30 @@ relation FileSystemContainsUsers {
   }
 }
 
+/*********************ENTIDADES***********************/
 
 
-/*****************MY_DRIVE APPLICATION*****************/
-
-
-/*
-relation MyDriveContainsEntity {
+relation FileOwnership {
   
-  MyDrive playsRole mydrive;
+  User playsRole owner;
 
-  Entity playsRole Entity {
+  File playsRole file{
     
-    multiplicity 1;
+    multiplicity 1..*;
   }
 }
 
 
-relation MyDriveContainsUser {
+relation DirectoryContainsFile {
   
-  MyDrive playsRole mydrive;
+  Directory playsRole parent;
 
-  User playsRole user{
+  File playsRole entry{
     
-    multiplicity 1;
-  }
-}
-
-*/
-
-
-relation MyDriveContainsFileSystem {
-  
-  MyDrive playsRole mydrive;
-
-  FileSystem playsRole filesystem{
-    
-    multiplicity 1;
+    multiplicity 2..*;
   }
 }
 
 
 
-/*****************END**********************/
+/*************************END*************************/
