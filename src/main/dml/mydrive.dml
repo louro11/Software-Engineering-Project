@@ -1,35 +1,110 @@
-package pt.tecnico.phonebook.domain;
+package pt.tecnico.mydrive.domain;
 
-class PhoneBook;
+/*************************************************/
+/*                  Classes                     */
+/************************************************/
 
-class Person {
-  String name;
+class MyDrive;
+
+class FileSystem;
+
+class User{
+    String username;
+    String password;
+    String name;
+    String mask;
 }
 
-class Contact {
-  String name;
-  Integer phoneNumber;
+class SuperUser extends User;
+
+class File{
+    String name;
+	String permission;
+    Integer fileid;
+    DateTime timestamp;
 }
 
-relation DomainRootHasPhoneBookApplication {
+class Directory extends File;
+
+class TextFile extends File{
+    String content;
+}
+
+class Application extends TextFile;
+
+class Link extends TextFile;
+
+
+
+/**************************************************************/
+/*                            RELATIONS                       */
+/**************************************************************/
+
+/********MyDrive***********/
+
+relation DomainRootHasMyDriveApplication {
   .pt.ist.fenixframework.DomainRoot playsRole root {
     multiplicity 0..1;
   }
-  PhoneBook playsRole phonebook {
+  MyDrive playsRole mydrive {
     multiplicity 0..1;
   }
 }
 
-relation PersonContainsContacts {
-  Person playsRole person;
-  Contact playsRole contact {
-    multiplicity *;
-  }
+relation MyDriveHasFileSystem{
+    MyDrive playsRole mydrive;
+    FileSystem playsRole filesystem;
 }
 
-relation PhoneBookContainsPersons {
-  PhoneBook playsRole phoneBook;
-  Person playsRole person {
-    multiplicity *;
-  }
+relation MyDriveHasCurrentUser{
+    MyDrive playsRole mydrive;
+    User playsRole currentuser;
+}
+
+relation MyDriveHasCurrentDirectory{
+    MyDrive playsRole mydrive;
+   	Directory playsRole currentdirectory;
+}
+
+/********FileSystem***********/
+
+relation FileSystemHasRoot{
+  	FileSystem playsRole filesystem;
+   	SuperUser playsRole root;
+}
+
+relation FileSystemHasMainDirectory{
+	FileSystem playsRole filesystem;
+	Directory playsRole maindir;
+}
+
+relation FileSystemHasUsers{
+  FileSystem playsRole filesystem;
+  User playsRole users;
+}
+
+/********User***********/
+
+relation UserHasHomeDirectory{
+    User playsRole user;
+    Directory playsRole homedirectory;
+}
+
+/********File***********/
+
+relation FileHasOwner{
+    File playsRole file;
+    User playsRole owner;
+}
+
+/********Directory***********/
+
+relation DirectoryHasFiles{
+    Directory playsRole directory;
+    File playsRole files { multiplicity 1..*;}
+}
+
+relation DirectoryHasParentAndItselfDirectory{
+    Directory playsRole directory;
+    Directory playsRole selfandparent { multiplicity 0..2;}
 }
