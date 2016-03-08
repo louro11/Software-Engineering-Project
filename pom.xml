@@ -16,7 +16,7 @@
     </organization>
 
     <developers>
-        
+
     <developer>
         <id>ist178576</id>
 	<name>claudiaamorim</name> <!-- FIXME -->
@@ -32,8 +32,8 @@
           <picUrl>https://fenix.tecnico.ulisboa.pt/user/photo/ist178576</picUrl> <!-- FIXME -->
         </properties>
       </developer>
-      
-      <developer> 
+
+      <developer>
                    <id>ist178352</id>
       <name>MargaridaCorreia</name> <!-- FIXME -->
       <email>ist178352@tecnico.ulisboa.pt</email> <!-- FIXME -->
@@ -47,7 +47,7 @@
       <properties>
           <picUrl>https://fenix.tecnico.ulisboa.pt/user/photo/ist178352</picUrl> <!-- FIXME -->
       </properties>
-      
+
       </developer>
       <developer> <!-- FIXME: one developer for each team member -->
                    <id>ist178344</id> <!-- FIXME -->
@@ -64,7 +64,7 @@
           <picUrl>https://fenix.tecnico.ulisboa.pt/user/photo/ist178344</picUrl> <!-- FIXME -->
       </properties>
       </developer>
-      
+
       <developer> <!-- FIXME: one developer for each team member -->
                    <id>ist179147</id> <!-- FIXME -->
       <name>Skreepton</name> <!-- FIXME -->
@@ -80,7 +80,7 @@
           <picUrl>https://fenix.tecnico.ulisboa.pt/user/photo/ist179147</picUrl> <!-- FIXME -->
       </properties>
       </developer>
-      
+
       <developer> <!-- FIXME: one developer for each team member -->
                    <id>ist179104</id> <!-- FIXME -->
       <name>rafa32</name> <!-- FIXME -->
@@ -96,7 +96,7 @@
           <picUrl>https://fenix.tecnico.ulisboa.pt/user/photo/ist179104</picUrl> <!-- FIXME -->
       </properties>
       </developer>
-      
+
       <developer> <!-- FIXME: one developer for each team member -->
                    <id>ist178982</id> <!-- FIXME -->
       <name>louro11</name> <!-- FIXME -->
@@ -142,7 +142,7 @@
 	      <verbose>true</verbose>
 	      <fork>true</fork>
 	    </configuration>
-	  </plugin>	  
+	  </plugin>
           <plugin>
             <groupId>pt.ist</groupId>
             <artifactId>ff-maven-plugin</artifactId>
@@ -184,6 +184,26 @@
               <killAfter>-1</killAfter>
                 </configuration>
           </plugin>
+
+          <plugin>
+    	<groupId>pt.tecnico.plugin</groupId>
+    	<artifactId>dml2yuml-maven-plugin</artifactId>
+    	<version>1.0-SNAPSHOT</version>
+    	<configuration>
+    	  <names>false</names>
+    	  <outputDirectory>info</outputDirectory>
+    	  <url>http://yuml.me/diagram/scruffy;dir:lr/class/</url>
+    	</configuration>
+    	<executions>
+    	  <execution>
+    	    <phase>compile</phase>
+    	    <goals>
+    	      <goal>dml2yuml</goal>
+    	    </goals>
+    	  </execution>
+    	</executions>
+          </plugin>
+          
         </plugins>
     </build>
 
