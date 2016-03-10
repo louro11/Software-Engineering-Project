@@ -1,6 +1,6 @@
 package pt.tecnico.mydrive.exceptions;
 
-public class WrongPasswordExecption extends FileSystemException{
+public class WrongPasswordException extends FileSystemException{
 	
 	private static final long serialVersionUID = 1L;
 	

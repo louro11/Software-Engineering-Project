@@ -1,6 +1,6 @@
 package pt.tecnico.mydrive.exceptions;
 
-public class InvalidFileNameExecption extends FileSystemException{
+public class InvalidFileNameException extends FileSystemException{
 	
 	private static final long serialVersionUID = 1L;
 	

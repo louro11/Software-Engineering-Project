@@ -1,6 +1,6 @@
 package pt.tecnico.mydrive.exceptions;
 
-public class PermitionExecption extends FileSystemException{
+public class PermitionException extends FileSystemException{
 	
 	private static final long serialVersionUID = 1L;
 	
