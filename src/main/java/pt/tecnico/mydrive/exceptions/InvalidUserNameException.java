@@ -6,7 +6,7 @@ public class InvalidUserNameException extends FileSystemException{
 	
 	private String invalidName;
 	
-	public InvalidNameException(String name){
+	public InvalidUserNameException(String name){
 		invalidName = name;
 	}
 	

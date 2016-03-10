@@ -6,7 +6,7 @@ public class InvalidFileNameException extends FileSystemException{
 	
 	private String invalidName;
 	
-	public InvalidNameException(String name){
+	public InvalidFileNameException(String name){
 		invalidName = name;
 	}
 	
