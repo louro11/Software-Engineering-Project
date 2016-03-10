@@ -6,7 +6,7 @@ public class PermitionException extends FileSystemException{
 	
 	private String permition;
 	
-	public PermitionExecption(String permition){
+	public PermitionException(String permition){
 		permition = permition;
 	}
 	
