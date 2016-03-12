@@ -131,7 +131,6 @@
     </properties>
 
     <build>
-   <!--plugin necessario? <pluginManager> -->
         <plugins>
 	  <plugin>
 	    <groupId>org.apache.maven.plugins</groupId>
@@ -206,7 +205,6 @@
           </plugin>
           
         </plugins>
-       <!-- </pluginManager> -->
     </build>
 
     <dependencies>

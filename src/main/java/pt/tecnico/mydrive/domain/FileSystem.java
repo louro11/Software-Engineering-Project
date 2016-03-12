@@ -14,10 +14,10 @@ public class FileSystem extends FileSystem_Base {
 
         Element UsersElement = new Element("users");
         element.addContent(UsersElement);
-
-        for (Contact c: getContactSet())
-            UsersElement.addContent(c.xmlExport());
-
+        
+        for (User user: getUsersSet())
+            UsersElement.addContent(user.xmlExport());
+		
         return element;
     }
     
