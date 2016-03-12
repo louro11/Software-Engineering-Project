@@ -6,4 +6,9 @@ public class FileSystem extends FileSystem_Base {
         super();
     }
     
+    public void removeFile(String path) {
+     
+ }
+		
+    
 }
