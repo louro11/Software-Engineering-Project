@@ -6,4 +6,11 @@ public class File extends File_Base {
         super();
     }
     
+    /*
+    public boolean isCDiable(){};
+     
+    public boolean isAppendable(){};
+    */
+    
+    public void remove(){};
 }
