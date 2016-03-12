@@ -1,6 +1,6 @@
 package pt.tecnico.mydrive.exceptions;
 
-public class DirectoryCantBeDeletedNameException extends FileSystemException{
+public class DirectoryCantBeDeletedException extends FileSystemException{
 	
 	private static final long serialVersionUID = 1L;
 	

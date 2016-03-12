@@ -30,9 +30,8 @@ public class MyDrive extends MyDrive_Base {
     public Document xmlExport() {
         Element element = new Element("mydrive");
         Document doc = new Document(element);
-
-        for (FileSystem fs: getFileSystemSet()) //filesystem tem de ter um set de user
-            element.addContent(fs.xmlExport());
+        
+        element.addContent(getFilesystem().xmlExport());
 
         return doc;
     }

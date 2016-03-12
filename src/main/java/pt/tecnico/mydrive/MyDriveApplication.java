@@ -3,7 +3,7 @@ package pt.tecnico.mydrive;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.File;
+//import java.io.File; usar o nome do import na chamada
 
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
@@ -29,7 +29,7 @@ public class MyDriveApplication{
 	static final Logger log = LogManager.getRootLogger();
 
     public static void main(String[] args) throws IOException {
-		System.out.println("*** Welcome to the PhoneBook application! ***");
+		System.out.println("*** Welcome to the MyDrive application! ***");
 		try {
 			/*
 		setup(); //TODO
