@@ -33,18 +33,20 @@ public class User extends User_Base {
       }
 
 	public Element xmlExport() {
-		Element element = new Element("user");
-		element.setAttribute("username", get_username());
-		element.setAttribute("password", get_password());
-		element.setAttribute("name", get_name());
-		//element.setAttribute("phoneNumber", Integer.toString(getPhoneNumber()));
+		Element user = new Element("user");
+		user.setAttribute("username", get_username());
+		Element pass = new Element("password");
+		pass.setAttribute("password", get_password());
+		Element usrName = new Element(get_name());
+		Element mask = new Element(get_mask());
+		
 		Directory dir = getHomedirectory();
-		//element.setAttribute("homedir", dir.getName()); //path
-		element.setAttribute("mask", get_mask());
+		Element homedir = new Element(dir.get_name());
 		
-		element.addContent(dir.xmlExport());
-		
-		return element;
-	    }
+		for(File file: dir.getFilesSet()){
+			homedir.addContent(dir.xmlExport());
+		}
+		return homedir;
+	}
 
 }

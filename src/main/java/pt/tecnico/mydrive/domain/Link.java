@@ -1,4 +1,5 @@
 package pt.tecnico.mydrive.domain;
+import org.jdom2.Element;
 import org.joda.time.DateTime;
 
 public class Link extends Link_Base {
@@ -15,4 +16,16 @@ public class Link extends Link_Base {
     	setOwner(owner);
         set_content(content);
     }
+    
+    
+    public Element xmlExport() {
+		
+        Element link = new Element("link");
+        link.setAttribute("id", Integer.toString(get_fileid()));
+       
+        link.addContent(super.xmlExport());
+        
+        return link;
+    }
+    
 }

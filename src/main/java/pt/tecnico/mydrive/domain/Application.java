@@ -1,4 +1,5 @@
 package pt.tecnico.mydrive.domain;
+import org.jdom2.Element;
 import org.joda.time.DateTime;
 
 public class Application extends Application_Base {
@@ -15,4 +16,14 @@ public class Application extends Application_Base {
     	setOwner(owner);
         set_content(content);   
    } 
+    
+public Element xmlExport() {
+		
+        Element app = new Element("app");
+        app.setAttribute("id", Integer.toString(get_fileid()));
+       
+        app.addContent(super.xmlExport());
+        
+        return app;
+    }
 }

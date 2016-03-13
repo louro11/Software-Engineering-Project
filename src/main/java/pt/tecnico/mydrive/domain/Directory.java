@@ -2,6 +2,9 @@ package pt.tecnico.mydrive.domain;
 
 import java.util.*;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.lang.String;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import org.jdom2.Element;
@@ -91,7 +94,7 @@ public class Directory extends Directory_Base {
 			deleteDomainObject();}
 
     }
-
+    
     //@Override
     public boolean isCDiable(){
 
@@ -102,23 +105,23 @@ public class Directory extends Directory_Base {
 
         return false;}
 	
-	
 	public Element xmlExport() {
-        Element element = new Element("directory");
-        element.setAttribute("name", get_name());
-        element.setAttribute("owner", getOwner().get_name());
-        element.setAttribute("perm", get_permission());
-        ///element.setAttribute("path", get());
-       // element.setAttribute("date", DateTime.toString(getTimestamp()));
-        element.setAttribute("id", Integer.toString(get_fileid())); 
+		
+        Element dir = new Element("directory");
+        dir.setAttribute("id", Integer.toString(get_fileid()));
         
-        /*
+        dir.addContent(super.xmlExport());
+                
+        Element dirname = new Element(get_name());
+        
         for(File file : getFilesSet()){
         	
-        	element.addContent(file.xmlExport());
-        }*/
+        	dirname.addContent(file.xmlExport());
+        }
         
-        return element;
+        dir.addContent(dirname);
+        
+        return dir;
         
     }
 
