@@ -2,9 +2,10 @@ package pt.tecnico.mydrive.domain;
 
 import org.jdom2.Element;
 import org.joda.time.DateTime;
+import org.jdom2.Element;
 
 public class File extends File_Base {
-    
+
     public File() {
     	super();
     }
@@ -18,19 +19,25 @@ public class File extends File_Base {
     }
 
     //como herda de File_base ja tem o getName
-    
+
     /*
     public boolean isCDiable(){};
-     
+
     public boolean isAppendable(){};
     */
-    
-    public void remove(){};
 
-    public String readfile(){return "";};
-	
+	/*
 	 public Element xmlExport(){
 		 return 
 	 }
-}
 
+	*/
+
+    ///public abstract void xmlImport(Element fileElement);
+
+    public void remove(){}
+
+    public String readfile(){return "";}
+
+
+}
