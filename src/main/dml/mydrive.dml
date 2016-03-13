@@ -104,7 +104,11 @@ relation DirectoryHasFiles{
     File playsRole files { multiplicity 1..*;}
 }
 
-relation DirectoryHasParentAndItselfDirectory{
+relation DirectoryHasParent{
     Directory playsRole directory;
-    Directory playsRole selfandparent { multiplicity 0..2;}
+    Directory playsRole parent;
 }
+ relation DirectoryHasSelf{
+    Directory playsRole directory;
+    Directory playsRole self;
+ }

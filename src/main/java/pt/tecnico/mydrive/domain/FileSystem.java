@@ -9,6 +9,16 @@ public class FileSystem extends FileSystem_Base {
     }
 
     public void removeFile(String path) {
+		
+		String[] tokens = path.split("/");
+		
+		for(int i=0; i<result.length; i++){
+			
+			
+	
+			System.out.println(result[i]);
+		
+		}
 
  }
 
