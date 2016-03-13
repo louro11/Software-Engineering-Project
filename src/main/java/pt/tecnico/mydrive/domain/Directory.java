@@ -56,15 +56,38 @@ public class Directory extends Directory_Base {
           throw new FileNotFoundException(name);
 
     }
+	
+	
+	@Override
+    public void setOwner(User owner) {
+        if (owner == null) {
+            super.setOwner(null);
+            return;
+        }
 
+        //owner.addContact(this);
+    }
+    
+    @Override
+    public void setParent(Directory parent) {
+        if (parent == null) {
+            super.setParent(null);
+            return;
+        }
+
+        //owner.addContact(this);
+    }
+
+ 
 
     @Override
     public void remove(){
 		
-		if(getFilesCount()!=0)
-
-        /*  sera necessario cortar todas as ligações do objecto? */
-			deleteDomainObject();
+		if(getFilesCount()!=0){
+			
+			setOwner(null);
+			setParent(null);
+			deleteDomainObject();}
 
     }
 

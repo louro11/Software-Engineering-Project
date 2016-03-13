@@ -24,12 +24,23 @@ public class TextFile extends TextFile_Base {
     }
     
     @Override
+    public void setOwner(User owner) {
+        if (owner == null) {
+            super.setOwner(null);
+            return;
+        }
+
+        //owner.addContact(this);
+    }
+  
+
+    @Override
     public void remove(){
 		
-		/*  sera necessario cortar todas as ligações do objecto? */
+		setOwner(null);
 		deleteDomainObject();
-	
-	}
+
+    }
 	
 	
 	//@Override
