@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 
 import pt.ist.fenixframework.FenixFramework;
 import java.io.File;
+import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 
 import org.jdom2.Element;
 import org.jdom2.Document;
@@ -15,39 +16,58 @@ import org.apache.logging.log4j.Logger;
 import pt.tecnico.mydrive.domain.FileSystem;
 
 
-public class MyDrive extends MyDrive_Base {
+	public class MyDrive extends MyDrive_Base {
 
-    public MyDrive(){
-    	FileSystem fs = new FileSystem();
+		public MyDrive(){
+			
+			FileSystem fs = new FileSystem();
 
-    	setCurrentuser(fs.getRoot());
-    	setCurrentdirectory(fs.getMaindir());
-    	setFilesystem(fs);
-    }
+			setCurrentuser(fs.getRoot());
+			setCurrentdirectory(fs.getMaindir());
+			setFilesystem(fs);
+		}
     
 
 
-public String PrintFiles(String path){
+	public String PrintFiles(String path){
 
-	return getFilesystem().PrintFiles(path);
+		return getFilesystem().PrintFiles(path);
 
-}
+	}
 
-public void createTextFile(String name, String content ){
+	public void createTextFile(String name, String content ){
 
-	getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
-}
+		getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
+	}
 
-public String readfile(String path){
-	return getFilesystem().readfile(path);
-}
+	public String readfile(String path){
+		return getFilesystem().readfile(path);
+	}
 
-public void removeFile(String path){
 
-	getFilesystem().removeFile(path);
-}
 
- public static MyDrive getInstance() {
+
+	public void removeFile(String path){
+		
+		
+		try{ 
+			
+			User current = getCurrentuser();
+			getFilesystem().removeFile(path,current);
+		}
+		catch (FileNotFoundException e){}
+		
+
+	}
+		
+		
+
+
+
+
+
+	public static MyDrive getInstance() {
+       
         MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
         //if (mydrive != null)
         	return mydrive;

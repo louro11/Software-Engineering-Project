@@ -31,7 +31,7 @@ public class FileSystem extends FileSystem_Base {
         setMaindir(maindir);
     }
 
-    public void removeFile(String path) throws FileNotFoundException{
+    public void removeFile(String path, User current) throws FileNotFoundException{
 
 		
 		Directory parent = Directoryfrompath(path);
@@ -41,8 +41,8 @@ public class FileSystem extends FileSystem_Base {
 		for (File file: parent.getFilesSet()){
 
 				if (file.get_name().equals(token[token.length])){
-
-					file.remove();
+				
+					file.remove();  /* necessario verificar permissoes? */
 				}
 				else{
 
@@ -52,9 +52,10 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
-	cd.createTextFile(name, permission, fileid, timestamp, owner, content);
-}
+	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
+			
+			cd.createTextFile(name, permission, fileid, timestamp, owner, content);
+	}
 	
 	
 	public Directory Directoryfrompath(String path){
