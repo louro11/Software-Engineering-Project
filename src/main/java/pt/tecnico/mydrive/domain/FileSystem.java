@@ -1,18 +1,46 @@
 package pt.tecnico.mydrive.domain;
 
 import java.util.*;
-import pt.tecnico.mydrive.exceptions.InvalidFileNameException;
+import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import org.joda.time.DateTime;
+
 
 public class FileSystem extends FileSystem_Base {
 
-    public FileSystem() {
+   /* public FileSystem() {
         super();
-    }
+    }*/
 
-    public void removeFile(String path, Directory maindir) throws InvalidFileNameException{
+    public FileSystem() {
+
+    	//String name, Integer fileid, DateTime timestamp, String permission, User owner, Directory parent )
+		
+		//String username, String password, String name, String mask
+
+
+
+
 
 		
-		Directory parent = Directoryfrompath(path, maindir);
+        SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
+
+        String mask = root.get_mask();
+        Directory maindir = new Directory( "/" , 0 , new DateTime(), mask , (User)root );
+        maindir.createSubDirectory("home", (User)root,maindir); 
+        Directory home = (Directory) maindir.getFile("home");
+        home.createSubDirectory("root", root, home);
+        Directory main = (Directory) home.getFile("root");
+        root.setHomedirectory(main);	
+
+
+        setRoot(root);
+        setMaindir(maindir);
+    }
+
+    public void removeFile(String path, Directory maindir) throws FileNotFoundException{
+
+		
+		Directory parent = Directoryfrompath(path);
 		
 		String[] token = path.split("/");
 
@@ -24,7 +52,7 @@ public class FileSystem extends FileSystem_Base {
 				}
 				else{
 
-					throw new InvalidFileNameException(token[token.length]);}
+					throw new FileNotFoundException(token[token.length]);}
 
 		}
 
@@ -32,13 +60,13 @@ public class FileSystem extends FileSystem_Base {
 
 
 	
-	public Directory Directoryfrompath(String path, Directory maindir){
+	public Directory Directoryfrompath(String path){
 		
 		int i;
 		
 		String[] token = path.split("/");
 		
-		Directory aux = maindir;
+		Directory aux = this.getMaindir();
 
 		for(i=0; i<token.length-1; i++){
 
@@ -52,15 +80,39 @@ public class FileSystem extends FileSystem_Base {
 				}
 
 			}
+
 		}
-		
+
 		return aux;
+	}
+
+		public String PrintFiles(String path){
+			
+
+			Directory dir = Directoryfrompath(path);
+
+			String[] token = path.split("/");
+
+			for (File file: dir.getFilesSet()){
+
+				if (file.get_name().equals(token[token.length-1])){
+
+					dir = (Directory) file;
+					
+				}
+
+			}
+
+			String s = dir.PrintFiles();
+		
+		return s;
 		
 	}
 
 	public String readfile(String path){
 		int i;
-		Directory aux = Directoryfrompath (path, maindir);
+		Directory aux = Directoryfrompath (path);
+		TextFile tf = new TextFile();
 
 		String[] token = path.split("/");
 
@@ -69,10 +121,9 @@ public class FileSystem extends FileSystem_Base {
 
 			for (File file: aux.getFilesSet()){
 
-				if (file.get_name().equals(token[i])){
+				if (file.get_name().equals(token[token.length-1])){
 
-					aux = file;
-					
+					tf = (TextFile)file;	
 					
 				}
 
@@ -80,20 +131,10 @@ public class FileSystem extends FileSystem_Base {
 
 		}
 
+		return tf.readfile();
+
 	}		
 
 
-
-
-
-  /*  public String list_Files(String path, Directory maindir){
-
-	Set<Files> _files = maindir.getFiles();
-	for(String i : _files){
-		if(_files.get)
-	}
-	return .list_Files();
-
-}*/
 
 }
