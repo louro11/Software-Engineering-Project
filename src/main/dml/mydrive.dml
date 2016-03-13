@@ -69,7 +69,7 @@ relation MyDriveHasCurrentDirectory{
 /********FileSystem***********/
 
 relation FileSystemHasRoot{
-  	FileSystem playsRole file_system;
+  	FileSystem playsRole filesystem;
    	SuperUser playsRole root;
 }
 

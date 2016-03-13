@@ -48,11 +48,24 @@ public class TextFile extends TextFile_Base {
 
     }
 
+    public Element xmlExport(){
+          Element text = new Element("TextFile");
+          text.setAttribute("id", Integer.toString(getfileid()));
+
+          text.addContent(super.xmlExport());
+
+          Element content = new Element("content");
+          content.setAttribute("content", get_content());
+          text.addContent(content);
+
+          return text;
+
+    }
+
     @Override
     public void xmlImport(Element fileElement){
 
-
-
+      set_name(new String(fileElement.getChildren("name").getAttribute("name").getValue().getBytes("UTF-8")));
 
     }
 }

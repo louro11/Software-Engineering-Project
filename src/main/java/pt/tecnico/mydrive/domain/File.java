@@ -32,6 +32,6 @@ public class File extends File_Base {
     public String readfile(){return "";}
 
 
-	 public abstract Element xmlExport();
+	 public Element xmlExport();
 
 }
