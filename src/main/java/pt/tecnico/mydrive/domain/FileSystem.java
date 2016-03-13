@@ -57,7 +57,30 @@ public class FileSystem extends FileSystem_Base {
 		return aux;
 		
 	}
-		
+
+	public String readfile(String path){
+		int i;
+		Directory aux = Directoryfrompath (path, maindir);
+
+		String[] token = path.split("/");
+
+
+		for(i=0; i<token.length-1; i++){
+
+			for (File file: aux.getFilesSet()){
+
+				if (file.get_name().equals(token[i])){
+
+					aux = file;
+					
+					
+				}
+
+			}
+
+		}
+
+	}		
 
 
 

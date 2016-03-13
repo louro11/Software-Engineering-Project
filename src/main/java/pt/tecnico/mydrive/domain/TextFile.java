@@ -43,16 +43,8 @@ public class TextFile extends TextFile_Base {
         return true;}
 
     //@Override
-    public void readfile(){
+    public String readfile(String file){
 
-    //get path
-	Scanner input = new Scanner(System.in);
-	String path = input.nextLine();
-	
-	//get file name
-	int index = path.lastIndexOf("/");
-	String file = path.substring(index + 1);
-	System.out.println(file);
 	//tenho de verificar permissões??
 
 	//read file
@@ -70,9 +62,10 @@ public class TextFile extends TextFile_Base {
 		}
 
 		content.close();
-	} catch (IOException e)
-{}
+		return line;
+	} catch (IOException e) {}
 
-}
+	}
+
 
     }

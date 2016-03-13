@@ -23,6 +23,11 @@ public class Directory extends Directory_Base {
    //retorna listagem de todos os ficheiros(ficheiros ou diretorios de um diretorio)
    //o diretorio tem uma estrutura de files do tipo set
 
+   public void creatSubDirectory(String name, User owner, Directory parent){
+    Directory subdirectory = new Directory(name, 3, new DateTime(), owner.get_mask(), owner, parent);
+    parent.addFiles(subdirectory);
+   }
+
    public String PrintFiles(){
 	     String s= "";
 	  
