@@ -58,8 +58,7 @@ public class TextFile extends TextFile_Base {
 
 
     }
-<<<<<<< HEAD
-=======
+
 
     @Override
     public void xmlImport(Element fileElement){
@@ -68,5 +67,4 @@ public class TextFile extends TextFile_Base {
 
 
     }
->>>>>>> bb3ce7a3d4c5170aa22fadd6289357a58e41883a
 }
