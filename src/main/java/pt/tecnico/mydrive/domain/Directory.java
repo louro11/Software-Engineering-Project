@@ -3,7 +3,7 @@ package pt.tecnico.mydrive.domain;
 import java.util.*;
 import org.joda.time.DateTime;
 import java.lang.String;
-import pt.tecnico.mydrive.exceptions;
+import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 
 
 public class Directory extends Directory_Base {
@@ -14,17 +14,24 @@ public class Directory extends Directory_Base {
         super();	
     }
 
-    public Directory(String name, Integer fileid, DateTime timestamp, String permission, User owner, Directory parent )
+    public Directory(String name, int fileid, DateTime timestamp, String permission, User owner, Directory parent )
     {  	
        set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
 	   setParent(parent);
 	   setSelf(this);
     }
 
+    public Directory(String name, int fileid, DateTime timestamp, String permission, User owner)
+    {  	
+       set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
+	   setParent(this);
+	   setSelf(this);
+    }
+
    //retorna listagem de todos os ficheiros(ficheiros ou diretorios de um diretorio)
    //o diretorio tem uma estrutura de files do tipo set
 
-   public void creatSubDirectory(String name, User owner, Directory parent){
+   public void createSubDirectory(String name, User owner, Directory parent){
     Directory subdirectory = new Directory(name, 3, new DateTime(), owner.get_mask(), owner, parent);
     parent.addFiles(subdirectory);
    }
@@ -46,7 +53,7 @@ public class Directory extends Directory_Base {
                   return f;
             }
 
-          throw new FileNotFoundException();
+          throw new FileNotFoundException(name);
 
     }
 

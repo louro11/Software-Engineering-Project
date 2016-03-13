@@ -7,9 +7,9 @@ import org.joda.time.DateTime;
 
 public class FileSystem extends FileSystem_Base {
 
-    public FileSystem() {
+   /* public FileSystem() {
         super();
-    }
+    }*/
 
     public FileSystem() {
 
@@ -22,11 +22,11 @@ public class FileSystem extends FileSystem_Base {
 
 
 		
-        Superuser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
+        SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
 
-
-        Directory maindir = Directory("/",0,new DateTime(), root.get_mask() ,root, this);
-        maindir.createSubDirectory("home", root,maindir); 
+        String mask = root.get_mask();
+        Directory maindir = new Directory( "/" , 0 , new DateTime(), mask , (User)root );
+        maindir.createSubDirectory("home", (User)root,maindir); 
         Directory home = (Directory) maindir.getFile("home");
         home.createSubDirectory("root", root, home);
         Directory main = (Directory) home.getFile("root");
@@ -89,14 +89,14 @@ public class FileSystem extends FileSystem_Base {
 		public String PrintFiles(String path){
 			
 
-			Diretory dir = Directoryfrompath(path);
+			Directory dir = Directoryfrompath(path);
 
 			String[] token = path.split("/");
 
 			for (File file: dir.getFilesSet()){
 
-				if (file.get_name().equals(token[token[token.lenght-1]])){
-:
+				if (file.get_name().equals(token[token.length-1])){
+
 					dir = (Directory) file;
 					
 				}
@@ -111,7 +111,8 @@ public class FileSystem extends FileSystem_Base {
 
 	public String readfile(String path){
 		int i;
-		Directory aux = Directoryfrompath (path, maindir);
+		Directory aux = Directoryfrompath (path);
+		TextFile tf = new TextFile();
 
 		String[] token = path.split("/");
 
@@ -120,10 +121,9 @@ public class FileSystem extends FileSystem_Base {
 
 			for (File file: aux.getFilesSet()){
 
-				if (file.get_name().equals(token[i])){
+				if (file.get_name().equals(token[token.length-1])){
 
-					aux = file;
-					
+					tf = (TextFile)file;	
 					
 				}
 
@@ -131,20 +131,10 @@ public class FileSystem extends FileSystem_Base {
 
 		}
 
+		return tf.readfile();
+
 	}		
 
 
-
-
-
-  /*  public String list_Files(String path, Directory maindir){
-
-	Set<Files> _files = maindir.getFiles();
-	for(String i : _files){
-		if(_files.get)
-	}
-	return .list_Files();
-
-}*/
 
 }
