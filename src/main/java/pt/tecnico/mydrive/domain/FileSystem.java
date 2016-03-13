@@ -13,14 +13,7 @@ public class FileSystem extends FileSystem_Base {
 
     public FileSystem() {
 
-    	//String name, Integer fileid, DateTime timestamp, String permission, User owner, Directory parent )
-		
-		//String username, String password, String name, String mask
-
-
-
-
-
+    
 		
         SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
 
