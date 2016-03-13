@@ -9,25 +9,25 @@ class MyDrive;
 class FileSystem;
 
 class User{
-    String username;
-    String password;
-    String name;
-    String mask;
+    String _username;
+    String _password;
+    String _name;
+    String _mask;
 }
 
 class SuperUser extends User;
 
 class File{
-    String name;
-	String permission;
-    Integer fileid;
-    DateTime timestamp;
+    String _name;
+	String _permission;
+    Integer _fileid;
+    DateTime _timestamp;
 }
 
 class Directory extends File;
 
 class TextFile extends File{
-    String content;
+    String _content;
 }
 
 class Application extends TextFile;
