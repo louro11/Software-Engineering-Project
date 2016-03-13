@@ -11,8 +11,10 @@ public class FileSystem extends FileSystem_Base {
 
     public void removeFile(String path, Directory maindir) throws InvalidFileNameException{
 
+		int i;
+		
 		String[] token = path.split("/");
-    int i;
+		
 		Directory aux = maindir;
 
 		for(i=0; i<token.length-1; i++){
