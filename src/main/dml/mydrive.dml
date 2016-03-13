@@ -105,10 +105,10 @@ relation DirectoryHasFiles{
 }
 
 relation DirectoryHasParent{
-    Directory playsRole directory;
+    Directory playsRole dir;
     Directory playsRole parent;
 }
  relation DirectoryHasSelf{
-    Directory playsRole directory;
+    Directory playsRole dirctory;
     Directory playsRole self;
  }

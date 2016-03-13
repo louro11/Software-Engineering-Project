@@ -1,6 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
 import java.util.*;
+import pt.tecnico.mydrive.exceptions.InvalidFileNameException;
 
 public class FileSystem extends FileSystem_Base {
 
@@ -9,45 +10,45 @@ public class FileSystem extends FileSystem_Base {
     }
 
     public void removeFile(String path, Directory maindir) throws InvalidFileNameException{
-		
-		String[] tokens = path.split("/");
-		
+
+		String[] token = path.split("/");
+    int i;
 		Directory aux = maindir;
-		
-		for(int i=0; i<result.length-1; i++){
-			
+
+		for(i=0; i<token.length-1; i++){
+
 			for (File file: aux.getFilesSet()){
-				
-				if (file.getName().equals(token[i])){
-					
+
+				if (file.get_name().equals(token[i])){
+
 					aux = (Directory) file;
 				}
-			
+
 			}
-			
-		
+
+
 		}
-		
+
 		for (File file: aux.getFilesSet()){
-				
-				if (file.getName().equals(token[i+1])){
-					
+
+				if (file.get_name().equals(token[i+1])){
+
 					file.remove();
 				}
 				else{
-					
-					throw new InvalidFileNameException(token[i+1]);}
-			
-		}
-		
-	}
-		
-		
-		
-		
-		
 
- 
+					throw new InvalidFileNameException(token[i+1]);}
+
+		}
+
+	}
+
+
+
+
+
+
+
 
   /*  public String list_Files(String path, Directory maindir){
 
