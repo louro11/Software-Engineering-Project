@@ -19,7 +19,7 @@ public class User extends User_Base {
              for (int i = 0; i < name.length(); i++) {
                     c = name.charAt(i);
                     if(Character.isLetterOrDigit(c)){
-                    //  setname(name);
+                      set_name(name);
                     }
                     else{
                       throw new InvalidUserNameException("username contains wrong Character");
