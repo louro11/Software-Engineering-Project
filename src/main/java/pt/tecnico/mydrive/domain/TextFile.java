@@ -21,12 +21,23 @@ public class TextFile extends TextFile_Base {
     }
 
     @Override
+    public void setOwner(User owner) {
+        if (owner == null) {
+            super.setOwner(null);
+            return;
+        }
+		super.setOwner(owner);
+        //owner.addContact(this);
+    }
+
+
+    @Override
     public void remove(){
 
-		/*  sera necessario cortar todas as ligações do objecto? */
+		setOwner(null);
 		deleteDomainObject();
 
-	}
+    }
 
 
 	//@Override
@@ -48,6 +59,8 @@ public class TextFile extends TextFile_Base {
 
     }
 
+  
+
     public Element xmlExport(){
           Element text = new Element("TextFile");
           text.setAttribute("id", Integer.toString(getfileid()));
@@ -58,6 +71,7 @@ public class TextFile extends TextFile_Base {
           content.setAttribute("content", get_content());
           text.addContent(content);
 
+
           return text;
 
     }
@@ -67,5 +81,7 @@ public class TextFile extends TextFile_Base {
 
       set_name(new String(fileElement.getChildren("name").getAttribute("name").getValue().getBytes("UTF-8")));
 
-    }
+
+
+
 }
