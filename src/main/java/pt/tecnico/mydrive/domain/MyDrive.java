@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
+import org.joda.time.DateTime;
+
 public class MyDrive extends MyDrive_Base {
 
     public MyDrive(){
@@ -16,6 +18,11 @@ public String PrintFiles(String path){
 
 	return getFilesystem().PrintFiles(path);
 
+}
+
+public void createTextFile(String name, String content ){
+
+	getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
 }
 
 public String readfile(String path){
