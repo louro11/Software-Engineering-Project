@@ -4,6 +4,7 @@ import java.util.*;
 import org.joda.time.DateTime;
 import java.lang.String;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import org.jdom2.Element;
 
 
 public class Directory extends Directory_Base {
@@ -11,19 +12,25 @@ public class Directory extends Directory_Base {
 
 
     public Directory() {
-        super();
+        super();	
     }
 
-    public Directory(String name, Integer fileid, DateTime timestamp, String permission, User owner, Directory parent )
-    {
+    public Directory(String name, int fileid, DateTime timestamp, String permission, User owner, Directory parent )
+    {  	
        set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
 	   setParent(parent);
 	   setSelf(this);
     }
 
+    public Directory(String name, int fileid, DateTime timestamp, String permission, User owner)
+    {  	
+       set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
+	   setParent(this);
+	   setSelf(this);
+    }
+
    //retorna listagem de todos os ficheiros(ficheiros ou diretorios de um diretorio)
    //o diretorio tem uma estrutura de files do tipo set
-
 
    public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ){
 
@@ -39,17 +46,15 @@ public class Directory extends Directory_Base {
     parent.addFiles(subdirectory);
    }
 
-
    public String PrintFiles(){
 	     String s= "";
-
+	  
 	       for(File f : getFiles()) {
 		         s=s + f.get_name()+"\n";
 	          }
          //s = s.substring(0,s.length()-1);
 	     return s;
    }
-
 
 
     public File getFile(String name) throws FileNotFoundException{
@@ -61,8 +66,8 @@ public class Directory extends Directory_Base {
           throw new FileNotFoundException(name);
 
     }
-
-
+	
+	
 	@Override
     public void setOwner(User owner) {
         if (owner == null) {
@@ -72,7 +77,7 @@ public class Directory extends Directory_Base {
 		super.setOwner(owner);
         //owner.addContact(this);
     }
-
+    
     @Override
     public void setParent(Directory parent) {
         if (parent == null) {
@@ -83,17 +88,16 @@ public class Directory extends Directory_Base {
         //owner.addContact(this);
     }
 
-
+ 
 
     @Override
     public void remove(){
-
+		
 		if(getFilesCount()!=0){
-
+			
 			setOwner(null);
 			setParent(null);
 			deleteDomainObject();}
-
 
     }
 
@@ -106,9 +110,8 @@ public class Directory extends Directory_Base {
     public boolean isAppendable(){
 
         return false;}
-
-
-
+	
+	
 	public Element xmlExport() {
         Element element = new Element("directory");
         element.setAttribute("name", get_name());
@@ -116,17 +119,16 @@ public class Directory extends Directory_Base {
         element.setAttribute("perm", get_permission());
         ///element.setAttribute("path", get());
        // element.setAttribute("date", DateTime.toString(getTimestamp()));
-        element.setAttribute("id", Integer.toString(get_fileid()));
-
+        element.setAttribute("id", Integer.toString(get_fileid())); 
+        
         /*
         for(File file : getFilesSet()){
-
+        	
         	element.addContent(file.xmlExport());
         }*/
-
+        
         return element;
-
+        
     }
-
 
 }
