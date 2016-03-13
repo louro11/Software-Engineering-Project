@@ -3,6 +3,7 @@ package pt.tecnico.mydrive.domain;
 import java.util.*;
 import org.joda.time.DateTime;
 import java.lang.String;
+import pt.tecnico.mydrive.exceptions;
 
 
 public class Directory extends Directory_Base {
@@ -32,6 +33,17 @@ public class Directory extends Directory_Base {
          //s = s.substring(0,s.length()-1);
 	     return s;
    }
+
+
+    public File getFile(String name) throws FileNotFoundException{
+        for(File f : getFiles()) {
+             if(f.get_name().equals(name))
+                  return f;
+            }
+
+          throw new FileNotFoundException();
+
+    }
 
 
     @Override
