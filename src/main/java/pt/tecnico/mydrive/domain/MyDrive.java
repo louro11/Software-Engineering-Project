@@ -1,6 +1,19 @@
 package pt.tecnico.mydrive.domain;
 
+<<<<<<< HEAD
 import org.joda.time.DateTime;
+=======
+import pt.ist.fenixframework.FenixFramework;
+import java.io.File;
+
+import org.jdom2.Element;
+import org.jdom2.Document;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import pt.tecnico.mydrive.domain.FileSystem;
+>>>>>>> 208540ff4cdcec0444c2cefe8dd2014e252b39d2
 
 public class MyDrive extends MyDrive_Base {
 
@@ -33,5 +46,20 @@ public void removeFile(String path){
 
 	getFilesystem().removeFile(path);
 }
+
+ public static MyDrive getInstance() {
+        MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
+        //if (mydrive != null)
+        	return mydrive;
+    }
+    
+    public Document xmlExport() {
+        Element element = new Element("mydrive");
+        Document doc = new Document(element);
+        
+        element.addContent(getFilesystem().xmlExport());
+
+        return doc;
+    }
 
 }

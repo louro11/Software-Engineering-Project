@@ -4,6 +4,7 @@ import java.util.*;
 import org.joda.time.DateTime;
 import java.lang.String;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import org.jdom2.Element;
 
 
 public class Directory extends Directory_Base {
@@ -65,15 +66,38 @@ public class Directory extends Directory_Base {
           throw new FileNotFoundException(name);
 
     }
+	
+	
+	@Override
+    public void setOwner(User owner) {
+        if (owner == null) {
+            super.setOwner(null);
+            return;
+        }
+		super.setOwner(owner);
+        //owner.addContact(this);
+    }
+    
+    @Override
+    public void setParent(Directory parent) {
+        if (parent == null) {
+            super.setParent(null);
+            return;
+        }
+		super.setParent(parent);
+        //owner.addContact(this);
+    }
 
+ 
 
     @Override
     public void remove(){
 		
-		if(getFilesCount()!=0)
-
-        /*  sera necessario cortar todas as ligações do objecto? */
-			deleteDomainObject();
+		if(getFilesCount()!=0){
+			
+			setOwner(null);
+			setParent(null);
+			deleteDomainObject();}
 
     }
 
@@ -86,4 +110,25 @@ public class Directory extends Directory_Base {
     public boolean isAppendable(){
 
         return false;}
+	
+	
+	public Element xmlExport() {
+        Element element = new Element("directory");
+        element.setAttribute("name", get_name());
+        element.setAttribute("owner", getOwner().get_name());
+        element.setAttribute("perm", get_permission());
+        ///element.setAttribute("path", get());
+       // element.setAttribute("date", DateTime.toString(getTimestamp()));
+        element.setAttribute("id", Integer.toString(get_fileid())); 
+        
+        /*
+        for(File file : getFilesSet()){
+        	
+        	element.addContent(file.xmlExport());
+        }*/
+        
+        return element;
+        
+    }
+
 }

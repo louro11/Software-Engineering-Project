@@ -30,20 +30,20 @@ public class MyDriveApplication{
     public static void main(String[] args) throws IOException {
 		System.out.println("*** Welcome to the MyDrive application! ***");
 		try {
-		/*
+			
+			/*
 		setup(); //TODO
 		for (String s: args) scanXml(new File(s));
 		print();
-		
+		*/
 		
 		printXml();
-		*/
 		}finally { FenixFramework.shutdown(); }
     }
     
     @Atomic
     public static void printXml() {
-        	//log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
+        log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
 		Document doc = MyDrive.getInstance().xmlExport();
 		XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
 		try { 
