@@ -58,21 +58,12 @@ public class TextFile extends TextFile_Base {
 
 
     }
-<<<<<<< HEAD
-/*
-=======
-
-
->>>>>>> bdf72faf1769a70db96b2405ffc6659bf6c574e0
+    
+    /*
     @Override
     public void xmlImport(Element fileElement){
 
 
-<<<<<<< HEAD
-    }*/
-=======
-
-
     }
->>>>>>> bdf72faf1769a70db96b2405ffc6659bf6c574e0
+    */
 }
