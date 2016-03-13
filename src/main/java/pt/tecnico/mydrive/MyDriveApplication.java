@@ -11,7 +11,7 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import org.joda.time.DateTime;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 import pt.tecnico.mydrive.domain.Application;
@@ -39,8 +39,18 @@ public class MyDriveApplication{
 		printXml();
 		*/
 		}finally { FenixFramework.shutdown(); }
+
+		MyDrive md = new MyDrive();
+
+		md.createTextFile("README", "lista de utilizadores"); //ponto 1
+		md.createDirectory("bin", "/usr/local/");
+		String content = md.readfile("/home/README"); //ponto 3
+		md.removeFile("/usr/local/bin"); //ponto 4
+		md.removeFile("/home/README"); //ponto 6
+		md.PrintFiles("/home"); //ponto 7
+
     }
-    
+    //ponto 5????
     @Atomic
     public static void printXml() {
         	//log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
