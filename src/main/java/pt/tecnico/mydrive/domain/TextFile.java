@@ -43,14 +43,14 @@ public class TextFile extends TextFile_Base {
         return true;}
 
     //@Override
-    public String readfile(String file){
+    public String readfile(){
 
 	//tenho de verificar permissões??
 
 	//read file
 
 	try{
-		FileReader content = new FileReader(file);
+		FileReader content = new FileReader(this);
 		BufferedReader readcontent = new BufferedReader(content);
 
 		String line = readcontent.readLine(); //read the 1st line
