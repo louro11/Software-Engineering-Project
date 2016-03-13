@@ -38,19 +38,4 @@ public void removeFile(String path){
 	getFilesystem().removeFile(path);
 }
 
- public static MyDrive getInstance() {
-        MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
-        //if (mydrive != null)
-        	return mydrive;
-    }
-    
-    public Document xmlExport() {
-        Element element = new Element("mydrive");
-        Document doc = new Document(element);
-        
-        element.addContent(getFilesystem().xmlExport());
-
-        return doc;
-    }
-
 }
