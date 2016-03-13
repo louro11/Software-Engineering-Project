@@ -39,33 +39,23 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
 	}
+	public void createDirectory(String name, String path){
+		getFilesystem().createDirectory(name, getCurrentuser(), path);
+	}
 
 	public String readfile(String path){
 		return getFilesystem().readfile(path);
 	}
 
-
-
-
 	public void removeFile(String path){
-		
-		
 		try{ 
 			
 			User current = getCurrentuser();
 			getFilesystem().removeFile(path,current);
 		}
 		catch (FileNotFoundException e){}
-		
-
 	}
 		
-		
-
-
-
-
-
 	public static MyDrive getInstance() {
        
         MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();

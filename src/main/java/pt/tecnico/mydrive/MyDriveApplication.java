@@ -42,13 +42,15 @@ public class MyDriveApplication{
 
 		MyDrive md = new MyDrive();
 
-		md.createTextFile("README", "lista de utilizadores");
-
-
-
+		md.createTextFile("README", "lista de utilizadores"); //ponto 1
+		md.createDirectory("bin", "/usr/local/");
+		String content = md.readfile("/home/README"); //ponto 3
+		md.removeFile("/usr/local/bin"); //ponto 4
+		md.removeFile("/home/README"); //ponto 6
+		md.PrintFiles("/home"); //ponto 7
 
     }
-    
+    //ponto 5????
     @Atomic
     public static void printXml() {
         	//log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
