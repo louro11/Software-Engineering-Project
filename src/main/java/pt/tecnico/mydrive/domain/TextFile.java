@@ -3,14 +3,11 @@ package pt.tecnico.mydrive.domain;
 import org.joda.time.DateTime;
 
 import java.util.Scanner;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import org.jdom2.Element;
 
 public class TextFile extends TextFile_Base {
-    
+
     public TextFile() {
         super();
     }
@@ -22,24 +19,24 @@ public class TextFile extends TextFile_Base {
     	setOwner(owner);
         set_content(content);
     }
-    
+
     @Override
     public void remove(){
-		
+
 		/*  sera necessario cortar todas as ligações do objecto? */
 		deleteDomainObject();
-	
+
 	}
-	
-	
+
+
 	//@Override
 	public boolean isCDiable(){
-         
+
         return false;}
-    
+
     //@Override
     public boolean isAppendable(){
-         
+
         return true;}
 
     //@Override
@@ -49,10 +46,10 @@ public class TextFile extends TextFile_Base {
 
 	//read file
 
-	
+
 		/*FileReader content = new FileReader((File)this);
 		BufferedReader readcontent = new BufferedReader(content);
-		
+
 		String line = readcontent.readLine(); //read the 1st line
 
 		while (line!=null){
@@ -60,10 +57,18 @@ public class TextFile extends TextFile_Base {
 
 			line = readcontent.readLine(); //read until the last line
 		}
-		
+
 		content.close();
 		return line; */
 		return get_content();
+
+
+    }
+
+    @Override
+    public void xmlImport(Element fileElement){
+
+
 
 
     }
