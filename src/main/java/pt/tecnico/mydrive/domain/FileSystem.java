@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
 import java.util.*;
-import pt.tecnico.mydrive.exceptions.InvalidFileNameException;
+import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import org.joda.time.DateTime;
 
 
@@ -37,7 +37,7 @@ public class FileSystem extends FileSystem_Base {
         setMaindir(maindir);
     }
 
-    public void removeFile(String path, Directory maindir) throws InvalidFileNameException{
+    public void removeFile(String path, Directory maindir) throws FileNotFoundException{
 
 		
 		Directory parent = Directoryfrompath(path);
@@ -52,7 +52,7 @@ public class FileSystem extends FileSystem_Base {
 				}
 				else{
 
-					throw new InvalidFileNameException(token[token.length]);}
+					throw new FileNotFoundException(token[token.length]);}
 
 		}
 
