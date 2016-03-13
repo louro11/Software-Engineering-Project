@@ -1,4 +1,6 @@
 package pt.tecnico.mydrive.domain;
+
+import org.jdom2.Element;
 import org.joda.time.DateTime;
 
 public class File extends File_Base {
@@ -27,6 +29,8 @@ public class File extends File_Base {
 
     public String readfile(){return "";};
 	
-	 public abstract Element xmlExport();
+	 public Element xmlExport(){
+		 return 
+	 }
 }
 

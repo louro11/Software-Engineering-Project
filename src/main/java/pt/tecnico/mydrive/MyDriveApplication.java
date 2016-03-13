@@ -38,12 +38,12 @@ public class MyDriveApplication{
 		
 		printXml();
 		*/
-		}finally { /FenixFramework.shutdown(); }
+		}finally { FenixFramework.shutdown(); }
     }
     
     @Atomic
     public static void printXml() {
-        	log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
+        	//log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
 		Document doc = MyDrive.getInstance().xmlExport();
 		XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
 		try { 
