@@ -14,17 +14,17 @@ public class MyDrive extends MyDrive_Base {
 
 public String PrintFiles(String path){
 
-	return getFilesystem.PrintFiles(path);
+	return getFilesystem().PrintFiles(path);
 
 }
 
 public String readfile(String path){
-	return getFilesystem.readfile(path);
+	return getFilesystem().readfile(path);
 }
 
 public void removeFile(String path){
 
-	return getFilesystem.removeFile(path);
+	getFilesystem().removeFile(path);
 }
 
 }
