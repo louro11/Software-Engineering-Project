@@ -36,7 +36,8 @@ public class MyDriveApplication{
 		for (String s: args) scanXml(new File(s));
 		print();
 		*/
-			printXml();
+		
+		//	printXml();
 		}finally { FenixFramework.shutdown(); }
     }
     

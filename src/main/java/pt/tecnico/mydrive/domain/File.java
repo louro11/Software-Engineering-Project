@@ -7,8 +7,9 @@ public class File extends File_Base {
     public File() {
         super();
     }
+   
     
-    
+    /*
     public Element xmlExport() {
         Element element = new Element("files");
         
@@ -17,7 +18,6 @@ public class File extends File_Base {
         }
         
         return element;
-    }
-    
-    
+        */
 }
+    
