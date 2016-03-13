@@ -65,7 +65,7 @@ public class Directory extends Directory_Base {
             super.setOwner(null);
             return;
         }
-
+		super.setOwner(owner);
         //owner.addContact(this);
     }
     
@@ -75,7 +75,7 @@ public class Directory extends Directory_Base {
             super.setParent(null);
             return;
         }
-
+		super.setParent(parent);
         //owner.addContact(this);
     }
 
