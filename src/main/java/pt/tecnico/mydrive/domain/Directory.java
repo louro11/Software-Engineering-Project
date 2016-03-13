@@ -105,18 +105,18 @@ public class Directory extends Directory_Base {
 	
 	public Element xmlExport() {
         Element element = new Element("directory");
-        element.setAttribute("name", getName());
-        element.setAttribute("owner", getOwner().getName());
-        element.setAttribute("perm", getPermission());
+        element.setAttribute("name", get_name());
+        element.setAttribute("owner", getOwner().get_name());
+        element.setAttribute("perm", get_permission());
         ///element.setAttribute("path", get());
        // element.setAttribute("date", DateTime.toString(getTimestamp()));
-        element.setAttribute("id", Integer.toString(getFileid())); 
+        element.setAttribute("id", Integer.toString(get_fileid())); 
         
-        
+        /*
         for(File file : getFilesSet()){
         	
         	element.addContent(file.xmlExport());
-        }
+        }*/
         
         return element;
         

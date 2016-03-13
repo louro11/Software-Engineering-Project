@@ -34,13 +34,13 @@ public class User extends User_Base {
 
 	public Element xmlExport() {
 		Element element = new Element("user");
-		element.setAttribute("username", getUsername());
-		element.setAttribute("password", getPassword());
-		element.setAttribute("name", getName());
+		element.setAttribute("username", get_username());
+		element.setAttribute("password", get_password());
+		element.setAttribute("name", get_name());
 		//element.setAttribute("phoneNumber", Integer.toString(getPhoneNumber()));
 		Directory dir = getHomedirectory();
 		//element.setAttribute("homedir", dir.getName()); //path
-		element.setAttribute("mask", getMask());
+		element.setAttribute("mask", get_mask());
 		
 		element.addContent(dir.xmlExport());
 		
