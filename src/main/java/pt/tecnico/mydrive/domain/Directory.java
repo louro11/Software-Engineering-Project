@@ -3,6 +3,7 @@ package pt.tecnico.mydrive.domain;
 import java.util.*;
 import org.joda.time.DateTime;
 import java.lang.String;
+import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 
 
 public class Directory extends Directory_Base {
