@@ -4,6 +4,7 @@ import java.util.*;
 import org.joda.time.DateTime;
 import java.lang.String;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import org.jdom2.Element;
 
 
 public class Directory extends Directory_Base {
