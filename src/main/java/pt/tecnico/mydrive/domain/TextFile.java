@@ -47,22 +47,6 @@ public class TextFile extends TextFile_Base {
 
 	//tenho de verificar permissões??
 
-	//read file
-
-	
-		/*FileReader content = new FileReader((File)this);
-		BufferedReader readcontent = new BufferedReader(content);
-		
-		String line = readcontent.readLine(); //read the 1st line
-
-		while (line!=null){
-			System.out.printf ("%s\n", line);
-
-			line = readcontent.readLine(); //read until the last line
-		}
-		
-		content.close();
-		return line; */
 		return get_content();
 
 
