@@ -8,19 +8,46 @@ public class FileSystem extends FileSystem_Base {
         super();
     }
 
-    public void removeFile(String path) {
+    public void removeFile(String path, Directory maindir) throws InvalidFileNameException{
 		
 		String[] tokens = path.split("/");
 		
-		for(int i=0; i<result.length; i++){
+		Directory aux = maindir;
+		
+		for(int i=0; i<result.length-1; i++){
 			
+			for (File file: aux.getFilesSet()){
+				
+				if (file.getName().equals(token[i])){
+					
+					aux = (Directory) file;
+				}
 			
-	
-			System.out.println(result[i]);
+			}
+			
 		
 		}
+		
+		for (File file: aux.getFilesSet()){
+				
+				if (file.getName().equals(token[i+1])){
+					
+					file.remove();
+				}
+				else{
+					
+					throw new InvalidFileNameException(token[i+1]);}
+			
+		}
+		
+	}
+		
+		
+		
+		
+		
 
- }
+ 
 
   /*  public String list_Files(String path, Directory maindir){
 
