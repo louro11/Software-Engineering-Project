@@ -1,8 +1,8 @@
 package pt.tecnico.mydrive.domain;
 
-<<<<<<< HEAD
+
 import org.joda.time.DateTime;
-=======
+
 import pt.ist.fenixframework.FenixFramework;
 import java.io.File;
 
@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import pt.tecnico.mydrive.domain.FileSystem;
->>>>>>> 208540ff4cdcec0444c2cefe8dd2014e252b39d2
+
 
 public class MyDrive extends MyDrive_Base {
 
