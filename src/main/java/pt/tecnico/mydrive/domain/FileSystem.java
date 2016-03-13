@@ -57,7 +57,10 @@ public class FileSystem extends FileSystem_Base {
 			cd.createTextFile(name, permission, fileid, timestamp, owner, content);
 	}
 	
-	
+	public void createDirectory(String name, User owner, String path){
+		Directory parent = Directoryfrompath(path);
+		parent.createSubDirectory(name, owner, parent);
+	}
 	public Directory Directoryfrompath(String path){
 		
 		int i;
