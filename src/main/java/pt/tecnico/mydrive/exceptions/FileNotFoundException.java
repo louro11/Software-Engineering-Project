@@ -4,11 +4,21 @@ public class FileNotFoundException extends FileSystemException{
 	
 	private static final long serialVersionUID = 1L;
 	
-	public FileNotFoundException(){}
+	private String fileName;
+
+	public FileNotFoundException(String name){
+	
+		fileName = name;
+	
+	}
+
+	public String getFileName() {
+        return fileName;
+    }
 
 	@Override
     public String getMessage(){
-		return "File not found";
+		return "The file" + fileName + "was not found";
 	}
 
 }
