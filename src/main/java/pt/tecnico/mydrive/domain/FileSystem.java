@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
+import java.util.*;
+
 public class FileSystem extends FileSystem_Base {
 
     public FileSystem() {
@@ -10,14 +12,14 @@ public class FileSystem extends FileSystem_Base {
 
  }
 
-    public String list_Files(String path, Directory maindir){
+  /*  public String list_Files(String path, Directory maindir){
 
 	Set<Files> _files = maindir.getFiles();
-	/*for(String i : _files){
+	for(String i : _files){
 		if(_files.get)
 	}
-	return .list_Files();*/
-  return "";//so para compilar por enquanto @HenriqueCarlos
-   }
+	return .list_Files();
+
+}*/
 
 }
