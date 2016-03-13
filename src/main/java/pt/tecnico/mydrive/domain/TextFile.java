@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
+import org.joda.time.DateTime;
+
 import java.util.Scanner;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,6 +13,14 @@ public class TextFile extends TextFile_Base {
     
     public TextFile() {
         super();
+    }
+     public TextFile(String name, String permission, Integer fileid, DateTime timestamp, User owner, String content) {
+        set_name(name);
+    	set_permission (permission);
+    	set_fileid(fileid);
+    	set_timestamp(timestamp);
+    	setOwner(owner);
+        set_content(content);
     }
     
     @Override
