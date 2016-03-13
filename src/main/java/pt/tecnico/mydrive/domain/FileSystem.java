@@ -11,6 +11,29 @@ public class FileSystem extends FileSystem_Base {
 
     public void removeFile(String path, Directory maindir) throws InvalidFileNameException{
 
+		
+		Directory parent = Directoryfrompath(path, maindir);
+		
+		String[] token = path.split("/");
+
+		for (File file: parent.getFilesSet()){
+
+				if (file.get_name().equals(token[token.length])){
+
+					file.remove();
+				}
+				else{
+
+					throw new InvalidFileNameException(token[token.length]);}
+
+		}
+
+	}
+
+
+	
+	public Directory Directoryfrompath(String path, Directory maindir){
+		
 		int i;
 		
 		String[] token = path.split("/");
@@ -24,29 +47,17 @@ public class FileSystem extends FileSystem_Base {
 				if (file.get_name().equals(token[i])){
 
 					aux = (Directory) file;
+					
+					
 				}
 
 			}
-
-
 		}
-
-		for (File file: aux.getFilesSet()){
-
-				if (file.get_name().equals(token[i+1])){
-
-					file.remove();
-				}
-				else{
-
-					throw new InvalidFileNameException(token[i+1]);}
-
-		}
-
+		
+		return aux;
+		
 	}
-
-
-
+		
 
 
 

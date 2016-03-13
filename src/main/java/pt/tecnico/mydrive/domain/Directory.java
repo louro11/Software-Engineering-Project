@@ -36,10 +36,11 @@ public class Directory extends Directory_Base {
 
     @Override
     public void remove(){
-
+		
+		if(getFilesCount()!=0)
 
         /*  sera necessario cortar todas as ligações do objecto? */
-        deleteDomainObject();
+			deleteDomainObject();
 
     }
 
