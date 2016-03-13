@@ -30,7 +30,7 @@ public class FileSystem extends FileSystem_Base {
         setMaindir(maindir);
     }
 
-    public void removeFile(String path, Directory maindir) throws FileNotFoundException{
+    public void removeFile(String path) throws FileNotFoundException{
 
 		
 		Directory parent = Directoryfrompath(path);

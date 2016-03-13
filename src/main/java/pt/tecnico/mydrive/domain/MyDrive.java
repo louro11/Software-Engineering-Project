@@ -10,4 +10,21 @@ public class MyDrive extends MyDrive_Base {
     	setFilesystem(fs);
     }
     
+
+
+public String PrintFiles(String path){
+
+	return getFilesystem.PrintFiles(path);
+
+}
+
+public String readfile(String path){
+	return getFilesystem.readfile(path);
+}
+
+public void removeFile(String path){
+
+	return getFilesystem.removeFile(path);
+}
+
 }
