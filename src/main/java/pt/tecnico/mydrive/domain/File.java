@@ -33,7 +33,7 @@ public class File extends File_Base {
 
 	*/
 
-    ///public abstract void xmlImport(Element fileElement);
+    //public abstract void xmlImport(Element fileElement);
 
     public void remove(){}
 

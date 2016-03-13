@@ -26,7 +26,7 @@ public class TextFile extends TextFile_Base {
             super.setOwner(null);
             return;
         }
-
+		super.setOwner(owner);
         //owner.addContact(this);
     }
   
@@ -60,10 +60,12 @@ public class TextFile extends TextFile_Base {
     }
     
     /*
+
     @Override
     public void xmlImport(Element fileElement){
 
-
     }
     */
+
+    
 }
