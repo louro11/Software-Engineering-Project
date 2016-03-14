@@ -3,7 +3,7 @@ package pt.tecnico.mydrive;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-//import java.io.File; usar o nome do import na chamada
+import java.io.File;
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -16,7 +16,7 @@ import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 import pt.tecnico.mydrive.domain.Application;
 import pt.tecnico.mydrive.domain.Directory;
-import pt.tecnico.mydrive.domain.File;
+//import pt.tecnico.mydrive.domain.File;
 import pt.tecnico.mydrive.domain.FileSystem;
 import pt.tecnico.mydrive.domain.Link;
 import pt.tecnico.mydrive.domain.MyDrive;
@@ -25,13 +25,15 @@ import pt.tecnico.mydrive.domain.TextFile;
 import pt.tecnico.mydrive.domain.User;
 
 public class MyDriveApplication{
-	//static final Logger log = LogManager.getRootLogger();
+	static final Logger log = LogManager.getRootLogger();
 
     public static void main(String[] args) throws IOException {
 		System.out.println("*** Welcome to the MyDrive application! ***");
 		try {
+		
+		setup();
+
 		/*
-		setup(); //TODO
 		for (String s: args) scanXml(new File(s));
 		print();
 		
@@ -40,11 +42,25 @@ public class MyDriveApplication{
 		*/
 		}finally { FenixFramework.shutdown(); }
 
-		MyDrive md = new MyDrive();
+	}
+
+
+    @Atomic
+    public static void setup() { // mydrive with debug data
+        log.trace("Setup: " + FenixFramework.getDomainRoot());
+		MyDrive md = MyDrive.getInstance();
+
+   	
+
+
 
 		md.createTextFile("README", "lista de utilizadores"); //ponto 1
+
+
+
 		md.createDirectory("bin", "/usr/local/");
 		String content = md.readfile("/home/README"); //ponto 3
+		System.out.println(content);
 		md.removeFile("/usr/local/bin"); //ponto 4
 		md.removeFile("/home/README"); //ponto 6
 		md.PrintFiles("/home"); //ponto 7
@@ -60,6 +76,5 @@ public class MyDriveApplication{
 			xmlOutput.output(doc, new PrintStream(System.out));
 		} catch (IOException e) { System.out.println(e); }
     }
-    
-    
+
 }
