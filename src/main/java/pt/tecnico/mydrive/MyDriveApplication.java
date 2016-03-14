@@ -23,6 +23,7 @@ import pt.tecnico.mydrive.domain.MyDrive;
 import pt.tecnico.mydrive.domain.SuperUser;
 import pt.tecnico.mydrive.domain.TextFile;
 import pt.tecnico.mydrive.domain.User;
+import pt.tecnico.phonebook.domain.PhoneBook;
 
 public class MyDriveApplication{
 	static final Logger log = LogManager.getRootLogger();
@@ -33,8 +34,10 @@ public class MyDriveApplication{
 		
 		setup();
 
-		/*
+		
 		for (String s: args) scanXml(new File(s));
+		
+		/*
 		print();
 		
 		
@@ -101,6 +104,19 @@ public class MyDriveApplication{
 		try { 
 			xmlOutput.output(doc, new PrintStream(System.out));
 		} catch (IOException e) { System.out.println(e); }
+    }
+    
+    @Atomic
+    public static void scanXml(File file) {
+		log.trace("xmlScan: " + FenixFramework.getDomainRoot());
+		MyDrive md = MyDrive.getInstance();
+		SAXBuilder builder = new SAXBuilder();
+		try {
+		    Document document = (Document)builder.build(file);
+		    md.xmlImport(document.getRootElement());
+		}catch (JDOMException | IOException e) {
+		    e.printStackTrace();
+		}
     }
 
 }

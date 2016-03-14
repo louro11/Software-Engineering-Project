@@ -2,6 +2,8 @@ package pt.tecnico.mydrive.domain;
 
 import java.util.*;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import pt.tecnico.mydrive.exceptions.ImportDocumentException;
+
 import org.joda.time.DateTime;
 import org.jdom2.Element;
 
@@ -203,5 +205,30 @@ public class FileSystem extends FileSystem_Base {
 		return element;
 	    }
 
+	public User getUserByUsername(String username) {
+        for (User user : getUsersSet()) {
+            if (user.get_username().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+	
+	public void xmlImport(Element element){ /*throws ImportDocumentException */
+		
+		Element userElem = element.getChild("users");
+
+		for (Element node: userElem.getChildren("user")) {
+		    String username = node.getAttribute("username").getValue();
+		    
+		    User user = getUserByUsername(username);
+
+		    if (user == null){ // Does not exist
+		    		user = new User(username);
+		    }
+		    
+		    user.xmlImport(node);
+		}
+	}
 
 }
