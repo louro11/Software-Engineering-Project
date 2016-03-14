@@ -41,7 +41,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			setCurrentdirectory(getFilesystem().changeCurrentDirectory(path));
 			
 		}
-		catch (FileNotFoundException e){}
+		catch (FileNotFoundException e){System.out.println(e.getMessage());}
 		
 	}
 

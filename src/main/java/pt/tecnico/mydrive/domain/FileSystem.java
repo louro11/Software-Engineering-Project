@@ -33,8 +33,9 @@ public class FileSystem extends FileSystem_Base {
     	Directory currentdir = getMaindir() ; 
     	String[] token = path.split("/");
 
-    	for (int i=0; i<token.length;i++){
-    		if (token[i].length() == 0) continue;
+    	for (int i=1; i<token.length;i++){
+    		System.out.println (token[i]);
+    		//if (token[i].length() == 0) continue;
     		for (File file: currentdir.getFilesSet()){
 
 				if (file.get_name().equals(token[i])){
@@ -44,7 +45,7 @@ public class FileSystem extends FileSystem_Base {
 				}
 				else{
 					
-					throw new FileNotFoundException(token[token.length]);
+					throw new FileNotFoundException(token[i]);
 
 				}	
     	}
@@ -69,7 +70,7 @@ public class FileSystem extends FileSystem_Base {
 				}
 				else{
 
-					throw new FileNotFoundException(token[token.length]);}
+					throw new FileNotFoundException(token[token.length-1]);}
 
 		}
 
@@ -87,7 +88,7 @@ public class FileSystem extends FileSystem_Base {
 		Directory currentdir = getMaindir() ; 
     	String[] token = path.split("/");
 
-    	for (int i=0; i<token.length;i++){
+    	for (int i=1; i<token.length;i++){
 			for (File file: currentdir.getFilesSet()){
 
 				if (file.get_name().equals(token[i])){
@@ -124,7 +125,7 @@ public class FileSystem extends FileSystem_Base {
 		
 		Directory aux = getMaindir();
 
-		for(i=0; i<token.length-1; i++){
+		for(i=1; i<token.length-1; i++){
 
 			for (File file: aux.getFilesSet()){
 
@@ -150,7 +151,8 @@ public class FileSystem extends FileSystem_Base {
 			String[] token = path.split("/");
 
 			for (File file: dir.getFilesSet()){
-
+				
+				//if (token[token.length-1].length() == 0) continue;
 				if (file.get_name().equals(token[token.length-1])){
 
 					dir = (Directory) file;

@@ -18,7 +18,7 @@ public class FileNotFoundException extends FileSystemException{
 
 	@Override
     public String getMessage(){
-		return "The file" + fileName + "was not found";
+		return "The file " + fileName + " was not found";
 	}
 
 }

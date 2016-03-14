@@ -50,44 +50,52 @@ public class MyDriveApplication{
         log.trace("Setup: " + FenixFramework.getDomainRoot());
 		MyDrive md = MyDrive.getInstance();
 
-   	
-
-
-
-
-
 		Directory maindirectory= md.getCurrentdirectory();
+		System.out.println("Antes do ponto 1");
+/*
         //ponto 1
 
-		md.changeCurrentDirectory("/home/");
+		md.changeCurrentDirectory("/home");
 		md.createTextFile("README", "lista de utilizadores"); 
-        //
 
+		System.out.println("Acabei ponto 1");
+        //
+*/
 
 		//ponto2
+
 		md.createDirectory("/usr/local/bin");
+		
+		String files = md.printFiles("/usr"); 
+		System.out.println(files);
+		System.out.println("Acabei ponto 2");
 		//
 
 
 
-
+/*
 		//ponto 3
 		String content = md.readfile("/home/README"); 
 		System.out.println(content);
+		System.out.println("Acabei ponto 3");
 		//
 
 
 		//ponto 4
 		md.removeFile("/usr/local/bin"); 
+		System.out.println("Acabei ponto 4");
 		//
 
 		//ponto 6
 		md.removeFile("/home/README"); 
+		System.out.println("Acabei ponto 6");
 		//
 
 		//ponto 7
 		String files = md.printFiles("/home"); 
 		System.out.println(files);
+
+		System.out.println("Acabei ponto 7");
 		//
 
     }
@@ -100,7 +108,7 @@ public class MyDriveApplication{
 		XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
 		try { 
 			xmlOutput.output(doc, new PrintStream(System.out));
-		} catch (IOException e) { System.out.println(e); }
+		} catch (IOException e) { System.out.println(e); }*/
     }
 
 }
