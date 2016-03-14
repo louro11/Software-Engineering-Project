@@ -79,6 +79,7 @@ public class MyDriveApplication{
 		//
 
 		//ponto 7
+		//closed issue
 		String files = md.printFiles("/home"); 
 		System.out.println(files);
 		//
