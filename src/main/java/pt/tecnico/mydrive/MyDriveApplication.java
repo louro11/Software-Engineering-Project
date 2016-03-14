@@ -54,11 +54,22 @@ public class MyDriveApplication{
 
 
 
-		md.createTextFile("README", "lista de utilizadores"); //ponto 1
 
 
+		Directory maindirectory= md.getCurrentdirectory();
+        //ponto 1
 
-		md.createDirectory("bin", "/usr/local/");
+		md.changeCurrentDirectory("/home/");
+		md.createTextFile("README", "lista de utilizadores"); 
+        //
+
+
+		//ponto2
+
+		md.createDirectory("/usr/local/bin");
+		//
+
+
 		String content = md.readfile("/home/README"); //ponto 3
 		System.out.println(content);
 		md.removeFile("/usr/local/bin"); //ponto 4
