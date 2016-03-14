@@ -29,6 +29,30 @@ public class FileSystem extends FileSystem_Base {
         setMaindir(maindir);
     }
 
+    public Directory changeCurrentDirectory(String path) throws FileNotFoundException {
+    	Directory currentdir = getMaindir() ; 
+    	String[] token = path.split("/");
+
+    	for (int i=0; i<token.length;i++){
+			for (File file: currentdir.getFilesSet()){
+
+				if (file.get_name().equals(token[i])){
+				
+					currentdir = (Directory) file; 
+					/* necessario verificar permissoes? */
+				}
+				else{
+					
+					throw new FileNotFoundException(token[token.length]);
+
+				}	
+    	}
+    }
+    	return currentdir; 
+	}
+
+
+
     public void removeFile(String path, User current) throws FileNotFoundException{
 
 		
@@ -38,7 +62,7 @@ public class FileSystem extends FileSystem_Base {
 
 		for (File file: parent.getFilesSet()){
 
-				if (file.get_name().equals(token[token.length])){
+				if (file.get_name().equals(token[token.length-1])){
 				
 					file.remove();  /* necessario verificar permissoes? */
 				}
@@ -55,17 +79,49 @@ public class FileSystem extends FileSystem_Base {
 			cd.createTextFile(name, permission, fileid, timestamp, owner, content);
 	}
 	
-	public void createDirectory(String name, User owner, String path){
-		Directory parent = Directoryfrompath(path);
-		parent.createSubDirectory(name, owner, parent);
+	public void createDirectory(User owner,String path){
+		//Directory parent = Directoryfrompath(path);
+		//parent.createSubDirectory(name, owner, parent);
+
+		Directory currentdir = getMaindir() ; 
+    	String[] token = path.split("/");
+
+    	for (int i=0; i<token.length;i++){
+			for (File file: currentdir.getFilesSet()){
+
+				if (file.get_name().equals(token[i])){
+				
+					currentdir = (Directory) file; 
+					/* necessario verificar permissoes? */
+				}
+				else{
+					currentdir.createSubDirectory(token[i],owner,currentdir);
+					
+					for (File newfile: currentdir.getFilesSet()){
+
+						if (newfile.get_name().equals(token[i])){
+				
+						currentdir = (Directory) newfile; 
+
+						}
+					}
+					//throw new FileNotFoundException(token[token.length]);
+
+
+				}	
+    		}
+    	}
+    	
 	}
+
+
 	public Directory Directoryfrompath(String path){
 		
 		int i;
 		
 		String[] token = path.split("/");
 		
-		Directory aux = this.getMaindir();
+		Directory aux = getMaindir();
 
 		for(i=0; i<token.length-1; i++){
 
@@ -85,7 +141,7 @@ public class FileSystem extends FileSystem_Base {
 		return aux;
 	}
 
-		public String PrintFiles(String path){
+		public String printFiles(String path){
 			
 
 			Directory dir = Directoryfrompath(path);
@@ -102,9 +158,9 @@ public class FileSystem extends FileSystem_Base {
 
 			}
 
-			String s = dir.PrintFiles();
+			return dir.printFiles();
 		
-		return s;
+	
 		
 	}
 
@@ -116,7 +172,7 @@ public class FileSystem extends FileSystem_Base {
 		String[] token = path.split("/");
 
 
-		for(i=0; i<token.length-1; i++){
+		
 
 			for (File file: aux.getFilesSet()){
 
@@ -126,7 +182,7 @@ public class FileSystem extends FileSystem_Base {
 					
 				}
 
-			}
+			
 
 		}
 
