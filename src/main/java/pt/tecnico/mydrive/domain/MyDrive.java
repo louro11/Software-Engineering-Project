@@ -82,5 +82,15 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
         return doc;
     }
+    
+    public void xmlImport(Element element) {
+    	element.getChild("filesystem");
+    	if(getFilesystem()==null){
+    		FileSystem fs = new FileSystem();
+    		fs.xmlImport(element);}
+    	else{
+    	getFilesystem().xmlImport(element);}
+    	
+    }
 
 }

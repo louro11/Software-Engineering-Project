@@ -60,6 +60,9 @@ public class File extends File_Base {
 
 
     public void xmlImport(Element fileElement){
+    	
+    	
+    	
     /*  set_name(new String(fileElement.getchild("name").getValue().getBytes("UTF-8")));
         String username = new String(fileElement.getchild("owner").getValue().getBytes("UTF-8"));
 

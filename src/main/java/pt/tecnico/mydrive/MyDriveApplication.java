@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.File;
+
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -32,8 +33,10 @@ public class MyDriveApplication{
 		
 		setup();
 
-		/*
+		
 		for (String s: args) scanXml(new File(s));
+		
+		/*
 		print();
 		
 		
@@ -81,16 +84,31 @@ public class MyDriveApplication{
 		//
 
     }
-/*
+
     //ponto 5????
     @Atomic
     public static void printXml() {
-        	//log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
+        	log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
 		Document doc = MyDrive.getInstance().xmlExport();
 		XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
 		try { 
 			xmlOutput.output(doc, new PrintStream(System.out));
-		} catch (IOException e) { System.out.println(e); }*/
+
+		} catch (IOException e) { System.out.println(e); }
+    }
     
+    @Atomic
+    public static void scanXml(File file) {
+		log.trace("xmlScan: " + FenixFramework.getDomainRoot());
+		MyDrive md = MyDrive.getInstance();
+		SAXBuilder builder = new SAXBuilder();
+		try {
+		    Document document = (Document)builder.build(file);
+		    md.xmlImport(document.getRootElement());
+		}catch (JDOMException | IOException e) {
+		    e.printStackTrace();
+		}
+    }
+
 
 }
