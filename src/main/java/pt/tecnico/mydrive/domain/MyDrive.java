@@ -35,6 +35,10 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	}
 
+	public void changeCurrentDirectory(String path){
+		setCurrentdirectory(getFilesystem().changeCurrentDirectory(path));
+	}
+
 	public void createTextFile(String name, String content ){
 
 		getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());

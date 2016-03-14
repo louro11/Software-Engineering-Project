@@ -29,6 +29,27 @@ public class FileSystem extends FileSystem_Base {
         setMaindir(maindir);
     }
 
+    public Directory changeCurrentDirectory(String path) throws FileNotFoundException{
+    	Directory dir = Directoryfrompath(path);
+    	String[] token = path.split("/");
+
+		for (File file: dir.getFilesSet()){
+
+				if (file.get_name().equals(token[token.length])){
+				
+					dir = (Directory) file; 
+					/* necessario verificar permissoes? */
+				}
+				else{
+
+					throw new FileNotFoundException(token[token.length]);
+
+				}	
+    	}
+
+    	return dir; 
+	}
+
     public void removeFile(String path, User current) throws FileNotFoundException{
 
 		
@@ -116,7 +137,7 @@ public class FileSystem extends FileSystem_Base {
 		String[] token = path.split("/");
 
 
-		for(i=0; i<token.length-1; i++){
+		
 
 			for (File file: aux.getFilesSet()){
 
@@ -126,7 +147,7 @@ public class FileSystem extends FileSystem_Base {
 					
 				}
 
-			}
+			
 
 		}
 
