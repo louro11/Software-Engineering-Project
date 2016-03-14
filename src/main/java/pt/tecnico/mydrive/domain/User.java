@@ -17,7 +17,7 @@ public class User extends User_Base {
 
     public User(String username, String password, String name, String mask, Directory dir) throws InvalidUserNameException {
 
-      //TODO: set homedirectory
+      //Done close issue #1
         set_password(password);
         set_name(name);
         set_mask(mask);
@@ -36,7 +36,7 @@ public class User extends User_Base {
                set_username(username);
           }
       }
-    
+
     public User(String username){
     	 if( username.isEmpty() || username == null){
              throw new InvalidUserNameException("username is empty");
@@ -57,9 +57,9 @@ public class User extends User_Base {
             	dir.set_name("/home/" + username);
             	setHomedirectory(dir);
            }
-    	
+
     }
-    
+
 
 	public Element xmlExport() {
 		Element user = new Element("user");
@@ -90,7 +90,7 @@ public class User extends User_Base {
 
 		return homedir;
 	}
-	
+
 	public File getFileByName(String filename) {
         for (File file : getHomedirectory().getFilesSet()) {
             if (file.get_name().equals(filename)) {
@@ -99,18 +99,18 @@ public class User extends User_Base {
         }
         return null;
     }
-	
+
 	public void xmlImport(Element element) throws ImportDocumentException{
-		
+
 		try{
-			
+
 			set_password(new String(element.getChild("pass").getValue().getBytes("UTF-8")));
 			set_name(new String(element.getChild("name").getValue().getBytes("UTF-8")));
 			set_mask(new String(element.getChild("mask").getValue().getBytes("UTF-8")));
 			Directory dir = new Directory();
 			dir.set_name(new String(element.getChild("home").getValue().getBytes("UTF-8")));
 			setHomedirectory(dir);
-			
+
 			Element filesElem = element.getChild("files");
 
 			for (Element node: filesElem.getChildren("app")) {
@@ -149,7 +149,7 @@ public class User extends User_Base {
 			    	getHomedirectory().addFiles(getFileByName(node.getChild("name").getValue()));
 			    }
 			}
-			
+
 			for (Element node: filesElem.getChildren("link")) {
 				if(getFileByName(node.getChild("name").getValue())==null){
 			    	String filename = new String(node.getChild("name").getValue().getBytes("UTF-8"));
@@ -162,11 +162,11 @@ public class User extends User_Base {
 			    	getHomedirectory().addFiles(getFileByName(node.getChild("name").getValue()));
 			    }
 			}
-			
+
 		} catch (UnsupportedEncodingException e) {
             throw new ImportDocumentException();
 		}
-		
+
 	}
 
 }
