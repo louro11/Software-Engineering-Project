@@ -61,6 +61,8 @@ public class MyDriveApplication{
 
         //
 
+	//closed exceptions issue
+
 		//ponto2
 		md.createDirectory("/usr/local/bin");
 		//
