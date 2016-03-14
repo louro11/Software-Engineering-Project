@@ -1,4 +1,5 @@
 package pt.tecnico.mydrive.domain;
+import org.jdom2.Element;
 
 public class SuperUser extends SuperUser_Base {
 
@@ -11,6 +12,11 @@ public class SuperUser extends SuperUser_Base {
       set_password(password);
       set_name(name);
       set_mask(mask);
+    }
+
+    public Element xmlExport(){
+    	return super.xmlExport();
+
     }
 
 }
