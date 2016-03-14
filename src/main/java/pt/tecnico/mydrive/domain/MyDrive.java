@@ -43,8 +43,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
 	}
-	public void createDirectory(String name, String path){
-		getFilesystem().createDirectory(name, getCurrentuser(), path);
+	public void createDirectory(String path){
+		getFilesystem().createDirectory(getCurrentuser(), path);
 	}
 
 	public String readfile(String path){

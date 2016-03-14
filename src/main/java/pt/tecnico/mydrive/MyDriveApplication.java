@@ -41,15 +41,20 @@ public class MyDriveApplication{
 		}finally { FenixFramework.shutdown(); }
 
 		MyDrive md = new MyDrive();
-		
+
 		Directory maindirectory= md.getCurrentdirectory();
+        //ponto 1
 
 		md.changeCurrentDirectory("/home/");
-		md.createTextFile("README", "lista de utilizadores"); //ponto 1
+		md.createTextFile("README", "lista de utilizadores"); 
+        //
 
 
+		//ponto2
 
-		md.createDirectory("bin", "/usr/local/");
+		md.createDirectory("/usr/local/bin");
+		//
+
 		String content = md.readfile("/home/README"); //ponto 3
 		md.removeFile("/usr/local/bin"); //ponto 4
 		md.removeFile("/home/README"); //ponto 6

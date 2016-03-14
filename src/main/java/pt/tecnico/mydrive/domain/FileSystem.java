@@ -29,26 +29,29 @@ public class FileSystem extends FileSystem_Base {
         setMaindir(maindir);
     }
 
-    public Directory changeCurrentDirectory(String path) throws FileNotFoundException{
-    	Directory dir = Directoryfrompath(path);
+    public Directory changeCurrentDirectory(String path) throws FileNotFoundException {
+    	Directory currentdir = getMaindir() ; 
     	String[] token = path.split("/");
 
-		for (File file: dir.getFilesSet()){
+    	for (int i=0; i<token.length;i++){
+			for (File file: currentdir.getFilesSet()){
 
-				if (file.get_name().equals(token[token.length])){
+				if (file.get_name().equals(token[i])){
 				
-					dir = (Directory) file; 
+					currentdir = (Directory) file; 
 					/* necessario verificar permissoes? */
 				}
 				else{
-
+					
 					throw new FileNotFoundException(token[token.length]);
 
 				}	
     	}
-
-    	return dir; 
+    }
+    	return currentdir; 
 	}
+
+
 
     public void removeFile(String path, User current) throws FileNotFoundException{
 
@@ -76,10 +79,42 @@ public class FileSystem extends FileSystem_Base {
 			cd.createTextFile(name, permission, fileid, timestamp, owner, content);
 	}
 	
-	public void createDirectory(String name, User owner, String path){
-		Directory parent = Directoryfrompath(path);
-		parent.createSubDirectory(name, owner, parent);
+	public void createDirectory(User owner,String path){
+		//Directory parent = Directoryfrompath(path);
+		//parent.createSubDirectory(name, owner, parent);
+
+		Directory currentdir = getMaindir() ; 
+    	String[] token = path.split("/");
+
+    	for (int i=0; i<token.length;i++){
+			for (File file: currentdir.getFilesSet()){
+
+				if (file.get_name().equals(token[i])){
+				
+					currentdir = (Directory) file; 
+					/* necessario verificar permissoes? */
+				}
+				else{
+					currentdir.createSubDirectory(token[i],owner,currentdir);
+					
+					for (File newfile: currentdir.getFilesSet()){
+
+						if (newfile.get_name().equals(token[i])){
+				
+						currentdir = (Directory) newfile; 
+
+						}
+					}
+					//throw new FileNotFoundException(token[token.length]);
+
+
+				}	
+    		}
+    	}
+    	
 	}
+
+
 	public Directory Directoryfrompath(String path){
 		
 		int i;
