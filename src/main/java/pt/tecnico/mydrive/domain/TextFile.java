@@ -75,11 +75,13 @@ public class TextFile extends TextFile_Base {
           return text;
 
     }
-
+    /*
     @Override
     public void xmlImport(Element fileElement){
 
       set_name(new String(fileElement.getChildren("name").getAttribute("name").getValue().getBytes("UTF-8")));
     }
-
+	*/
 }
+
+

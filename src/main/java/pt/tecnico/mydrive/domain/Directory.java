@@ -10,6 +10,8 @@ import org.joda.time.format.DateTimeFormatter;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 
 import java.lang.String;
+import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import org.jdom2.Element;
 
 
 public class Directory extends Directory_Base {
@@ -17,19 +19,25 @@ public class Directory extends Directory_Base {
 
 
     public Directory() {
-        super();
+        super();	
     }
 
-    public Directory(String name, Integer fileid, DateTime timestamp, String permission, User owner, Directory parent )
-    {
+    public Directory(String name, int fileid, DateTime timestamp, String permission, User owner, Directory parent )
+    {  	
        set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
 	   setParent(parent);
 	   setSelf(this);
     }
 
+    public Directory(String name, int fileid, DateTime timestamp, String permission, User owner)
+    {  	
+       set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
+	   setParent(this);
+	   setSelf(this);
+    }
+
    //retorna listagem de todos os ficheiros(ficheiros ou diretorios de um diretorio)
    //o diretorio tem uma estrutura de files do tipo set
-
 
    public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ){
 
@@ -45,17 +53,14 @@ public class Directory extends Directory_Base {
 	    parent.addFiles(subdirectory);
    }
 
-
    public String PrintFiles(){
-	     String s= "";
-
-	       for(File f : getFilesSet()) {
-		         s=s + f.get_name()+"\n";
-	          }
+	   String s= "";
+       for(File f : getFilesSet()) {
+	         s=s + f.get_name()+"\n";
+          }
          //s = s.substring(0,s.length()-1);
 	     return s;
    }
-
 
 
     public File getFile(String name) throws FileNotFoundException{
@@ -67,8 +72,8 @@ public class Directory extends Directory_Base {
           throw new FileNotFoundException(name);
 
     }
-
-
+	
+	
 	@Override
     public void setOwner(User owner) {
         if (owner == null) {
@@ -78,7 +83,7 @@ public class Directory extends Directory_Base {
 		super.setOwner(owner);
         //owner.addContact(this);
     }
-
+    
     @Override
     public void setParent(Directory parent) {
         if (parent == null) {
@@ -89,17 +94,15 @@ public class Directory extends Directory_Base {
         //owner.addContact(this);
     }
 
-
+ 
 
     @Override
     public void remove(){
 
 		if(getFilesSet().size()==0){
-
 			setOwner(null);
 			setParent(null);
 			deleteDomainObject();}
-
 
     }
     
