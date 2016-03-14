@@ -70,8 +70,14 @@ public class MyDriveApplication{
 		//
 
 
-		String content = md.readfile("/home/README"); //ponto 3
+
+
+		//ponto 3
+		String content = md.readfile("/home/README"); 
 		System.out.println(content);
+		//
+		
+
 		md.removeFile("/usr/local/bin"); //ponto 4
 		md.removeFile("/home/README"); //ponto 6
 		md.PrintFiles("/home"); //ponto 7
