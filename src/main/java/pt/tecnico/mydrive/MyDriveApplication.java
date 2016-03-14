@@ -58,6 +58,8 @@ public class MyDriveApplication{
 
         //
 
+	//closed exceptions issue
+
 		//ponto2
 		md.createDirectory("/usr/local/bin");
 		//
@@ -70,12 +72,13 @@ public class MyDriveApplication{
 		//ponto 4
 		md.removeFile("/usr/local/bin"); 
 		//
-	
+		//closed issue remove()
 		//ponto 6
 		md.removeFile("/home/README"); 
 		//
 
 		//ponto 7
+		//closed issue
 		String files = md.printFiles("/home"); 
 		System.out.println(files);
 		//
