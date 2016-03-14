@@ -36,7 +36,12 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	}
 
 	public void changeCurrentDirectory(String path){
-		setCurrentdirectory(getFilesystem().changeCurrentDirectory(path));
+		try{ 
+			setCurrentdirectory(getFilesystem().changeCurrentDirectory(path));
+			
+		}
+		catch (FileNotFoundException e){}
+		
 	}
 
 	public void createTextFile(String name, String content ){
