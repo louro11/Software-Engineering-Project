@@ -11,6 +11,8 @@ public class User extends User_Base {
     }
 
     public User(String username, String password, String name, String mask) throws InvalidUserNameException {
+
+      //TODO: set homedirectory
         set_password(password);
         set_name(name);
         set_mask(mask);
@@ -39,26 +41,26 @@ public class User extends User_Base {
 		pass.addContent(get_password());
 		Element usrName = new Element("name");
 		usrName.addContent(get_name());
-		
+
 		Directory dir = getHomedirectory();
 		Element homedir = new Element("home");
 		homedir.addContent(dir.get_name());
 
 		Element mask = new Element("mask");
 		mask.addContent(get_mask());
-		
+
 		Element files = new Element("files");
-		
+
 		for(File file: dir.getFilesSet()){
 			files.addContent(dir.xmlExport());
 		}
-		
+
 		user.addContent(pass);
 		user.addContent(usrName);
 		user.addContent(homedir);
 		user.addContent(mask);
 		user.addContent(files);
-		
+
 		return homedir;
 	}
 

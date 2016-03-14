@@ -28,38 +28,47 @@ public class File extends File_Base {
     public boolean isAppendable(){};
     */
 
-	
+
 	 public Element xmlExport(){
-		 
+
 		 	Element file = new Element("file");
-		 	
+
 		 	Element name = new Element("name");
 		 	name.addContent(get_name());
 		 	Element owner = new Element("owner");
 		 	owner.addContent(getOwner().get_name());
-		 	
+
 	        Element perm = new Element("perm");
 	        perm.addContent(get_permission());
-	        
+
 	        //TODO
 	        Element path = new Element("path"); //tenho que calcular o path
 	        path.addContent(getOwner().getHomedirectory().get_name());
-	        
+
 	        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 	        String date = fmt.print(get_timestamp());
 	        Element time = new Element(date);
-	        
+
 	        file.addContent(name);
 	        file.addContent(owner);
 	        file.addContent(perm);
 	        file.addContent(path);
-	        file.addContent(time);    
-	        
-		 return file; 
+	        file.addContent(time);
+
+		 return file;
 	 }
 
 
-    //public abstract void xmlImport(Element fileElement);
+    public void xmlImport(Element fileElement){
+      /*  set_name(new String(fileElement.getchild("name").getValue().getBytes("UTF-8")));
+        String username = new String(fileElement.getchild("owner").getValue().getBytes("UTF-8"));
+
+
+        set_owner(new User(username, username, username, "rwxd----"));*/
+
+        //TODO
+
+    }
 
     public void remove(){}
 
