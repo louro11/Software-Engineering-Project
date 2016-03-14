@@ -118,11 +118,11 @@ public class User extends User_Base {
 			    	String filename = new String(node.getChild("name").getValue().getBytes("UTF-8"));
 			    	DateTime dt = new DateTime();
 			    	String owner = get_username();
-			    	File file = new Application(filename, "rwxd----", 0,dt, this, " ");
+			    	Application app = new Application(filename, "rwxd----", 0,dt, this, " ");
+			    	getHomedirectory().addFiles(app);
 			    }
 			    else{
-			    	getFileByName(node.getChild("name").getValue()).xmlImport(node);
-			    	//filesElem.xmlImport(node);
+			    	getHomedirectory().addFiles(getFileByName(node.getChild("name").getValue()));
 			    }
 			}
 			for (Element node: filesElem.getChildren("dir")) {
@@ -130,10 +130,11 @@ public class User extends User_Base {
 			    	String filename = new String(node.getChild("name").getValue().getBytes("UTF-8"));
 			    	DateTime dt = new DateTime();
 			    	String owner = get_username();
-			    	File file = new Directory(filename,0,dt, "rwxd----", this);
+			    	Directory directory = new Directory(filename,0,dt, "rwxd----", this);
+			    	getHomedirectory().addFiles(directory);
 			    }
 			    else{
-			    	getFileByName(node.getChild("name").getValue()).xmlImport(node);
+			    	getHomedirectory().addFiles(getFileByName(node.getChild("name").getValue()));
 			    }
 			}
 			for (Element node: filesElem.getChildren("PlainFile")) {
@@ -141,10 +142,11 @@ public class User extends User_Base {
 			    	String filename = new String(node.getChild("name").getValue().getBytes("UTF-8"));
 			    	DateTime dt = new DateTime();
 			    	String owner = get_username();
-			    	File file = new TextFile(filename,"rwxd----",0,dt, this, " ");
+			    	TextFile txt = new TextFile(filename,"rwxd----",0,dt, this, " ");
+			    	getHomedirectory().addFiles(txt);
 			    }
 			    else{
-			    	getFileByName(node.getChild("name").getValue()).xmlImport(node);
+			    	getHomedirectory().addFiles(getFileByName(node.getChild("name").getValue()));
 			    }
 			}
 			
@@ -153,10 +155,11 @@ public class User extends User_Base {
 			    	String filename = new String(node.getChild("name").getValue().getBytes("UTF-8"));
 			    	DateTime dt = new DateTime();
 			    	String owner = get_username();
-			    	File file = new Link(filename,"rwxd----",0,dt, this, " ");
+			    	Link link = new Link(filename,"rwxd----",0,dt, this, " ");
+			    	getHomedirectory().addFiles(link);
 			    }
 			    else{
-			    	getFileByName(node.getChild("name").getValue()).xmlImport(node);
+			    	getHomedirectory().addFiles(getFileByName(node.getChild("name").getValue()));
 			    }
 			}
 			

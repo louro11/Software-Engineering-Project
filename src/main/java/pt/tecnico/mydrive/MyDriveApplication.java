@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.File;
+
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -16,14 +17,12 @@ import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 import pt.tecnico.mydrive.domain.Application;
 import pt.tecnico.mydrive.domain.Directory;
-//import pt.tecnico.mydrive.domain.File;
 import pt.tecnico.mydrive.domain.FileSystem;
 import pt.tecnico.mydrive.domain.Link;
 import pt.tecnico.mydrive.domain.MyDrive;
 import pt.tecnico.mydrive.domain.SuperUser;
 import pt.tecnico.mydrive.domain.TextFile;
 import pt.tecnico.mydrive.domain.User;
-import pt.tecnico.phonebook.domain.PhoneBook;
 
 public class MyDriveApplication{
 	static final Logger log = LogManager.getRootLogger();
