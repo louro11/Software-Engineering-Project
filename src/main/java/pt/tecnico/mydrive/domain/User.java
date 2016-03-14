@@ -36,16 +36,29 @@ public class User extends User_Base {
 		Element user = new Element("user");
 		user.setAttribute("username", get_username());
 		Element pass = new Element("password");
-		pass.setAttribute("password", get_password());
-		Element usrName = new Element(get_name());
-		Element mask = new Element(get_mask());
+		pass.addContent(get_password());
+		Element usrName = new Element("name");
+		usrName.addContent(get_name());
 		
 		Directory dir = getHomedirectory();
-		Element homedir = new Element(dir.get_name());
+		Element homedir = new Element("home");
+		homedir.addContent(dir.get_name());
+
+		Element mask = new Element("mask");
+		mask.addContent(get_mask());
+		
+		Element files = new Element("files");
 		
 		for(File file: dir.getFilesSet()){
-			homedir.addContent(dir.xmlExport());
+			files.addContent(dir.xmlExport());
 		}
+		
+		user.addContent(pass);
+		user.addContent(usrName);
+		user.addContent(homedir);
+		user.addContent(mask);
+		user.addContent(files);
+		
 		return homedir;
 	}
 

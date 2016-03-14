@@ -119,7 +119,7 @@ public class Directory extends Directory_Base {
 	
 	public Element xmlExport() {
 		
-        Element dir = new Element("directory");
+        Element dir = new Element("dir");
         dir.setAttribute("id", Integer.toString(get_fileid()));
         
         dir.addContent(super.xmlExport());

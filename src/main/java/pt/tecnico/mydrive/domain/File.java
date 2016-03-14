@@ -30,19 +30,30 @@ public class File extends File_Base {
 
 	
 	 public Element xmlExport(){
+		 
 		 	Element file = new Element("file");
-		 	Element owner = new Element(getOwner().get_name());
-	        Element perm = new Element(get_permission());
-	        Element path = new Element(get_name()); //tenho que calcular o path, fuck that
+		 	
+		 	Element name = new Element("name");
+		 	name.addContent(get_name());
+		 	Element owner = new Element("owner");
+		 	owner.addContent(getOwner().get_name());
+		 	
+	        Element perm = new Element("perm");
+	        perm.addContent(get_permission());
+	        
+	        //TODO
+	        Element path = new Element("path"); //tenho que calcular o path
+	        path.addContent(getOwner().getHomedirectory().get_name());
 	        
 	        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 	        String date = fmt.print(get_timestamp());
 	        Element time = new Element(date);
 	        
+	        file.addContent(name);
 	        file.addContent(owner);
 	        file.addContent(perm);
 	        file.addContent(path);
-	        file.addContent(time);
+	        file.addContent(time);    
 	        
 		 return file; 
 	 }
