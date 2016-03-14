@@ -73,7 +73,7 @@ public class MyDriveApplication{
 		//ponto 4
 		md.removeFile("/usr/local/bin"); 
 		//
-	
+		//closed issue remove()
 		//ponto 6
 		md.removeFile("/home/README"); 
 		//
