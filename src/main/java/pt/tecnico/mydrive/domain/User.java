@@ -10,12 +10,13 @@ public class User extends User_Base {
       super();
     }
 
-    public User(String username, String password, String name, String mask) throws InvalidUserNameException {
+    public User(String username, String password, String name, String mask, Directory dir) throws InvalidUserNameException {
 
       //TODO: set homedirectory
         set_password(password);
         set_name(name);
         set_mask(mask);
+        setHomedirectory(dir);
         if( username.isEmpty() || username == null){
           throw new InvalidUserNameException("username is empty");
         }
