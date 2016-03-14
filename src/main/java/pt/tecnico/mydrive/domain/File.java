@@ -60,12 +60,15 @@ public class File extends File_Base {
 
 
     public void xmlImport(Element fileElement){
-      /*  set_name(new String(fileElement.getchild("name").getValue().getBytes("UTF-8")));
+    /*  set_name(new String(fileElement.getchild("name").getValue().getBytes("UTF-8")));
         String username = new String(fileElement.getchild("owner").getValue().getBytes("UTF-8"));
 
-
-        set_owner(new User(username, username, username, "rwxd----"));*/
-
+        Directory dir = new Directory(username, 0, new DateTime(),"rwxd----", this.getOwner(),this);
+        set_owner(new User(username, username, username, "rwxd----", dir));
+        set_permission(new String(fileElement.getchild("perm").getValue().getBytes("UTF-8")));
+        set_path(new String(fileElement.getchild("path").getValue().getBytes("UTF-8")));
+        set_timestamp(new DateTime());
+*/
         //TODO
 
     }
