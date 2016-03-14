@@ -16,7 +16,6 @@ import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 import pt.tecnico.mydrive.domain.Application;
 import pt.tecnico.mydrive.domain.Directory;
-//import pt.tecnico.mydrive.domain.File;
 import pt.tecnico.mydrive.domain.FileSystem;
 import pt.tecnico.mydrive.domain.Link;
 import pt.tecnico.mydrive.domain.MyDrive;
@@ -51,47 +50,34 @@ public class MyDriveApplication{
 		MyDrive md = MyDrive.getInstance();
 
 		Directory maindirectory= md.getCurrentdirectory();
-		System.out.println("Antes do ponto 1");
 
         //ponto 1
 
 		md.changeCurrentDirectory("/home");
 		md.createTextFile("README", "lista de utilizadores"); 
 
-		System.out.println("Acabei ponto 1");
         //
-
 
 		//ponto2
 		md.createDirectory("/usr/local/bin");
-		System.out.println("Acabei ponto 2");
 		//
-
-
-
 
 		//ponto 3
 		String content = md.readfile("/home/README"); 
 		System.out.println(content);
-		System.out.println("Acabei ponto 3");
 		//
-
 
 		//ponto 4
 		md.removeFile("/usr/local/bin"); 
-		System.out.println("Acabei ponto 4");
 		//
-
+	
 		//ponto 6
 		md.removeFile("/home/README"); 
-		System.out.println("Acabei ponto 6");
 		//
 
 		//ponto 7
 		String files = md.printFiles("/home"); 
 		System.out.println(files);
-
-		System.out.println("Acabei ponto 7");
 		//
 
     }
@@ -105,6 +91,6 @@ public class MyDriveApplication{
 		try { 
 			xmlOutput.output(doc, new PrintStream(System.out));
 		} catch (IOException e) { System.out.println(e); }*/
-    }
+    
 
 }

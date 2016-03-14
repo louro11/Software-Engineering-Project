@@ -60,8 +60,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	public void removeFile(String path){
 		try{ 
 			
-			User current = getCurrentuser();
-			getFilesystem().removeFile(path,current);
+			//User current = getCurrentuser();
+			getFilesystem().removeFile(path);
 		}
 		catch (FileNotFoundException e){}
 	}

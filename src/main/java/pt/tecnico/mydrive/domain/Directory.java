@@ -61,7 +61,6 @@ public class Directory extends Directory_Base {
        for(File f : getFilesSet()) {
 	         s=s + f.get_name()+"\n";
           }
-         //s = s.substring(0,s.length()-1);
 	     return s;
    }
 
@@ -75,7 +74,78 @@ public class Directory extends Directory_Base {
           throw new FileNotFoundException(name);
 
     }
-	
+
+
+	@Override
+    public void setUser(User user) {
+        if (user == null) {
+            super.setUser(null);
+            return;
+        }
+    super.setUser(user);
+    
+    }
+
+  @Override
+    public void setMydrive(MyDrive md) {
+        if (md == null) {
+            super.setMydrive(null);
+            return;
+        }
+    super.setMydrive(md);
+    
+    }
+
+  @Override
+    public void setFilesystem(FileSystem fs) {
+        if (fs == null) {
+            super.setFilesystem(null);
+            return;
+        }
+    super.setFilesystem(fs);
+    
+    }
+
+  @Override
+    public void setParent(Directory parent) {
+        if (parent == null) {
+            super.setParent(null);
+            return;
+        }
+    super.setParent(parent);
+    
+    }
+
+  @Override
+    public void setDir(Directory dir) {
+        if (dir == null) {
+            super.setDir(null);
+            return;
+        }
+    super.setDir(dir);
+    
+    }
+
+   @Override
+    public void setSelf(Directory self) {
+        if (self == null) {
+            super.setSelf(null);
+            return;
+        }
+    super.setSelf(self);
+    
+    }
+
+    @Override
+    public void setDirctory(Directory dir) {
+        if (dir == null) {
+            super.setDirctory(null);
+            return;
+        }
+    super.setDirctory(dir);
+    
+    }
+
 	
 	@Override
     public void setOwner(User owner) {
@@ -84,37 +154,44 @@ public class Directory extends Directory_Base {
             return;
         }
 		super.setOwner(owner);
-        //owner.addContact(this);
-    }
     
-    @Override
-    public void setParent(Directory parent) {
-        if (parent == null) {
-            super.setParent(null);
-            return;
-        }
-		super.setParent(parent);
-        //owner.addContact(this);
     }
 
- 
+    @Override
+    public void setDirectory(Directory dir) {
+        if (dir == null) {
+            super.setDirectory(null);
+            return;
+        }
+    super.setDirectory(dir);
+    
+    }
+    
 
     @Override
     public void remove(){
 
 		if(getFilesSet().size()==0){
-			setOwner(null);
-			setParent(null);
+			
+      setUser(null);
+      setMydrive(null);
+      setFilesystem(null);
+      setParent(null);
+      setDir(null);
+      setSelf(null);
+      setDirctory(null);
+      setOwner(null);
+      setDirectory(null);
+
 			deleteDomainObject();}
 
     }
     
-    //@Override
+
     public boolean isCDiable(){
 
         return true;}
 
-    //@Override
     public boolean isAppendable(){
 
         return false;

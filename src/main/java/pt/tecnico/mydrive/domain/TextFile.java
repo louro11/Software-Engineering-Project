@@ -27,33 +27,45 @@ public class TextFile extends TextFile_Base {
             return;
         }
 		super.setOwner(owner);
-        //owner.addContact(this);
+    
+    }
+
+    @Override
+    public void setDirectory(Directory dir) {
+        if (dir == null) {
+            super.setDirectory(null);
+            return;
+        }
+    super.setDirectory(dir);
+    
     }
 
 
     @Override
     public void remove(){
 
-		setOwner(null);
-		deleteDomainObject();
+
+      setDirectory(null);
+  		setOwner(null);
+
+  		deleteDomainObject();
 
     }
 
 
-	//@Override
 	public boolean isCDiable(){
 
         return false;}
 
-    //@Override
+  
     public boolean isAppendable(){
 
         return true;}
 
-    //@Override
+   
     public String readfile(){
 
-	//tenho de verificar permissões??
+	
 		return get_content();
 
 

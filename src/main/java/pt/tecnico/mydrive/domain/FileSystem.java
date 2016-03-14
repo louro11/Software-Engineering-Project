@@ -8,10 +8,6 @@ import org.jdom2.Element;
 
 public class FileSystem extends FileSystem_Base {
 
-   /* public FileSystem() {
-        super();
-    }*/
-
     public FileSystem() {
 
         SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
@@ -30,18 +26,18 @@ public class FileSystem extends FileSystem_Base {
     }
 
     public Directory changeCurrentDirectory(String path) throws FileNotFoundException {
+    	
     	Directory currentdir = getMaindir() ; 
     	String[] token = path.split("/");
 
     	for (int i=1; i<token.length;i++){
-    		System.out.println (token[i]);
-    		//if (token[i].length() == 0) continue;
+    		
     		for (File file: currentdir.getFilesSet()){
 
 				if (file.get_name().equals(token[i])){
 				
 					currentdir = (Directory) file; 
-					/* necessario verificar permissoes? */
+					
 				}
 				else{
 					
@@ -55,7 +51,7 @@ public class FileSystem extends FileSystem_Base {
 
 
 
-    public void removeFile(String path, User current) throws FileNotFoundException{
+    public void removeFile(String path) throws FileNotFoundException{
 
 		
 		Directory parent = Directoryfrompath(path);
@@ -64,9 +60,12 @@ public class FileSystem extends FileSystem_Base {
 
 		for (File file: parent.getFilesSet()){
 
+				
+
 				if (file.get_name().equals(token[token.length-1])){
 				
 					file.remove();  /* necessario verificar permissoes? */
+
 				}
 				else{
 
@@ -82,48 +81,35 @@ public class FileSystem extends FileSystem_Base {
 	}
 	
 	public void createDirectory(User owner,String path){
-		//Directory parent = Directoryfrompath(path);
-		//parent.createSubDirectory(name, owner, parent);
+		
 
 		Directory currentdir = getMaindir() ; 
     	String[] token = path.split("/");
 
     	for (int i=1; i<token.length;i++){
-    		//System.out.println(token[i]);
-
-    		//System.out.println ("Nome da current:" + currentdir.get_name());
 
     		if(currentdir.getFilesSet().size()!=0){
 
 				for (File file: currentdir.getFilesSet()){
 
-
-					//System.out.println("Nome da entry: " + file.get_name());
-
-
 					if (file.get_name().equals(token[i])){
 					
 						currentdir = (Directory) file;
-						//System.out.println("mudei diretoria pq existia") ;
-						/* necessario verificar permissoes? */
 					}
 					else{
 						currentdir.createSubDirectory(token[i],owner,currentdir);
 						
 						for (File newfile: currentdir.getFilesSet()){
 
-							//System.out.println("Nome do novo: " + newfile.get_name()) ;
-							//System.out.println("\nNome do token: " + token[i]) ;
 								if (newfile.get_name().equals(token[i])){
 						
 								currentdir = (Directory) newfile;
-								//System.out.println("mudei diretoria pq nao existia");  
+								
 								break;
 
-								}//System.out.println (newfile.get_name());
+								}
 						}
-						//System.out.println ("Nome da dir:" + currentdir.get_name());
-						//throw new FileNotFoundException(token[token.length])
+						
 						break;
 						}
 						
@@ -133,21 +119,18 @@ public class FileSystem extends FileSystem_Base {
     			currentdir.createSubDirectory(token[i],owner,currentdir);
 						
 				for (File newfile: currentdir.getFilesSet()){
-
-					//System.out.println("Nome do novo: " + newfile.get_name()) ;
-					//System.out.println("\nNome do token: " + token[i]) ;
 					
 					if (newfile.get_name().equals(token[i])){
 						
 						currentdir = (Directory) newfile;
-						//System.out.println("mudei diretoria pq nao existia");  
+						
 						break;
 
-					}//System.out.println (newfile.get_name());
+					}
 				}
 
 
-    			}	
+    		}	
     	}
     	
 	}
@@ -188,7 +171,6 @@ public class FileSystem extends FileSystem_Base {
 
 			for (File file: dir.getFilesSet()){
 				
-				//if (token[token.length-1].length() == 0) continue;
 				if (file.get_name().equals(token[token.length-1])){
 
 					dir = (Directory) file;
@@ -198,9 +180,7 @@ public class FileSystem extends FileSystem_Base {
 			}
 
 			return dir.printFiles();
-		
-	
-		
+
 	}
 
 	public String readfile(String path){
@@ -210,9 +190,6 @@ public class FileSystem extends FileSystem_Base {
 
 		String[] token = path.split("/");
 
-
-		
-
 			for (File file: aux.getFilesSet()){
 
 				if (file.get_name().equals(token[token.length-1])){
@@ -220,9 +197,6 @@ public class FileSystem extends FileSystem_Base {
 					tf = (TextFile)file;	
 					
 				}
-
-			
-
 		}
 
 		return tf.readfile();
