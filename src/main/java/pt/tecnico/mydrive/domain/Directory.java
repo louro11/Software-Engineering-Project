@@ -53,7 +53,7 @@ public class Directory extends Directory_Base {
 	    parent.addFiles(subdirectory);
    }
 
-   public String PrintFiles(){
+   public String printFiles(){
 	   String s= "";
        for(File f : getFilesSet()) {
 	         s=s + f.get_name()+"\n";

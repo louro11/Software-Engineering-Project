@@ -29,9 +29,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
     
 
 
-	public String PrintFiles(String path){
+	public String printFiles(String path){
 
-		return getFilesystem().PrintFiles(path);
+		return getFilesystem().printFiles(path);
 
 	}
 

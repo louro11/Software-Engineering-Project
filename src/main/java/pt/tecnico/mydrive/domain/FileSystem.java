@@ -62,7 +62,7 @@ public class FileSystem extends FileSystem_Base {
 
 		for (File file: parent.getFilesSet()){
 
-				if (file.get_name().equals(token[token.length])){
+				if (file.get_name().equals(token[token.length-1])){
 				
 					file.remove();  /* necessario verificar permissoes? */
 				}
@@ -121,7 +121,7 @@ public class FileSystem extends FileSystem_Base {
 		
 		String[] token = path.split("/");
 		
-		Directory aux = this.getMaindir();
+		Directory aux = getMaindir();
 
 		for(i=0; i<token.length-1; i++){
 
@@ -141,7 +141,7 @@ public class FileSystem extends FileSystem_Base {
 		return aux;
 	}
 
-		public String PrintFiles(String path){
+		public String printFiles(String path){
 			
 
 			Directory dir = Directoryfrompath(path);
@@ -158,9 +158,9 @@ public class FileSystem extends FileSystem_Base {
 
 			}
 
-			String s = dir.PrintFiles();
+			return dir.printFiles();
 		
-		return s;
+	
 		
 	}
 

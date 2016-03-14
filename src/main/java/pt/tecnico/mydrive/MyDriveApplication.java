@@ -51,7 +51,6 @@ public class MyDriveApplication{
 
 
 		//ponto2
-
 		md.createDirectory("/usr/local/bin");
 		//
 
@@ -59,12 +58,22 @@ public class MyDriveApplication{
 		String content = md.readfile("/home/README"); 
 		System.out.println(content);
 		//
-		
-		md.removeFile("/usr/local/bin"); //ponto 4
-		md.removeFile("/home/README"); //ponto 6
-		md.PrintFiles("/home"); //ponto 7
+
+		//ponto 4
+		md.removeFile("/usr/local/bin"); 
+		//
+
+		//ponto 6
+		md.removeFile("/home/README"); 
+		//
+
+		//ponto 7
+		String files = md.printFiles("/home"); 
+		System.out.println(files);
+		//
 
     }
+
     //ponto 5????
     @Atomic
     public static void printXml() {
