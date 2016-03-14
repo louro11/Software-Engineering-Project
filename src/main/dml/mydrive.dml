@@ -63,37 +63,37 @@ relation MyDriveHasCurrentUser{
 
 relation MyDriveHasCurrentDirectory{
     MyDrive playsRole mydrive;
-   	Directory playsRole currentdirectory;
+   	Directory playsRole currentdirectory { multiplicity 0..1; }
 }
 
 /********FileSystem***********/
 
 relation FileSystemHasRoot{
-  	FileSystem playsRole filesystem;
+  	FileSystem playsRole filesys;
    	SuperUser playsRole root;
 }
 
 relation FileSystemHasMainDirectory{
 	FileSystem playsRole filesystem;
-	Directory playsRole maindir;
+	Directory playsRole maindir { multiplicity 0..1; }
 }
 
 relation FileSystemHasUsers{
   FileSystem playsRole filesystem;
-  User playsRole users { multiplicity 1..*;}
+  User playsRole users { multiplicity *; } // 1..*;}
 }
 
 /********User***********/
 
 relation UserHasHomeDirectory{
     User playsRole user;
-    Directory playsRole homedirectory;
+    Directory playsRole homedirectory { multiplicity 0..1; }
 }
 
 /********File***********/
 
 relation FileHasOwner{
-    File playsRole file;
+    File playsRole file { multiplicity 0..1; }
     User playsRole owner;
 }
 
@@ -101,7 +101,7 @@ relation FileHasOwner{
 
 relation DirectoryHasFiles{
     Directory playsRole directory;
-    File playsRole files { multiplicity 1..*;}
+    File playsRole files { multiplicity *; } // 1..*;}
 }
 
 relation DirectoryHasParent{

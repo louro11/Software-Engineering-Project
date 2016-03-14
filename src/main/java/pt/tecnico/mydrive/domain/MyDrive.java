@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import pt.ist.fenixframework.FenixFramework;
 import java.io.File;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import pt.ist.fenixframework.FenixFramework;
 
 import org.jdom2.Element;
 import org.jdom2.Document;
@@ -19,7 +20,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	public class MyDrive extends MyDrive_Base {
 
 		public MyDrive(){
-			
+			setRoot(FenixFramework.getDomainRoot());
 			FileSystem fs = new FileSystem();
 
 			setCurrentuser(fs.getRoot());
@@ -68,8 +69,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	public static MyDrive getInstance() {
        
         MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
-        //if (mydrive != null)
+        if (mydrive != null)
         	return mydrive;
+        return new MyDrive();
     }
     
     public Document xmlExport() {

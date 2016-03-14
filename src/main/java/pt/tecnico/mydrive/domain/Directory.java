@@ -27,6 +27,7 @@ public class Directory extends Directory_Base {
        set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
 	   setParent(parent);
 	   setSelf(this);
+       setFilesystem(owner.getFilesystem());
     }
 
     public Directory(String name, int fileid, DateTime timestamp, String permission, User owner)
@@ -34,6 +35,7 @@ public class Directory extends Directory_Base {
        set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
 	   setParent(this);
 	   setSelf(this);
+       setFilesystem(owner.getFilesystem());
     }
 
    //retorna listagem de todos os ficheiros(ficheiros ou diretorios de um diretorio)

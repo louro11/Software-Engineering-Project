@@ -34,7 +34,8 @@ public class FileSystem extends FileSystem_Base {
     	String[] token = path.split("/");
 
     	for (int i=0; i<token.length;i++){
-			for (File file: currentdir.getFilesSet()){
+    		if (token[i].length() == 0) continue;
+    		for (File file: currentdir.getFilesSet()){
 
 				if (file.get_name().equals(token[i])){
 				
