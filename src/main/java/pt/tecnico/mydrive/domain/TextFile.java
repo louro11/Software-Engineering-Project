@@ -62,13 +62,13 @@ public class TextFile extends TextFile_Base {
   
 
     public Element xmlExport(){
-          Element text = new Element("TextFile");
+          Element text = new Element("PlainFile");
           text.setAttribute("id", Integer.toString(get_fileid()));
 
           text.addContent(super.xmlExport());
 
           Element content = new Element("content");
-          content.setAttribute("content", get_content());
+          content.addContent(get_content());
           text.addContent(content);
 
 
