@@ -89,29 +89,65 @@ public class FileSystem extends FileSystem_Base {
     	String[] token = path.split("/");
 
     	for (int i=1; i<token.length;i++){
-			for (File file: currentdir.getFilesSet()){
+    		//System.out.println(token[i]);
 
-				if (file.get_name().equals(token[i])){
-				
-					currentdir = (Directory) file; 
-					/* necessario verificar permissoes? */
-				}
-				else{
-					currentdir.createSubDirectory(token[i],owner,currentdir);
+    		//System.out.println ("Nome da current:" + currentdir.get_name());
+
+    		if(currentdir.getFilesSet().size()!=0){
+
+				for (File file: currentdir.getFilesSet()){
+
+
+					//System.out.println("Nome da entry: " + file.get_name());
+
+
+					if (file.get_name().equals(token[i])){
 					
-					for (File newfile: currentdir.getFilesSet()){
-
-						if (newfile.get_name().equals(token[i])){
-				
-						currentdir = (Directory) newfile; 
-
-						}
+						currentdir = (Directory) file;
+						//System.out.println("mudei diretoria pq existia") ;
+						/* necessario verificar permissoes? */
 					}
-					//throw new FileNotFoundException(token[token.length]);
+					else{
+						currentdir.createSubDirectory(token[i],owner,currentdir);
+						
+						for (File newfile: currentdir.getFilesSet()){
 
+							//System.out.println("Nome do novo: " + newfile.get_name()) ;
+							//System.out.println("\nNome do token: " + token[i]) ;
+								if (newfile.get_name().equals(token[i])){
+						
+								currentdir = (Directory) newfile;
+								//System.out.println("mudei diretoria pq nao existia");  
+								break;
 
-				}	
+								}//System.out.println (newfile.get_name());
+						}
+						//System.out.println ("Nome da dir:" + currentdir.get_name());
+						//throw new FileNotFoundException(token[token.length])
+						break;
+						}
+						
+	    		}
     		}
+    		else{
+    			currentdir.createSubDirectory(token[i],owner,currentdir);
+						
+				for (File newfile: currentdir.getFilesSet()){
+
+					//System.out.println("Nome do novo: " + newfile.get_name()) ;
+					//System.out.println("\nNome do token: " + token[i]) ;
+					
+					if (newfile.get_name().equals(token[i])){
+						
+						currentdir = (Directory) newfile;
+						//System.out.println("mudei diretoria pq nao existia");  
+						break;
+
+					}//System.out.println (newfile.get_name());
+				}
+
+
+    			}	
     	}
     	
 	}

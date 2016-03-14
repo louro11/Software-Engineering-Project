@@ -52,7 +52,7 @@ public class MyDriveApplication{
 
 		Directory maindirectory= md.getCurrentdirectory();
 		System.out.println("Antes do ponto 1");
-/*
+
         //ponto 1
 
 		md.changeCurrentDirectory("/home");
@@ -60,20 +60,16 @@ public class MyDriveApplication{
 
 		System.out.println("Acabei ponto 1");
         //
-*/
+
 
 		//ponto2
-
 		md.createDirectory("/usr/local/bin");
-		
-		String files = md.printFiles("/usr"); 
-		System.out.println(files);
 		System.out.println("Acabei ponto 2");
 		//
 
 
 
-/*
+
 		//ponto 3
 		String content = md.readfile("/home/README"); 
 		System.out.println(content);
@@ -99,7 +95,7 @@ public class MyDriveApplication{
 		//
 
     }
-
+/*
     //ponto 5????
     @Atomic
     public static void printXml() {

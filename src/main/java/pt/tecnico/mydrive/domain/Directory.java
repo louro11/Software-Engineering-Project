@@ -52,7 +52,8 @@ public class Directory extends Directory_Base {
 
    public void createSubDirectory(String name, User owner, Directory parent){
 	    Directory subdirectory = new Directory(name, 3, new DateTime(), owner.get_mask(), owner, parent);
-	    parent.addFiles(subdirectory);
+	    
+      parent.addFiles(subdirectory);
    }
 
    public String printFiles(){
