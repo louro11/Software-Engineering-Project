@@ -6,7 +6,11 @@ package pt.tecnico.mydrive.domain;
 
 class MyDrive;
 
-class FileSystem;
+class FileSystem{
+
+	Integer _idseq;
+
+}
 
 class User{
     String _username;

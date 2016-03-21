@@ -13,16 +13,25 @@ public class FileSystem extends FileSystem_Base {
     public FileSystem() {
 
         SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
-
+		
+		ResetIdseq();
+		
         String mask = root.get_mask();
-        Directory maindir = new Directory( "/" , 0 , new DateTime(), mask , (User)root );
-        maindir.createSubDirectory("home", (User)root,maindir); 
+        
+        IncrementIdseq();
+        Directory maindir = new Directory( "/" , get_idseq() , new DateTime(), mask , (User)root );
+        IncrementIdseq();
+        maindir.createSubDirectory("home", get_idseq(), (User)root,maindir); 
+        
+        
         Directory home = (Directory) maindir.getFile("home");
-        home.createSubDirectory("root", root, home);
+        IncrementIdseq();
+        home.createSubDirectory("root",get_idseq(),root, home);
+        
         Directory main = (Directory) home.getFile("root");
         root.setHomedirectory(main);	
 
-
+		
         setRoot(root);
         setMaindir(maindir);
     }
@@ -67,6 +76,7 @@ public class FileSystem extends FileSystem_Base {
 				if (file.get_name().equals(token[token.length-1])){
 				
 					file.remove();  /* necessario verificar permissoes? */
+					DecrementIdseq();
 
 				}
 				else{
@@ -79,7 +89,10 @@ public class FileSystem extends FileSystem_Base {
 
 	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
 			
-			cd.createTextFile(name, permission, fileid, timestamp, owner, content);
+			
+			/* Falta tratar permissoes, etc, .. */
+			IncrementIdseq();
+			cd.createTextFile(name, permission, get_idseq(), timestamp, owner, content);
 	}
 	
 	public void createDirectory(User owner,String path){
@@ -99,7 +112,9 @@ public class FileSystem extends FileSystem_Base {
 						currentdir = (Directory) file;
 					}
 					else{
-						currentdir.createSubDirectory(token[i],owner,currentdir);
+						
+						IncrementIdseq();
+						currentdir.createSubDirectory(token[i],get_idseq(),owner,currentdir);
 						
 						for (File newfile: currentdir.getFilesSet()){
 
@@ -118,7 +133,9 @@ public class FileSystem extends FileSystem_Base {
 	    		}
     		}
     		else{
-    			currentdir.createSubDirectory(token[i],owner,currentdir);
+				
+    			IncrementIdseq();
+				currentdir.createSubDirectory(token[i],get_idseq(),owner,currentdir);
 						
 				for (File newfile: currentdir.getFilesSet()){
 					
@@ -241,5 +258,21 @@ public class FileSystem extends FileSystem_Base {
 		    user.xmlImport(node);
 		}
 	}
-
+	
+	
+	
+	public void IncrementIdseq(){
+		
+		set_idseq(get_idseq()+1);
+	}
+	
+	public void DecrementIdseq(){
+		
+		set_idseq(get_idseq()-1);
+	}
+	
+	public void ResetIdseq(){
+		
+		set_idseq(0);
+	}
 }
