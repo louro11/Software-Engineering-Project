@@ -203,6 +203,8 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 	public String readfile(String path){
+		
+		
 		int i;
 		Directory aux = Directoryfrompath (path);
 		TextFile tf = new TextFile();
@@ -223,18 +225,25 @@ public class FileSystem extends FileSystem_Base {
 	}		
 
 	public Element xmlExport() {
+		
+		
 		Element element = new Element("filesytem");
 
 		Element UsersElement = new Element("users");
 	
 		for (User user: getUsersSet())
 		    UsersElement.addContent(user.xmlExport());
+		
 		element.addContent(UsersElement);
 		return element;
 	    }
 
 	public User getUserByUsername(String username) {
+        
+        
         for (User user : getUsersSet()) {
+            
+            
             if (user.get_username().equals(username)) {
                 return user;
             }
@@ -247,6 +256,8 @@ public class FileSystem extends FileSystem_Base {
 		Element userElem = element.getChild("users");
 
 		for (Element node: userElem.getChildren("user")) {
+		   
+		   
 		    String username = node.getAttribute("username").getValue();
 		    
 		    User user = getUserByUsername(username);
