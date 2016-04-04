@@ -55,9 +55,10 @@ public class MyDriveApplication{
 
 		md.changeCurrentDirectory("/home");
 		md.createTextFile("README", "lista de utilizadores"); 
-
         //
 
+		md.createFile("badjoraz", "textfile", "blablabla");
+		
 	//closed exceptions issue
 
 		//ponto2
@@ -80,6 +81,8 @@ public class MyDriveApplication{
 		//ponto 7
 		//closed issue
 		String files = md.printFiles("/home"); 
+		String cont = md.readfile("/home/badjoraz");
+		System.out.println(cont);
 		System.out.println(files);
 		//
 

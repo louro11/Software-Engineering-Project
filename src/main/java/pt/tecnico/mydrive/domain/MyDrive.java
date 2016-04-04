@@ -47,9 +47,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	
 	/**CHANGES***/
 	
-	public void createFile(Directory dir, User user, String filename, String type, String content){ //token
-		dir = getCurrentdirectory();
-		user = getCurrentuser();
+	public void createFile(String filename, String type, String content){ //token
+		Directory dir = getCurrentdirectory();
+		User user = getCurrentuser();
 		getFilesystem().createFile(dir, user, filename, type, content);
 	}
 	
