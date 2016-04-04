@@ -252,7 +252,8 @@ public class FileSystem extends FileSystem_Base {
 		Element element = new Element("filesytem");
 
 		Element UsersElement = new Element("users");
-	
+		
+			
 		for (User user: getUsersSet())
 		    UsersElement.addContent(user.xmlExport());
 		
