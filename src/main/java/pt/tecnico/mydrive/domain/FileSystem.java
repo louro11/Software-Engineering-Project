@@ -154,6 +154,28 @@ public class FileSystem extends FileSystem_Base {
     	
 	}
 
+	//TODO token e mascara do user
+	public void createFile(Directory dir, User user, String filename, String type, String content){ 
+		IncrementIdseq();
+		DateTime dt = new DateTime();
+		if(type == "directory"){
+			Directory direct = new Directory(filename, get_idseq(), dt,"rwxd----",user,dir);
+			dir.addFiles(direct);
+		}
+		else if(type == "textfile"){
+			File txt = new TextFile(filename, "rwxd----", get_idseq(), dt, user, content);
+			dir.addFiles(txt);
+		}
+		else if(type == "app"){
+			File app = new Application(filename, "rwxd----", get_idseq(), dt, user, content);
+			dir.addFiles(app);
+		}
+		else if(type == "link"){
+			//TODO testar se o content e um path valido
+			Link link = new Link(filename, "rwxd----", get_idseq(), dt, user, content);
+			dir.addFiles(link);
+		}
+	}
 
 	public Directory Directoryfrompath(String path){
 		

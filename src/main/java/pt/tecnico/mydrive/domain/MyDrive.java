@@ -44,7 +44,15 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		catch (FileNotFoundException e){System.out.println(e.getMessage());}
 		
 	}
-
+	
+	/**CHANGES***/
+	
+	public void createFile(Directory dir, User user, String filename, String type, String content){ //token
+		dir = getCurrentdirectory();
+		user = getCurrentuser();
+		getFilesystem().createFile(dir, user, filename, type, content);
+	}
+	
 	public void createTextFile(String name, String content ){
 
 		getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
