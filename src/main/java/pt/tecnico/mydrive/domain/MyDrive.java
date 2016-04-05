@@ -21,11 +21,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		public MyDrive(){
 			setRoot(FenixFramework.getDomainRoot());
-			FileSystem fs = new FileSystem();
+			if(getFilesystem() == NULL) setFilesystem(new FileSystem());
 
-			setCurrentuser(fs.getRoot());
-			setCurrentdirectory(fs.getMaindir());
-			setFilesystem(fs);
+			setCurrentuser(getFilesystem().getRoot());
+			setCurrentdirectory(getFilesystem().getMaindir());
+			
 		}
     
 
