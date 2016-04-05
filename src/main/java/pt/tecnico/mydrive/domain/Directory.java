@@ -24,15 +24,23 @@ public class Directory extends Directory_Base {
 
     public Directory(String name, int fileid, DateTime timestamp, String permission, User owner, Directory parent )
     {  	
-       set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
-	   setParent(parent);
-	   setSelf(this);
-       setFilesystem(owner.getFilesystem());
+
+      //criacao de ponteiros auxiliares com o nome . e .. para pai e ele proprio (resulta???)
+      Directory fatheraux = parent;
+      fatheraux.set_name("..");
+
+      Directory me = this;
+      me.set_name(".");
+
+     set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
+	   setParent(fatheraux); setSelf(me);
+     setFilesystem(owner.getFilesystem());
+
     }
 
     public Directory(String name, int fileid, DateTime timestamp, String permission, User owner)
     {  	
-       set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
+      set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
 	   setParent(this);
 	   setSelf(this);
        setFilesystem(owner.getFilesystem());
