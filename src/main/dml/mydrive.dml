@@ -57,7 +57,7 @@ relation DomainRootHasMyDriveApplication {
 
 relation MyDriveHasFileSystem{
     MyDrive playsRole mydrive;
-    FileSystem playsRole filesystem { multiplicity 0..1; };
+    FileSystem playsRole filesystem { multiplicity 0..1; }
 }
 
 relation MyDriveHasCurrentUser{
