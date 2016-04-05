@@ -38,6 +38,11 @@ class Application extends TextFile;
 
 class Link extends TextFile;
 
+class Login{
+      int _timeout;
+      boolean _valid;
+      long _token;
+}
 
 
 /**************************************************************/
@@ -116,3 +121,15 @@ relation DirectoryHasParent{
     Directory playsRole dirctory;
     Directory playsRole self;
  }
+ 
+ /**********Login************/
+ 
+relation LoginHasUser{
+    Login  playsRole login {multiplicity *;}
+    User playsRole user;
+}
+
+relation LoginHasDirectory{
+    Login playsRole login {multiplicity *;}
+    Directory playsRole currentdirectory;
+}
