@@ -3,6 +3,8 @@ package pt.tecnico.mydrive.domain;
 import java.util.*;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
+import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
+import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 
 import org.joda.time.DateTime;
@@ -61,6 +63,22 @@ public class FileSystem extends FileSystem_Base {
     	return currentdir;
 	}
 
+
+    public void createUser(String username) throws InvalidUserNameException, UserNameAlreadyExistsException{
+
+
+        try {
+          User usr = new User(username);
+         for(User usrtmp : getUsersSet()){
+          if(usrtmp.equals(usr)){
+            throw new UserNameAlreadyExistsException(username);
+          }
+        }
+         getUsersSet().add(usr);
+      }
+      catch(InvalidUserNameException e){ throw e; }
+
+    }
 
 
     public void removeFile(String path) throws FileNotFoundException{
@@ -225,8 +243,7 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-	public String readfile( String path){
-
+	public String readfile(String path){
 
 
 		int i;
@@ -243,8 +260,7 @@ public class FileSystem extends FileSystem_Base {
 
 				}
 		}
-		return tf.readfile();
-
+      return tf.readfile();
 	}
 
 	public Element xmlExport() {
