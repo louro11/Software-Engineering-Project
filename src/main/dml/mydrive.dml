@@ -38,6 +38,11 @@ class Application extends TextFile;
 
 class Link extends TextFile;
 
+class Login{
+      int _timeout;
+      boolean _valid;
+      long _token;
+}
 
 
 /**************************************************************/
@@ -57,7 +62,7 @@ relation DomainRootHasMyDriveApplication {
 
 relation MyDriveHasFileSystem{
     MyDrive playsRole mydrive;
-    FileSystem playsRole filesystem;
+    FileSystem playsRole filesystem { multiplicity 0..1; }
 }
 
 relation MyDriveHasCurrentUser{
@@ -79,7 +84,7 @@ relation FileSystemHasRoot{
 
 relation FileSystemHasMainDirectory{
 	FileSystem playsRole filesystem;
-	Directory playsRole maindir { multiplicity 0..1; }
+	Directory playsRole maindir { multiplicity 1..1; }
 }
 
 relation FileSystemHasUsers{
@@ -116,3 +121,15 @@ relation DirectoryHasParent{
     Directory playsRole dirctory;
     Directory playsRole self;
  }
+ 
+ /**********Login************/
+ 
+relation LoginHasUser{
+    Login  playsRole login {multiplicity *;}
+    User playsRole user;
+}
+
+relation LoginHasDirectory{
+    Login playsRole login {multiplicity *;}
+    Directory playsRole currentdirectory;
+}
