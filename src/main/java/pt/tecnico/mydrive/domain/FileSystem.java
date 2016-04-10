@@ -5,6 +5,7 @@ import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
 import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
 import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
+import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 
 import org.joda.time.DateTime;
 import org.jdom2.Element;
@@ -243,6 +244,8 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 	public String readfile(String path){
+
+
 		int i;
 		Directory aux = Directoryfrompath (path);
 		TextFile tf = new TextFile();
@@ -323,4 +326,13 @@ public class FileSystem extends FileSystem_Base {
 
 		set_idseq(0);
 	}
+
+  public User getUserbyUsername(String username) throws UserDoesNotExistException{
+    for( User user: getUsersSet()){
+      if( user.get_username().equals(username) ){
+        return user;
+      }
+    }
+    throw new UserDoesNotExistException(username);
+  }
 }

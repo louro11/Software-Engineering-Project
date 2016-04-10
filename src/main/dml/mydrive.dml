@@ -75,6 +75,11 @@ relation MyDriveHasCurrentDirectory{
    	Directory playsRole currentdirectory { multiplicity 0..1; }
 }
 
+relation MyDriveHasLogins{
+    MyDrive playsRole mydrive;
+    Login playsRole Logins { multiplicity *; }
+}
+
 /********FileSystem***********/
 
 relation FileSystemHasRoot{
@@ -121,9 +126,9 @@ relation DirectoryHasParent{
     Directory playsRole dirctory;
     Directory playsRole self;
  }
- 
+
  /**********Login************/
- 
+
 relation LoginHasUser{
     Login  playsRole login {multiplicity *;}
     User playsRole user;
