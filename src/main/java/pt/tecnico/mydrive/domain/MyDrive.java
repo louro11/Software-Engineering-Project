@@ -21,14 +21,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		public MyDrive(){
 			setRoot(FenixFramework.getDomainRoot());
-			if(getFilesystem() == NULL) setFilesystem(new FileSystem());
-
-			setCurrentuser(getFilesystem().getRoot());
-			setCurrentdirectory(getFilesystem().getMaindir());
-			
+			if(this.getFilesystem()==null) {
+				setFilesystem(new FileSystem());}
+				setCurrentuser(getFilesystem().getRoot());
+				setCurrentdirectory(getFilesystem().getMaindir());
 		}
-    
-
 
 	public String printFiles(String path){
 
