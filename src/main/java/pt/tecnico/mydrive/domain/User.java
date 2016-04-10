@@ -60,6 +60,13 @@ public class User extends User_Base {
 
     }
 
+    
+    public boolean equals(User u){
+          return u.get_username().equals(this.username) && u.get_name.equals(this.name)
+                  && u.get_password(this.password) && u.get_mask(this.mask)
+                  && u.getHomedirectory().get_name().equals(this.getHomedirectory().get_name()); //TODO:FIXME:XXX
+
+    }
 
 	public Element xmlExport() {
 		Element user = new Element("user");

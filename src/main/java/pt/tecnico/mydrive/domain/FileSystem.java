@@ -3,6 +3,8 @@ package pt.tecnico.mydrive.domain;
 import java.util.*;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
+import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
+import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 
 import org.joda.time.DateTime;
 import org.jdom2.Element;
@@ -13,68 +15,84 @@ public class FileSystem extends FileSystem_Base {
     public FileSystem() {
 
         SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
-		
+
 		ResetIdseq();
-		
+
         String mask = root.get_mask();
-        
+
         IncrementIdseq();
         Directory maindir = new Directory( "/" , get_idseq() , new DateTime(), mask , (User)root );
         IncrementIdseq();
-        maindir.createSubDirectory("home", get_idseq(), (User)root,maindir); 
-        
-        
+        maindir.createSubDirectory("home", get_idseq(), (User)root,maindir);
+
+
         Directory home = (Directory) maindir.getFile("home");
         IncrementIdseq();
         home.createSubDirectory("root",get_idseq(),root, home);
-        
-        Directory main = (Directory) home.getFile("root");
-        root.setHomedirectory(main);	
 
-		
+        Directory main = (Directory) home.getFile("root");
+        root.setHomedirectory(main);
+
+
         setRoot(root);
         setMaindir(maindir);
     }
 
     public Directory changeCurrentDirectory(String path) throws FileNotFoundException {
-    	
-    	Directory currentdir = getMaindir() ; 
+
+    	Directory currentdir = getMaindir() ;
     	String[] token = path.split("/");
 
     	for (int i=1; i<token.length;i++){
-    		
+
     		for (File file: currentdir.getFilesSet()){
 
 				if (file.get_name().equals(token[i])){
-				
-					currentdir = (Directory) file; 
-					
+
+					currentdir = (Directory) file;
+
 				}
 				else{
-					
+
 					throw new FileNotFoundException(token[i]);
 
-				}	
+				}
     	}
     }
-    	return currentdir; 
+    	return currentdir;
 	}
 
+
+    public void createUser(String username) throws InvalidUserNameException, UserNameAlreadyExistsException{
+
+
+        try {
+          User usr = new User(username);
+        }
+        catch(InvalidUserNameException e){ throw e; }
+        for (User usrtmp : getUsersSet()){
+          if(usr.equals(usrtmp)){
+            throw new UserNameAlreadyExistsException();
+          }
+        }
+
+
+    }
 
 
     public void removeFile(String path) throws FileNotFoundException{
 
-		
+
 		Directory parent = Directoryfrompath(path);
-		
+
 		String[] token = path.split("/");
 
 		for (File file: parent.getFilesSet()){
 
-				
+
 
 				if (file.get_name().equals(token[token.length-1])){
-				
+
 					file.remove();  /* necessario verificar permissoes? */
 					DecrementIdseq();
 
@@ -88,17 +106,17 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
-			
-			
+
+
 			/* Falta tratar permissoes, etc, .. */
 			IncrementIdseq();
 			cd.createTextFile(name, permission, get_idseq(), timestamp, owner, content);
 	}
-	
-	public void createDirectory(User owner,String path){
-		
 
-		Directory currentdir = getMaindir() ; 
+	public void createDirectory(User owner,String path){
+
+
+		Directory currentdir = getMaindir() ;
     	String[] token = path.split("/");
 
     	for (int i=1; i<token.length;i++){
@@ -108,54 +126,54 @@ public class FileSystem extends FileSystem_Base {
 				for (File file: currentdir.getFilesSet()){
 
 					if (file.get_name().equals(token[i])){
-					
+
 						currentdir = (Directory) file;
 					}
 					else{
-						
+
 						IncrementIdseq();
 						currentdir.createSubDirectory(token[i],get_idseq(),owner,currentdir);
-						
+
 						for (File newfile: currentdir.getFilesSet()){
 
 								if (newfile.get_name().equals(token[i])){
-						
+
 								currentdir = (Directory) newfile;
-								
+
 								break;
 
 								}
 						}
-						
+
 						break;
 						}
-						
+
 	    		}
     		}
     		else{
-				
+
     			IncrementIdseq();
 				currentdir.createSubDirectory(token[i],get_idseq(),owner,currentdir);
-						
+
 				for (File newfile: currentdir.getFilesSet()){
-					
+
 					if (newfile.get_name().equals(token[i])){
-						
+
 						currentdir = (Directory) newfile;
-						
+
 						break;
 
 					}
 				}
 
 
-    		}	
+    		}
     	}
-    	
+
 	}
 
 	//TODO token e mascara do user
-	public void createFile(Directory dir, User user, String filename, String type, String content){ 
+	public void createFile(Directory dir, User user, String filename, String type, String content){
 		IncrementIdseq();
 		DateTime dt = new DateTime();
 		if(type.equals("directory")){
@@ -178,11 +196,11 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 	public Directory Directoryfrompath(String path){
-		
+
 		int i;
-		
+
 		String[] token = path.split("/");
-		
+
 		Directory aux = getMaindir();
 
 		for(i=1; i<token.length-1; i++){
@@ -192,8 +210,8 @@ public class FileSystem extends FileSystem_Base {
 				if (file.get_name().equals(token[i])){
 
 					aux = (Directory) file;
-					
-					
+
+
 				}
 
 			}
@@ -204,18 +222,18 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 		public String printFiles(String path){
-			
+
 
 			Directory dir = Directoryfrompath(path);
 
 			String[] token = path.split("/");
 
 			for (File file: dir.getFilesSet()){
-				
+
 				if (file.get_name().equals(token[token.length-1])){
 
 					dir = (Directory) file;
-					
+
 				}
 
 			}
@@ -225,8 +243,8 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 	public String readfile(String path){
-		
-		
+
+
 		int i;
 		Directory aux = Directoryfrompath (path);
 		TextFile tf = new TextFile();
@@ -237,76 +255,76 @@ public class FileSystem extends FileSystem_Base {
 
 				if (file.get_name().equals(token[token.length-1])){
 
-					tf = (TextFile)file;	
-					
+					tf = (TextFile)file;
+
 				}
 		}
 
 		return tf.readfile();
 
-	}		
+	}
 
 	public Element xmlExport() {
-		
-		
+
+
 		Element element = new Element("filesytem");
 
 		Element UsersElement = new Element("users");
-		
-			
+
+
 		for (User user: getUsersSet())
 		    UsersElement.addContent(user.xmlExport());
-		
+
 		element.addContent(UsersElement);
 		return element;
 	    }
 
 	public User getUserByUsername(String username) {
-        
-        
+
+
         for (User user : getUsersSet()) {
-            
-            
+
+
             if (user.get_username().equals(username)) {
                 return user;
             }
         }
         return null;
     }
-	
+
 	public void xmlImport(Element element){ /*throws ImportDocumentException */
-		
+
 		Element userElem = element.getChild("users");
 
 		for (Element node: userElem.getChildren("user")) {
-		   
-		   
+
+
 		    String username = node.getAttribute("username").getValue();
-		    
+
 		    User user = getUserByUsername(username);
 
 		    if (user == null){ // Does not exist
 		    		user = new User(username);
 		    }
-		    
+
 		    user.xmlImport(node);
 		}
 	}
-	
-	
-	
+
+
+
 	public void IncrementIdseq(){
-		
+
 		set_idseq(get_idseq()+1);
 	}
-	
+
 	public void DecrementIdseq(){
-		
+
 		set_idseq(get_idseq()-1);
 	}
-	
+
 	public void ResetIdseq(){
-		
+
 		set_idseq(0);
 	}
 }
