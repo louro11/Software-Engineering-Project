@@ -49,11 +49,11 @@ public class MyDriveApplication{
         log.trace("Setup: " + FenixFramework.getDomainRoot());
 		MyDrive md = MyDrive.getInstance();
 
-		Directory maindirectory= md.getCurrentdirectory();
+		Directory maindirectory= md.getCurrentdirectory();     
 
         //ponto 1
 
-		md.changeCurrentDirectory("/home");
+		//md.changeCurrentDirectory("/home"); another arguments ---> token 
 		md.createTextFile("README", "lista de utilizadores"); 
         //
 
