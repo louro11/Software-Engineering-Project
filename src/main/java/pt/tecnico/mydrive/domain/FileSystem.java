@@ -68,14 +68,14 @@ public class FileSystem extends FileSystem_Base {
 
         try {
           User usr = new User(username);
-        }
-        catch(InvalidUserNameException e){ throw e; }
-        for (User usrtmp : getUsersSet()){
-          if(usr.equals(usrtmp)){
-            throw new UserNameAlreadyExistsException();
+         for(User usrtmp : getUsersSet()){
+          if(usrtmp.equals(usr)){
+            throw new UserNameAlreadyExistsException(username);
           }
         }
-
+         getUsersSet().add(usr);
+      }
+      catch(InvalidUserNameException e){ throw e; }
 
     }
 
@@ -257,7 +257,7 @@ public class FileSystem extends FileSystem_Base {
 
 				}
 		}
-
+      return tf.readfile();
 	}
 
 	public Element xmlExport() {
