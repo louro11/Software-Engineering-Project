@@ -33,8 +33,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	}
 
-	public void changeCurrentDirectory(String path){
+	public void changeCurrentDirectory(long token, String path){
 		try{
+
 			setCurrentdirectory(getFilesystem().changeCurrentDirectory(path));
 
 		}
@@ -98,14 +99,5 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
     }
 
-		public void login(String username, String password){
-			try{
-				User user = fs.getUserbyUsername(username);
-				if( (user.get_password()).equals(password)){
-					Login login = new Login (user);
-
-				}
-			}
-		}
-
+	
 }

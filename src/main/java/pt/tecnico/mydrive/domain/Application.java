@@ -16,6 +16,7 @@ public class Application extends Application_Base {
     	setOwner(owner);
         set_content(content);   
    } 
+  
     
 public Element xmlExport() {
 		
