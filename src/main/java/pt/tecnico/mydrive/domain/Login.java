@@ -18,6 +18,7 @@ public class Login extends Login_Base{
     long token = rand.nextLong();
 
     this.set_token(token);
+    
 
     this.set_timeout(0);
   }
