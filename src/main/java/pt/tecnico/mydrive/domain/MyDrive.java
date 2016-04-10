@@ -21,14 +21,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		public MyDrive(){
 			setRoot(FenixFramework.getDomainRoot());
-			FileSystem fs = new FileSystem();
-
-			setCurrentuser(fs.getRoot());
-			setCurrentdirectory(fs.getMaindir());
-			setFilesystem(fs);
+			if(this.getFilesystem()==null) {
+				setFilesystem(new FileSystem());}
+				setCurrentuser(getFilesystem().getRoot());
+				setCurrentdirectory(getFilesystem().getMaindir());
 		}
-
-
 
 	public String printFiles(String path){
 
@@ -106,7 +103,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				User user = fs.getUserbyUsername(username);
 				if( (user.get_password()).equals(password)){
 					Login login = new Login (user);
-					
+
 				}
 			}
 		}
