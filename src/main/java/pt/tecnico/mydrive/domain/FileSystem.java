@@ -244,8 +244,6 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 	public String readfile(String path){
-
-
 		int i;
 		Directory aux = Directoryfrompath (path);
 		TextFile tf = new TextFile();
