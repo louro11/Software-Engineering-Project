@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import pt.ist.fenixframework.FenixFramework;
 import java.io.File;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.ist.fenixframework.FenixFramework;
 
 import org.jdom2.Element;
@@ -98,14 +99,33 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
     }
 
-		public void login(String username, String password){
+		public long loginUser(String username, String password){
 			try{
-				User user = fs.getUserbyUsername(username);
-				if( (user.get_password()).equals(password)){
-					Login login = new Login (user);
 
+				User user = getFilesystem().getUserbyUsername(username);
+
+				Login login;
+
+				if( ( user.get_password() ).equals( password )){
+					login = new Login (user);
+
+					for(Login log: getLoginsSet()){
+
+					if( !( log.get_valid() )){
+						getLoginsSet().remove(log);
+					}
+
+					}
+
+					getLoginsSet().add(login);
+
+					return login.get_token();
 				}
-			}
-		}
+				}
 
-}
+			catch( UserDoesNotExistException e ){
+				System.out.println( e.getMessage() );
+			}
+			return 0;
+			}
+	}
