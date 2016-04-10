@@ -27,7 +27,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			setCurrentdirectory(fs.getMaindir());
 			setFilesystem(fs);
 		}
-    
+
 
 
 	public String printFiles(String path){
@@ -37,22 +37,22 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	}
 
 	public void changeCurrentDirectory(String path){
-		try{ 
+		try{
 			setCurrentdirectory(getFilesystem().changeCurrentDirectory(path));
-			
+
 		}
 		catch (FileNotFoundException e){System.out.println(e.getMessage());}
-		
+
 	}
-	
+
 	/**CHANGES***/
-	
+
 	public void createFile(String filename, String type, String content){ //token
 		Directory dir = getCurrentdirectory();
 		User user = getCurrentuser();
 		getFilesystem().createFile(dir, user, filename, type, content);
 	}
-	
+
 	public void createTextFile(String name, String content ){
 
 		getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
@@ -66,31 +66,31 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	}
 
 	public void removeFile(String path){
-		try{ 
-			
+		try{
+
 			//User current = getCurrentuser();
 			getFilesystem().removeFile(path);
 		}
 		catch (FileNotFoundException e){}
 	}
-		
+
 	public static MyDrive getInstance() {
-       
+
         MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
         if (mydrive != null)
         	return mydrive;
         return new MyDrive();
     }
-    
+
     public Document xmlExport() {
         Element element = new Element("mydrive");
         Document doc = new Document(element);
-        
+
         element.addContent(getFilesystem().xmlExport());
 
         return doc;
     }
-    
+
     public void xmlImport(Element element) {
     	element.getChild("filesystem");
     	if(getFilesystem()==null){
@@ -98,7 +98,17 @@ import pt.tecnico.mydrive.domain.FileSystem;
     		fs.xmlImport(element);}
     	else{
     	getFilesystem().xmlImport(element);}
-    	
+
     }
+
+		public void login(String username, String password){
+			try{
+				User user = fs.getUserbyUsername(username);
+				if( (user.get_password()).equals(password)){
+					Login login = new Login (user);
+					
+				}
+			}
+		}
 
 }
