@@ -185,7 +185,7 @@
               <killAfter>-1</killAfter>
                 </configuration>
           </plugin>
-		
+		<!-- 
           <plugin>
     	<groupId>pt.tecnico.plugin</groupId>
     	<artifactId>dml2yuml-maven-plugin</artifactId>
@@ -204,7 +204,7 @@
     	  </execution>
     	</executions>
           </plugin>
-
+-->
         </plugins>
       <!--  </pluginManager> -->
     </build>

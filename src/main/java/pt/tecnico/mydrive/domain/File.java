@@ -79,4 +79,12 @@ public class File extends File_Base {
     public void remove(){}
 
     public String readfile(){return "";}
+    
+	
+	public boolean isEqual(File file){
+		if(this.get_fileid().equals(file.get_fileid())){
+			return true;
+		}
+		return false;
+	}
 }

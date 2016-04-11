@@ -3,6 +3,7 @@ package pt.tecnico.mydrive.domain;
 import java.util.*;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
+import pt.tecnico.mydrive.exceptions.InvalidPathException;
 
 import org.joda.time.DateTime;
 import org.jdom2.Element;
@@ -155,26 +156,38 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 	//TODO token e mascara do user
-	public void createFile(Directory dir, User user, String filename, String type, String content){ 
-		IncrementIdseq();
-		DateTime dt = new DateTime();
-		if(type.equals("directory")){
-			Directory direct = new Directory(filename, get_idseq(), dt,"rwxd----",user,dir);
-			dir.addFiles(direct);
+	public void createFile(Directory dir, User user, String filename, String type, String content) throws InvalidPathException{ 
+		
+		String path = filename + dir.get_name(); // "/" esta no filename?
+		Directory maindir = getMaindir();
+		Directory curdir=dir;
+		
+		while((!curdir.getParent().isEqual(maindir))){ 
+			path += curdir.get_name();
 		}
-		else if(type.equals("textfile")){
-			TextFile txt = new TextFile(filename, "rwxd----", get_idseq(), dt, user, content);
-			dir.addFiles(txt);
-		}
-		else if(type.equals("app")){
-			Application app = new Application(filename, "rwxd----", get_idseq(), dt, user, content);
-			dir.addFiles(app);
-		}
-		else if(type.equals("link")){
-			//TODO testar se o content e um path valido
-			Link link = new Link(filename, "rwxd----", get_idseq(), dt, user, content);
-			dir.addFiles(link);
-		}
+
+		if(path.length()<=1024){
+			IncrementIdseq();
+			DateTime dt = new DateTime();
+			if(type.equals("directory")){
+				Directory direct = new Directory(filename, get_idseq(), dt,"rwxd----",user,dir);
+				dir.addFiles(direct);
+			}
+			else if(type.equals("textfile")){
+				TextFile txt = new TextFile(filename, "rwxd----", get_idseq(), dt, user, content);
+				dir.addFiles(txt);
+			}
+			else if(type.equals("app")){
+				Application app = new Application(filename, "rwxd----", get_idseq(), dt, user, content);
+				dir.addFiles(app);
+			}
+			else if(type.equals("link")){
+				//TODO testar se o content e um path valido
+				Link link = new Link(filename, "rwxd----", get_idseq(), dt, user, content);
+				dir.addFiles(link);
+			}
+		}else throw new InvalidPathException(path);
+		
 	}
 
 	public Directory Directoryfrompath(String path){
