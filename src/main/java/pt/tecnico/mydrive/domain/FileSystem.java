@@ -95,7 +95,7 @@ public class FileSystem extends FileSystem_Base {
 				if (file.get_name().equals(token[token.length-1])){
 
 					file.remove();  /* necessario verificar permissoes? */
-					DecrementIdseq();
+				
 
 				}
 				else{
@@ -330,10 +330,6 @@ public class FileSystem extends FileSystem_Base {
 		set_idseq(get_idseq()+1);
 	}
 
-	public void DecrementIdseq(){
-
-		set_idseq(get_idseq()-1);
-	}
 
 	public void ResetIdseq(){
 
