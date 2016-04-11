@@ -243,16 +243,14 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-	public String readfile(long token, String name){
+	public String readfile(Login login, User user, String name) throws FileNotFoundException {
 		int i;
-		Directory aux = Directoryfrompath (path);
+		Directory currentdir = getMaindir() ;
 		TextFile tf = new TextFile();
 
-		String[] token = path.split("/");
+			for (File file: currentdir.getFilesSet()){
 
-			for (File file: aux.getFilesSet()){
-
-				if (file.get_name().equals(token[token.length-1])){
+				if (file.get_name().equals(name)){
 
 					tf = (TextFile)file;
 

@@ -66,8 +66,8 @@ public class MyDriveApplication{
 		//
 
 		//ponto 3
-		String content = md.readfile("/home/README"); 
-		System.out.println(content);
+		//String content = md.readfile("/home/README"); 
+		//System.out.println(content);
 		//
 
 		//ponto 4
@@ -81,8 +81,8 @@ public class MyDriveApplication{
 		//ponto 7
 		//closed issue
 		String files = md.printFiles("/home"); 
-		String cont = md.readfile("/home/badjoraz");
-		System.out.println(cont);
+		//String cont = md.readfile("/home/badjoraz");
+		//System.out.println(cont);
 		System.out.println(files);
 		//
 

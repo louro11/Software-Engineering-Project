@@ -69,7 +69,13 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	}
 
 	public String readfile(long token, String name){
-		return getFilesystem().readfile(token, name);
+	try{
+		Login login = getLoginbyToken(token);
+		User user = login.getUser();
+
+		return getFilesystem().readfile(login, user, name);
+	}
+	catch (LoginDoesNotExistException e){return "Login does not exist";}
 	}
 
 	public void removeFile(String path){
