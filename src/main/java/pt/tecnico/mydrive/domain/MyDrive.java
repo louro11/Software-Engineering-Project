@@ -8,6 +8,7 @@ import java.io.File;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
+import pt.tecnico.mydrive.exceptions.LoginIsInvalidException;
 import pt.ist.fenixframework.FenixFramework;
 
 import org.jdom2.Element;
@@ -157,18 +158,32 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			return 0;
 			}
 
-	public Login getLoginbyToken(long token) throws LoginDoesNotExistException  {
+	public Login getLoginbyToken(long token) throws LoginDoesNotExistException LoginIsInvalidException {
 
     	for( Login login: getLoginsSet()){
+
       		if( login.get_token()==token ){
-        		return login;
+
+						DateTime now = new DateTime();
+
+						if( now.isAfter(log.get_timeout())){
+
+							throw new LoginIsInvalidException();
+
+						}
+
+						else{
+
+        			return login;
+
+						}
+
       		}
+
     	}
 
     	throw new LoginDoesNotExistException();
 
-         //falta exceção para token nao existente
 	}
-
 
 	}
