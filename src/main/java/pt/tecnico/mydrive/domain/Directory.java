@@ -180,19 +180,20 @@ public class Directory extends Directory_Base {
     @Override
     public void remove(){
 
-		if(getFilesSet().size()==0){
+		for(File f : getFilesSet()) {
+			f.remove();}
 			
-      setUser(null);
-      setMydrive(null);
-      setFilesystem(null);
-      setParent(null);
-      setDir(null);
-      setSelf(null);
-      setDirctory(null);
-      setOwner(null);
-      setDirectory(null);
+		setUser(null);
+		setMydrive(null);
+		setFilesystem(null);
+		setParent(null);
+		setDir(null);
+		setSelf(null);
+		setDirctory(null);
+		setOwner(null);
+		setDirectory(null);
 
-			deleteDomainObject();}
+		deleteDomainObject();
 
     }
     
