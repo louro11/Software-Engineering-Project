@@ -76,17 +76,25 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		return getFilesystem().readfile(login, user, name);
 	}
-	catch (LoginDoesNotExistException e){return "Login does not exist";}
+
+	catch (LoginDoesNotExistException e){return e.getMessage();}
+	catch (LoginIsInvalidException e){return e.getMessage();}
+
 	}
 
 	public void writefile(long token, String name, String content){
-	try{
-		Login login = getLoginbyToken(token);
-		User user = login.getUser();
 
-		 getFilesystem().writefile(login, user, name, content);
-	}
-	catch (LoginDoesNotExistException e){}
+		try{
+			Login login = getLoginbyToken(token);
+			User user = login.getUser();
+
+		 	getFilesystem().writefile(login, user, name, content);
+		}
+
+		catch (LoginDoesNotExistException e){return e.getMessage();}
+
+		catch (LoginIsInvalidException e){return e.getMessage();}
+
 	}
 
 	public void removeFile(String path){
@@ -95,7 +103,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			//User current = getCurrentuser();
 			getFilesystem().removeFile(path);
 		}
-		catch (FileNotFoundException e){}
+
+		catch (FileNotFoundException e){return e.getMessage();}
 	}
 
 	public static MyDrive getInstance() {
@@ -164,19 +173,19 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
       		if( login.get_token()==token ){
 
-						//DateTime now = new DateTime();
+						DateTime now = new DateTime();
 
-						/*if( now.isAfter(log.get_timeout())){
+						if( now.isAfter(login.get_timeout())){
 
 							throw new LoginIsInvalidException();
 
 						}
 
-						else{*/
+						else{
 
         			return login;
 
-						//}
+						}
 
       		}
 
