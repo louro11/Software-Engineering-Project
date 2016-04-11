@@ -158,25 +158,25 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			return 0;
 			}
 
-	public Login getLoginbyToken(long token) throws LoginDoesNotExistException LoginIsInvalidException {
+	public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
 
     	for( Login login: getLoginsSet()){
 
       		if( login.get_token()==token ){
 
-						DateTime now = new DateTime();
+						//DateTime now = new DateTime();
 
-						if( now.isAfter(log.get_timeout())){
+						/*if( now.isAfter(log.get_timeout())){
 
 							throw new LoginIsInvalidException();
 
 						}
 
-						else{
+						else{*/
 
         			return login;
 
-						}
+						//}
 
       		}
 
