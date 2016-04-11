@@ -81,7 +81,7 @@ public class FileSystem extends FileSystem_Base {
     }
 
 
-    public void removeFile(String path) throws FileNotFoundException{
+    public void removeFile(User user, String path) throws FileNotFoundException{
 
 
 		Directory parent = Directoryfrompath(path);

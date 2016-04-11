@@ -13,7 +13,7 @@ public class DeleteFileService extends MyDriveService {
 
     public final void dispatch() throws FileNotFoundException, DirectoryCantBeDeletedException  {
         
-       getMydrive().removeFile(fileName); 
+       //getMydrive().removeFile(fileName); 
         
     }
 }

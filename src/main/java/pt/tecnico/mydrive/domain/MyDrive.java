@@ -98,13 +98,16 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	}
 
-	public void removeFile(String path){
+	public void removeFile(long token, String path){
 		try{
+			Login login = getLoginbyToken(token);
+			User user = login.getUser();
 
 			//User current = getCurrentuser();
-			getFilesystem().removeFile(path);
+			getFilesystem().removeFile(user,path);
 		}
-
+		
+		catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
 		catch (FileNotFoundException e){System.out.println(e.getMessage());}
 	}
 
