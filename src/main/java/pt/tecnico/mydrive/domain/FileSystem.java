@@ -95,9 +95,7 @@ public class FileSystem extends FileSystem_Base {
 
 
 				if (file.get_name().equals(token[token.length-1])){
-
 					file.remove();  /* necessario verificar permissoes? */
-				
 
 				}
 				else{
@@ -179,7 +177,7 @@ public class FileSystem extends FileSystem_Base {
 
 	public void createFile(Directory dir, User user, String filename, String type, String content) throws InvalidPathException{ 
 		
-		String path = filename + dir.get_name(); // "/" esta no filename?
+		String path = filename + dir.get_name(); // / esta no filename?
 		Directory maindir = getMaindir();
 		Directory curdir=dir;
 		
