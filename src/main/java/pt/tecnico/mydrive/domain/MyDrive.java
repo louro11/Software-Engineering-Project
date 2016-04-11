@@ -73,13 +73,14 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	try{
 		Login login = getLoginbyToken(token);
 		User user = login.getUser();
-
 		return getFilesystem().readfile(login, user, name);
 	}
 
-	catch (LoginDoesNotExistException e){return e.getMessage();}
-	catch (LoginIsInvalidException e){return e.getMessage();}
+	catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
+	catch (LoginIsInvalidException e){System.out.println(e.getMessage());}
 
+	return "Error in readfile";
+	
 	}
 
 	public void writefile(long token, String name, String content){
@@ -91,9 +92,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		 	getFilesystem().writefile(login, user, name, content);
 		}
 
-		catch (LoginDoesNotExistException e){return e.getMessage();}
+		catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
 
-		catch (LoginIsInvalidException e){return e.getMessage();}
+		catch (LoginIsInvalidException e){System.out.println(e.getMessage());}
 
 	}
 
@@ -104,7 +105,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			getFilesystem().removeFile(path);
 		}
 
-		catch (FileNotFoundException e){return e.getMessage();}
+		catch (FileNotFoundException e){System.out.println(e.getMessage());}
 	}
 
 	public static MyDrive getInstance() {
