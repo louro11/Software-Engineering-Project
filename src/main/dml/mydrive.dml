@@ -39,8 +39,7 @@ class Application extends TextFile;
 class Link extends TextFile;
 
 class Login{
-      int _timeout;
-      boolean _valid;
+      DateTime _timeout;
       long _token;
 }
 

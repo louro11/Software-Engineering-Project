@@ -23,7 +23,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		public MyDrive(){
 
-			//a noção de diretoria atual deixa de ser do mydrive e passa a ser do Login!!!	
+			//a noção de diretoria atual deixa de ser do mydrive e passa a ser do Login!!!
 
 			setRoot(FenixFramework.getDomainRoot());
 			if(this.getFilesystem()==null) {
@@ -127,9 +127,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 					for(Login log: getLoginsSet()){
 
-					if( !( log.get_valid() )){
-						getLoginsSet().remove(log);
-					}
+						DateTime now = new DateTime();
+
+						if( now.isAfter(log.get_timeout())){
+							getLoginsSet().remove(log);
+						}
 
 					}
 
@@ -146,7 +148,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			}
 
 	public Login getLoginbyToken(long token) throws LoginDoesNotExistException  {
-		
+
     	for( Login login: getLoginsSet()){
       		if( login.get_token()==token ){
         		return login;
@@ -160,4 +162,3 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 	}
-

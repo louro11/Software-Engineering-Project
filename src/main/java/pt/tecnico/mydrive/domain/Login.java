@@ -11,15 +11,25 @@ public class Login extends Login_Base{
 
     this.setCurrentdirectory(user.getHomedirectory());
 
-    this.set_valid(true);
-
     Random rand = new Random();
 
     long token = rand.nextLong();
 
-    this.set_token(token);
-    
+    DateTime now = new DateTime();
 
-    this.set_timeout(0);
+    DateTime limit = now.plusHours(2);
+
+    this.set_timeout(limit);
   }
+
+  public void resetTimer(){
+
+    DateTime now = new DateTime();
+
+    DateTime limit = now.plusHours(2);
+
+    this.set_timeout(limit);
+
+  }
+
 }
