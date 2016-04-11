@@ -176,5 +176,41 @@ public class User extends User_Base {
 		}
 
 	}
+	
+	
+	public boolean hasPermission(File f, int position, String perm){
+		
+		/*buscar owner
+		 *ir buscar as permissoes do file 
+		 *verificar se tem tamanho 8
+		 *verificar owner
+		 * substring ou charAT*/
+		 return true;
+		}
+	
+	public boolean hasReadPermission(File f){
+		
+		return hasPermission(f,0,"r");
+	
+	}
+	
+	public boolean hasWritePermission(File f){
+		
+		return hasPermission(f,1,"w");
+	
+	}
+	
+	public boolean hasExecutePermission(File f){
+		
+		return hasPermission(f,2,"x");
+	
+	}
+	
+	public boolean hasDeletePermission(File f){
+		
+		return hasPermission(f,3,"d");
+	
+	}
+	
 
 }
