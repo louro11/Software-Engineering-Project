@@ -66,9 +66,14 @@ public class TextFile extends TextFile_Base {
     public String readfile(){
 
 	
-		return get_content();
+		    return get_content();
 
 
+    }
+
+    public void writefile(String content){
+
+         set_content(content);
     }
 
   

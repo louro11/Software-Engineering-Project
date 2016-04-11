@@ -87,4 +87,7 @@ public class File extends File_Base {
 		}
 		return false;
 	}
+
+    public void writefile(String content){}
 }
+

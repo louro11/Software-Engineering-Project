@@ -49,11 +49,11 @@ public class MyDriveApplication{
         log.trace("Setup: " + FenixFramework.getDomainRoot());
 		MyDrive md = MyDrive.getInstance();
 
-		Directory maindirectory= md.getCurrentdirectory();
+		Directory maindirectory= md.getCurrentdirectory();     
 
         //ponto 1
 
-		md.changeCurrentDirectory("/home");
+		//md.changeCurrentDirectory("/home"); another arguments ---> token 
 		md.createTextFile("README", "lista de utilizadores"); 
         //
 
@@ -66,23 +66,23 @@ public class MyDriveApplication{
 		//
 
 		//ponto 3
-		String content = md.readfile("/home/README"); 
-		System.out.println(content);
+		//String content = md.readfile("/home/README"); 
+		//System.out.println(content);
 		//
 
 		//ponto 4
-		md.removeFile("/usr/local/bin"); 
-		//
-		//closed issue remove()
-		//ponto 6
-		md.removeFile("/home/README"); 
-		//
+		//md.removeFile("/usr/local/bin"); 
+		////
+		////closed issue remove()
+		////ponto 6
+		//md.removeFile("/home/README"); 
+		////
 
 		//ponto 7
 		//closed issue
 		String files = md.printFiles("/home"); 
-		String cont = md.readfile("/home/badjoraz");
-		System.out.println(cont);
+		//String cont = md.readfile("/home/badjoraz");
+		//System.out.println(cont);
 		System.out.println(files);
 		//
 
