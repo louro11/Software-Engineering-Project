@@ -244,7 +244,7 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 	public String readfile(Login login, User user, String name) throws FileNotFoundException {
-		int i;
+	
 		Directory currentdir = getMaindir() ;
 		TextFile tf = new TextFile();
 
@@ -258,6 +258,23 @@ public class FileSystem extends FileSystem_Base {
 		}
       return tf.readfile();
 	}
+
+	public void writefile (Login login, User user, String name, String content) throws FileNotFoundException {
+	
+		Directory currentdir = getMaindir() ;
+		TextFile tf = new TextFile();
+
+			for (File file: currentdir.getFilesSet()){
+
+				if (file.get_name().equals(name)){
+
+					tf = (TextFile)file;
+
+				}
+		}
+       tf.writefile(content);
+	}
+
 
 	public Element xmlExport() {
 

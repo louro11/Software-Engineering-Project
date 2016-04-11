@@ -71,6 +71,11 @@ public class TextFile extends TextFile_Base {
 
     }
 
+    public void writefile(String content){
+
+         set_content(content);
+    }
+
   
 
     public Element xmlExport(){

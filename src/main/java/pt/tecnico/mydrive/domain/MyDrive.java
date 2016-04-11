@@ -78,6 +78,16 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	catch (LoginDoesNotExistException e){return "Login does not exist";}
 	}
 
+	public void writefile(long token, String name, String content){
+	try{
+		Login login = getLoginbyToken(token);
+		User user = login.getUser();
+
+		 getFilesystem().writefile(login, user, name, content);
+	}
+	catch (LoginDoesNotExistException e){}
+	}
+
 	public void removeFile(String path){
 		try{
 

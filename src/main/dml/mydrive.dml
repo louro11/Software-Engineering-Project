@@ -134,11 +134,6 @@ relation LoginHasUser{
     User playsRole user;
 }
 
-/*relation LoginHasDirectory{
-    Login playsRole login {multiplicity *;}
-    Directory playsRole currentdirectory;
-}*/
-
 relation LoginHasCurrentDirectory{
     Login playsRole login;
     Directory playsRole currentdirectory { multiplicity 0..1; }
