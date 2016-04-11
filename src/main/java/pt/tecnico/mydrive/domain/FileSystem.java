@@ -39,9 +39,9 @@ public class FileSystem extends FileSystem_Base {
         setMaindir(maindir);
     }
 
-    public Directory changeCurrentDirectory(String path) throws FileNotFoundException {
+    public Directory changeCurrentDirectory(Login login, User user, String path) throws FileNotFoundException {
 
-    	Directory currentdir = getMaindir() ;
+    	Directory currentdir = login.getCurrentdirectory(); 
     	String[] token = path.split("/");
 
     	for (int i=1; i<token.length;i++){

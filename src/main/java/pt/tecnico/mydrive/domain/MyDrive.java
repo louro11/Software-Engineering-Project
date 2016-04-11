@@ -7,6 +7,7 @@ import pt.ist.fenixframework.FenixFramework;
 import java.io.File;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
+import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.ist.fenixframework.FenixFramework;
 
 import org.jdom2.Element;
@@ -21,6 +22,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	public class MyDrive extends MyDrive_Base {
 
 		public MyDrive(){
+
+			//a noção de diretoria atual deixa de ser do mydrive e passa a ser do Login!!!	
+
 			setRoot(FenixFramework.getDomainRoot());
 			if(this.getFilesystem()==null) {
 				setFilesystem(new FileSystem());}
@@ -34,16 +38,21 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	}
 
-	public void changeCurrentDirectory(String path){
+        public void changeCurrentDirectory(long token, String path){
 		try{
-			setCurrentdirectory(getFilesystem().changeCurrentDirectory(path));
+
+			Login login = getLoginbyToken(token);
+
+			User user = login.getUser();
+
+
+			getFilesystem().changeCurrentDirectory(login, user, path);
 
 		}
 		catch (FileNotFoundException e){System.out.println(e.getMessage());}
+		catch (LoginDoesNotExistException e){}
 
 	}
-
-	/**CHANGES***/
 
 	public void createFile(String filename, String type, String content){ //token
 		Directory dir = getCurrentdirectory();
@@ -99,6 +108,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
     }
 
+
 		public long loginUser(String username, String password){
 			try{
 
@@ -128,4 +138,20 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			}
 			return 0;
 			}
+
+	public Login getLoginbyToken(long token) throws LoginDoesNotExistException  {
+		
+    	for( Login login: getLoginsSet()){
+      		if( login.get_token()==token ){
+        		return login;
+      		}
+    	}
+
+    	throw new LoginDoesNotExistException();
+
+         //falta exceção para token nao existente
 	}
+
+
+	}
+
