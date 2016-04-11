@@ -243,7 +243,7 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-	public String readfile(String path){
+	public String readfile(long token, String name){
 		int i;
 		Directory aux = Directoryfrompath (path);
 		TextFile tf = new TextFile();

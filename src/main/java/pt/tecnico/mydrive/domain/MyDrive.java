@@ -59,8 +59,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		getFilesystem().createDirectory(getCurrentuser(), path);
 	}
 
-	public String readfile(String path){
-		return getFilesystem().readfile(path);
+	public String readfile(long token, String name){
+		return getFilesystem().readfile(token, name);
 	}
 
 	public void removeFile(String path){
