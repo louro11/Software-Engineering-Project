@@ -55,51 +55,53 @@ public class MyDriveApplication{
     public static void init() { // empty mydrive
         
         log.trace("Init: " + FenixFramework.getDomainRoot());
-		//MyDrive.getInstance().cleanup();    deviamos pensar em fazer isto, pode ser importante
+		/** MyDrive.getInstance().cleanup();    deviamos pensar em fazer isto, pode ser importante  **/
     
     }
     
 
     @Atomic
     public static void setup() { // mydrive with debug data
-        log.trace("Setup: " + FenixFramework.getDomainRoot());
-		MyDrive md = MyDrive.getInstance();
+        
+        
+        //log.trace("Setup: " + FenixFramework.getDomainRoot());
+		//MyDrive md = MyDrive.getInstance();
 
-		Directory maindirectory= md.getCurrentdirectory();     
+		//Directory maindirectory= md.getCurrentdirectory();     
 
         //ponto 1
 
 		//md.changeCurrentDirectory("/home"); another arguments ---> token 
-		md.createTextFile("README", "lista de utilizadores"); 
-        //
+		//md.createTextFile("README", "lista de utilizadores"); 
+        
 
 		
-	//closed exceptions issue
+	////closed exceptions issue
 
 		//ponto2
-		md.createDirectory("/usr/local/bin");
-		//
+		//md.createDirectory("/usr/local/bin");
+		
 
 		//ponto 3
 		//String content = md.readfile("/home/README"); 
 		//System.out.println(content);
-		//
+		
 
 		//ponto 4
 		//md.removeFile("/usr/local/bin"); 
-		////
-		////closed issue remove()
-		////ponto 6
+		
+		//closed issue remove()
+		//ponto 6
 		//md.removeFile("/home/README"); 
-		////
+		
 
 		//ponto 7
 		//closed issue
-		String files = md.printFiles("/home"); 
+		//String files = md.printFiles("/home"); 
 		//String cont = md.readfile("/home/badjoraz");
 		//System.out.println(cont);
-		System.out.println(files);
-		//
+		//System.out.println(files);
+		
 
     }
 

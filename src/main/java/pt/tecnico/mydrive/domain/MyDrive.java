@@ -115,13 +115,13 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		
 		
 
-		public void createDirectory(String path){
+		public void createDirectory(long token, String path){
 			
 			getFilesystem().createDirectory(getCurrentuser(), path);
 		}
 		
 		
-		public void createTextFile(String name, String content ){
+		public void createTextFile(long token ,String name, String content ){
 
 			getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
 		}
