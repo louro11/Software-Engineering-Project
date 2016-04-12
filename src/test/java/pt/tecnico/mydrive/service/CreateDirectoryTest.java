@@ -28,9 +28,9 @@ public class CreateDirectoryTest extends AbstractServiceTest {
 
 		long token_rip = md.loginUser("Henrip","Henrip");
 
-		//não deve de estar bem -> md.createFile(token_rip, "D", "dir", "");
+		//não deve de estar bem -> md.createFile(token_rip, "D", "directory", "");
 
-    //não deve de estar bem -> md.createFile(token_rip, "HappyD", "dir", "Upsi daysi! ( ͡° ͜ʖ ͡°) ");
+    //não deve de estar bem -> md.createFile(token_rip, "HappyD", "directory", "Upsi daysi! ( ͡° ͜ʖ ͡°) ");
 
   }
 	/** Todos os testes success tem de ter os Assert a funcionar **/
