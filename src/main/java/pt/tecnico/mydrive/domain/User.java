@@ -180,13 +180,24 @@ public class User extends User_Base {
 	
 	public boolean hasPermission(File f, int position, String perm){
 		
-		/*buscar owner
-		 *ir buscar as permissoes do file 
-		 *verificar se tem tamanho 8
-		 *verificar owner
-		 * substring ou charAT*/
-		 return true;
+		User owner = f.getOwner();
+		String file_permissions = f.get_permission();
+		
+		if(file_permissions.length() == 8){
+			
+			if(this.equals(owner)){
+				
+				return ((file_permissions.substring(position,position+1)).equals(perm));}
+			
+			else{
+				
+				return ((file_permissions.substring(position+4,position+5)).equals(perm));}
+			
 		}
+	
+	}
+	
+	
 	
 	public boolean hasReadPermission(File f){
 		
