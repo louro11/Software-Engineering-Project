@@ -25,9 +25,13 @@ import pt.tecnico.mydrive.domain.TextFile;
 import pt.tecnico.mydrive.domain.User;
 
 public class MyDriveApplication{
+	
+	
 	static final Logger log = LogManager.getRootLogger();
 
     public static void main(String[] args) throws IOException {
+		
+		
 		System.out.println("*** Welcome to the MyDrive application! ***");
 		try {
 		
@@ -43,6 +47,18 @@ public class MyDriveApplication{
 
 	}
     //close issue
+    
+    
+    
+    
+    @Atomic
+    public static void init() { // empty mydrive
+        
+        log.trace("Init: " + FenixFramework.getDomainRoot());
+		//MyDrive.getInstance().cleanup();    deviamos pensar em fazer isto, pode ser importante
+    
+    }
+    
 
     @Atomic
     public static void setup() { // mydrive with debug data
@@ -91,9 +107,12 @@ public class MyDriveApplication{
     //ponto 5????
     @Atomic
     public static void printXml() {
-        	log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
+        
+        
+        log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
 		Document doc = MyDrive.getInstance().xmlExport();
 		XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
+		
 		try { 
 			xmlOutput.output(doc, new PrintStream(System.out));
 
@@ -102,9 +121,13 @@ public class MyDriveApplication{
     
     @Atomic
     public static void scanXml(File file) {
+		
+		
 		log.trace("xmlScan: " + FenixFramework.getDomainRoot());
 		MyDrive md = MyDrive.getInstance();
 		SAXBuilder builder = new SAXBuilder();
+		
+		
 		try {
 		    Document document = (Document)builder.build(file);
 		    md.xmlImport(document.getRootElement());

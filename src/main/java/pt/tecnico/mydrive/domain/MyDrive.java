@@ -91,7 +91,31 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			
 			}catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
 		}
-
+		
+		
+		/** nao tinhamos nenhum create_user no mydrive, estou a inventar ass:rafa **/
+		
+		
+		
+		public void createUser(String username){
+			
+			getFilesystem().createUser(username);
+		
+		
+		/** password default: username
+		 * 	nome default: username;
+            mask = "rwxd----";
+            homedir = "/home/" + username;
+            
+            
+            * */
+		
+		
+		
+		}
+		
+		
+		
 
 		public void createDirectory(String path){
 			

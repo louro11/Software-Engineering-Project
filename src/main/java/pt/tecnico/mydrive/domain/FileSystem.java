@@ -71,12 +71,18 @@ public class FileSystem extends FileSystem_Base {
 
 
         try {
+         
           User usr = new User(username);
-         for(User usrtmp : getUsersSet()){
-          if(usrtmp.equals(usr)){
-            throw new UserNameAlreadyExistsException(username);
-          }
-        }
+         
+		  for(User usrtmp : getUsersSet()){
+         
+         
+			if(usrtmp.equals(usr)){
+            
+				throw new UserNameAlreadyExistsException(username);
+			}
+		  }
+         
          getUsersSet().add(usr);
       }
       catch(InvalidUserNameException e){ throw e; }

@@ -1,4 +1,4 @@
-package pt.tecnico.mydrive.domain;
+package pt.tecnico.mydrive.service;
 
 import javax.transaction.NotSupportedException;
 import javax.transaction.SystemException;
@@ -6,6 +6,9 @@ import javax.transaction.SystemException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.fenixframework.core.WriteOnReadError;
