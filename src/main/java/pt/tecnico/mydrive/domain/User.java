@@ -183,17 +183,15 @@ public class User extends User_Base {
 		User owner = f.getOwner();
 		String file_permissions = f.get_permission();
 		
-		if(file_permissions.length() == 8){
+		if(file_permissions.length() == 8 && this.equals(owner)){
 			
-			if(this.equals(owner)){
-				
-				return ((file_permissions.substring(position,position+1)).equals(perm));}
+			return ((file_permissions.substring(position,position+1)).equals(perm));}
 			
-			else{
+		else{
 				
 				return ((file_permissions.substring(position+4,position+5)).equals(perm));}
 			
-		}
+		
 	
 	}
 	
