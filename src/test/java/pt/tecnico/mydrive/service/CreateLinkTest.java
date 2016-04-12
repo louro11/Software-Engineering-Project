@@ -16,7 +16,7 @@ import pt.tecnico.mydrive.domain.Directory;
 import pt.tecnico.mydrive.domain.Login;
 
 
-public class CreateDirectoryTest extends AbstractServiceTest {
+public class CreateLinkTest extends AbstractServiceTest {
 
 
 	MyDrive md = MyDrive.getInstance();
@@ -43,7 +43,7 @@ public class CreateDirectoryTest extends AbstractServiceTest {
         //final String userName = "Henrip";
         //long token_rip = md.loginUser(userName,userName);
 
-        ////CreateFileService service = new ChangeFileService(token_rip, "D", "dir", "");
+        ////CreateFileService service = new ChangeFileService(token_rip, "Dlink", "link", "");
         ////service.execute();
 
     //}
@@ -55,7 +55,7 @@ public class CreateDirectoryTest extends AbstractServiceTest {
         //final String userName = "Henrip";
         //long token_rip = md.loginUser(userName,userName);
 
-        ////CreateFileService service = new ChangeFileService(token_rip, "HappyD", "dir", "Upsi daysi! ( ͡° ͜ʖ ͡°) ");
+        ////CreateFileService service = new ChangeFileService(token_rip, "Fappylink", "link", "/Documents/Fappy");
         ////service.execute();
 
     //}
