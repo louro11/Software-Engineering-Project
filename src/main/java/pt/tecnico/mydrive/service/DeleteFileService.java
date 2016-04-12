@@ -1,7 +1,6 @@
 package pt.tecnico.mydrive.service;
 
-import pt.tecnico.mydrive.exceptions.FileNotFoundException;
-import pt.tecnico.mydrive.exceptions.DirectoryCantBeDeletedException;
+
 
 public class DeleteFileService extends MyDriveService {
 
@@ -43,7 +42,7 @@ public class DeleteFileService extends MyDriveService {
 	}
 		
 	
-    public final void dispatch() throws FileNotFoundException, DirectoryCantBeDeletedException  {
+    public final void dispatch() {
         
        getMydrive().removeFile(getToken(),getfileName()); 
         
