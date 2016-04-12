@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import pt.ist.fenixframework.Atomic;
 import pt.tecnico.mydrive.domain.MyDrive;
+import pt.tecnico.mydrive.domain.Directory;
 
 
 public abstract class MyDriveService {
@@ -19,14 +20,12 @@ public abstract class MyDriveService {
         return MyDrive.getInstance();
     }
 
-    //static Person getPerson(String personName) throws PersonDoesNotExistException {
-        //Person p = getPhoneBook().getPersonByName(personName);
+    static Directory getCurrentDirectory() {
+        
+        Directory current = getMydrive().getCurrentdirectory();
 
-        //if (p == null)
-            //throw new PersonDoesNotExistException(personName);       /* isto estava no phonebook, verificar se necessario  */
-
-        //return p;
-    //}
+        return current;
+    }
 
     protected abstract void dispatch() /*throws MyDriveException*/;
 }
