@@ -265,7 +265,7 @@ public class FileSystem extends FileSystem_Base {
 		public String listDirectory(Directory dir, User usr)throws PermitionException{
 
 
-	     if(usr.isRoot() || usr.hasReadPermission(dir)){
+	     if(usr.isRoot() || (usr.hasReadPermission(dir) && dir.getOwner().equals(usr))){
 			       return dir.listDirectory();
            }
       else{
