@@ -72,7 +72,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
 
         ////// check contact was removed
         ////Contact c = getContact(personName, "António");
-        ////assertNull("contact was not removed", c);
+
         ////assertEquals("Invalid number of contacts", 0, PhoneBookService.getPerson(personName).getContactSet().size());
     //}
     
@@ -88,7 +88,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
 
         ////// check contact was removed
         ////Contact c = getContact(personName, "António");
-        ////assertNull("contact was not removed", c);
+        
         ////assertEquals("Invalid number of contacts", 0, PhoneBookService.getPerson(personName).getContactSet().size());
     //}
     
