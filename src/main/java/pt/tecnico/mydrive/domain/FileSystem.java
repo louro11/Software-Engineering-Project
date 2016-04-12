@@ -262,7 +262,7 @@ public class FileSystem extends FileSystem_Base {
 		return aux;
 	}
 
-		public String printFiles(String path){
+		public String listDirectory(String path){
 
 
 			Directory dir = Directoryfrompath(path);
@@ -279,7 +279,7 @@ public class FileSystem extends FileSystem_Base {
 
 			}
 
-			return dir.printFiles();
+			return dir.listDirectory();
 
 	}
 

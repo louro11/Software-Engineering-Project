@@ -65,7 +65,7 @@ public class Directory extends Directory_Base {
       parent.addFiles(subdirectory);
    }
 
-   public String printFiles(){
+   public String listDirectory(){
 	   String s= "";
        for(File f : getFilesSet()) {
 	         s=s + f.get_name()+"\n";

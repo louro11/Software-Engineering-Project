@@ -23,7 +23,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	public class MyDrive extends MyDrive_Base {
 
-		
+
 		public MyDrive(){
 
 			//a noção de diretoria atual deixa de ser do mydrive e passa a ser do Login!!!
@@ -34,12 +34,12 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				setCurrentuser(getFilesystem().getRoot());
 				setCurrentdirectory(getFilesystem().getMaindir());
 		}
-		
-		
+
+
 		public static MyDrive getInstance() {
 
 			MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
-			
+
 			if (mydrive != null)
 				return mydrive;
 			return new MyDrive();
@@ -49,17 +49,17 @@ import pt.tecnico.mydrive.domain.FileSystem;
 /****************************SERVICES FUNCTIONS***************************/
 
 
-		public String printFiles(String path){
+		public String listDirectory(String path){
 
-			return getFilesystem().printFiles(path);
+			return getFilesystem().listDirectory(path);
 
 		}
-		
-		
-		
+
+
+
 
         public void changeCurrentDirectory(long token, String path){
-			
+
 			try{
 
 				Login login = getLoginbyToken(token);
@@ -75,66 +75,66 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		}
 
- 
-		public void createFile(long token, String filename, String type, String content){ 
-			
+
+		public void createFile(long token, String filename, String type, String content){
+
 			try{
-				
+
 				Directory dir = getCurrentdirectory();
 				Login login = getLoginbyToken(token);
-				
+
 				User user = login.getUser();
 				getFilesystem().createFile(dir, user, filename, type, content);
-			
-			
+
+
 			}catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
 		}
-		
-		
+
+
 		/** nao tinhamos nenhum create_user no mydrive, estou a inventar ass:rafa **/
-		
-		
-		
+
+
+
 		public void createUser(String username){
-			
+
 			getFilesystem().createUser(username);
-		
-		
+
+
 		/** password default: username
 		 * 	nome default: username;
             mask = "rwxd----";
             homedir = "/home/" + username;
-            
-            
+
+
             * */
-		
-		
-		
+
+
+
 		}
-		
-		
-		
+
+
+
 
 		public void createDirectory(long token, String path){
-			
+
 			getFilesystem().createDirectory(getCurrentuser(), path);
 		}
-		
-		
+
+
 		public void createTextFile(long token ,String name, String content ){
 
 			getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
 		}
-		
+
 
 
 		public String readfile(long token, String name){
-			
+
 			try{
-				
+
 				Login login = getLoginbyToken(token);
 				User user = login.getUser();
-				
+
 				return getFilesystem().readfile(login, user, name);
 			}
 
@@ -142,13 +142,13 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			catch (LoginIsInvalidException e){System.out.println(e.getMessage());}
 
 			return "Error in readfile";
-		
+
 		}
 
 		public void writefile(long token, String name, String content){
 
 			try{
-				
+
 				Login login = getLoginbyToken(token);
 				User user = login.getUser();
 
@@ -164,31 +164,31 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 		public void removeFile(long token, String path){
-			
-			
+
+
 			try{
-				
+
 				Login login = getLoginbyToken(token);
-				
+
 				User user = login.getUser();
-				
+
 				getFilesystem().removeFile(user,path);
 			}
-			
-			
-			
+
+
+
 			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
 			catch (FileNotFoundException e){System.out.println(e.getMessage());}
 			catch (PermitionException e){System.out.println(e.getMessage());}
-		
+
 		}
 
 
 
-	
+
 
 		public Document xmlExport() {
-			
+
 			Element element = new Element("mydrive");
 			Document doc = new Document(element);
 
@@ -198,23 +198,23 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		}
 
 		public void xmlImport(Element element) {
-			
+
 			element.getChild("filesystem");
-			
+
 			if(getFilesystem()==null){
-				
+
 				FileSystem fs = new FileSystem();
 				fs.xmlImport(element);}
-			
+
 			else{
-			
+
 				getFilesystem().xmlImport(element);}
 
 		}
 
 
 		public long loginUser(String username, String password){
-			
+
 			try{
 
 				User user = getFilesystem().getUserbyUsername(username);

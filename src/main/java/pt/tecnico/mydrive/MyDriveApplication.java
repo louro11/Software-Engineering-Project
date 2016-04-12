@@ -25,110 +25,110 @@ import pt.tecnico.mydrive.domain.TextFile;
 import pt.tecnico.mydrive.domain.User;
 
 public class MyDriveApplication{
-	
-	
+
+
 	static final Logger log = LogManager.getRootLogger();
 
     public static void main(String[] args) throws IOException {
-		
-		
+
+
 		System.out.println("*** Welcome to the MyDrive application! ***");
 		try {
-		
+
 		setup();
 
-		
+
 		for (String s: args) scanXml(new File(s));
 
 		//print();
 		printXml();
-		
+
 		}finally { FenixFramework.shutdown(); }
 
 	}
     //close issue
-    
-    
-    
-    
+
+
+
+
     @Atomic
     public static void init() { // empty mydrive
-        
+
         log.trace("Init: " + FenixFramework.getDomainRoot());
 		/** MyDrive.getInstance().cleanup();    deviamos pensar em fazer isto, pode ser importante  **/
-    
+
     }
-    
+
 
     @Atomic
     public static void setup() { // mydrive with debug data
-        
-        
+
+
         //log.trace("Setup: " + FenixFramework.getDomainRoot());
 		//MyDrive md = MyDrive.getInstance();
 
-		//Directory maindirectory= md.getCurrentdirectory();     
+		//Directory maindirectory= md.getCurrentdirectory();
 
         //ponto 1
 
-		//md.changeCurrentDirectory("/home"); another arguments ---> token 
-		//md.createTextFile("README", "lista de utilizadores"); 
-        
+		//md.changeCurrentDirectory("/home"); another arguments ---> token
+		//md.createTextFile("README", "lista de utilizadores");
 
-		
+
+
 	////closed exceptions issue
 
 		//ponto2
 		//md.createDirectory("/usr/local/bin");
-		
+
 
 		//ponto 3
-		//String content = md.readfile("/home/README"); 
+		//String content = md.readfile("/home/README");
 		//System.out.println(content);
-		
+
 
 		//ponto 4
-		//md.removeFile("/usr/local/bin"); 
-		
+		//md.removeFile("/usr/local/bin");
+
 		//closed issue remove()
 		//ponto 6
-		//md.removeFile("/home/README"); 
-		
+		//md.removeFile("/home/README");
+
 
 		//ponto 7
 		//closed issue
-		//String files = md.printFiles("/home"); 
+		//String files = md.listDirectory("/home"); 
 		//String cont = md.readfile("/home/badjoraz");
 		//System.out.println(cont);
 		//System.out.println(files);
-		
+
 
     }
 
     //ponto 5????
     @Atomic
     public static void printXml() {
-        
-        
+
+
         log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
 		Document doc = MyDrive.getInstance().xmlExport();
 		XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
-		
-		try { 
+
+		try {
 			xmlOutput.output(doc, new PrintStream(System.out));
 
 		} catch (IOException e) { System.out.println(e); }
     }
-    
+
     @Atomic
     public static void scanXml(File file) {
-		
-		
+
+
 		log.trace("xmlScan: " + FenixFramework.getDomainRoot());
 		MyDrive md = MyDrive.getInstance();
 		SAXBuilder builder = new SAXBuilder();
-		
-		
+
+
 		try {
 		    Document document = (Document)builder.build(file);
 		    md.xmlImport(document.getRootElement());
