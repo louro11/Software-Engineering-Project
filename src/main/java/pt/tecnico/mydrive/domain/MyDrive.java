@@ -75,12 +75,10 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		}
 
-    //TODO token
-		public void createFile(String filename, String type, String content){ 
+ 
+		public void createFile(long token, String filename, String type, String content){ 
 			
 			try{
-				
-				int token = 1; //so pa nao dar erro
 				
 				Directory dir = getCurrentdirectory();
 				Login login = getLoginbyToken(token);
