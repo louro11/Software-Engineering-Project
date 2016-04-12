@@ -73,7 +73,6 @@ public class MyDriveApplication{
 		md.createTextFile("README", "lista de utilizadores"); 
         //
 
-		md.createFile("badjoraz", "textfile", "blablabla");
 		
 	//closed exceptions issue
 

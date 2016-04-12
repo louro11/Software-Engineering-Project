@@ -195,22 +195,26 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-	//TODO token e mascara do user
 
 	public void createFile(Directory dir, User user, String filename, String type, String content) throws InvalidPathException{ 
 		
-		String path = filename + dir.get_name(); // / esta no filename?
+		String path = filename + dir.get_name(); // / esta no filename? no.
 		Directory maindir = getMaindir();
 		Directory curdir=dir;
 		
+		int bars = 0;
+		//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
 		while((!curdir.getParent().isEqual(maindir))){ 
 			
-			path += curdir.get_name();
-
-			if(path.length()<=1024){
+			path += curdir.get_name(); 
+			bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
+		}
+		
+			if((path.length() + bars)<=1024){
 				IncrementIdseq();
 				DateTime dt = new DateTime();
 				if(type.equals("directory")){
+					content = ""; //directorias nao tem conteudo
 					Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
 					dir.addFiles(direct);
 				}
@@ -223,11 +227,9 @@ public class FileSystem extends FileSystem_Base {
 					dir.addFiles(app);
 				}
 				else if(type.equals("link")){
-					//TODO testar se o content e um path valido
 					Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
 					dir.addFiles(link);
 				}
-			}
 			else throw new InvalidPathException(path);}
 	
 	}
