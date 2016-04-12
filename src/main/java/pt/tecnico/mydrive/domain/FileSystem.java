@@ -7,6 +7,7 @@ import pt.tecnico.mydrive.exceptions.InvalidPathException;
 import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
 import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
+import pt.tecnico.mydrive.exceptions.PermitionException;
 
 
 import org.joda.time.DateTime;
@@ -83,7 +84,8 @@ public class FileSystem extends FileSystem_Base {
     }
 
 
-    public void removeFile(User user, String path) throws FileNotFoundException{
+
+    public void removeFile(User user, String path) throws FileNotFoundException, PermitionException{
 
 
 		Directory parent = Directoryfrompath(path);
@@ -95,17 +97,31 @@ public class FileSystem extends FileSystem_Base {
 
 
 				if (file.get_name().equals(token[token.length-1])){
-					file.remove();  /* necessario verificar permissoes? */
+					
+					if(user.hasDeletePermission(file)){
+					
+						file.remove();
+					}
+					else{
+						
+						throw new PermitionException("This user: " + user.get_name() + " has no permission to delete this file. ");
 
+					}
 				}
+				
 				else{
 
-					throw new FileNotFoundException(token[token.length-1]);}
+					throw new FileNotFoundException(token[token.length-1]);
+				
+				}
 
 		}
 
+		
+	
 	}
-
+	
+	
 	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
 
 

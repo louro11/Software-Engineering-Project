@@ -183,7 +183,7 @@ public class User extends User_Base {
 		User owner = f.getOwner();
 		String file_permissions = f.get_permission();
 		
-		if(file_permissions.length() == 8 && this.equals(owner)){
+		if(file_permissions.length() == 8 && (this.equals(owner) || this.isRoot())){
 			
 			return ((file_permissions.substring(position,position+1)).equals(perm));}
 			
@@ -221,5 +221,9 @@ public class User extends User_Base {
 	
 	}
 	
+	public boolean isRoot(){
+		
+		return false;
+	}
 
 }

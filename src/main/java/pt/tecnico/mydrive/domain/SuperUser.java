@@ -18,5 +18,9 @@ public class SuperUser extends SuperUser_Base {
     	return super.xmlExport();
 
     }
+    public boolean isRoot(){
+		
+		return true;
+	}
 
 }

@@ -9,6 +9,7 @@ import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginIsInvalidException;
+import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.ist.fenixframework.FenixFramework;
 
 import org.jdom2.Element;
@@ -105,18 +106,36 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	}
 
+
+
+
 	public void removeFile(long token, String path){
+		
+		
 		try{
+			
 			Login login = getLoginbyToken(token);
+			
 			User user = login.getUser();
 
 			//User current = getCurrentuser();
+			
 			getFilesystem().removeFile(user,path);
 		}
 		
+		
+		
 		catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
 		catch (FileNotFoundException e){System.out.println(e.getMessage());}
+		catch (PermitionException e){System.out.println(e.getMessage());}
+	
 	}
+
+
+
+
+
+
 
 	public static MyDrive getInstance() {
 
