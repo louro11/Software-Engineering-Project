@@ -28,9 +28,10 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
 		
 		long token_riri = md.loginUser("henrique","henrique");
 		
-		md.createDirectory(token_riri,"/Downloads/Unseen/xxx");
 		
-		md.createDirectory(token_riri,"/Documents/NaoAbrir/");
+		md.createFile(token_riri,"/Downloads/Unseen/xxx", "directory","");
+		
+		md.createFile(token_riri,"/Documents/NaoAbrir/", "directory","");
 		
 
 
@@ -41,11 +42,11 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
 		
 		long token_duarte = md.loginUser("duarte","duarte");
 		
-		md.createDirectory(token_duarte,"/Documents/Tecnico");
+		md.createFile(token_duarte,"/Documents/Tecnico", "directory","");
 		
-		md.createDirectory(token_duarte,"/Temporary/Finlandia-BoobTrip");
+		md.createFile(token_duarte,"/Temporary/Finlandia-BoobTrip", "directory","");
 		
-		md.createTextFile(token_duarte, "/Pictures/Finlandia", "/home/duarte/Temporary/Finlandia-BoobTrip" );
+		md.createFile(token_duarte, "/Pictures/Finlandia", "link", "/home/duarte/Temporary/Finlandia-BoobTrip" );
 		
 		
 
