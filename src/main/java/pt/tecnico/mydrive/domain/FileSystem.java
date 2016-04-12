@@ -45,7 +45,7 @@ public class FileSystem extends FileSystem_Base {
 
     public Directory changeCurrentDirectory(Login login, User user, String path) throws FileNotFoundException {
 
-    	Directory currentdir = login.getCurrentdirectory(); 
+    	Directory currentdir = login.getCurrentdirectory();
     	String[] token = path.split("/");
 
     	for (int i=1; i<token.length;i++){
@@ -72,18 +72,18 @@ public class FileSystem extends FileSystem_Base {
 
 
         try {
-         
+
           User usr = new User(username);
-         
+
 		  for(User usrtmp : getUsersSet()){
-         
-         
+
+
 			if(usrtmp.equals(usr)){
-            
+
 				throw new UserNameAlreadyExistsException(username);
 			}
 		  }
-         
+
          getUsersSet().add(usr);
       }
       catch(InvalidUserNameException e){ throw e; }
@@ -104,31 +104,31 @@ public class FileSystem extends FileSystem_Base {
 
 
 				if (file.get_name().equals(token[token.length-1])){
-					
+
 					if(user.hasDeletePermission(file)){
-					
+
 						file.remove();
 					}
 					else{
-						
+
 						throw new PermitionException("This user: " + user.get_name() + " has no permission to delete this file. ");
 
 					}
 				}
-				
+
 				else{
 
 					throw new FileNotFoundException(token[token.length-1]);
-				
+
 				}
 
 		}
 
-		
-	
+
+
 	}
-	
-	
+
+
 	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
 
 
@@ -197,20 +197,20 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 
-	public void createFile(Directory dir, User user, String filename, String type, String content) throws InvalidPathException, InvalidContentException{ 
-		
+	public void createFile(Directory dir, User user, String filename, String type, String content) throws InvalidPathException, InvalidContentException{
+
 		String path = filename + dir.get_name(); // / esta no filename? no.
 		Directory maindir = getMaindir();
 		Directory curdir=dir;
-		
+
 		int bars = 0;
 		//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
-		while((!curdir.getParent().isEqual(maindir))){ 
-			
-			path += curdir.get_name(); 
+		while((!curdir.getParent().isEqual(maindir))){
+
+			path += curdir.get_name();
 			bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
 		}
-		
+
 			if((path.length() + bars)<=1024){
 				IncrementIdseq();
 				DateTime dt = new DateTime();
@@ -233,7 +233,7 @@ public class FileSystem extends FileSystem_Base {
 				}
 			else throw new InvalidPathException(path);
 			}
-	
+
 	}
 
 	public Directory Directoryfrompath(String path){
@@ -262,29 +262,20 @@ public class FileSystem extends FileSystem_Base {
 		return aux;
 	}
 
-		public String listDirectory(String path){
+		public String listDirectory(Directory dir, User usr)throws PermitionException{
 
 
-			Directory dir = Directoryfrompath(path);
-
-			String[] token = path.split("/");
-
-			for (File file: dir.getFilesSet()){
-
-				if (file.get_name().equals(token[token.length-1])){
-
-					dir = (Directory) file;
-
-				}
-
-			}
-
-			return dir.listDirectory();
+	     if(usr.isRoot() || usr.hasReadPermission(dir)){
+			       return dir.listDirectory();
+           }
+      else{
+        throw new PermitionException("This user: " + usr.get_name() + " has no permission to list current directory ");
+      }
 
 	}
 
 	public String readfile(Login login, User user, String name) throws FileNotFoundException {
-	
+
 		Directory currentdir = getMaindir() ;
 		TextFile tf = new TextFile();
 
@@ -300,7 +291,7 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 	public void writefile (Login login, User user, String name, String content) throws FileNotFoundException {
-	
+
 		Directory currentdir = getMaindir() ;
 		TextFile tf = new TextFile();
 
@@ -377,14 +368,14 @@ public class FileSystem extends FileSystem_Base {
 	}
 
   public User getUserbyUsername(String username) throws UserDoesNotExistException{
-    
+
     for( User user: getUsersSet()){
-     
+
       if( user.get_username().equals(username) ){
-       
+
         return user;
       }
-    
+
     }
     throw new UserDoesNotExistException(username);
   }

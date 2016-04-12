@@ -19,11 +19,11 @@ public class Directory extends Directory_Base {
 
 
     public Directory() {
-        super();	
+        super();
     }
 
     public Directory(String name, int fileid, DateTime timestamp, String permission, User owner, Directory parent )
-    {  	
+    {
 
       //criacao de ponteiros auxiliares com o nome . e .. para pai e ele proprio (resulta???)
       Directory fatheraux = parent;
@@ -39,7 +39,7 @@ public class Directory extends Directory_Base {
     }
 
     public Directory(String name, int fileid, DateTime timestamp, String permission, User owner)
-    {  	
+    {
       set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
 	   setParent(this);
 	   setSelf(this);
@@ -59,16 +59,18 @@ public class Directory extends Directory_Base {
 
 
    public void createSubDirectory(String name, int fileid, User owner, Directory parent){
-	  
+
 	  Directory subdirectory = new Directory(name, fileid, new DateTime(), owner.get_mask(), owner, parent);
-	    
+
       parent.addFiles(subdirectory);
    }
 
    public String listDirectory(){
+
 	   String s= "";
        for(File f : getFilesSet()) {
-	         s=s + f.get_name()+"\n";
+	         s=s + "name:" + f.get_name() + " permissions:" + f.get_permission()
+                + " timestamp:" + f.get_timestamp() + " owner:" + f.getOwner().get_name() +"\n" ;
           }
 	     return s;
    }
@@ -92,7 +94,7 @@ public class Directory extends Directory_Base {
             return;
         }
     super.setUser(user);
-    
+
     }
 
   @Override
@@ -102,7 +104,7 @@ public class Directory extends Directory_Base {
             return;
         }
     super.setMydrive(md);
-    
+
     }
 
   @Override
@@ -112,7 +114,7 @@ public class Directory extends Directory_Base {
             return;
         }
     super.setFilesystem(fs);
-    
+
     }
 
   @Override
@@ -122,7 +124,7 @@ public class Directory extends Directory_Base {
             return;
         }
     super.setParent(parent);
-    
+
     }
 
   @Override
@@ -132,7 +134,7 @@ public class Directory extends Directory_Base {
             return;
         }
     super.setDir(dir);
-    
+
     }
 
    @Override
@@ -142,7 +144,7 @@ public class Directory extends Directory_Base {
             return;
         }
     super.setSelf(self);
-    
+
     }
 
     @Override
@@ -152,10 +154,10 @@ public class Directory extends Directory_Base {
             return;
         }
     super.setDirctory(dir);
-    
+
     }
 
-	
+
 	@Override
     public void setOwner(User owner) {
         if (owner == null) {
@@ -163,7 +165,7 @@ public class Directory extends Directory_Base {
             return;
         }
 		super.setOwner(owner);
-    
+
     }
 
     @Override
@@ -173,16 +175,16 @@ public class Directory extends Directory_Base {
             return;
         }
     super.setDirectory(dir);
-    
+
     }
-    
+
 
     @Override
     public void remove(){
 
 		for(File f : getFilesSet()) {
 			f.remove();}
-			
+
 		setUser(null);
 		setMydrive(null);
 		setFilesystem(null);
@@ -196,7 +198,7 @@ public class Directory extends Directory_Base {
 		deleteDomainObject();
 
     }
-    
+
 
     public boolean isCDiable(){
 
@@ -206,25 +208,25 @@ public class Directory extends Directory_Base {
 
         return false;
     }
-	
+
 	public Element xmlExport() {
-		
+
         Element dir = new Element("dir");
         dir.setAttribute("id", Integer.toString(get_fileid()));
-        
+
         dir.addContent(super.xmlExport());
-                
+
         Element dirname = new Element(get_name());
-        
+
         for(File file : getFilesSet()){
-        	
+
         	dirname.addContent(file.xmlExport());
         }
-        
+
         dir.addContent(dirname);
-        
+
         return dir;
 	}
-	
-	
+
+
 }

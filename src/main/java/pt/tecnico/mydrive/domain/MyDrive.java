@@ -49,9 +49,18 @@ import pt.tecnico.mydrive.domain.FileSystem;
 /****************************SERVICES FUNCTIONS***************************/
 
 
-		public String listDirectory(String path){
+		public String listDirectory(long token)throws LoginDoesNotExistException, PermitionException{
 
-			return getFilesystem().listDirectory(path);
+			try{
+				Login login = getLoginbyToken(token);
+
+
+				Directory dir = login.getCurrentdirectory();
+				User usr = login.getUser();
+				return getFilesystem().listDirectory(dir, usr);
+			}catch (LoginDoesNotExistException e){ throw e;}
+				catch (PermitionException e) {throw e;}
+
 
 		}
 
