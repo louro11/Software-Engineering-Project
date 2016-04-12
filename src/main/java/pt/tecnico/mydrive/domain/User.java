@@ -12,7 +12,11 @@ import org.joda.time.DateTime;
 public class User extends User_Base {
 
     public User(){
+      
+      
       super();
+    
+    
     }
 
     public User(String username, String password, String name, String mask, Directory dir) throws InvalidUserNameException {
@@ -25,7 +29,9 @@ public class User extends User_Base {
         if( username.isEmpty() || username == null){
             throw new InvalidUserNameException("username is empty");
           }
-          else{
+        
+        else{
+               
                char c;
                for (int i = 0; i < username.length(); i++) {
                       c = username.charAt(i);
@@ -38,17 +44,22 @@ public class User extends User_Base {
       }
 
     public User(String username){
+    	 
     	 if( username.isEmpty() || username == null){
+             
              throw new InvalidUserNameException("username is empty");
            }
-           else{
+          
+         else{
                 char c;
+                
                 for (int i = 0; i < username.length(); i++) {
                        c = username.charAt(i);
                        if(!Character.isLetterOrDigit(c)){
                     	   throw new InvalidUserNameException("username contains wrong Character");
                        }
                  }
+               
                 set_username(username);
                 set_password(username);
             	set_name(username);
@@ -183,15 +194,20 @@ public class User extends User_Base {
 		User owner = f.getOwner();
 		String file_permissions = f.get_permission();
 		
-		if(file_permissions.length() == 8 && (this.equals(owner) || this.isRoot())){
+		if(file_permissions.length() == 8){
+		
+			if (this.equals(owner) || this.isRoot()){
 			
-			return ((file_permissions.substring(position,position+1)).equals(perm));}
+				return ((file_permissions.substring(position,position+1)).equals(perm));}
 			
-		else{
+			else{
 				
 				return ((file_permissions.substring(position+4,position+5)).equals(perm));}
 			
-		
+		}
+		else{
+			
+			return false;}
 	
 	}
 	

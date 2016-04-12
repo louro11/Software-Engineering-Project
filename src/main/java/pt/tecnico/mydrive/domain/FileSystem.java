@@ -198,30 +198,32 @@ public class FileSystem extends FileSystem_Base {
 		Directory curdir=dir;
 		
 		while((!curdir.getParent().isEqual(maindir))){ 
+			
 			path += curdir.get_name();
 
-		if(path.length()<=1024){
-			IncrementIdseq();
-			DateTime dt = new DateTime();
-			if(type.equals("directory")){
-				Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
-				dir.addFiles(direct);
+			if(path.length()<=1024){
+				IncrementIdseq();
+				DateTime dt = new DateTime();
+				if(type.equals("directory")){
+					Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
+					dir.addFiles(direct);
+				}
+				else if(type.equals("textfile")){
+					TextFile txt = new TextFile(filename, user.get_mask(), get_idseq(), dt, user, content);
+					dir.addFiles(txt);
+				}
+				else if(type.equals("app")){
+					Application app = new Application(filename, user.get_mask(), get_idseq(), dt, user, content);
+					dir.addFiles(app);
+				}
+				else if(type.equals("link")){
+					//TODO testar se o content e um path valido
+					Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
+					dir.addFiles(link);
+				}
 			}
-			else if(type.equals("textfile")){
-				TextFile txt = new TextFile(filename, user.get_mask(), get_idseq(), dt, user, content);
-				dir.addFiles(txt);
-			}
-			else if(type.equals("app")){
-				Application app = new Application(filename, user.get_mask(), get_idseq(), dt, user, content);
-				dir.addFiles(app);
-			}
-			else if(type.equals("link")){
-				//TODO testar se o content e um path valido
-				Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
-				dir.addFiles(link);
-			}
-		}else throw new InvalidPathException(path);
-		}
+			else throw new InvalidPathException(path);}
+	
 	}
 
 	public Directory Directoryfrompath(String path){
@@ -365,10 +367,14 @@ public class FileSystem extends FileSystem_Base {
 	}
 
   public User getUserbyUsername(String username) throws UserDoesNotExistException{
+    
     for( User user: getUsersSet()){
+     
       if( user.get_username().equals(username) ){
+       
         return user;
       }
+    
     }
     throw new UserDoesNotExistException(username);
   }

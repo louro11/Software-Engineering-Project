@@ -23,6 +23,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	public class MyDrive extends MyDrive_Base {
 
+		
 		public MyDrive(){
 
 			//a noção de diretoria atual deixa de ser do mydrive e passa a ser do Login!!!
@@ -33,139 +34,165 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				setCurrentuser(getFilesystem().getRoot());
 				setCurrentdirectory(getFilesystem().getMaindir());
 		}
+		
+		
+		public static MyDrive getInstance() {
 
-	public String printFiles(String path){
+			MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
+			
+			if (mydrive != null)
+				return mydrive;
+			return new MyDrive();
+		}
 
-		return getFilesystem().printFiles(path);
 
-	}
+/****************************SERVICES FUNCTIONS***************************/
+
+
+		public String printFiles(String path){
+
+			return getFilesystem().printFiles(path);
+
+		}
+		
+		
+		
 
         public void changeCurrentDirectory(long token, String path){
-		try{
+			
+			try{
 
-			Login login = getLoginbyToken(token);
+				Login login = getLoginbyToken(token);
 
-			User user = login.getUser();
+				User user = login.getUser();
 
 
-			getFilesystem().changeCurrentDirectory(login, user, path);
+				getFilesystem().changeCurrentDirectory(login, user, path);
+
+			}
+			catch (FileNotFoundException e){System.out.println(e.getMessage());}
+			catch (LoginDoesNotExistException e){}
 
 		}
-		catch (FileNotFoundException e){System.out.println(e.getMessage());}
-		catch (LoginDoesNotExistException e){}
-
-	}
 
     //TODO token
-	public void createFile(String filename, String type, String content){ 
-		try{
-			int token = 1; //so pa nao dar erro
-			Directory dir = getCurrentdirectory();
-			Login login = getLoginbyToken(token);
-			User user = login.getUser();
-			getFilesystem().createFile(dir, user, filename, type, content);
-		}catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
-	}
-
-	public void createDirectory(String path){
-		getFilesystem().createDirectory(getCurrentuser(), path);
-	}
-	
-	public void createTextFile(String name, String content ){
-
-		getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
-	}
-	
-
-	public String readfile(long token, String name){
-	try{
-		Login login = getLoginbyToken(token);
-		User user = login.getUser();
-		return getFilesystem().readfile(login, user, name);
-	}
-
-	catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
-	catch (LoginIsInvalidException e){System.out.println(e.getMessage());}
-
-	return "Error in readfile";
-	
-	}
-
-	public void writefile(long token, String name, String content){
-
-		try{
-			Login login = getLoginbyToken(token);
-			User user = login.getUser();
-
-		 	getFilesystem().writefile(login, user, name, content);
+		public void createFile(String filename, String type, String content){ 
+			
+			try{
+				
+				int token = 1; //so pa nao dar erro
+				
+				Directory dir = getCurrentdirectory();
+				Login login = getLoginbyToken(token);
+				
+				User user = login.getUser();
+				getFilesystem().createFile(dir, user, filename, type, content);
+			
+			
+			}catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
 		}
 
-		catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
 
-		catch (LoginIsInvalidException e){System.out.println(e.getMessage());}
-
-	}
-
-
-
-
-	public void removeFile(long token, String path){
-		
-		
-		try{
+		public void createDirectory(String path){
 			
-			Login login = getLoginbyToken(token);
-			
-			User user = login.getUser();
-
-			//User current = getCurrentuser();
-			
-			getFilesystem().removeFile(user,path);
+			getFilesystem().createDirectory(getCurrentuser(), path);
 		}
 		
 		
+		public void createTextFile(String name, String content ){
+
+			getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
+		}
 		
-		catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
-		catch (FileNotFoundException e){System.out.println(e.getMessage());}
-		catch (PermitionException e){System.out.println(e.getMessage());}
+
+
+		public String readfile(long token, String name){
+			
+			try{
+				
+				Login login = getLoginbyToken(token);
+				User user = login.getUser();
+				
+				return getFilesystem().readfile(login, user, name);
+			}
+
+			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
+			catch (LoginIsInvalidException e){System.out.println(e.getMessage());}
+
+			return "Error in readfile";
+		
+		}
+
+		public void writefile(long token, String name, String content){
+
+			try{
+				
+				Login login = getLoginbyToken(token);
+				User user = login.getUser();
+
+				getFilesystem().writefile(login, user, name, content);
+			}
+
+			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
+			catch (LoginIsInvalidException e){System.out.println(e.getMessage());}
+
+		}
+
+
+
+
+		public void removeFile(long token, String path){
+			
+			
+			try{
+				
+				Login login = getLoginbyToken(token);
+				
+				User user = login.getUser();
+				
+				getFilesystem().removeFile(user,path);
+			}
+			
+			
+			
+			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
+			catch (FileNotFoundException e){System.out.println(e.getMessage());}
+			catch (PermitionException e){System.out.println(e.getMessage());}
+		
+		}
+
+
+
 	
-	}
 
+		public Document xmlExport() {
+			
+			Element element = new Element("mydrive");
+			Document doc = new Document(element);
 
+			element.addContent(getFilesystem().xmlExport());
 
+			return doc;
+		}
 
+		public void xmlImport(Element element) {
+			
+			element.getChild("filesystem");
+			
+			if(getFilesystem()==null){
+				
+				FileSystem fs = new FileSystem();
+				fs.xmlImport(element);}
+			
+			else{
+			
+				getFilesystem().xmlImport(element);}
 
-
-
-	public static MyDrive getInstance() {
-
-        MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
-        if (mydrive != null)
-        	return mydrive;
-        return new MyDrive();
-    }
-
-    public Document xmlExport() {
-        Element element = new Element("mydrive");
-        Document doc = new Document(element);
-
-        element.addContent(getFilesystem().xmlExport());
-
-        return doc;
-    }
-
-    public void xmlImport(Element element) {
-    	element.getChild("filesystem");
-    	if(getFilesystem()==null){
-    		FileSystem fs = new FileSystem();
-    		fs.xmlImport(element);}
-    	else{
-    	getFilesystem().xmlImport(element);}
-
-    }
+		}
 
 
 		public long loginUser(String username, String password){
+			
 			try{
 
 				User user = getFilesystem().getUserbyUsername(username);
@@ -189,7 +216,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 					return login.get_token();
 				}
-				}
+			}
 
 			catch( UserDoesNotExistException e ){
 				System.out.println( e.getMessage() );
@@ -197,32 +224,32 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			return 0;
 			}
 
-	public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
+		public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
 
-    	for( Login login: getLoginsSet()){
+			for( Login login: getLoginsSet()){
 
-      		if( login.get_token()==token ){
+				if( login.get_token()==token ){
 
-						DateTime now = new DateTime();
+							DateTime now = new DateTime();
 
-						if( now.isAfter(login.get_timeout())){
+							if( now.isAfter(login.get_timeout())){
 
-							throw new LoginIsInvalidException();
+								throw new LoginIsInvalidException();
 
-						}
+							}
 
-						else{
+							else{
 
-        			return login;
+						return login;
 
-						}
+							}
 
-      		}
+				}
 
-    	}
+			}
 
     	throw new LoginDoesNotExistException();
 
 	}
 
-	}
+}

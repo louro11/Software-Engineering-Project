@@ -9,9 +9,14 @@ import org.jdom2.Element;
 public class File extends File_Base {
 
     public File() {
+    	
     	super();
+   
+   
     }
     public File(String name, String permission, Integer fileid, DateTime timestamp, User owner) {
+    	
+    	
     	set_name(name);
     	set_permission (permission);
     	set_fileid(fileid);
@@ -78,15 +83,22 @@ public class File extends File_Base {
 
     public void remove(){}
 
+  
     public String readfile(){return "";}
     
 	
 	public boolean isEqual(File file){
+		
+		
 		if(this.get_fileid().equals(file.get_fileid())){
+			
 			return true;
 		}
+		
 		return false;
 	}
+	
+
 
     public void writefile(String content){}
 }
