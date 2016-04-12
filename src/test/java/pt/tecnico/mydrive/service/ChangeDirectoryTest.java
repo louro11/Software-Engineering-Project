@@ -71,10 +71,9 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
         ////ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/Downloads/Unseen/xxx");
         ////service.execute();
 
-        ////// check contact was removed
-        ////Contact c = getContact(personName, "António");
+       
 
-        ////assertEquals("Invalid number of contacts", 0, PhoneBookService.getPerson(personName).getContactSet().size());
+        ////assertEquals("Invalid access: directory not reachable", "/Downloads/Unseen/xxx", MyDriveService.getCurrentDirectory().get_name());
     //}
     
     //@Test
@@ -87,10 +86,9 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
         ////ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/duarte/Pictures/Finlandia");
         ////service.execute();
 
-        ////// check contact was removed
-        ////Contact c = getContact(personName, "António");
+      
         
-        ////assertEquals("Invalid number of contacts", 0, PhoneBookService.getPerson(personName).getContactSet().size());
+        ////assertEquals("Invalid access: directory not reachable", "/home/duarte/Pictures/Finlandia", MyDriveService.getCurrentDirectory().get_name());
     //}
     
     
