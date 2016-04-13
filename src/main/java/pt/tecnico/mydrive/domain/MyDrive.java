@@ -91,8 +91,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 			try{
 
-				Directory dir = getCurrentdirectory();
 				Login login = getLoginbyToken(token);
+				Directory dir = login.getCurrentdirectory();
 
 				User user = login.getUser();
 				getFilesystem().createFile(dir, user, filename, type, content);

@@ -2,7 +2,6 @@ package pt.tecnico.mydrive.service;
 
 
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
-import pt.tecnico.mydrive.exceptions.InvalidPathException;
 import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 
