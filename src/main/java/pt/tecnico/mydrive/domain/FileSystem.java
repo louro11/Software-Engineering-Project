@@ -5,6 +5,7 @@ import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
 import pt.tecnico.mydrive.exceptions.InvalidPathException;
+import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
 import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
 import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
@@ -197,7 +198,7 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 
-	public void createFile(Directory dir, User user, String filename, String type, String content) throws InvalidPathException, InvalidContentException{
+	public void createFile(Directory dir, User user, String filename, String type, String content) throws InvalidPathSizeException, InvalidContentException{
 
 		String path = filename + dir.get_name(); // / esta no filename? no.
 		Directory maindir = getMaindir();
@@ -218,7 +219,9 @@ public class FileSystem extends FileSystem_Base {
 					if(!(content.equals(""))){ //directorias nao tem conteudo
 						Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
 						dir.addFiles(direct);
-					}else throw new InvalidContentException(content);}
+					}else
+						throw new InvalidContentException(content);
+				}
 				else if(type.equals("textfile")){
 					TextFile txt = new TextFile(filename, user.get_mask(), get_idseq(), dt, user, content);
 					dir.addFiles(txt);
@@ -228,10 +231,13 @@ public class FileSystem extends FileSystem_Base {
 					dir.addFiles(app);
 				}
 				else if(type.equals("link")){
-					Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
-					dir.addFiles(link);
+					if(!content.equals("CENAS")){
+						Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
+						dir.addFiles(link);
+					}else
+						throw new InvalidContentException(content);
 				}
-			else throw new InvalidPathException(path);
+			else throw new InvalidPathSizeException();
 			}
 
 	}

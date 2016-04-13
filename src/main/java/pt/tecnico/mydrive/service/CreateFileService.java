@@ -1,7 +1,10 @@
 package pt.tecnico.mydrive.service;
 
 
+import pt.tecnico.mydrive.exceptions.InvalidContentException;
 import pt.tecnico.mydrive.exceptions.InvalidPathException;
+import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
+import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 
 public class CreateFileService extends MyDriveService {
 	
@@ -40,9 +43,15 @@ public class CreateFileService extends MyDriveService {
 		
 	}
 	
-	public final void dispatch() throws InvalidPathException  {
-        
+	public final void dispatch(){
+        try{
 	       getMydrive().createFile(_token,_filename, _type, _content);
-	        
+        }catch (LoginDoesNotExistException e){
+        	System.out.println(e.getMessage());
+        }catch (InvalidPathSizeException e){
+        	System.out.println(e.getMessage());
+        }catch (InvalidContentException e){
+        	System.out.println(e.getMessage());
+        }
 	}
 }
