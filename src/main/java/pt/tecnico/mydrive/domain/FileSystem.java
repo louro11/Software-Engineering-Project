@@ -93,7 +93,7 @@ public class FileSystem extends FileSystem_Base {
 
 
 
-    public void removeFile(User user, String path) throws FileNotFoundException, PermitionException{
+    public void removeFileByPath(User user, String path) throws FileNotFoundException, PermitionException{
 
 
 		Directory parent = Directoryfrompath(path);
@@ -129,7 +129,47 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
+	
+	public void removeFileByName(User user, Directory current, String name) throws FileNotFoundException, PermitionException{
 
+
+		//Directory parent = Directoryfrompath(path);
+
+		//String[] token = path.split("/");
+
+		for (File file: current.getFilesSet()){
+
+
+
+				if (file.get_name().equals(name)){
+
+					if(user.hasDeletePermission(file) && user.hasDeletePermission(current)){
+
+						file.remove();
+					}
+					else{
+
+						throw new PermitionException("This user: " + user.get_name() + " has no permission to delete this file. ");
+
+					}
+				}
+
+				else{
+
+					throw new FileNotFoundException(name);
+
+				}
+
+		}
+
+
+
+	}
+	
+	
+	
+	
+	
 	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
 
 

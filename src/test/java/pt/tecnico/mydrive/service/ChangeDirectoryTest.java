@@ -29,31 +29,61 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
 		long token_riri = md.loginUser("henrique","henrique");
 		
 		
-		md.createFile(token_riri,"/Downloads/Unseen/xxx", "directory","");
+		md.createFile(token_riri,"Downloads", "directory","");
 		
-		md.createFile(token_riri,"/Documents/NaoAbrir/", "directory","");
+		md.changeCurrentDirectory(token_riri,"/home/henrique/Downloads");
+		
+		md.createFile(token_riri,"Unseen", "directory","");
+		
+		md.changeCurrentDirectory(token_riri,"/home/henrique/Downloads/Unseen");
+		
+		md.createFile(token_riri,"xxx", "directory","");
+		
+		
+		
+		
+		md.changeCurrentDirectory(token_riri,"/home/henrique");
+		
+		md.createFile(token_riri,"Documents", "directory","");
+		
+		md.changeCurrentDirectory(token_riri,"/home/henrique/Documents");
+		
+		md.createFile(token_riri,"NaoAbrir", "directory","");
 		
 
 
-
+	/****************************************************************************/
 
 
 		md.createUser("duarte");
 		
 		long token_duarte = md.loginUser("duarte","duarte");
 		
-		md.createFile(token_duarte,"/Documents/Tecnico", "directory","");
+		md.createFile(token_duarte,"Documents", "directory","");
 		
-		md.createFile(token_duarte,"/Temporary/Finlandia-BoobTrip", "directory","");
+		md.changeCurrentDirectory(token_riri,"/home/henrique/Documents");
 		
-		md.createFile(token_duarte, "/Pictures/Finlandia", "link", "/home/duarte/Temporary/Finlandia-BoobTrip" );
+		md.createFile(token_duarte,"Tecnico", "directory","");
 		
 		
-
-    //private Contact getContact(String personName, String contactName) {
-        //Person p = PhoneBookService.getPhoneBook().getPersonByName(personName);
-        //return p.getContactByName(contactName);
-    //}
+		md.changeCurrentDirectory(token_riri,"/home/henrique/");
+		
+		md.createFile(token_duarte,"Temporary", "directory","");
+		
+		md.changeCurrentDirectory(token_riri,"/home/henrique/Temporary");
+		
+		md.createFile(token_duarte,"Finlandia-BoobTrip", "directory","");
+		
+		
+		md.changeCurrentDirectory(token_riri,"/home/henrique/");
+		
+		md.createFile(token_duarte, "Pictures", "directory", "" );
+		
+		md.changeCurrentDirectory(token_riri,"/home/henrique/Pictures");
+		
+		md.createFile(token_duarte, "Finlandia", "link", "/home/duarte/Temporary/Finlandia-BoobTrip" );
+		
+		
 
 	
 	}
@@ -62,7 +92,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
 	
 	
     //@Test
-    //public void success_1() {
+    //public void successChangeToOwnedDir() {
         
         
         //final String userName = "henrique";
@@ -77,7 +107,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
     //}
     
     //@Test
-    //public void success_2() {
+    //public void successChangeThroughLink() {
         
         
         //final String userName = "duarte";
@@ -99,7 +129,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
 
     //@Test(expected = InvalidPathException.class)
     
-    //public void ChangetoInvalidDirectory_1() {
+    //public void ChangetoInvalidDirectory() {
         
         //final String userName = "henrique";
         //long token_riri = md.loginUser(userName,userName);
@@ -111,7 +141,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
     
     //@Test(expected = InvalidPathException.class)
     
-    //public void ChangetoInvalidDirectory_2() {
+    //public void ChangetoRootDirectory() {
         
         //final String userName = "duarte";
         //long token_riri = md.loginUser(userName,userName);
