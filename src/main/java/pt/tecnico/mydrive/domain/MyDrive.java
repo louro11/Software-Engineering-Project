@@ -180,7 +180,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-		public void removeFile(long token, String path){
+		public void deleteFileByPath(long token, String path){
 
 
 			try{
@@ -189,7 +189,31 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				User user = login.getUser();
 
-				getFilesystem().removeFile(user,path);
+				getFilesystem().removeFileByPath(user,path);
+			}
+
+
+
+			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
+			catch (FileNotFoundException e){System.out.println(e.getMessage());}
+			catch (PermitionException e){System.out.println(e.getMessage());}
+
+		}
+		
+		
+		
+		public void deleteFileByName(long token, String name){
+
+
+			try{
+
+				Login login = getLoginbyToken(token);
+
+				User user = login.getUser();
+				
+				Directory current = login.getCurrentdirectory();
+
+				getFilesystem().removeFileByName(user,current,name);
 			}
 
 

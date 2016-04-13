@@ -44,7 +44,7 @@ public class DeleteFileService extends MyDriveService {
 	
     public final void dispatch() {
         
-       getMydrive().removeFile(getToken(),getfileName()); 
+       getMydrive().deleteFileByName(getToken(),getfileName()); 
         
     }
 }
