@@ -6,8 +6,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import pt.tecnico.mydrive.exceptions.InvalidPathException;
-import pt.tecnico.phonebook.domain.Person;
-import pt.tecnico.phonebook.service.PhoneBookService;
+import pt.tecnico.mydrive.service.MyDriveService;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 
 
@@ -27,28 +26,45 @@ public class WriteFileTest extends AbstractServiceTest{
     	MyDrive md = MyDrive.getInstance();
     	md.createUser("carlos pincel");
     	
-    	long token = md.loginUser("carlos", "carlos");
+    	long token1 = md.loginUser("rafa", "rafa");
+    	long token2 = md.loginUser("henrique","henrique");
     	
-    	md.createFile(token, "testdir", "directory","");
-    	md.createFile(token, "testtxt","textfile", "ola eu sou o carlos pincel");
-    	md.createFile(token, "testapp", "app", "I dunno wth goes here");
-    	md.createFile(token, "testlink", "link", "/some/path");
+    	md.createFile(token1, "testdir1", "directory","");
+    	md.createFile(token1, "testtxt1","textfile", "ola eu sou o rafa");
+    	md.createFile(token1, "testapp1", "app", "I dunno wth goes here");
+    	md.createFile(token1, "testlink1", "link", "/some/path");
+    	
+    	md.createFile(token2, "testdir2", "directory","");
+    	md.createFile(token2, "testtxt2","textfile", "ola eu sou o henrique");
+    	md.createFile(token2, "testapp2", "app", "I dunno wth goes here");
+    	md.createFile(token2, "testlink2", "link", "/some/path");
     }
     
-    @Test //login correcto
+    @Test //permission
     public void success_1() {
-        
+        /*
     	MyDrive md = MyDriveService.getMydrive();
         
-        final String userName = "henrique";
-        long token_riri = md.loginUser(userName,userName);
+        final String username = "henrique";
+        long token1 = md.loginUser(username,username);
         
+        Login login = getLoginbyToken(token1);
+		Directory dir = login.getCurrentdirectory();
+        
+		
+		WriteFileService service = new WriteFileService("testtxt1", token1, "ola eu sou o rafael santos");
+		service.execute();
+		
+		File file = dir.getFile("filename");
+		assertNotNull("file does not exist", file);
+		assertNotEquals("Cant write to directory", )
+		assertEquals("content was not altered", file.ge)
         ////ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/Downloads/Unseen/xxx");
         ////service.execute();
 
-       
+       */
 
         ////assertEquals("Invalid access: directory not reachable", "/Downloads/Unseen/xxx", MyDriveService.getCurrentDirectory().get_name());
-    //}
+    }
     
 }

@@ -33,6 +33,7 @@ public class MyDriveApplication{
 
 
 		System.out.println("*** Welcome to the MyDrive application! ***");
+		/*
 		try {
 
 		setup();
@@ -44,7 +45,7 @@ public class MyDriveApplication{
 		printXml();
 
 		}finally { FenixFramework.shutdown(); }
-
+*/
 	}
     //close issue
 
