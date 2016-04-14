@@ -1,11 +1,14 @@
 package pt.tecnico.mydrive.domain;
 
 import java.util.*;
+
+import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
 import pt.tecnico.mydrive.exceptions.InvalidPathException;
 import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
+import pt.tecnico.mydrive.exceptions.InvalidTypeException;
 import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
 import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
@@ -238,7 +241,8 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 
-	public void createFile(Directory dir, User user, String filename, String type, String content) throws InvalidPathSizeException, InvalidContentException{
+	public void createFile(Directory dir, User user, String filename, String type, String content) 
+			throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException{
 
 		String path = filename + dir.get_name(); // / esta no filename? no.
 		Directory maindir = getMaindir();
@@ -251,37 +255,46 @@ public class FileSystem extends FileSystem_Base {
 			path += curdir.get_name();
 			bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
 		}
-
-			if((path.length() + bars)<=1024){
-				IncrementIdseq();
-				DateTime dt = new DateTime();
-				if(type.equals("directory")){
-					if(!(content.equals(""))){ //directorias nao tem conteudo
-						Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
-						dir.addFiles(direct);
-					}else
-						throw new InvalidContentException(content);
-				}
-				else if(type.equals("textfile")){
-					TextFile txt = new TextFile(filename, user.get_mask(), get_idseq(), dt, user, content);
-					dir.addFiles(txt);
-				}
-				else if(type.equals("app")){
-					Application app = new Application(filename, user.get_mask(), get_idseq(), dt, user, content);
-					dir.addFiles(app);
-				}
-				else if(type.equals("link")){
-					if(!content.equals("CENAS")){
-						Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
-						dir.addFiles(link);
-					}else
-						throw new InvalidContentException(content);
-				}
-			else throw new InvalidPathSizeException();
+		
+		for (File file : dir.getFilesSet()){
+			if(file.get_name().equals(filename)){
+				throw new FileAlreadyExistsException(filename);
 			}
-
+		}
+		
+		if((path.length() + bars)<=1024){
+			IncrementIdseq();
+			DateTime dt = new DateTime();
+			if(type.equals("directory")){
+				if(!(content.equals(""))){ //directorias nao tem conteudo
+					Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
+					dir.addFiles(direct);
+				}else
+					throw new InvalidContentException(content);
+			}
+			else if(type.equals("textfile")){
+				TextFile txt = new TextFile(filename, user.get_mask(), get_idseq(), dt, user, content);
+				dir.addFiles(txt);
+			}
+			else if(type.equals("app")){
+				Application app = new Application(filename, user.get_mask(), get_idseq(), dt, user, content);
+				dir.addFiles(app);
+			}
+			else if(type.equals("link")){
+				if(!content.equals("CENAS")){
+					Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
+					dir.addFiles(link);
+				}else
+					throw new InvalidContentException(content);
+			}else 
+				throw new InvalidTypeException(type);
+		}
+		else throw new InvalidPathSizeException();
 	}
 
+	
+	
+	
 	public Directory Directoryfrompath(String path){
 
 		int i;

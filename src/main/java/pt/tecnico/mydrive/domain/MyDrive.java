@@ -5,9 +5,12 @@ import org.joda.time.DateTime;
 
 import pt.ist.fenixframework.FenixFramework;
 import java.io.File;
+
+import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
 import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
+import pt.tecnico.mydrive.exceptions.InvalidTypeException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginIsInvalidException;
@@ -87,7 +90,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		}
 
 
-		public void createFile(long token, String filename, String type, String content)throws InvalidPathSizeException, LoginDoesNotExistException, InvalidContentException{
+		public void createFile(long token, String filename, String type, String content)
+				throws InvalidPathSizeException, LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException{
 
 			try{
 
@@ -104,7 +108,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				throw e;
 			}catch (InvalidContentException e){
 				throw e;
-			} 
+			}catch (InvalidTypeException e){
+				throw e;
+			}catch (FileAlreadyExistsException e){
+				throw e;
+			}
 		}
 
 

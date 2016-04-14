@@ -1,6 +1,7 @@
 package pt.tecnico.mydrive.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
@@ -48,17 +49,17 @@ public class WriteFileTest extends AbstractServiceTest{
         final String username = "henrique";
         long token1 = md.loginUser(username,username);
         
-        Login login = getLoginbyToken(token1);
+        Login login = md.getLoginbyToken(token1);
 		Directory dir = login.getCurrentdirectory();
         
 		
 		WriteFileService service = new WriteFileService("testtxt1", token1, "ola eu sou o rafael santos");
 		service.execute();
 		
+		
 		File file = dir.getFile("filename");
 		assertNotNull("file does not exist", file);
-		assertNotEquals("Cant write to directory", )
-		assertEquals("content was not altered", file.ge)
+		assertNotEquals("Cant write to directory", file, )
         ////ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/Downloads/Unseen/xxx");
         ////service.execute();
 
