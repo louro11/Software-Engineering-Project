@@ -1,7 +1,6 @@
 package pt.tecnico.mydrive.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -36,27 +35,31 @@ public class CreateDirectoryTest extends AbstractServiceTest {
 	/** Todos os testes success tem de ter os Assert a funcionar **/
 
 
-    //@Test
-    //public void success_1() {
+    @Test
+    public void success_1() {
 
 
-        //final String userName = "Henrip";
-        //long token_rip = md.loginUser(userName,userName);
+        final String userName = "Henrip";
+        long token_rip = md.loginUser(userName,userName);
 
-        ////CreateFileService service = new ChangeFileService(token_rip, "D", "dir", "");
-        ////service.execute();
+        CreateFileService service = new CreateFileService(token_rip, "D", "dir", "");
+        service.execute();
 
-    //}
+				fail("This type: \"dir\" is inavalid");
 
-    //@Test
-    //public void success_2() {
+    }
+
+    @Test
+    public void success_2() {
 
 
-        //final String userName = "Henrip";
-        //long token_rip = md.loginUser(userName,userName);
+        final String userName = "Henrip";
+        long token_rip = md.loginUser(userName,userName);
 
-        ////CreateFileService service = new ChangeFileService(token_rip, "HappyD", "dir", "Upsi daysi! ( ͡° ͜ʖ ͡°) ");
-        ////service.execute();
+        CreateFileService service = new CreateFileService(token_rip, "HappyD", "dir", "Upsi daysi! ( ͡° ͜ʖ ͡°) ");
+        service.execute();
 
-    //}
+				fail();
+
+    }
 }

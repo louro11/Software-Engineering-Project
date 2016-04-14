@@ -132,7 +132,7 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-	
+
 	public void removeFileByName(User user, Directory current, String name) throws FileNotFoundException, PermitionException{
 
 
@@ -168,11 +168,11 @@ public class FileSystem extends FileSystem_Base {
 
 
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
 
 
@@ -241,7 +241,7 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 
-	public void createFile(Directory dir, User user, String filename, String type, String content) 
+	public void createFile(Directory dir, User user, String filename, String type, String content)
 			throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException{
 
 		String path = filename + dir.get_name(); // / esta no filename? no.
@@ -255,18 +255,18 @@ public class FileSystem extends FileSystem_Base {
 			path += curdir.get_name();
 			bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
 		}
-		
+
 		for (File file : dir.getFilesSet()){
 			if(file.get_name().equals(filename)){
 				throw new FileAlreadyExistsException(filename);
 			}
 		}
-		
+
 		if((path.length() + bars)<=1024){
 			IncrementIdseq();
 			DateTime dt = new DateTime();
 			if(type.equals("directory")){
-				if(!(content.equals(""))){ //directorias nao tem conteudo
+				if(content.equals("")){ //directorias nao tem conteudo
 					Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
 					dir.addFiles(direct);
 				}else
@@ -286,15 +286,15 @@ public class FileSystem extends FileSystem_Base {
 					dir.addFiles(link);
 				}else
 					throw new InvalidContentException(content);
-			}else 
+			}else
 				throw new InvalidTypeException(type);
 		}
 		else throw new InvalidPathSizeException();
 	}
 
-	
-	
-	
+
+
+
 	public Directory Directoryfrompath(String path){
 
 		int i;
