@@ -7,11 +7,13 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import pt.tecnico.mydrive.exceptions.InvalidPathException;
+import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.tecnico.mydrive.service.MyDriveService;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 
 
 import pt.tecnico.mydrive.domain.MyDrive;
+import pt.tecnico.mydrive.domain.TextFile;
 import pt.tecnico.mydrive.domain.User;
 import pt.tecnico.mydrive.domain.File;
 import pt.tecnico.mydrive.domain.Directory;
@@ -41,8 +43,8 @@ public class WriteFileTest extends AbstractServiceTest{
     	md.createFile(token2, "testlink2", "link", "/some/path");
     }
     
-    @Test //permission
-    public void success_1() {
+    @Test 
+    public void success() {
         
     	MyDrive md = MyDriveService.getMydrive();
         
@@ -58,13 +60,52 @@ public class WriteFileTest extends AbstractServiceTest{
 		
 		
 		File file = dir.getFile("testtxt1");
+		
 		assertNotNull("file does not exist", file);
 		//assertNotEquals("Cant write to directory", file, ) //nao pode escrever para uma directoria
 		assertEquals("Insufficient permissions", file.get_permission(), user.get_mask());
 		
-       
-
-        ////assertEquals("Invalid access: directory not reachable", "/Downloads/Unseen/xxx", MyDriveService.getCurrentDirectory().get_name());
     }
+    
+    //ficheiro nao existe
+    @Test(expected = FileNotFoundException.class)
+    public void fileNotExists() {
+    	
+    	MyDrive md = MyDriveService.getMydrive();
+        final String username = "henrique";
+        long token2 = md.loginUser(username,username);
+        
+        Login login = md.getLoginbyToken(token2);
+		Directory dir = login.getCurrentdirectory();
+		
+        final String filename = "carlos";
+        /*
+        WriteFileservice = new WriteFileService(filename, token2, "something");
+        service.execute();*/
+    }
+    
+    //no permission, usar tenta alterar um ficheiro que nao e dele, nao vai funcionar :/
+    @Test(expected = PermitionException.class)
+    public void insufficientPermissions() {
+    	
+    	MyDrive md = MyDriveService.getMydrive();
+    	
+        final String username1 = "rafa";
+        long token1 = md.loginUser(username1,username1);
+        Login login1 = md.getLoginbyToken(token1);
+		
+		final String username2= "henrique";
+        long token2 = md.loginUser(username2,username2);
+        Login login2 = md.getLoginbyToken(token2);
+		
+        final String filename = "testtxt2";
+   
+        
+        /*
+        WriteFileservice = new WriteFileService(filename, token1, "something");
+        service.execute();*/
+    }
+    
+    
     
 }
