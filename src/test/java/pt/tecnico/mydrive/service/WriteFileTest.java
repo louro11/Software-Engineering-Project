@@ -43,7 +43,7 @@ public class WriteFileTest extends AbstractServiceTest{
     
     @Test //permission
     public void success_1() {
-        /*
+        
     	MyDrive md = MyDriveService.getMydrive();
         
         final String username = "henrique";
@@ -51,19 +51,18 @@ public class WriteFileTest extends AbstractServiceTest{
         
         Login login = md.getLoginbyToken(token1);
 		Directory dir = login.getCurrentdirectory();
-        
+        User user = login.getUser();
 		
-		WriteFileService service = new WriteFileService("testtxt1", token1, "ola eu sou o rafael santos");
-		service.execute();
+		//WriteFileService service = new WriteFileService("testtxt1", token1, "ola eu sou o rafael santos");
+		//service.execute();
 		
 		
-		File file = dir.getFile("filename");
+		File file = dir.getFile("testtxt1");
 		assertNotNull("file does not exist", file);
-		assertNotEquals("Cant write to directory", file, )
-        ////ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/Downloads/Unseen/xxx");
-        ////service.execute();
-
-       */
+		//assertNotEquals("Cant write to directory", file, ) //nao pode escrever para uma directoria
+		assertEquals("Insufficient permissions", file.get_permission(), user.get_mask());
+		
+       
 
         ////assertEquals("Invalid access: directory not reachable", "/Downloads/Unseen/xxx", MyDriveService.getCurrentDirectory().get_name());
     }

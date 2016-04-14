@@ -281,7 +281,7 @@ public class FileSystem extends FileSystem_Base {
 				dir.addFiles(app);
 			}
 			else if(type.equals("link")){
-				if(!content.equals("CENAS")){
+				if(!content.equals("CENAS")){ //TODO
 					Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
 					dir.addFiles(link);
 				}else
