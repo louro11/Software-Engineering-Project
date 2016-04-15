@@ -17,21 +17,13 @@ import pt.tecnico.mydrive.domain.Login;
 
 public class ListDirectoryTest extends AbstractServiceTest {
 
-	private MyDrive md;
+	private MyDrive md = MyDrive.getInstance();
 
 
-	@Before
-    public void setUp(){
+    protected void populate(){}
 
-        md = MyDrive.getInstance();
-	} 
-     
-    @After
-    public void tearDown() {
-        md=null;
-	 }
+       
 
 	 
-
 
 }

@@ -1,7 +1,6 @@
 package pt.tecnico.mydrive.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -91,35 +90,35 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
 	/** Todos os testes success tem de ter os Assert a funcionar **/
 	
 	
-    //@Test
-    //public void successChangeToOwnedDir() {
+    @Test
+    public void successChangeToOwnedDir() {
         
         
-        //final String userName = "henrique";
-        //long token_riri = md.loginUser(userName,userName);
+        final String userName = "henrique";
+        long token_riri = md.loginUser(userName,userName);
         
-        ////ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/Downloads/Unseen/xxx");
-        ////service.execute();
+        ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/Downloads/Unseen/xxx");
+        service.execute();
 
        
 
-        ////assertEquals("Invalid access: directory not reachable", "/Downloads/Unseen/xxx", MyDriveService.getCurrentDirectory().get_name());
-    //}
+        assertEquals("Invalid access: directory not reachable", "/Downloads/Unseen/xxx", MyDriveService.getCurrentDirectory().get_name());
+    }
     
-    //@Test
-    //public void successChangeThroughLink() {
+    @Test
+    public void successChangeThroughLink() {
         
         
-        //final String userName = "duarte";
-        //long token_riri = md.loginUser(userName,userName);
+        final String userName = "duarte";
+        long token_riri = md.loginUser(userName,userName);
         
-        ////ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/duarte/Pictures/Finlandia");
-        ////service.execute();
+        ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/duarte/Pictures/Finlandia");
+        service.execute();
 
       
         
-        ////assertEquals("Invalid access: directory not reachable", "/home/duarte/Pictures/Finlandia", MyDriveService.getCurrentDirectory().get_name());
-    //}
+        assertEquals("Invalid access: directory not reachable", "/home/duarte/Pictures/Finlandia", MyDriveService.getCurrentDirectory().get_name());
+    }
     
     
     
@@ -127,39 +126,40 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
     
     /** Todos os testes de insuccesso não precisam de Asserts **/
 
-    //@Test(expected = InvalidPathException.class)
+    @Test(expected = InvalidPathException.class)
     
-    //public void ChangetoInvalidDirectory() {
+    public void ChangetoInvalidDirectory() {
         
-        //final String userName = "henrique";
-        //long token_riri = md.loginUser(userName,userName);
+        final String userName = "henrique";
+        long token_riri = md.loginUser(userName,userName);
         
-        ////ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/duarte/Documents/Tecnico");
-        ////service.execute();
-    //}
+        //ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/duarte/Documents/Tecnico");
+        //service.execute();
+    }
     
     
-    //@Test(expected = InvalidPathException.class)
+    @Test(expected = InvalidPathException.class)
     
-    //public void ChangetoRootDirectory() {
+    public void ChangetoRootDirectory() {
         
-        //final String userName = "duarte";
-        //long token_riri = md.loginUser(userName,userName);
+        final String userName = "duarte";
+        long token_riri = md.loginUser(userName,userName);
         
-        ////ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/root");
-        ////service.execute();
-    //}
+        ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/root");
+        service.execute();
+    }
     
 
-    //@Test(expected = FileNotFoundException.class)
+    @Test(expected = FileNotFoundException.class)
     
-    //public void DirectoryNotFound() {
+    public void DirectoryNotFound() {
         
-        //final String userName = "henrique";
-        //long token_riri = md.loginUser(userName,userName);
+        final String userName = "henrique";
+        long token_riri = md.loginUser(userName,userName);
         
-        ////ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/henrique/downloads/Unseen");
-        ////service.execute();
+        ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/henrique/downloads/Unseen");
+        service.execute();
     
-    //}
+    }
+    
 }

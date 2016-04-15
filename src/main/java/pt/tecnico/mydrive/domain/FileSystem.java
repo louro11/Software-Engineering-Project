@@ -112,7 +112,7 @@ public class FileSystem extends FileSystem_Base {
 
 				if (file.get_name().equals(token[token.length-1])){
 
-					if(user.hasDeletePermission(file)){
+					if(user.hasDeletePermission(file) && user.hasDeletePermission(parent)){
 
 						file.remove();
 					}
