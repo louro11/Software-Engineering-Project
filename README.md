@@ -15,7 +15,7 @@
   <tr>
     <td align="center">
       <img
-        src="https://imgflip.com/s/meme/Leonardo-Dicaprio-Cheers.jpg"
+        src="https://pbs.twimg.com/media/BLDFrT5CcAARXVI.jpg"
         href="https://github.com/HenriqueCarlos"
         alt="Henrique Carlos"
       >
