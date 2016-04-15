@@ -27,38 +27,34 @@ public class CreateLinkTest extends AbstractServiceTest {
 
 		long token_rip = md.loginUser("Henrip","Henrip");
 
-		//não deve de estar bem -> md.createFile(token_rip, "D", "dir", "");
-
-    //não deve de estar bem -> md.createFile(token_rip, "HappyD", "dir", "Upsi daysi! ( ͡° ͜ʖ ͡°) ");
 
   }
-	/** Todos os testes success tem de ter os Assert a funcionar **/
 
 
-    //@Test
-    //public void success_1() {
+    @Test
+   	public void success_1() {
 
 
-        //final String userName = "Henrip";
-        //long token_rip = md.loginUser(userName,userName);
+        final String userName = "Henrip";
+        long token_rip = md.loginUser(userName,userName);
 
-        ////CreateFileService service = new CreateFileService(token_rip, "Dlink", "link", "");
-        ////service.execute();
+        CreateFileService service = new CreateFileService(token_rip, "Dlink", "link", "");
+        service.execute();
 
-				////fail("This type: \"link\" is inavalid");
+				fail("This type: \"link\" is inavalid");
 
-    //}
+    }
 
-    //@Test
-    //public void success_2() {
+    @Test
+    public void success_2() {
 
 
-        //final String userName = "Henrip";
-        //long token_rip = md.loginUser(userName,userName);
+        final String userName = "Henrip";
+        long token_rip = md.loginUser(userName,userName);
 
-        ////CreateFileService service = new ChangeFileService(token_rip, "Fappylink", "link", "/Documents/Fappy");
-        ////service.execute();
-				////fail();
+        CreateFileService service = new ChangeFileService(token_rip, "Fappylink", "link", "/Documents/Fappy");
+        service.execute();
+				fail();
 
-    //}
+    }
 }
