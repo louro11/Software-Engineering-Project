@@ -61,25 +61,25 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
 		
 		md.createFile(token_duarte,"Documents", "directory","");
 		
-		md.changeCurrentDirectory(token_riri,"/home/henrique/Documents");
+		md.changeCurrentDirectory(token_riri,"/home/duarte/Documents");
 		
 		md.createFile(token_duarte,"Tecnico", "directory","");
 		
 		
-		md.changeCurrentDirectory(token_riri,"/home/henrique/");
+		md.changeCurrentDirectory(token_riri,"/home/duarte/");
 		
 		md.createFile(token_duarte,"Temporary", "directory","");
 		
-		md.changeCurrentDirectory(token_riri,"/home/henrique/Temporary");
+		md.changeCurrentDirectory(token_riri,"/home/duarte/Temporary");
 		
 		md.createFile(token_duarte,"Finlandia-BoobTrip", "directory","");
 		
 		
-		md.changeCurrentDirectory(token_riri,"/home/henrique/");
+		md.changeCurrentDirectory(token_riri,"/home/duarte/");
 		
 		md.createFile(token_duarte, "Pictures", "directory", "" );
 		
-		md.changeCurrentDirectory(token_riri,"/home/henrique/Pictures");
+		md.changeCurrentDirectory(token_riri,"/home/duarte/Pictures");
 		
 		md.createFile(token_duarte, "Finlandia", "link", "/home/duarte/Temporary/Finlandia-BoobTrip" );
 		
