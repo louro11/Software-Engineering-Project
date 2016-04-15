@@ -1,5 +1,9 @@
 package pt.tecnico.mydrive.service;
 
+import java.util.*;
+import org.joda.time.DateTime;
+
+
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -17,7 +21,7 @@ import pt.tecnico.mydrive.domain.Login;
 
 public class ReadFileTest extends AbstractServiceTest {
 
-	private MyDrive md = MyDrive.getInstance();;
+	private MyDrive md = MyDrive.getInstance();
 	
 	
 	public void populate(){}
@@ -33,10 +37,11 @@ public class ReadFileTest extends AbstractServiceTest {
 
         md.createFile(token, "file.txt", "textfile", "do not read");
 
-        //long randomtoken = rand.nextLong();
+        Random rand = new Random();
+        long randomtoken = rand.nextLong();
         
 
-        //ReadFileService service = new ReadFileService(randomtoken, "file.txt");
+        ReadFileService service = new ReadFileService(randomtoken, "file.txt");
 
         //assertEquals(log.warn(), service.execute());
         
@@ -46,13 +51,14 @@ public class ReadFileTest extends AbstractServiceTest {
     @Test(expected = FileNotFoundException.class)
     public void fileDoesNotExist(){
 
-    	final String userName = "claudia";
+    	String userName = "claudia";
         md.createUser(userName);
         long token = md.loginUser(userName,userName); 
+        
 
-        //ReadFileService service = new ReadFileService(randomtoken, "HowToDoAProject.txt");
+        ReadFileService service = new ReadFileService(token, "HowToDoAProject.txt");
 
-        //service.execute();
+        service.execute();
     }
 
 

@@ -60,7 +60,7 @@ public class FileSystem extends FileSystem_Base {
 
     		for (File file: currentdir.getFilesSet()){
 
-				if (file.get_name().equals(token[i])){
+				if (file.get_name().equals(token[i]) && user.hasReadPermission(currentdir)){
 
 					currentdir = (Directory) file;
 
