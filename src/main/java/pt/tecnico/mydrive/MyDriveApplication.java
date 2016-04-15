@@ -33,19 +33,20 @@ public class MyDriveApplication{
 
 
 		System.out.println("*** Welcome to the MyDrive application! ***");
-		/*
+
 		try {
 
-		setup();
+		init();
+		//setup();
 
 
-		for (String s: args) scanXml(new File(s));
+		//for (String s: args) scanXml(new File(s));
 
 		//print();
 		printXml();
 
 		}finally { FenixFramework.shutdown(); }
-*/
+
 	}
     //close issue
 
@@ -56,6 +57,7 @@ public class MyDriveApplication{
     public static void init() { // empty mydrive
 
         log.trace("Init: " + FenixFramework.getDomainRoot());
+		MyDrive.getInstance();
 		/** MyDrive.getInstance().cleanup();    deviamos pensar em fazer isto, pode ser importante  **/
 
     }
@@ -98,7 +100,7 @@ public class MyDriveApplication{
 
 		//ponto 7
 		//closed issue
-		//String files = md.listDirectory("/home"); 
+		//String files = md.listDirectory("/home");
 		//String cont = md.readfile("/home/badjoraz");
 		//System.out.println(cont);
 		//System.out.println(files);

@@ -6,6 +6,9 @@ import org.joda.time.DateTime;
 import pt.ist.fenixframework.FenixFramework;
 import java.io.File;
 
+import pt.tecnico.mydrive.exceptions.AccessDeniedException;
+import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
+import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
@@ -88,10 +91,54 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			catch (LoginDoesNotExistException e){}
 
 		}
+        
+        
+        public String readFile(long token, String filename)throws LoginDoesNotExistException, CantReadDirectoryException, 
+        PermitionException, AccessDeniedException{
+        	try{
+        		Login login = getLoginbyToken(token);
+        		Directory dir = login.getCurrentdirectory();
+        		
+        		User user = login.getUser();
+        		
+        		return getFilesystem().readFile(dir, user, filename);
+        		
+        	}catch(LoginDoesNotExistException e){
+        		throw e;
+        	}catch (CantReadDirectoryException e){
+				throw e;
+			}catch (PermitionException e){
+				throw e;
+			}catch (AccessDeniedException e){
+				throw e;
+			}
+        }
+        
+        public void writeToFile(long token, String filename, String content) throws LoginDoesNotExistException, 
+        CantWriteToDirectoryException, PermitionException, AccessDeniedException{
+        	try{
+
+				Login login = getLoginbyToken(token);
+				Directory dir = login.getCurrentdirectory();
+
+				User user = login.getUser();
+				getFilesystem().writeToFile(dir, user, filename, content);
 
 
-		public void createFile(long token, String filename, String type, String content)
-				throws InvalidPathSizeException, LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException{
+			}catch (LoginDoesNotExistException e){
+				throw e;
+			}catch (CantWriteToDirectoryException e){
+				throw e;
+			}catch (PermitionException e){
+				throw e;
+			}catch (AccessDeniedException e){
+				throw e;
+			}
+        }
+        
+
+		public void createFile(long token, String filename, String type, String content) throws InvalidPathSizeException, 
+		LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException, PermitionException{
 
 			try{
 
@@ -103,6 +150,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 			}catch (LoginDoesNotExistException e){
+				throw e;
+			}catch (PermitionException e){
 				throw e;
 			}catch (InvalidPathSizeException e){
 				throw e;
@@ -188,7 +237,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-		public void deleteFileByPath(long token, String path){
+		public void deleteFileByPath(long token, String path) throws LoginDoesNotExistException, FileNotFoundException, PermitionException  {
 
 
 			try{
@@ -202,15 +251,35 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
-			catch (FileNotFoundException e){System.out.println(e.getMessage());}
-			catch (PermitionException e){System.out.println(e.getMessage());}
+			catch (LoginDoesNotExistException e){ throw e;}
+			catch (FileNotFoundException e){throw e;}
+			catch (PermitionException e){throw e;}
 
 		}
-		
-		
-		
-		public void deleteFileByName(long token, String name){
+
+			public boolean hasFile( long token, String name ){
+				try{
+
+				Login login = getLoginbyToken(token);
+
+				User user = login.getUser();
+
+				Directory current = login.getCurrentdirectory();
+
+				return current.hasFile(name);
+
+				}
+
+				catch (LoginDoesNotExistException e){throw e;}
+				catch (FileNotFoundException e){throw e;}
+				catch (PermitionException e){throw e;}
+
+
+			}
+
+
+
+		public void deleteFileByName(long token, String name) throws LoginDoesNotExistException, FileNotFoundException, PermitionException{
 
 
 			try{
@@ -218,7 +287,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				Login login = getLoginbyToken(token);
 
 				User user = login.getUser();
-				
+
 				Directory current = login.getCurrentdirectory();
 
 				getFilesystem().removeFileByName(user,current,name);
@@ -226,9 +295,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
-			catch (FileNotFoundException e){System.out.println(e.getMessage());}
-			catch (PermitionException e){System.out.println(e.getMessage());}
+			catch (LoginDoesNotExistException e){ throw e; }
+			catch (FileNotFoundException e){ throw e; }
+			catch (PermitionException e){ throw e; }
 
 		}
 
@@ -260,6 +329,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				getFilesystem().xmlImport(element);}
 
 		}
+
+
 
 
 		public long loginUser(String username, String password){

@@ -39,28 +39,31 @@ public class DeleteFileTest extends AbstractServiceTest{
     }
 
 
-    //  O assert nao funciona bem com metodos void, temos de mudar o execute para devolver uma string?
-    // @Test
-    // public void success(){
-    //     final String userName = "Harry";
-    //
-    //     long token_harry = md.loginUser(userName, userName);
-    //
-    //     DeleteFileService dfs = new DeleteFileService(token_harry,"GinnyLeaked");
-    //     assertNull( dfs.execute()); //FALSE ou NULL ASSERT
-    //
-    // }
-    //
-    // @Test
-    // public void successNameWithPath(){
-    //     final string userName = "Harry";
-    //
-    //     long token_harry = md.loginUser(userName, userName);
-    //
-    //     DeleteFileService dfs = new DeleteFileService(token_harry,"/GinnyLeaked/RonLeaked");
-    //     assertNull( dfs.execute()); //FALSE ou NULL ASSERT
-    //
-    // }
+     //O assert nao funciona bem com metodos void, temos de mudar o execute para devolver uma string?
+    @Test
+    public void success(){
+        final String userName = "Harry";
+
+        long token_harry = md.loginUser(userName, userName);
+
+        DeleteFileService dfs = new DeleteFileService(token_harry,"GinnyLeaked");
+        dfs.execute();
+        assertFalse( md.hasFile(token_harry, "GinnyLeaked") ); //FALSE ou NULL ASSERT
+
+    }
+
+    @Test
+    public void successNameWithPath(){
+        final String userName = "Harry";
+
+        long token_harry = md.loginUser(userName, userName);
+
+        DeleteFileService dfs = new DeleteFileService(token_harry,"/Harry/GinnyLeaked");
+         dfs.execute();
+
+        assertFalse( md.hasFile(token_harry,"GinnyLeaked")); //FALSE ou NULL ASSERT
+
+    }
     //
     // @Test
     // public void successWithoutLoginUser(){

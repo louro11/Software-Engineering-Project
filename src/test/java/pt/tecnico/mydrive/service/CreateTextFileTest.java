@@ -15,7 +15,7 @@ import pt.tecnico.mydrive.domain.Directory;
 import pt.tecnico.mydrive.domain.Login;
 
 
-public class CreateLinkTest extends AbstractServiceTest {
+public class CreateTextFileTest extends AbstractServiceTest {
 
 
 	MyDrive md = MyDrive.getInstance();
@@ -35,30 +35,17 @@ public class CreateLinkTest extends AbstractServiceTest {
 	/** Todos os testes success tem de ter os Assert a funcionar **/
 
 
-    //@Test
-    //public void success_1() {
+    @Test
+    public void success_1() {
 
 
-        //final String userName = "Henrip";
-        //long token_rip = md.loginUser(userName,userName);
+        final String userName = "Henrip";
+        long token_rip = md.loginUser(userName,userName);
 
-        ////CreateFileService service = new CreateFileService(token_rip, "Dlink", "link", "");
-        ////service.execute();
+        CreateFileService service = new CreateFileService(token_rip, "HLgameplan", "textfile", "4Dcinema----> check!");
+        service.execute();
 
-				////fail("This type: \"link\" is inavalid");
+				fail("This type: \"textfile\" is inavalid");
 
-    //}
-
-    //@Test
-    //public void success_2() {
-
-
-        //final String userName = "Henrip";
-        //long token_rip = md.loginUser(userName,userName);
-
-        ////CreateFileService service = new ChangeFileService(token_rip, "Fappylink", "link", "/Documents/Fappy");
-        ////service.execute();
-				////fail();
-
-    //}
+    }
 }

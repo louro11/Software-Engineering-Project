@@ -2,6 +2,9 @@ package pt.tecnico.mydrive.domain;
 
 import java.util.*;
 
+import pt.tecnico.mydrive.exceptions.AccessDeniedException;
+import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
+import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
@@ -132,7 +135,7 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-	
+
 	public void removeFileByName(User user, Directory current, String name) throws FileNotFoundException, PermitionException{
 
 
@@ -168,11 +171,11 @@ public class FileSystem extends FileSystem_Base {
 
 
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
 
 
@@ -239,12 +242,54 @@ public class FileSystem extends FileSystem_Base {
     	}
 
 	}
+	
+	public String readFile(Directory dir, User user, String filename)throws CantReadDirectoryException, FileNotFoundException, PermitionException{
+		try{
+			File file = dir.getFile(filename);
+			if (file.isCDiable()){
+				throw new CantReadDirectoryException(filename);
+			}
+			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
+				throw new PermitionException(file.get_permission());
+			}
+			
+			if(!((file.getOwner().get_username()).equals(user.get_username()))){ //nao deixa ler ficheiros de outros users
+				throw new AccessDeniedException(file.getOwner().get_username());
+			}
+			return file.readFile(); //can i do this?
+		}catch(FileNotFoundException e){
+			throw e;
+		}
+	}
 
+	public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException, 
+	FileNotFoundException, PermitionException, AccessDeniedException{
+		try{
+			File file = dir.getFile(filename);
+			if(file.isCDiable()){
+				throw new CantWriteToDirectoryException(filename);
+			}
+			
+			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
+				throw new PermitionException(file.get_permission());
+			}
+			
+			if(!((file.getOwner().get_username()).equals(user.get_username()))){
+				throw new AccessDeniedException(file.getOwner().get_username());
+			}
+			
+			file.writefile(content); //posso fazer assim?
+			
+		}catch (FileNotFoundException e){
+			throw e;
+		}
+		
+	}
 
-	public void createFile(Directory dir, User user, String filename, String type, String content) 
-			throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException{
+	public void createFile(Directory dir, User user, String filename, String type, String content)
+			throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
 
-		String path = filename + dir.get_name(); // / esta no filename? no.
+		String path = filename + dir.get_name(); 
 		Directory maindir = getMaindir();
 		Directory curdir=dir;
 
@@ -255,18 +300,20 @@ public class FileSystem extends FileSystem_Base {
 			path += curdir.get_name();
 			bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
 		}
-		
+
 		for (File file : dir.getFilesSet()){
 			if(file.get_name().equals(filename)){
 				throw new FileAlreadyExistsException(filename);
 			}
 		}
-		
+		if(!(user.hasWritePermission(dir))){
+			throw new PermitionException(dir.get_permission());
+		}
 		if((path.length() + bars)<=1024){
 			IncrementIdseq();
 			DateTime dt = new DateTime();
 			if(type.equals("directory")){
-				if(!(content.equals(""))){ //directorias nao tem conteudo
+				if(content.equals("")){ //directorias nao tem conteudo
 					Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
 					dir.addFiles(direct);
 				}else
@@ -281,20 +328,28 @@ public class FileSystem extends FileSystem_Base {
 				dir.addFiles(app);
 			}
 			else if(type.equals("link")){
-				if(!content.equals("CENAS")){ //TODO
-					Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
-					dir.addFiles(link);
-				}else
-					throw new InvalidContentException(content);
-			}else 
+				curdir = maindir;
+				String[] token = path.split("/");
+		    	for (int i=1; i<token.length;i++){
+		    		if(curdir.getFilesSet().size()!=0){
+						for (File file: curdir.getFilesSet()){
+							if (file.get_name().equals(token[i])){
+								curdir = (Directory) file;
+							}else throw new InvalidContentException(content);	
+						}
+		    		}else throw new InvalidContentException(content);
+		    	}
+		    	Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
+				dir.addFiles(link);
+			}else
 				throw new InvalidTypeException(type);
 		}
 		else throw new InvalidPathSizeException();
 	}
 
-	
-	
-	
+
+
+
 	public Directory Directoryfrompath(String path){
 
 		int i;
@@ -356,6 +411,7 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 	public void writefile (Login login, User user, String name, String content) throws InvalidFileNameException {
+
 
 		Directory currentdir = getMaindir() ;
 		TextFile tf = new TextFile();
