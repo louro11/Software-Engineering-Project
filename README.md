@@ -15,7 +15,7 @@
   <tr>
     <td align="center">
       <img
-        src="https://pbs.twimg.com/media/BLDFrT5CcAARXVI.jpg"
+        src="https://avatars0.githubusercontent.com/u/9061189?v=3&s=400"
         href="https://github.com/HenriqueCarlos"
         alt="Henrique Carlos"
       >
