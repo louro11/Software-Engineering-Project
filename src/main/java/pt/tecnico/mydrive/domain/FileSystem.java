@@ -281,11 +281,19 @@ public class FileSystem extends FileSystem_Base {
 				dir.addFiles(app);
 			}
 			else if(type.equals("link")){
-				if(!content.equals("CENAS")){ //TODO
-					Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
-					dir.addFiles(link);
-				}else
-					throw new InvalidContentException(content);
+				curdir = maindir;
+				String[] token = path.split("/");
+		    	for (int i=1; i<token.length;i++){
+		    		if(curdir.getFilesSet().size()!=0){
+						for (File file: curdir.getFilesSet()){
+							if (file.get_name().equals(token[i])){
+								curdir = (Directory) file;
+							}else throw new InvalidContentException(content);	
+						}
+		    		}else throw new InvalidContentException(content);
+		    	}
+		    	Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
+				dir.addFiles(link);
 			}else
 				throw new InvalidTypeException(type);
 		}

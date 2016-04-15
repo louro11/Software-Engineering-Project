@@ -57,7 +57,7 @@ public class MyDriveApplication{
     public static void init() { // empty mydrive
 
         log.trace("Init: " + FenixFramework.getDomainRoot());
-				MyDrive.getInstance();
+		MyDrive.getInstance();
 		/** MyDrive.getInstance().cleanup();    deviamos pensar em fazer isto, pode ser importante  **/
 
     }
