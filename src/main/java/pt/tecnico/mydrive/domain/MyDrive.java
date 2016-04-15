@@ -83,8 +83,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				User user = login.getUser();
 
+		
 
-				getFilesystem().changeCurrentDirectory(login, user, path);
+				getFilesystem().changeCurrentDirectory(login, user, path); 
 
 			}
 			catch (FileNotFoundException e){System.out.println(e.getMessage());}

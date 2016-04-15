@@ -46,7 +46,7 @@ public class ReadFileTest extends AbstractServiceTest {
     @Test(expected = FileNotFoundException.class)
     public void fileDoesNotExist(){
 
-    	final String userName = "claudia";
+    	String userName = "claudia";
         md.createUser(userName);
         long token = md.loginUser(userName,userName); 
 
