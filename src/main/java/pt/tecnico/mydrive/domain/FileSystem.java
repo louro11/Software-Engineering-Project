@@ -377,6 +377,7 @@ public class FileSystem extends FileSystem_Base {
 		return aux;
 	}
 
+  //closes issue
 		public String listDirectory(Directory dir, User usr)throws PermitionException{
 
 
