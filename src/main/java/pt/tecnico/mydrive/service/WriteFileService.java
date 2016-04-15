@@ -1,23 +1,17 @@
 package pt.tecnico.mydrive.service;
 
-
-import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
-import pt.tecnico.mydrive.exceptions.InvalidContentException;
-import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
-import pt.tecnico.mydrive.exceptions.InvalidTypeException;
+import pt.tecnico.mydrive.exceptions.AccessDeniedException;
+import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
 
-public class CreateFileService extends MyDriveService {
-	
+public class WriteFileService extends MyDriveService{
 	private String _filename;
-	private String _type;
 	private String _content;
 	private long _token;
 	
-	public CreateFileService(long token, String filename, String type, String content){
+	public WriteFileService(long token, String filename, String content){
 		_filename=filename;
-		_type=type;
 		_content=content;
 	}
 	
@@ -47,18 +41,14 @@ public class CreateFileService extends MyDriveService {
 	
 	public final void dispatch(){
         try{
-	       getMydrive().createFile(_token,_filename, _type, _content);
+	       getMydrive().writeToFile(_token,_filename, _content);
         }catch (LoginDoesNotExistException e){
         	System.out.println(e.getMessage());
-        }catch (PermitionException e){
+        }catch (CantWriteToDirectoryException e){
         	System.out.println(e.getMessage());
-        }catch (InvalidPathSizeException e){
+        }catch (PermitionException  e){
         	System.out.println(e.getMessage());
-        }catch (InvalidContentException e){
-        	System.out.println(e.getMessage());
-        }catch (InvalidTypeException e){
-        	System.out.println(e.getMessage());
-        }catch (FileAlreadyExistsException e){
+        }catch (AccessDeniedException e){
         	System.out.println(e.getMessage());
         }
 	}

@@ -99,13 +99,16 @@ public class File extends File_Base {
 	}
 	
 
-
+    public String readFile(){
+    	return "";
+    }
+	
     public void writefile(String content){}
     
-    public boolean fileType(boolean isdir){
-    	
-    	return isdir;
-    }
+    public boolean isCDiable(){
+
+        return false;}
+    
 
 }
 

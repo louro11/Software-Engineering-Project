@@ -31,7 +31,7 @@
      
       	long token1 = md.loginUser("rafa", "rafa");
       	long token2 = md.loginUser("henrique","henrique");
-     
+      	
       	md.createFile(token1, "testdir1", "directory","");
       	md.createFile(token1, "testtxt1","textfile", "ola eu sou o rafa");
       	md.createFile(token1, "testapp1", "app", "I dunno wth goes here");
@@ -79,12 +79,13 @@
 		Directory dir = login.getCurrentdirectory();
 			
 		final String filename = "carlos";
-  /*
-  WriteFileservice = new WriteFileService(filename, token2, "something");
-  service.execute();*/
+  
+		WriteFileService service= new WriteFileService(token2, filename,"something");
+		service.execute();
       }
      
-      //no permission, usar tenta alterar um ficheiro que nao e dele, nao vai funcionar :/
+      //no permission, usar tenta alterar um ficheiro que nao e dele, tentar fazer com o root
+      
       @Test(expected = PermitionException.class)
       public void insufficientPermissions() {
      
@@ -100,10 +101,9 @@
 		
 		final String filename = "testtxt2";
 
-     
-          /*
-          WriteFileservice = new WriteFileService(filename, token1, "something");
-          service.execute();*/
+
+        WriteFileService service = new WriteFileService(token1,filename, "something");
+        service.execute();
       }
 
 

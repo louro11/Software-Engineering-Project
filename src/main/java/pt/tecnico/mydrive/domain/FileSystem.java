@@ -2,6 +2,9 @@ package pt.tecnico.mydrive.domain;
 
 import java.util.*;
 
+import pt.tecnico.mydrive.exceptions.AccessDeniedException;
+import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
+import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
@@ -239,12 +242,54 @@ public class FileSystem extends FileSystem_Base {
     	}
 
 	}
+	
+	public String readFile(Directory dir, User user, String filename)throws CantReadDirectoryException, FileNotFoundException, PermitionException{
+		try{
+			File file = dir.getFile(filename);
+			if (file.isCDiable()){
+				throw new CantReadDirectoryException(filename);
+			}
+			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
+				throw new PermitionException(file.get_permission());
+			}
+			
+			if(!((file.getOwner().get_username()).equals(user.get_username()))){ //nao deixa ler ficheiros de outros users
+				throw new AccessDeniedException(file.getOwner().get_username());
+			}
+			return file.readFile(); //can i do this?
+		}catch(FileNotFoundException e){
+			throw e;
+		}
+	}
 
+	public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException, 
+	FileNotFoundException, PermitionException, AccessDeniedException{
+		try{
+			File file = dir.getFile(filename);
+			if(file.isCDiable()){
+				throw new CantWriteToDirectoryException(filename);
+			}
+			
+			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
+				throw new PermitionException(file.get_permission());
+			}
+			
+			if(!((file.getOwner().get_username()).equals(user.get_username()))){
+				throw new AccessDeniedException(file.getOwner().get_username());
+			}
+			
+			file.writefile(content); //posso fazer assim?
+			
+		}catch (FileNotFoundException e){
+			throw e;
+		}
+		
+	}
 
 	public void createFile(Directory dir, User user, String filename, String type, String content)
-			throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException{
+			throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
 
-		String path = filename + dir.get_name(); // / esta no filename? no.
+		String path = filename + dir.get_name(); 
 		Directory maindir = getMaindir();
 		Directory curdir=dir;
 
@@ -261,7 +306,9 @@ public class FileSystem extends FileSystem_Base {
 				throw new FileAlreadyExistsException(filename);
 			}
 		}
-
+		if(!(user.hasWritePermission(dir))){
+			throw new PermitionException(dir.get_permission());
+		}
 		if((path.length() + bars)<=1024){
 			IncrementIdseq();
 			DateTime dt = new DateTime();
@@ -357,6 +404,7 @@ public class FileSystem extends FileSystem_Base {
       return tf.readfile();
 	}
 
+	
 	public void writefile (Login login, User user, String name, String content) throws FileNotFoundException {
 
 		Directory currentdir = getMaindir() ;

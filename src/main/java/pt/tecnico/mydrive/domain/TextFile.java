@@ -52,7 +52,7 @@ public class TextFile extends TextFile_Base {
 
     }
 
-
+    @Override
 	public boolean isCDiable(){
 
         return false;}
@@ -62,7 +62,7 @@ public class TextFile extends TextFile_Base {
 
         return true;}
 
-   
+    @Override
     public String readfile(){
 
 	
@@ -70,7 +70,8 @@ public class TextFile extends TextFile_Base {
 
 
     }
-
+    
+    @Override
     public void writefile(String content){
 
          set_content(content);
