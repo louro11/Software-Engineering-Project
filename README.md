@@ -15,7 +15,7 @@
   <tr>
     <td align="center">
       <img
-        src="https://avatars0.githubusercontent.com/u/9061189?v=3&s=400"
+        src="https://imgflip.com/s/meme/Leonardo-Dicaprio-Cheers.jpg"
         href="https://github.com/HenriqueCarlos"
         alt="Henrique Carlos"
       >
@@ -69,7 +69,7 @@
   <tr>
     <td align="center">
       <img
-        src="https://avatars2.githubusercontent.com/u/11570957?v=3&s=140"
+        src="https://avatars3.githubusercontent.com/u/11570957?v=3&u=d24ef00d999b39691f270ffbd842f2f1d397be20&s=140"
         href="https://github.com/rafa32"
         alt="Rafael Santos"
       >
