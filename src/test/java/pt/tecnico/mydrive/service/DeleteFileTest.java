@@ -54,13 +54,13 @@ public class DeleteFileTest extends AbstractServiceTest{
 
     @Test
     public void successNameWithPath(){
-        final string userName = "Harry";
+        final String userName = "Harry";
 
         long token_harry = md.loginUser(userName, userName);
 
         DeleteFileService dfs = new DeleteFileService(token_harry,"/Harry/GinnyLeaked");
          dfs.execute();
-         
+
         assertFalse( md.hasFile(token_harry,"GinnyLeaked")); //FALSE ou NULL ASSERT
 
     }
