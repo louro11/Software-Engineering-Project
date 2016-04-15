@@ -243,7 +243,7 @@ public class FileSystem extends FileSystem_Base {
     	}
 
 	}
-	
+
 	public String readFile(Directory dir, User user, String filename)throws CantReadDirectoryException, FileNotFoundException, PermitionException{
 		try{
 			File file = dir.getFile(filename);
@@ -253,7 +253,7 @@ public class FileSystem extends FileSystem_Base {
 			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
 				throw new PermitionException(file.get_permission());
 			}
-			
+
 			if(!((file.getOwner().get_username()).equals(user.get_username()))){ //nao deixa ler ficheiros de outros users
 				throw new AccessDeniedException(file.getOwner().get_username());
 			}
@@ -263,34 +263,34 @@ public class FileSystem extends FileSystem_Base {
 		}
 	}
 
-	public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException, 
+	public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException,
 	FileNotFoundException, PermitionException, AccessDeniedException{
 		try{
 			File file = dir.getFile(filename);
 			if(file.isCDiable()){
 				throw new CantWriteToDirectoryException(filename);
 			}
-			
+
 			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
 				throw new PermitionException(file.get_permission());
 			}
-			
+
 			if(!((file.getOwner().get_username()).equals(user.get_username()))){
 				throw new AccessDeniedException(file.getOwner().get_username());
 			}
-			
+
 			file.writefile(content); //posso fazer assim?
-			
+
 		}catch (FileNotFoundException e){
 			throw e;
 		}
-		
+
 	}
 
 	public void createFile(Directory dir, User user, String filename, String type, String content)
 			throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
 
-		String path = filename + dir.get_name(); 
+		String path = filename + dir.get_name();
 		Directory maindir = getMaindir();
 		Directory curdir=dir;
 
@@ -336,7 +336,7 @@ public class FileSystem extends FileSystem_Base {
 						for (File file: curdir.getFilesSet()){
 							if (file.get_name().equals(token[i])){
 								curdir = (Directory) file;
-							}else throw new InvalidContentException(content);	
+							}else throw new InvalidContentException(content);
 						}
 		    		}else throw new InvalidContentException(content);
 		    	}
@@ -380,7 +380,7 @@ public class FileSystem extends FileSystem_Base {
 		public String listDirectory(Directory dir, User usr)throws PermitionException{
 
 
-	     if(usr.isRoot() || (usr.hasReadPermission(dir) && dir.getOwner().equals(usr))){
+	     if(usr.isRoot() || usr.hasReadPermission(dir)){
 			       return dir.listDirectory();
            }
       else{
@@ -408,7 +408,7 @@ public class FileSystem extends FileSystem_Base {
 		}
 		else{
         	throw new PermitionException("This user: " + user.get_name() + " has no permission to read this file ");
-      }		
+      }
 	}
 
 	public void writefile (Login login, User user, String name, String content) throws InvalidFileNameException {
@@ -430,7 +430,7 @@ public class FileSystem extends FileSystem_Base {
        	}
        	else{
         	throw new PermitionException("This user: " + user.get_name() + " has no permission to write this file ");
-      	}		
+      	}
 	}
 
 
