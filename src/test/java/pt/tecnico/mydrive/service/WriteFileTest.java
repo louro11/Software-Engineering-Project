@@ -58,7 +58,7 @@
  		 //WriteFileService service = new WriteFileService("testtxt1", token1, "ola eu sou o rafael santos");
  		 //service.execute();
  		
- 		
+    
  		 File file = dir.getFile("testtxt1");
  		
  		 assertNotNull("file does not exist", file);
