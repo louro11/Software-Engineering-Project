@@ -16,6 +16,7 @@ import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
 import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
+import pt.tecnico.mydrive.exceptions.InvalidFileNameException;
 
 
 import org.joda.time.DateTime;
@@ -262,7 +263,7 @@ public class FileSystem extends FileSystem_Base {
 		}
 	}
 
-	/*public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException, 
+	public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException, 
 	FileNotFoundException, PermitionException, AccessDeniedException{
 		try{
 			File file = dir.getFile(filename);
@@ -284,7 +285,7 @@ public class FileSystem extends FileSystem_Base {
 			throw e;
 		}
 		
-	}*/
+	}
 
 	public void createFile(Directory dir, User user, String filename, String type, String content)
 			throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{

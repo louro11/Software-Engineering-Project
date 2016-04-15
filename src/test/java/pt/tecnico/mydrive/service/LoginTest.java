@@ -14,6 +14,7 @@ import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.tecnico.mydrive.service.MyDriveService;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
+import pt.tecnico.mydrive.exceptions.WrongPasswordException;
 
 
 import pt.tecnico.mydrive.domain.MyDrive;
@@ -31,19 +32,28 @@ public class LoginTest extends AbstractServiceTest{
     protected void populate() {
 
         md.createUser("henrique");
-        long tokenlog = md.loginUser("henrique", "password123");
+        md.loginUser("henrique", "password123");
 
 }
     // tests
     @Test(expected = UserDoesNotExistException.class)
     public void testLoginUserNotExist() throws Exception{
-        User user = set_username("Madalena");
-        loginUser(user,"batata");
+       
+        LoginService service = new LoginService("madLena", "batata");
+
+        service.dispatch();
         
     }
 
-    @Test(expected = LoginInvalidException.class)
+    @Test(expected = WrongPasswordException.class)
+    public void testWrongPassword() throws Exception{
+       
+        LoginService service = new LoginService("henrique", "tinhas");
 
+        service.dispatch();
+        
+    }
+}
 	
 	
 	

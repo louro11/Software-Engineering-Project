@@ -94,10 +94,10 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
     public void successChangeToOwnedDir() {
         
         
-        final String userName = "henrique";
-        long token_riri = md.loginUser(userName,userName);
+        String userName = "henrique";
+        long token_ri = md.loginUser(userName,userName);
         
-        ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/Downloads/Unseen/xxx");
+        ChangeDirectoryService service = new ChangeDirectoryService(token_ri, "/Downloads/Unseen/xxx");
         service.execute();
 
        
@@ -109,10 +109,10 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
     public void successChangeThroughLink() {
         
         
-        final String userName = "duarte";
-        long token_riri = md.loginUser(userName,userName);
+        String userName = "duarte";
+        long token_du = md.loginUser(userName,userName);
         
-        ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/duarte/Pictures/Finlandia");
+        ChangeDirectoryService service = new ChangeDirectoryService(token_du, "/home/duarte/Pictures/Finlandia");
         service.execute();
 
       
@@ -130,11 +130,11 @@ public class ChangeDirectoryTest extends AbstractServiceTest {
     
     public void ChangetoInvalidDirectory() {
         
-        final String userName = "henrique";
+        String userName = "henrique";
         long token_riri = md.loginUser(userName,userName);
         
-        //ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/duarte/Documents/Tecnico");
-        //service.execute();
+        ChangeDirectoryService service = new ChangeDirectoryService(token_riri, "/home/duarte/Documents/Tecnico");
+        service.execute();
     }
     
     
