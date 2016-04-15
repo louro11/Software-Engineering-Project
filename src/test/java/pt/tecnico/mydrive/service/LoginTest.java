@@ -31,6 +31,7 @@ public class LoginTest extends AbstractServiceTest{
 
     protected void populate() {
 
+  
         md.createUser("henrique");
         md.loginUser("henrique", "password123");
 
