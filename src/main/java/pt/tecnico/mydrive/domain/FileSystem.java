@@ -125,7 +125,7 @@ public class FileSystem extends FileSystem_Base {
 
 				else{
 
-					throw new FileNotFoundException(token[token.length-1]);
+					throw new FileNotFoundException("No such file or directory: " + token[token.length-1]);
 
 				}
 
@@ -162,7 +162,7 @@ public class FileSystem extends FileSystem_Base {
 
 				else{
 
-					throw new FileNotFoundException(name);
+					throw new FileNotFoundException("No such file or directory: " + name);
 
 				}
 
