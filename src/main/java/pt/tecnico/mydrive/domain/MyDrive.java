@@ -188,7 +188,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-		public void deleteFileByPath(long token, String path){
+		public void deleteFileByPath(long token, String path) throws LoginDoesNotExistException, FileNotFoundException, PermitionException  {
 
 
 			try{
@@ -202,15 +202,15 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
-			catch (FileNotFoundException e){System.out.println(e.getMessage());}
-			catch (PermitionException e){System.out.println(e.getMessage());}
+			catch (LoginDoesNotExistException e){ throw e;}
+			catch (FileNotFoundException e){throw e;}
+			catch (PermitionException e){throw e;}
 
 		}
 		
 		
 		
-		public void deleteFileByName(long token, String name){
+		public void deleteFileByName(long token, String name) throws LoginDoesNotExistException, FileNotFoundException, PermitionException{
 
 
 			try{
@@ -226,9 +226,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
-			catch (FileNotFoundException e){System.out.println(e.getMessage());}
-			catch (PermitionException e){System.out.println(e.getMessage());}
+			catch (LoginDoesNotExistException e){ throw e; }
+			catch (FileNotFoundException e){ throw e; }
+			catch (PermitionException e){ throw e; }
 
 		}
 
