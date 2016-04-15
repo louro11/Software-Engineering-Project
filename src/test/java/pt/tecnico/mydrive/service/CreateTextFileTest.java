@@ -27,12 +27,9 @@ public class CreateTextFileTest extends AbstractServiceTest {
 
 		long token_rip = md.loginUser("Henrip","Henrip");
 
-		//não deve de estar bem -> md.createFile(token_rip, "D", "dir", "");
-
-    //não deve de estar bem -> md.createFile(token_rip, "HappyD", "dir", "Upsi daysi! ( ͡° ͜ʖ ͡°) ");
 
   }
-	/** Todos os testes success tem de ter os Assert a funcionar **/
+
 
 
     @Test
