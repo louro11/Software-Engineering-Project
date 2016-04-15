@@ -207,9 +207,28 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			catch (PermitionException e){System.out.println(e.getMessage());}
 
 		}
-		
-		
-		
+
+			public boolean hasFile( long token, String name ){
+				try{
+
+				Login login = getLoginbyToken(token);
+
+				User user = login.getUser();
+
+				Directory current = login.getCurrentdirectory();
+
+				return current.hasFile(name);
+
+				}
+
+				catch (LoginDoesNotExistException e){throw e;}
+				catch (FileNotFoundException e){throw e;}
+				catch (PermitionException e){throw e;}
+
+
+			}
+
+
 		public void deleteFileByName(long token, String name){
 
 
@@ -218,7 +237,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				Login login = getLoginbyToken(token);
 
 				User user = login.getUser();
-				
+
 				Directory current = login.getCurrentdirectory();
 
 				getFilesystem().removeFileByName(user,current,name);
@@ -260,6 +279,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				getFilesystem().xmlImport(element);}
 
 		}
+
+
 
 
 		public long loginUser(String username, String password){

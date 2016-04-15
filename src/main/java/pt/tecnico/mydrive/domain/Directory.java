@@ -65,6 +65,16 @@ public class Directory extends Directory_Base {
       parent.addFiles(subdirectory);
    }
 
+   public boolean hasFile(String name){
+          for(File f : getFilesSet()) {
+              if(name.equals(f.get_name())){
+                  return true;
+              }
+          }
+          return false;
+
+   }
+
    public String listDirectory(){
 
 	   String s= "";
