@@ -52,7 +52,7 @@ public class CreateLinkTest extends AbstractServiceTest {
         final String userName = "Henrip";
         long token_rip = md.loginUser(userName,userName);
 
-        CreateFileService service = new ChangeFileService(token_rip, "Fappylink", "link", "/Documents/Fappy");
+        CreateFileService service = new CreateFileService(token_rip, "Fappylink", "link", "/Documents/Fappy");
         service.execute();
 				fail();
 

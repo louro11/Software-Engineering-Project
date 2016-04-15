@@ -62,7 +62,7 @@
  		 File file = dir.getFile("testtxt1");
  		
  		 assertNotNull("file does not exist", file);
- 		 //assertNotEquals("Cant write to directory", file, ) //nao pode escrever para uma directoria
+ 		 assertEquals("Cant write to directory", file.isCDiable(), false); //nao pode escrever para uma directoria
  		 assertEquals("Insufficient permissions", file.get_permission(), user.get_mask());
  		
       }
