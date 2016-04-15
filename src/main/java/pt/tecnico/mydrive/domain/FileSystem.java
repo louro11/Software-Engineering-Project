@@ -333,7 +333,8 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-	public String readfile(Login login, User user, String name) throws FileNotFoundException {
+	public String readfile(Login login, User user, String name) throws InvalidFileNameException {
+
 
 		Directory currentdir = getMaindir() ;
 		TextFile tf = new TextFile();
@@ -346,10 +347,15 @@ public class FileSystem extends FileSystem_Base {
 
 				}
 		}
-      return tf.readfile();
+		if (user.isRoot() || (user.hasReadPermission(tf) && tf.getOwner().equals(user))){
+			return tf.readfile();
+		}
+		else{
+        	throw new PermitionException("This user: " + user.get_name() + " has no permission to read this file ");
+      }		
 	}
 
-	public void writefile (Login login, User user, String name, String content) throws FileNotFoundException {
+	public void writefile (Login login, User user, String name, String content) throws InvalidFileNameException {
 
 		Directory currentdir = getMaindir() ;
 		TextFile tf = new TextFile();
@@ -362,7 +368,12 @@ public class FileSystem extends FileSystem_Base {
 
 				}
 		}
-       tf.writefile(content);
+		if (user.isRoot() || (user.hasReadPermission(tf) && tf.getOwner().equals(user))){
+       		tf.writefile(content);
+       	}
+       	else{
+        	throw new PermitionException("This user: " + user.get_name() + " has no permission to write this file ");
+      	}		
 	}
 
 
