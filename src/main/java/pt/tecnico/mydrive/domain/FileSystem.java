@@ -262,7 +262,7 @@ public class FileSystem extends FileSystem_Base {
 		}
 	}
 
-	public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException, 
+	/*public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException, 
 	FileNotFoundException, PermitionException, AccessDeniedException{
 		try{
 			File file = dir.getFile(filename);
@@ -284,7 +284,7 @@ public class FileSystem extends FileSystem_Base {
 			throw e;
 		}
 		
-	}
+	}*/
 
 	public void createFile(Directory dir, User user, String filename, String type, String content)
 			throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{

@@ -13,6 +13,7 @@ import pt.tecnico.mydrive.exceptions.InvalidPathException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.tecnico.mydrive.service.MyDriveService;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 
 
 import pt.tecnico.mydrive.domain.MyDrive;
@@ -25,57 +26,25 @@ import pt.tecnico.mydrive.domain.Login;
 
 public class LoginTest extends AbstractServiceTest{
 
-    // static members
+    MyDrive md = MyDrive.getInstance();
 
-    // one-time initialization and clean-up
-    @BeforeClass
-    public static void oneTimeSetUp() {
-    }
+    protected void populate() {
 
-    @AfterClass
-    public static void oneTimeTearDown() {
-    }
+        md.createUser("henrique");
+        long tokenlog = md.loginUser("henrique", "password123");
 
-    // members
-
-    private Login login;
-    private User user;
-    private Directory dir;
-    private DateTime dt;
-
-
-    // initialization and clean-up for each test
-    @Before
-    public void setUp() {
-        dt = new DateTime();
-        user = new User("HenriqueCarloss", "password123", "Henrique", "rwxd---", dir);
-        dir = new Directory("Henrique", 4, dt, "rwxd---", user);
-        login = new Login(user);
-
-        Random rand = new Random();
-        long token = rand.nextLong();
-
-    }
-
-    @After
-    public void tearDown() {
-        login = null;
-    }
-
+}
     // tests
     @Test(expected = UserDoesNotExistException.class)
     public void testLoginUserNotExist() throws Exception{
-        set_username("Madalena");
-        login.getUser();
-    }
-
-    @Test(expected = LoginDoesNotExistException.class)
-    public void testLoginNotExist() throws Exception{
-        token = rand.nextLong();
+        User user = set_username("Madalena");
+        loginUser(user,"batata");
+        
     }
 
     @Test(expected = LoginInvalidException.class)
-}	
+
+	
 	
 	
     
