@@ -15,12 +15,11 @@
 
 
 <table style="width:100%">
-  
+  <!--src="https://avatars0.githubusercontent.com/u/9061189?v=3&s=400"-->
   <tr>
     <td align="center">
       <img
-        <!--src="https://avatars0.githubusercontent.com/u/9061189?v=3&s=400"-->
-        src=http://www.opengeek.net/images/ogeek/creepy/creepy-looking-dude.jpg
+        src="http://www.opengeek.net/images/ogeek/creepy/creepy-looking-dude.jpg"
         href="https://github.com/HenriqueCarlos"
         alt="Henrique Carlos"
       >
