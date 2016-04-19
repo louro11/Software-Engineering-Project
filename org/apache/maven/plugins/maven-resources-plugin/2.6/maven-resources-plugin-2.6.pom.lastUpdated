@@ -1,4 +1,0 @@
-#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
-#Mon Mar 14 09:59:27 GMT 2016
-09d982e5b94dfb61c9f162ebed8644b6a8739a30@proxy.host.net\:80>@default-central-https\://repo.maven.apache.org/maven2/.lastUpdated=1457949567539
-https\://repo.maven.apache.org/maven2/.error=Could not transfer artifact org.apache.maven.plugins\:maven-resources-plugin\:pom\:2.6 from/to central (https\://repo.maven.apache.org/maven2)\: proxy.host.net
