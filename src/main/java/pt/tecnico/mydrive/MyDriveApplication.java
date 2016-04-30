@@ -69,6 +69,7 @@ public class MyDriveApplication{
 	//
   //       //log.trace("Setup: " + FenixFramework.getDomainRoot());
 	// 	//MyDrive md = MyDrive.getInstance();
+    	//FileSystem fs = md.getFileSystem();
 	//
 	// 	//Directory maindirectory= md.getCurrentdirectory();
 	//
