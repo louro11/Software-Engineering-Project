@@ -13,7 +13,7 @@ public class DirectoryNotFoundException extends FileSystemException{
 	}
 
 	public String getDirName() {
-        return fileName;
+        return dirName;
     }
 
 	@Override

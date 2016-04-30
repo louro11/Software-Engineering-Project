@@ -1,14 +1,14 @@
 package pt.tecnico.mydrive.exceptions;
 
-public class MydriveDoesNotExistException extends FileSystemException{
+public class MyDriveDoesNotExistException extends FileSystemException{
 
 	private static final long serialVersionUID = 1L;
 
-	public MydriveDoesNotExistException(){}
+	public MyDriveDoesNotExistException(){}
 
 	@Override
     public String getMessage(){
-		return "Mydrive does not exist.";
+		return "MyDrive does not exist.";
 	}
 
 }
