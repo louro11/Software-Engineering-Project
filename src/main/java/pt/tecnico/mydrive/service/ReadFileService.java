@@ -1,12 +1,16 @@
 package pt.tecnico.mydrive.service;
 
+import pt.tecnico.mydrive.domain.MyDrive;
+
 import pt.tecnico.mydrive.exceptions.AccessDeniedException;
-import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
+import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
+import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
 
 public class ReadFileService extends MyDriveService{
 	
+	private String _content;
 	private String _filename;
 	private long _token;
 	
@@ -38,17 +42,13 @@ public class ReadFileService extends MyDriveService{
 		
 	}
 	
-	public final void dispatch(){
-        try{
-	       System.out.println(getMydrive().readFile(_token,_filename));
-        }catch (LoginDoesNotExistException e){
-        	System.out.println(e.getMessage());
-        }catch (CantWriteToDirectoryException e){
-        	System.out.println(e.getMessage());
-        }catch (PermitionException  e){
-        	System.out.println(e.getMessage());
-        }catch (AccessDeniedException e){
-        	System.out.println(e.getMessage());
-        }
+	public final void dispatch() throws AccessDeniedException, LoginDoesNotExistException, CantReadDirectoryException, FileNotFoundException, PermitionException{
+
+		_content = getMydrive().readFile(_token, _filename);
 	}
+
+	public final String result(){
+		return _content;
+	}
+
 }
