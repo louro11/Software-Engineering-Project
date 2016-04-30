@@ -8,6 +8,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
+import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 
 import java.lang.String;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
@@ -46,6 +48,20 @@ public class Directory extends Directory_Base {
        setFilesystem(owner.getFilesystem());
     }
 
+    @Override
+    public String readfile(){
+
+        throw new CantReadDirectoryException(get_name());
+    
+    }
+
+    @Override
+    public void writefile(String content){
+
+        throw new CantWriteToDirectoryException(get_name());
+    }
+
+
    public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ){
 
 
@@ -73,6 +89,8 @@ public class Directory extends Directory_Base {
    }
 
    public String listDirectory(){
+
+    //falta retornar o conteudo dos Links existentes quando lista a diretoria
 
 	   String s= "";
        for(File f : getFilesSet()) {
@@ -210,10 +228,7 @@ public class Directory extends Directory_Base {
 
     //    nao fazer isto, metodos abstratos e redefiniçao para cada tipo
 
-    @Override
-    public boolean isCDiable(){
 
-        return true;}
 
     public boolean isAppendable(){
 

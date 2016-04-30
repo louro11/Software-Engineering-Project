@@ -6,6 +6,9 @@ import java.util.Scanner;
 import java.io.IOException;
 import org.jdom2.Element;
 
+import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
+import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
+
 public class TextFile extends TextFile_Base {
 
     public TextFile() {
@@ -20,12 +23,8 @@ public class TextFile extends TextFile_Base {
         set_content(content);
     }
 
-    //override dos getters
-    @Override 
-    public String get_content(){
 
 
-    }
     //falta verificar permissoes aqui?
 
     @Override
@@ -60,11 +59,7 @@ public class TextFile extends TextFile_Base {
 
     }
 
-    @Override
-	public boolean isCDiable(){
-
-        return false;}
-
+ 
   
     public boolean isAppendable(){
 

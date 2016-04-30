@@ -246,20 +246,20 @@ public class FileSystem extends FileSystem_Base {
 
 	public String readFile(Directory dir, User user, String filename)throws CantReadDirectoryException, FileNotFoundException, PermitionException{
 		try{
-			File file = dir.getFile(filename);
-			if (file.isCDiable()){
-				throw new CantReadDirectoryException(filename);
-			}
 
-			
-			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
-				throw new PermitionException(file.get_permission());
-			}
+			File file = dir.getFile(filename);
+
 
 			if(!((file.getOwner().get_username()).equals(user.get_username()))){ //nao deixa ler ficheiros de outros users
 				throw new AccessDeniedException(file.getOwner().get_username());
 			}
-			return file.readFile(); 
+
+			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
+				throw new PermitionException(file.get_permission());
+			}
+
+			
+			return file.readfile(); 
 		}catch(FileNotFoundException e){
 			throw e;
 		}
@@ -268,10 +268,10 @@ public class FileSystem extends FileSystem_Base {
 	public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException,
 	FileNotFoundException, PermitionException, AccessDeniedException{
 		try{
+
+			
 			File file = dir.getFile(filename);
-			if(file.isCDiable()){
-				throw new CantWriteToDirectoryException(filename);
-			}
+			
 
 			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
 				throw new PermitionException(file.get_permission());
@@ -392,49 +392,8 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-	public String readfile(Login login, User user, String name) throws InvalidFileNameException {
+	
 
-
-		Directory currentdir = getMaindir() ;
-		TextFile tf = new TextFile();
-
-			for (File file: currentdir.getFilesSet()){
-
-				if (file.get_name().equals(name)){
-
-					tf = (TextFile)file;
-
-				}
-		}
-		if (user.isRoot() || (user.hasReadPermission(tf) && tf.getOwner().equals(user))){
-			return tf.readfile();
-		}
-		else{
-        	throw new PermitionException("This user: " + user.get_name() + " has no permission to read this file ");
-      }
-	}
-
-	public void writefile (Login login, User user, String name, String content) throws InvalidFileNameException {
-
-
-		Directory currentdir = getMaindir() ;
-		TextFile tf = new TextFile();
-
-			for (File file: currentdir.getFilesSet()){
-
-				if (file.get_name().equals(name)){
-
-					tf = (TextFile)file;
-
-				}
-		}
-		if (user.isRoot() || (user.hasReadPermission(tf) && tf.getOwner().equals(user))){
-       		tf.writefile(content);
-       	}
-       	else{
-        	throw new PermitionException("This user: " + user.get_name() + " has no permission to write this file ");
-      	}
-	}
 
 //closes 16
 	public Element xmlExport() {

@@ -17,8 +17,9 @@ public class Application extends Application_Base {
         set_content(content);   
    } 
   
-    
-public Element xmlExport() {
+
+
+    public Element xmlExport() {
 		
         Element app = new Element("app");
         app.setAttribute("id", Integer.toString(get_fileid()));
@@ -27,4 +28,7 @@ public Element xmlExport() {
         
         return app;
     }
+
+
+
 }

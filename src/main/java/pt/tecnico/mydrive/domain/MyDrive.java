@@ -202,7 +202,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		}
 
 
-
+		/*
 		public String readfile(long token, String name){
 
 			try{
@@ -210,13 +210,12 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				Login login = getLoginbyToken(token);
 				User user = login.getUser();
 
-				return getFilesystem().readfile(login, user, name);
+				return getFilesystem().readFile(login, user, name);
 			}
 
-			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
-			catch (LoginIsInvalidException e){System.out.println(e.getMessage());}
+			catch (LoginDoesNotExistException e){ throw e;}
+			catch (LoginIsInvalidException e){ throw e ;}
 
-			return "Error in readfile";
 
 		}
 
@@ -227,14 +226,14 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				Login login = getLoginbyToken(token);
 				User user = login.getUser();
 
-				getFilesystem().writefile(login, user, name, content);
+				getFilesystem().writeFile(login, user, name, content);
 			}
 
 			catch (LoginDoesNotExistException e){System.out.println(e.getMessage());}
 			catch (LoginIsInvalidException e){System.out.println(e.getMessage());}
 
 		}
-
+	*/
 
 
 

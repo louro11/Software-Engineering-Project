@@ -6,7 +6,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.jdom2.Element;
 
-public class File extends File_Base {
+public abstract class File extends File_Base {
 
     public File() {
     	
@@ -33,6 +33,13 @@ public class File extends File_Base {
     public boolean isAppendable(){};
     */
 
+    /******************* metodos abstratos *****************/
+
+    public abstract String readfile();
+
+    public abstract void writefile(String content);
+
+    /*******************************************************/
 
 	 public Element xmlExport(){
 
@@ -83,14 +90,8 @@ public class File extends File_Base {
 
     //isto e para fazer override     
     public void remove(){} 
-
-
-
      
-    public abstract String readfile();
 
-
-	
 
     public boolean isEqual(File file){
 		
@@ -104,18 +105,8 @@ public class File extends File_Base {
 	}
 	
 
-    
-	
-    public void writefile(String content){} // isto ja nao esta a ser usado? 
-    
 
-    // se o objetivo era ver se é dir, fazer metodos abstratos 
 
-    public boolean isCDiable(){
-
-        return false;}
-
-    
     
 
 }
