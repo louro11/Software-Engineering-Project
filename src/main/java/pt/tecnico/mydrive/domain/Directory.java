@@ -8,6 +8,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 
@@ -62,14 +63,24 @@ public class Directory extends Directory_Base {
     }
 
 
+    @Override
+    public void addFiles(File f){
+      if(hasFile(f.get_name()))
+        throw new FileAlreadyExistsException(f.get_name());
 
-   public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ){
+      super.addFiles(f);
+    }
 
 
-   		TextFile tf = new TextFile(name, permission, fileid , timestamp, owner, content);
-   		addFiles(tf);   
-
-   }
+    public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ) throws FileAlreadyExistsException{
+      TextFile tf = new TextFile(name, permission, fileid , timestamp, owner, content);
+      
+      try{
+   		     
+   		     addFiles(tf);   
+      }
+      catch(FileAlreadyExistsException e){throw e;}
+     }
 
 
    public void createSubDirectory(String name, int fileid, User owner, Directory parent){
