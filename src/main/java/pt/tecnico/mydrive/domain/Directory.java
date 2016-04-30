@@ -254,11 +254,6 @@ public class Directory extends Directory_Base {
 
 
 
-    public boolean isAppendable(){
-
-        return false;
-    }
-
     
 
 	public Element xmlExport() {
