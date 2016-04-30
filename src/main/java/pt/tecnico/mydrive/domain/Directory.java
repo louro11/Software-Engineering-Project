@@ -1,6 +1,8 @@
 package pt.tecnico.mydrive.domain;
 
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jdom2.Element;
 import org.joda.time.DateTime;
@@ -12,6 +14,8 @@ import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
+
+import pt.tecnico.mydrive.service.dto.FileDto;
 
 import java.lang.String;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
@@ -54,7 +58,7 @@ public class Directory extends Directory_Base {
     public String readfile(){
 
         throw new CantReadDirectoryException(get_name());
-    
+
     }
 
     @Override
@@ -64,13 +68,44 @@ public class Directory extends Directory_Base {
     }
 
 
+
+
+
+
+
+
+
+
+   public List<FileDto> listDirectory(){
+
+    //falta retornar o conteudo dos Links existentes quando lista a diretoria
+        List<FileDto> fileArray = new ArrayList<FileDto>();;
+
+       for(File f : getFilesSet()) {
+          if ( f instanceof Link ) { /*TODO:conteudo dos Links*/ }
+
+          else{
+            fileArray.add(new FileDto(f.get_name(), f.get_permission(), f.get_timestamp(), f.getOwner()));
+          }
+
+	      }
+
+        return fileArray;
+
+   }
+
+
+
+
     @Override
     public void addFiles(File f){
       if(hasFile(f.get_name()))
         throw new FileAlreadyExistsException(f.get_name());
 
+
       super.addFiles(f);
     }
+
 
     @Override
     public void setUser(User user) {
@@ -176,11 +211,11 @@ public class Directory extends Directory_Base {
 
 
     public void createFile(String type , String filename, User user, int fileid, DateTime timestamp,String content ) throws FileAlreadyExistsException, InvalidContentException{
-      
+
       if(type.equals("application")){
 
           Application app = new Application(filename, user.get_mask(), fileid, timestamp, user, content);
-      
+
       try{ addFiles(app);} catch(FileAlreadyExistsException e){throw e;}
 
       }
@@ -188,7 +223,7 @@ public class Directory extends Directory_Base {
 
 
           TextFile tf = new TextFile(filename, user.get_mask(), fileid , timestamp, user, content);
-      
+
       try{ addFiles(tf); } catch(FileAlreadyExistsException e){throw e;}
 
       }
@@ -197,12 +232,12 @@ public class Directory extends Directory_Base {
           if (!(content.startsWith("/"))){throw new InvalidContentException(content);}
 
           Link link = new Link(filename, user.get_mask(), fileid, timestamp, user, content);
-       
+
        try{ addFiles(link); } catch(FileAlreadyExistsException e){throw e;}
       }
   }
 
-     
+
 
    public void createSubDirectory(String filename, User owner, int fileid, DateTime timestamp){
 
@@ -214,18 +249,6 @@ public class Directory extends Directory_Base {
    public boolean hasFile(String name){
           return getFile(name) != null;
 
-   }
-
-   public String listDirectory(){
-
-    //falta retornar o conteudo dos Links existentes quando lista a diretoria
-
-	   String s= "";
-       for(File f : getFilesSet()) {
-	         s=s + "name:" + f.get_name() + " permissions:" + f.get_permission()
-                + " timestamp:" + f.get_timestamp() + " owner:" + f.getOwner().get_name() +"\n" ;
-          }
-	     return s;
    }
 
 
@@ -243,14 +266,14 @@ public class Directory extends Directory_Base {
     }
 
 
+
    public void cleanup(){
 
       for (File f: getFilesSet()) f.remove();
 
-   } 
+   }
 
-	
-   
+
 
 	public Element xmlExport() {
 

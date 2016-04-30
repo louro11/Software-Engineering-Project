@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -19,6 +21,7 @@ import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginIsInvalidException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.ist.fenixframework.FenixFramework;
+import pt.tecnico.mydrive.service.dto.FileDto;
 
 import org.jdom2.Element;
 import org.jdom2.Document;
@@ -56,7 +59,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 /****************************SERVICES FUNCTIONS***************************/
 
 
-		public String listDirectory(long token)throws LoginDoesNotExistException, PermitionException{
+		public List<FileDto> listDirectory(long token)throws LoginDoesNotExistException, PermitionException{
 
 			try{
 				Login login = getLoginbyToken(token);
@@ -115,9 +118,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			}
         }
 
-        
-        public void writeToFile(long token, String filename, String content) throws LoginDoesNotExistException, 
+
+
+        public void writeToFile(long token, String filename, String content) throws LoginDoesNotExistException,
         CantWriteToDirectoryException, PermitionException, AccessDeniedException, FileNotFoundException{
+
 
         	try{
 
@@ -155,9 +160,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				if(type.equals("directory")){
 
 					getFilesystem().createFileDirectory(dir,user,filename,type);}
-			
+
 				else{
-				    
+
 				    getFilesystem().createFile(dir, user, filename, type, content); }
 
 

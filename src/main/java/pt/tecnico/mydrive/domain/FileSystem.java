@@ -17,7 +17,10 @@ import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.tecnico.mydrive.exceptions.InvalidFileNameException;
+import pt.tecnico.mydrive.service.dto.FileDto;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.jdom2.Element;
@@ -55,9 +58,9 @@ public class FileSystem extends FileSystem_Base {
 
     public String changeCurrentDirectory(Login login, User user, String path) throws FileNotFoundException, AccessDeniedException {
 
-    	Directory dirtobechanged ; 
+    	Directory dirtobechanged ;
 
-    	if (path.startsWith("/")) { 
+    	if (path.startsWith("/")) {
     		dirtobechanged = getMaindir();
     	}
 
@@ -66,7 +69,7 @@ public class FileSystem extends FileSystem_Base {
     	dirtobechanged = login.getCurrentdirectory();
 
     	}
-    	
+
     	String[] dirs = path.split("/");
 
     			for (int i=1; i<dirs.length;i++){
@@ -87,10 +90,12 @@ public class FileSystem extends FileSystem_Base {
 							throw new FileNotFoundException(dirs[i]);
 
 						}
-    				}				
+    				}
     			}
 
+
     	login.setCurrentdirectory(dirtobechanged);
+
     	return path;
 	}
 
@@ -197,11 +202,11 @@ public class FileSystem extends FileSystem_Base {
 
 
 	/*
-	
+
 	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
 
 
-			
+
 			IncrementIdseq();
 			cd.createTextFile(name, permission, get_idseq(), timestamp, owner, content);
 	}
@@ -281,8 +286,8 @@ public class FileSystem extends FileSystem_Base {
 				throw new PermitionException(file.get_permission());
 			}
 
-			
-			return file.readfile(); 
+
+			return file.readfile();
 		}catch(FileNotFoundException e){
 			throw e;
 		}
@@ -292,9 +297,9 @@ public class FileSystem extends FileSystem_Base {
 	FileNotFoundException, PermitionException, AccessDeniedException{
 		try{
 
-			
+
 			File file = dir.getFile(filename);
-			
+
 
 			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
 				throw new PermitionException(file.get_permission());
@@ -327,11 +332,11 @@ public class FileSystem extends FileSystem_Base {
 
 		if(!(curdir.hasFile(filename))){
 
-	
+
 			if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
 
 			if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
-		
+
 			IncrementIdseq();
 			DateTime dt = new DateTime();
 
@@ -357,15 +362,15 @@ public class FileSystem extends FileSystem_Base {
 
 		if(!(curdir.hasFile(filename))){
 
-	
+
 			if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
 
 			if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
-		
+
 			IncrementIdseq();
 			DateTime dt = new DateTime();
 
-			
+
 			curdir.createFile(type, filename,user,get_idseq(),dt,content);
 
 			/*if(type.equals("directory")){
@@ -374,7 +379,7 @@ public class FileSystem extends FileSystem_Base {
 					dir.addFiles(direct);
 				}else
 					throw new InvalidContentException(content);
-			} 
+			}
 
 			else if(type.equals("textfile")){
 				TextFile txt = new TextFile(filename, user.get_mask(), get_idseq(), dt, user, content);
@@ -400,9 +405,9 @@ public class FileSystem extends FileSystem_Base {
 				dir.addFiles(link);
 			}else
 				throw new InvalidTypeException(type);
-		
+
 			*/
-		
+
 		}
 	}
 
@@ -435,9 +440,12 @@ public class FileSystem extends FileSystem_Base {
 		return aux;
 	}
 
+<<<<<<< HEAD
 	*/
 
-		public String listDirectory(Directory dir, User usr)throws PermitionException{
+
+		public List<FileDto> listDirectory(Directory dir, User usr)throws PermitionException{
+
 
 
 	     if(usr.isRoot() || usr.hasReadPermission(dir)){
@@ -449,7 +457,7 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-	
+
 
 
 //closes 16
