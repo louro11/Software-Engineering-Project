@@ -36,12 +36,12 @@ public class FileSystem extends FileSystem_Base {
         IncrementIdseq();
         Directory maindir = new Directory( "/" , get_idseq() , new DateTime(), mask , (User)root );
         IncrementIdseq();
-        maindir.createSubDirectory("home", get_idseq(), (User)root);
+        maindir.createSubDirectory("home", (User)root, get_idseq(),new DateTime() );
 
 
         Directory home = (Directory) maindir.getFile("home");
         IncrementIdseq();
-        home.createSubDirectory("root",get_idseq(),root);
+        home.createSubDirectory("root",root,get_idseq(), new DateTime());
 
         Directory main = (Directory) home.getFile("root");
         root.setHomedirectory(main);
@@ -225,7 +225,7 @@ public class FileSystem extends FileSystem_Base {
 					else{
 
 						IncrementIdseq();
-						currentdir.createSubDirectory(token[i],get_idseq(),owner);
+						currentdir.createSubDirectory(token[i],owner,get_idseq(), new DateTime());
 
 						for (File newfile: currentdir.getFilesSet()){
 
@@ -246,7 +246,7 @@ public class FileSystem extends FileSystem_Base {
     		else{
 
     			IncrementIdseq();
-				currentdir.createSubDirectory(token[i],get_idseq(),owner);
+				currentdir.createSubDirectory(token[i],owner,get_idseq(),new DateTime());
 
 				for (File newfile: currentdir.getFilesSet()){
 
@@ -313,7 +313,7 @@ public class FileSystem extends FileSystem_Base {
 	public void createFileDirectory(Directory dir, User user, String filename, String type)throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
 		String path = filename + dir.get_name();
 		Directory maindir = getMaindir();
-		Directory curdir=dir;
+		Directory curdir=dir ;
 
 		int bars = 0;
 		//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
@@ -328,12 +328,12 @@ public class FileSystem extends FileSystem_Base {
 	
 			if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
 
-			if (path.length()+bars)>=1024{ throw new InvalidPathException();}
+			if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
 		
 			IncrementIdseq();
 			DateTime dt = new DateTime();
 
-			curdir.createSubDirectory(filename,user,get_idseq, dt);
+			curdir.createSubDirectory(filename,user,get_idseq(), dt);
 
 	}
 
@@ -341,7 +341,7 @@ public class FileSystem extends FileSystem_Base {
 
 	public void createFile (Directory dir, User user, String filename, String type, String content)throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
 
-		String path = filename + dir.get_name();
+		String path = filename + dir.get_name(); //o que é isto??
 		Directory maindir = getMaindir();
 		Directory curdir=dir;
 
@@ -358,15 +358,13 @@ public class FileSystem extends FileSystem_Base {
 	
 			if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
 
-			if (path.length()+bars)>=1024{ throw new InvalidPathException();}
+			if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
 		
 			IncrementIdseq();
 			DateTime dt = new DateTime();
 
 			
-			curdir.createFile(filename,user,get_idseq,dt,content);
-
-
+			curdir.createFile(type, filename,user,get_idseq(),dt,content);
 
 			/*if(type.equals("directory")){
 				if(content.equals("")){ //directorias nao tem conteudo
@@ -374,7 +372,7 @@ public class FileSystem extends FileSystem_Base {
 					dir.addFiles(direct);
 				}else
 					throw new InvalidContentException(content);
-			} */
+			} 
 
 			else if(type.equals("textfile")){
 				TextFile txt = new TextFile(filename, user.get_mask(), get_idseq(), dt, user, content);
@@ -401,6 +399,7 @@ public class FileSystem extends FileSystem_Base {
 			}else
 				throw new InvalidTypeException(type);
 		
+			*/
 		
 		}
 	}

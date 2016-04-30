@@ -39,9 +39,9 @@ public abstract class File extends File_Base {
 
     public abstract void writefile(String content);
 
-    public abstract void createFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content);
+   
 
-    
+
     /*******************************************************/
 
 	 public Element xmlExport(){

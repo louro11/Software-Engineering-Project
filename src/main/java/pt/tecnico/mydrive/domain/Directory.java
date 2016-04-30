@@ -10,6 +10,7 @@ import org.joda.time.format.DateTimeFormatter;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
+import pt.tecnico.mydrive.exceptions.InvalidContentException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 
 import java.lang.String;
@@ -174,22 +175,38 @@ public class Directory extends Directory_Base {
     }
 
 
-
-    public void createFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ) throws FileAlreadyExistsException{
-      TextFile tf = new TextFile(name, permission, fileid , timestamp, owner, content);
+    public void createFile(String type , String filename, User user, int fileid, DateTime timestamp,String content ) throws FileAlreadyExistsException, InvalidContentException{
       
-      try{
-   		     
-   		     addFiles(tf);   
+      if(type.equals("application")){
+
+          Application app = new Application(filename, user.get_mask(), fileid, timestamp, user, content);
+      
+      try{ addFiles(app);} catch(FileAlreadyExistsException e){throw e;}
+
       }
-      catch(FileAlreadyExistsException e){throw e;}
-     }
+      if(type.equals("textfile")){
+
+
+          TextFile tf = new TextFile(filename, user.get_mask(), fileid , timestamp, user, content);
+      
+      try{ addFiles(tf); } catch(FileAlreadyExistsException e){throw e;}
+
+      }
+      if(type.equals("link")){
+
+          if (!(content.startsWith("/"))){throw new InvalidContentException(content);}
+
+          Link link = new Link(filename, user.get_mask(), fileid, timestamp, user, content);
+       
+       try{ addFiles(link); } catch(FileAlreadyExistsException e){throw e;}
+      }
+  }
 
      
 
    public void createSubDirectory(String filename, User owner, int fileid, DateTime timestamp){
 
-	    Directory subdirectory = new Directory(name, fileid, new DateTime(), owner.get_mask(), owner, parent);
+	    Directory subdirectory = new Directory(filename, fileid, timestamp, owner.get_mask(), owner, this);
 
       addFiles(subdirectory); // o addFiles tem que ser override?
    }
