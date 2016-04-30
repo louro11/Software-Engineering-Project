@@ -250,6 +250,8 @@ public class FileSystem extends FileSystem_Base {
 			if (file.isCDiable()){
 				throw new CantReadDirectoryException(filename);
 			}
+
+			
 			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
 				throw new PermitionException(file.get_permission());
 			}
@@ -257,7 +259,7 @@ public class FileSystem extends FileSystem_Base {
 			if(!((file.getOwner().get_username()).equals(user.get_username()))){ //nao deixa ler ficheiros de outros users
 				throw new AccessDeniedException(file.getOwner().get_username());
 			}
-			return file.readFile(); //can i do this?
+			return file.readFile(); 
 		}catch(FileNotFoundException e){
 			throw e;
 		}

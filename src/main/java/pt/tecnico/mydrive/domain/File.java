@@ -81,13 +81,18 @@ public class File extends File_Base {
 
     }
 
-    public void remove(){}
+    //isto e para fazer override     
+    public void remove(){} 
 
-  
-    public String readfile(){return "";}
-    
+
+
+     
+    public abstract String readfile();
+
+
 	
-	public boolean isEqual(File file){
+
+    public boolean isEqual(File file){
 		
 		
 		if(this.get_fileid().equals(file.get_fileid())){
@@ -99,15 +104,18 @@ public class File extends File_Base {
 	}
 	
 
-    public String readFile(){
-    	return "";
-    }
-	
-    public void writefile(String content){}
     
+	
+    public void writefile(String content){} // isto ja nao esta a ser usado? 
+    
+
+    // se o objetivo era ver se é dir, fazer metodos abstratos 
+
     public boolean isCDiable(){
 
         return false;}
+
+    
     
 
 }

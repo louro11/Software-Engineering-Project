@@ -46,14 +46,11 @@ public class Directory extends Directory_Base {
        setFilesystem(owner.getFilesystem());
     }
 
-   //retorna listagem de todos os ficheiros(ficheiros ou diretorios de um diretorio)
-   //o diretorio tem uma estrutura de files do tipo set
-
    public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ){
 
 
    		TextFile tf = new TextFile(name, permission, fileid , timestamp, owner, content);
-   		addFiles(tf);
+   		addFiles(tf);   
 
    }
 
@@ -62,7 +59,7 @@ public class Directory extends Directory_Base {
 
 	  Directory subdirectory = new Directory(name, fileid, new DateTime(), owner.get_mask(), owner, parent);
 
-      parent.addFiles(subdirectory);
+      parent.addFiles(subdirectory); // o addFiles tem que ser override?
    }
 
    public boolean hasFile(String name){
@@ -95,6 +92,8 @@ public class Directory extends Directory_Base {
           throw new FileNotFoundException(name);
 
     }
+
+    //temos que tratar das permissoes aqui? Fazendo override dos getters e setters? 
 
 
 	@Override
@@ -209,6 +208,8 @@ public class Directory extends Directory_Base {
 
     }
 
+    //    nao fazer isto, metodos abstratos e redefiniçao para cada tipo
+
     @Override
     public boolean isCDiable(){
 
@@ -218,6 +219,8 @@ public class Directory extends Directory_Base {
 
         return false;
     }
+
+    
 
 	public Element xmlExport() {
 

@@ -20,6 +20,14 @@ public class TextFile extends TextFile_Base {
         set_content(content);
     }
 
+    //override dos getters
+    @Override 
+    public String get_content(){
+
+
+    }
+    //falta verificar permissoes aqui?
+
     @Override
     public void setOwner(User owner) {
         if (owner == null) {
@@ -65,9 +73,8 @@ public class TextFile extends TextFile_Base {
     @Override
     public String readfile(){
 
-	
+	     
 		    return get_content();
-
 
     }
     

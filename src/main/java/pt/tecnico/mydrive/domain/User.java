@@ -188,6 +188,8 @@ public class User extends User_Base {
 
 	}
 	
+
+	//as permissoes fazemos por override dos metodos? ou é melhor assim?
 	
 	public boolean hasPermission(File f, int position, String perm){
 		

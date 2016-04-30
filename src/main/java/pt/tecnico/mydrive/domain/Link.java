@@ -28,4 +28,7 @@ public class Link extends Link_Base {
         return link;
     }
     
+    @Override
+    public String readFile(){}
+
 }

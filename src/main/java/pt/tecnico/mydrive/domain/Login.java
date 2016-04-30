@@ -33,4 +33,8 @@ public class Login extends Login_Base{
 
   }
 
+
+  //as permissoes do login devem ser feitas por override dos getters e setters? 
+  
+
 }
