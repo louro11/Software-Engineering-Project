@@ -40,7 +40,6 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			if(this.getFilesystem()==null) {
 				setFilesystem(new FileSystem());}
 				setCurrentuser(getFilesystem().getRoot());
-				setCurrentdirectory(getFilesystem().getMaindir());
 		}
 
 
@@ -82,26 +81,29 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				Login login = getLoginbyToken(token);
 
 				User user = login.getUser();
-		
-				return getFilesystem().changeCurrentDirectory(login , user, path); 
+
+				return getFilesystem().changeCurrentDirectory(login , user, path);
+
 
 			}
 			catch (FileNotFoundException e){throw e;}
 			catch (LoginDoesNotExistException e){throw e;}
 			catch (AccessDeniedException e){throw e;}
 		}
-        
-        
-        public String readFile(long token, String filename)throws LoginDoesNotExistException, CantReadDirectoryException, 
+
+
+
+        public String readFile(long token, String filename)throws LoginDoesNotExistException, CantReadDirectoryException,
         PermitionException, AccessDeniedException, FileNotFoundException{
+
         	try{
         		Login login = getLoginbyToken(token);
         		Directory dir = login.getCurrentdirectory();
-        		
+
         		User user = login.getUser();
-        		
+
         		return getFilesystem().readFile(dir, user, filename);
-        		
+
         	}catch(LoginDoesNotExistException e){
         		throw e;
         	}catch (CantReadDirectoryException e){
@@ -112,9 +114,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				throw e;
 			}
         }
+
         
         public void writeToFile(long token, String filename, String content) throws LoginDoesNotExistException, 
         CantWriteToDirectoryException, PermitionException, AccessDeniedException, FileNotFoundException{
+
         	try{
 
 				Login login = getLoginbyToken(token);
@@ -136,9 +140,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				throw e;
 			}
         }
-        
 
-		public void createFile(long token, String filename, String type, String content) throws InvalidPathSizeException, 
+
+		public void createFile(long token, String filename, String type, String content) throws InvalidPathSizeException,
 		LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException, PermitionException{
 
 			try{
@@ -195,14 +199,14 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			getFilesystem().createDirectory(getCurrentuser(), path);
 		}
 
-
+/*
 		public void createTextFile(long token ,String name, String content ){
 
 			getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
 		}
 
 
-		/*
+		
 		public String readfile(long token, String name){
 
 			try{
@@ -341,23 +345,14 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				Login login;
 
-				if( ( user.get_password() ).equals( password )){
-					login = new Login (user);
+				login = new Login(user, password);
 
-					for(Login log: getLoginsSet()){
+				UpdateLoginList();
 
-						DateTime now = new DateTime();
+				getLoginsSet().add(login);
 
-						if( now.isAfter(log.get_timeout())){
-							getLoginsSet().remove(log);
-						}
+				return login.get_token();
 
-					}
-
-					getLoginsSet().add(login);
-
-					return login.get_token();
-				}
 			}
 
 			catch( UserDoesNotExistException e ){
@@ -393,5 +388,19 @@ import pt.tecnico.mydrive.domain.FileSystem;
     	throw new LoginDoesNotExistException();
 
 	}
+
+	public void UpdateLoginList(){
+
+		for(Login log: getLoginsSet()){
+
+			DateTime now = new DateTime();
+
+			if( now.isAfter(log.get_timeout())){
+				getLoginsSet().remove(log);
+			}
+	}
+
+	}
+
 
 }

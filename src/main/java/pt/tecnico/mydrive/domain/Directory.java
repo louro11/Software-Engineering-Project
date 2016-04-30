@@ -62,9 +62,6 @@ public class Directory extends Directory_Base {
     }
 
 
-    @Override
-    public 
-
 
    public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ){
 
@@ -210,7 +207,6 @@ public class Directory extends Directory_Base {
 			f.remove();}
 
 		setUser(null);
-		setMydrive(null);
 		setFilesystem(null);
 		setParent(null);
 		setDir(null);

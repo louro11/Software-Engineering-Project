@@ -5,9 +5,10 @@ import org.apache.logging.log4j.Logger;
 
 import pt.ist.fenixframework.Atomic;
 import pt.tecnico.mydrive.domain.MyDrive;
-import pt.tecnico.mydrive.domain.Directory;
-import pt.tecnico.mydrive.exceptions.DirectoryNotFoundException;
+import pt.tecnico.mydrive.domain.FileSystem;
 import pt.tecnico.mydrive.exceptions.MyDriveException;
+import pt.tecnico.mydrive.exceptions.FileSystemException;
+
 
 
 
@@ -23,15 +24,12 @@ public abstract class MyDriveService {
         return MyDrive.getInstance();
     }
 
-    static Directory getCurrentDirectory() throws DirectoryNotFoundException{
-        
-        Directory current = getMydrive().getCurrentdirectory();
+    static FileSystem getFilesystem() throws FileSystemException{
 
-        if (current == null)
-            throw new DirectoryNotFoundException();
+        FileSystem fs = getMydrive().getFilesystem();
 
-        return current;
+        return fs;
+
     }
-
     protected abstract void dispatch() throws MyDriveException;
 }

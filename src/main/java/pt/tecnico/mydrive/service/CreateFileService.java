@@ -1,5 +1,6 @@
 package pt.tecnico.mydrive.service;
 
+import pt.tecnico.mydrive.domain.MyDrive;
 
 import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
@@ -44,22 +45,36 @@ public class CreateFileService extends MyDriveService {
 		_token = token;
 		
 	}
+
+
+	public String getcontent(){
+
+		return _content;
+
+	}
+
+	public void setcontent(String content){
+
+		_content = content;
+
+	}
+
+
+	public String gettype(){
+
+		return _type;
+
+	}
+
+	public void settype(String type){
+
+		_type = type;
+
+	}
 	
-	public final void dispatch(){
-        try{
-	       getMydrive().createFile(_token,_filename, _type, _content);
-        }catch (LoginDoesNotExistException e){
-        	System.out.println(e.getMessage());
-        }catch (PermitionException e){
-        	System.out.println(e.getMessage());
-        }catch (InvalidPathSizeException e){
-        	System.out.println(e.getMessage());
-        }catch (InvalidContentException e){
-        	System.out.println(e.getMessage());
-        }catch (InvalidTypeException e){
-        	System.out.println(e.getMessage());
-        }catch (FileAlreadyExistsException e){
-        	System.out.println(e.getMessage());
-        }
+	public final void dispatch() throws InvalidPathSizeException, LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException, PermitionException{
+
+		getMydrive().createFile(_token, _filename, _type, _content);
+
 	}
 }
