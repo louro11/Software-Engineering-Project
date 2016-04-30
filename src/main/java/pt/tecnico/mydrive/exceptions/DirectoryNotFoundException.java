@@ -6,11 +6,7 @@ public class DirectoryNotFoundException extends FileSystemException{
 
 	private String dirName;
 
-	public DirectoryNotFoundException(String name){
-
-		dirName = name;
-
-	}
+	public DirectoryNotFoundException(){}
 
 	public String getDirName() {
         return dirName;
@@ -18,7 +14,7 @@ public class DirectoryNotFoundException extends FileSystemException{
 
 	@Override
     public String getMessage(){
-		return "The directory " + dirName + " was not found";
+		return "The directory " + getDirName() + " was not found";
 	}
 
 }

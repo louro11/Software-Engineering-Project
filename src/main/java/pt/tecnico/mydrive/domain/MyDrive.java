@@ -75,7 +75,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-        public void changeCurrentDirectory(long token, String path){
+        public String changeCurrentDirectory(long token, String path){
 
 			try{
 
@@ -83,19 +83,20 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				User user = login.getUser();
 
+				return getFilesystem().changeCurrentDirectory(login , user, path);
 
-
-				getFilesystem().changeCurrentDirectory(login, user, path);
 
 			}
-			catch (FileNotFoundException e){System.out.println(e.getMessage());}
-			catch (LoginDoesNotExistException e){}
-
+			catch (FileNotFoundException e){throw e;}
+			catch (LoginDoesNotExistException e){throw e;}
+			catch (AccessDeniedException e){throw e;}
 		}
 
 
+
         public String readFile(long token, String filename)throws LoginDoesNotExistException, CantReadDirectoryException,
-        PermitionException, AccessDeniedException{
+        PermitionException, AccessDeniedException, FileNotFoundException{
+
         	try{
         		Login login = getLoginbyToken(token);
         		Directory dir = login.getCurrentdirectory();

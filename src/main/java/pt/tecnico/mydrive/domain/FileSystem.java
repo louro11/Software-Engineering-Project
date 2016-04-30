@@ -51,28 +51,46 @@ public class FileSystem extends FileSystem_Base {
         setMaindir(maindir);
     }
 
-    public Directory changeCurrentDirectory(Login login, User user, String path) throws FileNotFoundException {
 
-    	Directory currentdir = login.getCurrentdirectory();
-    	String[] token = path.split("/");
 
-    	for (int i=1; i<token.length;i++){
+    public String changeCurrentDirectory(Login login, User user, String path) throws FileNotFoundException, AccessDeniedException {
 
-    		for (File file: currentdir.getFilesSet()){
+    	Directory dirtobechanged ; 
 
-				if (file.get_name().equals(token[i]) && user.hasReadPermission(currentdir)){
-
-					currentdir = (Directory) file;
-
-				}
-				else{
-
-					throw new FileNotFoundException(token[i]);
-
-				}
+    	if (path.startsWith("/")) { 
+    		dirtobechanged = getMaindir();
     	}
-    }
-    	return currentdir;
+
+    	else{
+
+    	dirtobechanged = login.getCurrentdirectory();
+
+    	}
+    	
+    	String[] dirs = path.split("/");
+
+    			for (int i=1; i<dirs.length;i++){
+
+    				for (File file: dirtobechanged.getFilesSet()){
+
+						if (file.get_name().equals(dirs[i]) ){
+
+							if(!((file.getOwner().get_username()).equals(user.get_username()))){ //nao deixa ler ficheiros de outros users
+									throw new AccessDeniedException(file.getOwner().get_username());
+							}
+
+							dirtobechanged = (Directory) file;
+
+						}
+						else{
+
+							throw new FileNotFoundException(dirs[i]);
+
+						}
+    				}				
+    			}
+    	
+    	return path;
 	}
 
 
