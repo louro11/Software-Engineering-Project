@@ -69,11 +69,6 @@ relation MyDriveHasCurrentUser{
     User playsRole currentuser;
 }
 
-relation MyDriveHasCurrentDirectory{
-    MyDrive playsRole mydrive;
-   	Directory playsRole currentdirectory { multiplicity 0..1; }
-}
-
 relation MyDriveHasLogins{
     MyDrive playsRole mydrive;
     Login playsRole Logins { multiplicity *; }

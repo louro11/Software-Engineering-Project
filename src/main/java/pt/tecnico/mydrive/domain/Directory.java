@@ -125,16 +125,6 @@ public class Directory extends Directory_Base {
     }
 
   @Override
-    public void setMydrive(MyDrive md) {
-        if (md == null) {
-            super.setMydrive(null);
-            return;
-        }
-    super.setMydrive(md);
-
-    }
-
-  @Override
     public void setFilesystem(FileSystem fs) {
         if (fs == null) {
             super.setFilesystem(null);
@@ -213,7 +203,6 @@ public class Directory extends Directory_Base {
 			f.remove();}
 
 		setUser(null);
-		setMydrive(null);
 		setFilesystem(null);
 		setParent(null);
 		setDir(null);

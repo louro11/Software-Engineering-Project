@@ -40,7 +40,6 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			if(this.getFilesystem()==null) {
 				setFilesystem(new FileSystem());}
 				setCurrentuser(getFilesystem().getRoot());
-				setCurrentdirectory(getFilesystem().getMaindir());
 		}
 
 
@@ -196,14 +195,14 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			getFilesystem().createDirectory(getCurrentuser(), path);
 		}
 
-
+/*
 		public void createTextFile(long token ,String name, String content ){
 
 			getFilesystem().createTextFile(name, getCurrentuser().get_mask(), 1, new DateTime(), getCurrentuser(), content, getCurrentdirectory());
 		}
 
 
-		/*
+		
 		public String readfile(long token, String name){
 
 			try{
