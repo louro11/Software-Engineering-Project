@@ -16,7 +16,7 @@
   <tr>
     <td align="center">
       <img
-       src="https://fenix.tecnico.ulisboa.pt/user/photo/ist178344" 
+       src="https://avatars1.githubusercontent.com/u/9061189?v=3&u=a5c02730ccf541270c1ad40e0d4ddec772a57f58&s=140" 
         href="https://github.com/HenriqueCarlos"
         alt="Henrique Carlos"
       >
