@@ -16,7 +16,7 @@
   <tr>
     <td align="center">
       <img
-        src="https://media.licdn.com/mpr/mpr/AAEAAQAAAAAAAAMSAAAAJGZhNTQwN2Y3LTY5N2EtNDQ3Zi1iYzI2LTNiOTZhOWIzYzAyZg.jpg" 
+       src="http://4.bp.blogspot.com/-Dj_3ojT3Rww/VnBqX_gikWI/AAAAAAABfQ8/nkvfuJ34jSo/s1600/carlos-henrique-alves-modelo-ensaio.jpg" 
         href="https://github.com/HenriqueCarlos"
         alt="Henrique Carlos"
       >

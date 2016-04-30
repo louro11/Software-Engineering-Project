@@ -10,7 +10,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
+import pt.tecnico.mydrive.exceptions.InvalidContentException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 
 import pt.tecnico.mydrive.service.dto.FileDto;
@@ -66,31 +68,13 @@ public class Directory extends Directory_Base {
     }
 
 
-   public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ){
 
 
-   		TextFile tf = new TextFile(name, permission, fileid , timestamp, owner, content);
-   		addFiles(tf);
-
-   }
 
 
-   public void createSubDirectory(String name, int fileid, User owner, Directory parent){
 
-	  Directory subdirectory = new Directory(name, fileid, new DateTime(), owner.get_mask(), owner, parent);
 
-      parent.addFiles(subdirectory); // o addFiles tem que ser override?
-   }
 
-   public boolean hasFile(String name){
-          for(File f : getFilesSet()) {
-              if(name.equals(f.get_name())){
-                  return true;
-              }
-          }
-          return false;
-
-   }
 
    public List<FileDto> listDirectory(){
 
@@ -111,20 +95,19 @@ public class Directory extends Directory_Base {
    }
 
 
-    public File getFile(String name) throws FileNotFoundException{
-        for(File f : getFilesSet()) {
-             if(f.get_name().equals(name))
-                  return f;
-            }
 
-          throw new FileNotFoundException(name);
 
+    @Override
+    public void addFiles(File f){
+      if(hasFile(f.get_name()))
+        throw new FileAlreadyExistsException(f.get_name());
+
+
+      super.addFiles(f);
     }
 
-    //temos que tratar das permissoes aqui? Fazendo override dos getters e setters?
 
-
-	@Override
+    @Override
     public void setUser(User user) {
         if (user == null) {
             super.setUser(null);
@@ -134,15 +117,6 @@ public class Directory extends Directory_Base {
 
     }
 
-  @Override
-    public void setMydrive(MyDrive md) {
-        if (md == null) {
-            super.setMydrive(null);
-            return;
-        }
-    super.setMydrive(md);
-
-    }
 
   @Override
     public void setFilesystem(FileSystem fs) {
@@ -195,13 +169,13 @@ public class Directory extends Directory_Base {
     }
 
 
-	@Override
+  @Override
     public void setOwner(User owner) {
         if (owner == null) {
             super.setOwner(null);
             return;
         }
-		super.setOwner(owner);
+    super.setOwner(owner);
 
     }
 
@@ -219,31 +193,91 @@ public class Directory extends Directory_Base {
     @Override
     public void remove(){
 
-		for(File f : getFilesSet()) {
-			f.remove();}
+    for(File f : getFilesSet()) {
+      f.remove();}
 
-		setUser(null);
-		setMydrive(null);
-		setFilesystem(null);
-		setParent(null);
-		setDir(null);
-		setSelf(null);
-		setDirctory(null);
-		setOwner(null);
-		setDirectory(null);
+    setUser(null);
+    setFilesystem(null);
+    setParent(null);
+    setDir(null);
+    setSelf(null);
+    setDirctory(null);
+    setOwner(null);
+    setDirectory(null);
 
-		deleteDomainObject();
+    deleteDomainObject();
 
     }
+
+
+    public void createFile(String type , String filename, User user, int fileid, DateTime timestamp,String content ) throws FileAlreadyExistsException, InvalidContentException{
+
+      if(type.equals("application")){
+
+          Application app = new Application(filename, user.get_mask(), fileid, timestamp, user, content);
+
+      try{ addFiles(app);} catch(FileAlreadyExistsException e){throw e;}
+
+      }
+      if(type.equals("textfile")){
+
+
+          TextFile tf = new TextFile(filename, user.get_mask(), fileid , timestamp, user, content);
+
+      try{ addFiles(tf); } catch(FileAlreadyExistsException e){throw e;}
+
+      }
+      if(type.equals("link")){
+
+          if (!(content.startsWith("/"))){throw new InvalidContentException(content);}
+
+          Link link = new Link(filename, user.get_mask(), fileid, timestamp, user, content);
+
+       try{ addFiles(link); } catch(FileAlreadyExistsException e){throw e;}
+      }
+  }
+
+
+
+   public void createSubDirectory(String filename, User owner, int fileid, DateTime timestamp){
+
+	    Directory subdirectory = new Directory(filename, fileid, timestamp, owner.get_mask(), owner, this);
+
+      addFiles(subdirectory); // o addFiles tem que ser override?
+   }
+
+   public boolean hasFile(String name){
+          return getFile(name) != null;
+
+   }
+
+
+
+    public File getFile(String name) throws FileNotFoundException{
+        File file= null;
+
+        for(File f : getFilesSet()) {
+             if(f.get_name().equals(name))
+                  file = f;
+            }
+
+          throw new FileNotFoundException(name);
+
+    }
+
+
+
+   public void cleanup(){
+
+      for (File f: getFilesSet()) f.remove();
+
+   }
+
 
     //    nao fazer isto, metodos abstratos e redefiniçao para cada tipo
 
 
 
-    public boolean isAppendable(){
-
-        return false;
-    }
 
 
 
