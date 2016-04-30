@@ -62,6 +62,10 @@ public class Directory extends Directory_Base {
     }
 
 
+    @Override
+    public 
+
+
    public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ){
 
 
@@ -79,12 +83,7 @@ public class Directory extends Directory_Base {
    }
 
    public boolean hasFile(String name){
-          for(File f : getFilesSet()) {
-              if(name.equals(f.get_name())){
-                  return true;
-              }
-          }
-          return false;
+          return getFile(name) != null;
 
    }
 
@@ -101,18 +100,25 @@ public class Directory extends Directory_Base {
    }
 
 
+
     public File getFile(String name) throws FileNotFoundException{
+        File file= null;
+
         for(File f : getFilesSet()) {
              if(f.get_name().equals(name))
-                  return f;
+                  file = f;
             }
 
           throw new FileNotFoundException(name);
 
     }
 
-    //temos que tratar das permissoes aqui? Fazendo override dos getters e setters? 
 
+   public void cleanup(){
+
+      for (File f: getFilesSet()) f.remove();
+
+   } 
 
 	@Override
     public void setUser(User user) {
@@ -124,15 +130,6 @@ public class Directory extends Directory_Base {
 
     }
 
-  @Override
-    public void setMydrive(MyDrive md) {
-        if (md == null) {
-            super.setMydrive(null);
-            return;
-        }
-    super.setMydrive(md);
-
-    }
 
   @Override
     public void setFilesystem(FileSystem fs) {

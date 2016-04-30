@@ -75,7 +75,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-        public String changeCurrentDirectory(long token, String path){
+        public String changeCurrentDirectory(long token, String path) throws FileNotFoundException, LoginDoesNotExistException, AccessDeniedException{
 
 			try{
 
@@ -114,7 +114,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
         }
         
         public void writeToFile(long token, String filename, String content) throws LoginDoesNotExistException, 
-        CantWriteToDirectoryException, PermitionException, AccessDeniedException{
+        CantWriteToDirectoryException, PermitionException, AccessDeniedException, FileNotFoundException{
         	try{
 
 				Login login = getLoginbyToken(token);
@@ -125,6 +125,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 			}catch (LoginDoesNotExistException e){
+				throw e;
+			}catch (FileNotFoundException e){
 				throw e;
 			}catch (CantWriteToDirectoryException e){
 				throw e;

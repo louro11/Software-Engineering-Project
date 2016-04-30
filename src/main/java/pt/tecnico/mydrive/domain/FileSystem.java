@@ -89,7 +89,8 @@ public class FileSystem extends FileSystem_Base {
 						}
     				}				
     			}
-    	
+
+    	login.setCurrentdirectory(dirtobechanged);
     	return path;
 	}
 
