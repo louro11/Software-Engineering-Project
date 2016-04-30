@@ -1,6 +1,8 @@
 package pt.tecnico.mydrive.domain;
 
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jdom2.Element;
 import org.joda.time.DateTime;
@@ -10,6 +12,8 @@ import org.joda.time.format.DateTimeFormatter;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
+
+import pt.tecnico.mydrive.service.dto.FileDto;
 
 import java.lang.String;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
@@ -52,7 +56,7 @@ public class Directory extends Directory_Base {
     public String readfile(){
 
         throw new CantReadDirectoryException(get_name());
-    
+
     }
 
     @Override
@@ -66,7 +70,7 @@ public class Directory extends Directory_Base {
 
 
    		TextFile tf = new TextFile(name, permission, fileid , timestamp, owner, content);
-   		addFiles(tf);   
+   		addFiles(tf);
 
    }
 
@@ -88,16 +92,22 @@ public class Directory extends Directory_Base {
 
    }
 
-   public String listDirectory(){
+   public List<FileDto> listDirectory(){
 
     //falta retornar o conteudo dos Links existentes quando lista a diretoria
+        List<FileDto> fileArray = new ArrayList<FileDto>();;
 
-	   String s= "";
        for(File f : getFilesSet()) {
-	         s=s + "name:" + f.get_name() + " permissions:" + f.get_permission()
-                + " timestamp:" + f.get_timestamp() + " owner:" + f.getOwner().get_name() +"\n" ;
+          if ( f instanceof Link ) { /*TODO:conteudo dos Links*/ }
+
+          else{
+            fileArray.add(new FileDto(f.get_name(), f.get_permission(), f.get_timestamp(), f.getOwner()));
           }
-	     return s;
+
+	      }
+
+        return fileArray;
+
    }
 
 
@@ -111,7 +121,7 @@ public class Directory extends Directory_Base {
 
     }
 
-    //temos que tratar das permissoes aqui? Fazendo override dos getters e setters? 
+    //temos que tratar das permissoes aqui? Fazendo override dos getters e setters?
 
 
 	@Override
@@ -235,7 +245,7 @@ public class Directory extends Directory_Base {
         return false;
     }
 
-    
+
 
 	public Element xmlExport() {
 

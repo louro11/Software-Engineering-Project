@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -19,6 +21,7 @@ import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginIsInvalidException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.ist.fenixframework.FenixFramework;
+import pt.tecnico.mydrive.service.dto.FileDto;
 
 import org.jdom2.Element;
 import org.jdom2.Document;
@@ -57,7 +60,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 /****************************SERVICES FUNCTIONS***************************/
 
 
-		public String listDirectory(long token)throws LoginDoesNotExistException, PermitionException{
+		public List<FileDto> listDirectory(long token)throws LoginDoesNotExistException, PermitionException{
 
 			try{
 				Login login = getLoginbyToken(token);
@@ -82,26 +85,26 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				Login login = getLoginbyToken(token);
 
 				User user = login.getUser();
-		
-				return getFilesystem().changeCurrentDirectory(login , user, path); 
+
+				return getFilesystem().changeCurrentDirectory(login , user, path);
 
 			}
 			catch (FileNotFoundException e){throw e;}
 			catch (LoginDoesNotExistException e){throw e;}
 			catch (AccessDeniedException e){throw e;}
 		}
-        
-        
-        public String readFile(long token, String filename)throws LoginDoesNotExistException, CantReadDirectoryException, 
+
+
+        public String readFile(long token, String filename)throws LoginDoesNotExistException, CantReadDirectoryException,
         PermitionException, AccessDeniedException, FileNotFoundException{
         	try{
         		Login login = getLoginbyToken(token);
         		Directory dir = login.getCurrentdirectory();
-        		
+
         		User user = login.getUser();
-        		
+
         		return getFilesystem().readFile(dir, user, filename);
-        		
+
         	}catch(LoginDoesNotExistException e){
         		throw e;
         	}catch (CantReadDirectoryException e){
@@ -112,8 +115,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				throw e;
 			}
         }
-        
-        public void writeToFile(long token, String filename, String content) throws LoginDoesNotExistException, 
+
+        public void writeToFile(long token, String filename, String content) throws LoginDoesNotExistException,
         CantWriteToDirectoryException, PermitionException, AccessDeniedException{
         	try{
 
@@ -134,9 +137,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				throw e;
 			}
         }
-        
 
-		public void createFile(long token, String filename, String type, String content) throws InvalidPathSizeException, 
+
+		public void createFile(long token, String filename, String type, String content) throws InvalidPathSizeException,
 		LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException, PermitionException{
 
 			try{
