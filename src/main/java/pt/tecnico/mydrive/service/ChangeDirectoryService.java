@@ -1,11 +1,8 @@
 package pt.tecnico.mydrive.service;
 
+import pt.tecnico.mydrive.domain.MyDrive;
 
-import java.util.*;
-import org.joda.time.DateTime;
-
-
-import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
+import pt.tecnico.mydrive.exceptions.AccessDeniedException;
 import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
@@ -18,7 +15,6 @@ public class ChangeDirectoryService extends MyDriveService {
 	public ChangeDirectoryService(long token, String path){
 
 		_path=path;
-		_token=token;
 
 	}
 	
@@ -46,15 +42,14 @@ public class ChangeDirectoryService extends MyDriveService {
 		
 	}
 	
-	public final void dispatch(){
-        try{
-	       getMydrive().changeCurrentDirectory(_token,_path);
-        }catch (LoginDoesNotExistException e){
-        	System.out.println(e.getMessage());
-        }catch (InvalidPathSizeException e){
-        	System.out.println(e.getMessage());   
-        }catch (FileNotFoundException e){
-        	System.out.println(e.getMessage());
-        }
+	public final void dispatch() throws AccessDeniedException, InvalidPathSizeException, LoginDoesNotExistException, FileNotFoundException{
+
+		_path = getMydrive().changeCurrentDirectory(_token, _path);
+
+	}
+
+	public final String result(){
+		return _path;
 	}
 }
+

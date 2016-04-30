@@ -1,9 +1,13 @@
 package pt.tecnico.mydrive.service;
 
+import pt.tecnico.mydrive.domain.MyDrive;
+
 import pt.tecnico.mydrive.exceptions.AccessDeniedException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
+import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+
 
 public class WriteFileService extends MyDriveService{
 	private String _filename;
@@ -38,18 +42,23 @@ public class WriteFileService extends MyDriveService{
 		_token = token;
 		
 	}
-	
-	public final void dispatch(){
-        try{
-	       getMydrive().writeToFile(_token,_filename, _content);
-        }catch (LoginDoesNotExistException e){
-        	System.out.println(e.getMessage());
-        }catch (CantWriteToDirectoryException e){
-        	System.out.println(e.getMessage());
-        }catch (PermitionException  e){
-        	System.out.println(e.getMessage());
-        }catch (AccessDeniedException e){
-        	System.out.println(e.getMessage());
-        }
+
+	public String getcontent(){
+
+		return _content;
+
 	}
+
+	public void setcontent(String content){
+
+		_content = content;
+
+	}
+	
+	public final void dispatch() throws AccessDeniedException, CantWriteToDirectoryException, LoginDoesNotExistException, PermitionException, FileNotFoundException{
+
+		getMydrive().writeToFile(_token, _filename, _content);
+
+	}
+
 }
