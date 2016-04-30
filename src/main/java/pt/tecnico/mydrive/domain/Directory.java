@@ -71,64 +71,7 @@ public class Directory extends Directory_Base {
       super.addFiles(f);
     }
 
-
-    public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ) throws FileAlreadyExistsException{
-      TextFile tf = new TextFile(name, permission, fileid , timestamp, owner, content);
-      
-      try{
-   		     
-   		     addFiles(tf);   
-      }
-      catch(FileAlreadyExistsException e){throw e;}
-     }
-
-
-   public void createSubDirectory(String name, int fileid, User owner, Directory parent){
-
-	  Directory subdirectory = new Directory(name, fileid, new DateTime(), owner.get_mask(), owner, parent);
-
-      parent.addFiles(subdirectory); // o addFiles tem que ser override?
-   }
-
-   public boolean hasFile(String name){
-          return getFile(name) != null;
-
-   }
-
-   public String listDirectory(){
-
-    //falta retornar o conteudo dos Links existentes quando lista a diretoria
-
-	   String s= "";
-       for(File f : getFilesSet()) {
-	         s=s + "name:" + f.get_name() + " permissions:" + f.get_permission()
-                + " timestamp:" + f.get_timestamp() + " owner:" + f.getOwner().get_name() +"\n" ;
-          }
-	     return s;
-   }
-
-
-
-    public File getFile(String name) throws FileNotFoundException{
-        File file= null;
-
-        for(File f : getFilesSet()) {
-             if(f.get_name().equals(name))
-                  file = f;
-            }
-
-          throw new FileNotFoundException(name);
-
-    }
-
-
-   public void cleanup(){
-
-      for (File f: getFilesSet()) f.remove();
-
-   } 
-
-	@Override
+    @Override
     public void setUser(User user) {
         if (user == null) {
             super.setUser(null);
@@ -190,13 +133,13 @@ public class Directory extends Directory_Base {
     }
 
 
-	@Override
+  @Override
     public void setOwner(User owner) {
         if (owner == null) {
             super.setOwner(null);
             return;
         }
-		super.setOwner(owner);
+    super.setOwner(owner);
 
     }
 
@@ -214,22 +157,82 @@ public class Directory extends Directory_Base {
     @Override
     public void remove(){
 
-		for(File f : getFilesSet()) {
-			f.remove();}
+    for(File f : getFilesSet()) {
+      f.remove();}
 
-		setUser(null);
-		setFilesystem(null);
-		setParent(null);
-		setDir(null);
-		setSelf(null);
-		setDirctory(null);
-		setOwner(null);
-		setDirectory(null);
+    setUser(null);
+    setFilesystem(null);
+    setParent(null);
+    setDir(null);
+    setSelf(null);
+    setDirctory(null);
+    setOwner(null);
+    setDirectory(null);
 
-		deleteDomainObject();
+    deleteDomainObject();
 
     }
 
+
+
+    public void createFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content ) throws FileAlreadyExistsException{
+      TextFile tf = new TextFile(name, permission, fileid , timestamp, owner, content);
+      
+      try{
+   		     
+   		     addFiles(tf);   
+      }
+      catch(FileAlreadyExistsException e){throw e;}
+     }
+
+     
+
+   public void createSubDirectory(String filename, User owner, int fileid, DateTime timestamp){
+
+	    Directory subdirectory = new Directory(name, fileid, new DateTime(), owner.get_mask(), owner, parent);
+
+      addFiles(subdirectory); // o addFiles tem que ser override?
+   }
+
+   public boolean hasFile(String name){
+          return getFile(name) != null;
+
+   }
+
+   public String listDirectory(){
+
+    //falta retornar o conteudo dos Links existentes quando lista a diretoria
+
+	   String s= "";
+       for(File f : getFilesSet()) {
+	         s=s + "name:" + f.get_name() + " permissions:" + f.get_permission()
+                + " timestamp:" + f.get_timestamp() + " owner:" + f.getOwner().get_name() +"\n" ;
+          }
+	     return s;
+   }
+
+
+
+    public File getFile(String name) throws FileNotFoundException{
+        File file= null;
+
+        for(File f : getFilesSet()) {
+             if(f.get_name().equals(name))
+                  file = f;
+            }
+
+          throw new FileNotFoundException(name);
+
+    }
+
+
+   public void cleanup(){
+
+      for (File f: getFilesSet()) f.remove();
+
+   } 
+
+	
     //    nao fazer isto, metodos abstratos e redefiniçao para cada tipo
 
 
