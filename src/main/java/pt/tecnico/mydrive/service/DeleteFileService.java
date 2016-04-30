@@ -1,4 +1,4 @@
-package pt.tecnico.mydrive.service;
+/*package pt.tecnico.mydrive.service;
 
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
@@ -59,3 +59,5 @@ public class DeleteFileService extends MyDriveService {
         
     }
 }
+
+*/

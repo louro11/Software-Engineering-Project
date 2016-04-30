@@ -118,7 +118,7 @@ public class FileSystem extends FileSystem_Base {
     }
 
 
-
+/*
     public void removeFileByPath(User user, String path) throws FileNotFoundException, PermitionException{
 
 
@@ -154,6 +154,8 @@ public class FileSystem extends FileSystem_Base {
 
 
 	}
+
+	
 
 
 	public void removeFileByName(User user, Directory current, String name) throws FileNotFoundException, PermitionException{
@@ -404,7 +406,7 @@ public class FileSystem extends FileSystem_Base {
 		}
 	}
 
-
+/*
 
 
 	public Directory Directoryfrompath(String path){
@@ -433,7 +435,8 @@ public class FileSystem extends FileSystem_Base {
 		return aux;
 	}
 
-  //closes issue
+	*/
+
 		public String listDirectory(Directory dir, User usr)throws PermitionException{
 
 

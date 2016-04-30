@@ -250,11 +250,7 @@ public class Directory extends Directory_Base {
    } 
 
 	
-    //    nao fazer isto, metodos abstratos e redefiniçao para cada tipo
-
-
-
-    
+   
 
 	public Element xmlExport() {
 

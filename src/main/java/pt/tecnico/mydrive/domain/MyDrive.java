@@ -200,7 +200,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-
+		/*
 
 		public void deleteFileByPath(long token, String path) throws LoginDoesNotExistException, FileNotFoundException, PermitionException  {
 
@@ -245,7 +245,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		}
 
-
+	*/
 
 
 

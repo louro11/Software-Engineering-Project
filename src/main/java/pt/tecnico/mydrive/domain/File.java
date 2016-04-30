@@ -25,14 +25,6 @@ public abstract class File extends File_Base {
 
     }
 
-    //como herda de File_base ja tem o getName
-
-    /*
-    public boolean isCDiable(){};
-
-    public boolean isAppendable(){};
-    */
-
     /******************* metodos abstratos *****************/
 
     public abstract String readfile();
