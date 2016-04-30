@@ -36,12 +36,12 @@ public class FileSystem extends FileSystem_Base {
         IncrementIdseq();
         Directory maindir = new Directory( "/" , get_idseq() , new DateTime(), mask , (User)root );
         IncrementIdseq();
-        maindir.createSubDirectory("home", get_idseq(), (User)root,maindir);
+        maindir.createSubDirectory("home", get_idseq(), (User)root);
 
 
         Directory home = (Directory) maindir.getFile("home");
         IncrementIdseq();
-        home.createSubDirectory("root",get_idseq(),root, home);
+        home.createSubDirectory("root",get_idseq(),root);
 
         Directory main = (Directory) home.getFile("root");
         root.setHomedirectory(main);
@@ -225,7 +225,7 @@ public class FileSystem extends FileSystem_Base {
 					else{
 
 						IncrementIdseq();
-						currentdir.createSubDirectory(token[i],get_idseq(),owner,currentdir);
+						currentdir.createSubDirectory(token[i],get_idseq(),owner);
 
 						for (File newfile: currentdir.getFilesSet()){
 
@@ -246,7 +246,7 @@ public class FileSystem extends FileSystem_Base {
     		else{
 
     			IncrementIdseq();
-				currentdir.createSubDirectory(token[i],get_idseq(),owner,currentdir);
+				currentdir.createSubDirectory(token[i],get_idseq(),owner);
 
 				for (File newfile: currentdir.getFilesSet()){
 
