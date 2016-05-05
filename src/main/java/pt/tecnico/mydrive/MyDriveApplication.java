@@ -30,56 +30,54 @@ public class MyDriveApplication{
 	static final Logger log = LogManager.getRootLogger();
 
     public static void main(String[] args) throws IOException {
-	//
-	//
-	// 	System.out.println("*** Welcome to the MyDrive application! ***");
-	//
-	// 	try {
-	//
-	// 	init();
-	// 	//setup();
-	//
-	//
-	// 	//for (String s: args) scanXml(new File(s));
-	//
-	// 	//print();
-	// 	printXml();
-	//
-	// 	}finally { FenixFramework.shutdown(); }
-	//
-	// }
-  //   //close issue
-	//
-	//
-	//
-	//
-  //   @Atomic
-  //   public static void init() { // empty mydrive
-	//
-  //       log.trace("Init: " + FenixFramework.getDomainRoot());
-	// 	MyDrive.getInstance();
-	// 	/** MyDrive.getInstance().cleanup();    deviamos pensar em fazer isto, pode ser importante  **/
-	//
-  //   }
-	//
-	//
-  //   @Atomic
-  //   public static void setup() { // mydrive with debug data
-	//
-	//
-  //       //log.trace("Setup: " + FenixFramework.getDomainRoot());
-	// 	//MyDrive md = MyDrive.getInstance();
-    	//FileSystem fs = md.getFileSystem();
-	//
-	// 	//Directory maindirectory= md.getCurrentdirectory();
-	//
-  //       //ponto 1
-	//
-	// 	//md.changeCurrentDirectory("/home"); another arguments ---> token
-	// 	//md.createTextFile("README", "lista de utilizadores");
-	//
-	//
-	//
+	
+	
+	 	System.out.println("*** Welcome to the MyDrive application! ***");
+	
+		try {
+	
+		init();
+		setup();
+	
+	 	for (String s: args) scanXml(new File(s));
+			//print();
+		 	printXml();
+	 	}finally { FenixFramework.shutdown(); }
+	
+	}
+    //close issue
+	
+	
+	
+	
+    @Atomic
+    public static void init() { // empty mydrive
+	
+        log.trace("Init: " + FenixFramework.getDomainRoot());
+		MyDrive.getInstance();
+		/**MyDrive.getInstance().cleanup();    deviamos pensar em fazer isto, pode ser importante  **/
+	
+    }
+	
+	
+    @Atomic
+    public static void setup() { // mydrive with debug data
+	
+	
+        log.trace("Setup: " + FenixFramework.getDomainRoot());
+		MyDrive md = MyDrive.getInstance();
+    	FileSystem fs = md.getFilesystem();
+    }
+	
+		//Directory maindirectory= md.getCurrentdirectory();
+	
+        //ponto 1
+	
+		//md.changeCurrentDirectory("/home"); another arguments ---> token
+		//md.createTextFile("README", "lista de utilizadores");
+	
+	
+	
 	// ////closed exceptions issue
 	//
 	// 	//ponto2
@@ -110,36 +108,38 @@ public class MyDriveApplication{
   //   }
 	//
   //   //ponto 5????
-  //   @Atomic
-  //   public static void printXml() {
-	//
-	//
-  //       log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
-	// 	Document doc = MyDrive.getInstance().xmlExport();
-	// 	XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
-	//
-	// 	try {
-	// 		xmlOutput.output(doc, new PrintStream(System.out));
-	//
-	// 	} catch (IOException e) { System.out.println(e); }
-  //   }
-	//
-  //   @Atomic
-  //   public static void scanXml(File file) {
-	//
-	//
-	// 	log.trace("xmlScan: " + FenixFramework.getDomainRoot());
-	// 	MyDrive md = MyDrive.getInstance();
-	// 	SAXBuilder builder = new SAXBuilder();
-	//
-	//
-	// 	try {
-	// 	    Document document = (Document)builder.build(file);
-	// 	    md.xmlImport(document.getRootElement());
-	// 	}catch (JDOMException | IOException e) {
-	// 	    e.printStackTrace();
-	// 	}
+    @Atomic
+    public static void printXml() {
+	
+	
+        log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
+		Document doc = MyDrive.getInstance().xmlExport();
+		XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
+	
+		try {
+			xmlOutput.output(doc, new PrintStream(System.out));
+	
+		} catch (IOException e) { System.out.println(e); }
     }
-
-
+	
+    @Atomic
+    public static void scanXml(File file){
+	
+	
+		log.trace("xmlScan: " + FenixFramework.getDomainRoot());
+		MyDrive md = MyDrive.getInstance();
+		SAXBuilder builder = new SAXBuilder();
+	
+	
+		try {
+		    Document document = (Document)builder.build(file);
+		    md.xmlImport(document.getRootElement());
+		}catch (JDOMException | IOException e) {
+		    e.printStackTrace();
+		}
+    }
 }
+
+
+
+
