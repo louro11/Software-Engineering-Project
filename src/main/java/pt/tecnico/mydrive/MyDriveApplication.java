@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.File;
 
+import pt.tecnico.mydrive.domain.MyDrive;
+
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -30,6 +32,7 @@ public class MyDriveApplication{
 	static final Logger log = LogManager.getRootLogger();
 
     public static void main(String[] args) throws IOException {
+
 	
 	
 	 	System.out.println("*** Welcome to the MyDrive application! ***");
@@ -78,6 +81,67 @@ public class MyDriveApplication{
 	
 	
 	
+
+
+	}
+	//
+	//
+	// 	System.out.println("*** Welcome to the MyDrive application! ***");
+	//
+	// 	try {
+	//
+	// 	init();
+	// 	//setup();
+	//
+	//
+	// 	//for (String s: args) scanXml(new File(s));
+	//
+	// 	//print();
+	// 	printXml();
+	//
+	// 	}finally { FenixFramework.shutdown(); }
+	//
+	// }
+  //   //close issue
+	//
+	//
+	//
+	//
+    /*@Atomic
+    public static void init() { // empty mydrive
+	
+        log.trace("Init: " + FenixFramework.getDomainRoot());
+	 	MyDrive.getInstance();
+ 	    MyDrive.getInstance().cleanup();  
+	
+    }*/
+
+    	@Atomic
+    	public static void init() { // empty mydrive
+        	log.trace("Init: " + FenixFramework.getDomainRoot());
+			MyDrive.getInstance().getFilesystem().cleanup();
+    	}
+
+	//
+	//
+  //   @Atomic
+  //   public static void setup() { // mydrive with debug data
+	//
+	//
+  //       //log.trace("Setup: " + FenixFramework.getDomainRoot());
+	// 	//MyDrive md = MyDrive.getInstance();
+    	//FileSystem fs = md.getFileSystem();
+	//
+	// 	//Directory maindirectory= md.getCurrentdirectory();
+	//
+  //       //ponto 1
+	//
+	// 	//md.changeCurrentDirectory("/home"); another arguments ---> token
+	// 	//md.createTextFile("README", "lista de utilizadores");
+	//
+	//
+	//
+>>>>>>> 906664e5719943647c9297aba9ab9fa2b6cb275e
 	// ////closed exceptions issue
 	//
 	// 	//ponto2
@@ -108,6 +172,7 @@ public class MyDriveApplication{
   //   }
 	//
   //   //ponto 5????
+<<<<<<< HEAD
     @Atomic
     public static void printXml() {
 	
@@ -141,5 +206,37 @@ public class MyDriveApplication{
 }
 
 
+=======
+  //   @Atomic
+  //   public static void printXml() {
+	//
+	//
+  //       log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
+	// 	Document doc = MyDrive.getInstance().xmlExport();
+	// 	XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
+	//
+	// 	try {
+	// 		xmlOutput.output(doc, new PrintStream(System.out));
+	//
+	// 	} catch (IOException e) { System.out.println(e); }
+  //   }
+	//
+  //   @Atomic
+  //   public static void scanXml(File file) {
+	//
+	//
+	// 	log.trace("xmlScan: " + FenixFramework.getDomainRoot());
+	// 	MyDrive md = MyDrive.getInstance();
+	// 	SAXBuilder builder = new SAXBuilder();
+	//
+	//
+	// 	try {
+	// 	    Document document = (Document)builder.build(file);
+	// 	    md.xmlImport(document.getRootElement());
+	// 	}catch (JDOMException | IOException e) {
+	// 	    e.printStackTrace();
+	// 	}
+    
+>>>>>>> 906664e5719943647c9297aba9ab9fa2b6cb275e
 
 

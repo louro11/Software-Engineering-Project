@@ -17,7 +17,10 @@ import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.tecnico.mydrive.exceptions.InvalidFileNameException;
+import pt.tecnico.mydrive.service.dto.FileDto;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.jdom2.Element;
@@ -48,16 +51,17 @@ public class FileSystem extends FileSystem_Base {
 
 
         setRoot(root);
-        setMaindir(maindir);
+        //setMaindir(maindir);
     }
+
 
 
 
     public String changeCurrentDirectory(Login login, User user, String path) throws FileNotFoundException, AccessDeniedException {
 
-    	Directory dirtobechanged ; 
+    	Directory dirtobechanged ;
 
-    	if (path.startsWith("/")) { 
+    	if (path.startsWith("/")) {
     		dirtobechanged = getMaindir();
     	}
 
@@ -66,7 +70,7 @@ public class FileSystem extends FileSystem_Base {
     	dirtobechanged = login.getCurrentdirectory();
 
     	}
-    	
+
     	String[] dirs = path.split("/");
 
     			for (int i=1; i<dirs.length;i++){
@@ -87,10 +91,12 @@ public class FileSystem extends FileSystem_Base {
 							throw new FileNotFoundException(dirs[i]);
 
 						}
-    				}				
+    				}
     			}
 
+
     	login.setCurrentdirectory(dirtobechanged);
+
     	return path;
 	}
 
@@ -117,155 +123,7 @@ public class FileSystem extends FileSystem_Base {
 
     }
 
-
-
-    public void removeFileByPath(User user, String path) throws FileNotFoundException, PermitionException{
-
-
-		Directory parent = Directoryfrompath(path);
-
-		String[] token = path.split("/");
-
-		for (File file: parent.getFilesSet()){
-
-
-
-				if (file.get_name().equals(token[token.length-1])){
-
-					if(user.hasDeletePermission(file) && user.hasDeletePermission(parent)){
-
-						file.remove();
-					}
-					else{
-
-						throw new PermitionException("This user: " + user.get_name() + " has no permission to delete this file. ");
-
-					}
-				}
-
-				else{
-
-					throw new FileNotFoundException("No such file or directory: " + token[token.length-1]);
-
-				}
-
-		}
-
-
-
-	}
-
-
-	public void removeFileByName(User user, Directory current, String name) throws FileNotFoundException, PermitionException{
-
-
-		//Directory parent = Directoryfrompath(path);
-
-		//String[] token = path.split("/");
-
-		for (File file: current.getFilesSet()){
-
-
-
-				if (file.get_name().equals(name)){
-
-					if(user.hasDeletePermission(file) && user.hasDeletePermission(current)){
-
-						file.remove();
-					}
-					else{
-
-						throw new PermitionException("This user: " + user.get_name() + " has no permission to delete this file. ");
-
-					}
-				}
-
-				else{
-
-					throw new FileNotFoundException("No such file or directory: " + name);
-
-				}
-
-		}
-
-
-
-	}
-
-
-
-	/*
-	
-	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
-
-
-			
-			IncrementIdseq();
-			cd.createTextFile(name, permission, get_idseq(), timestamp, owner, content);
-	}
-
-*/
-
-	public void createDirectory(User owner,String path){
-
-
-		Directory currentdir = getMaindir() ;
-    	String[] token = path.split("/");
-
-    	for (int i=1; i<token.length;i++){
-
-    		if(currentdir.getFilesSet().size()!=0){
-
-				for (File file: currentdir.getFilesSet()){
-
-					if (file.get_name().equals(token[i])){
-
-						currentdir = (Directory) file;
-					}
-					else{
-
-						IncrementIdseq();
-						currentdir.createSubDirectory(token[i],owner,get_idseq(), new DateTime());
-
-						for (File newfile: currentdir.getFilesSet()){
-
-								if (newfile.get_name().equals(token[i])){
-
-								currentdir = (Directory) newfile;
-
-								break;
-
-								}
-						}
-
-						break;
-						}
-
-	    		}
-    		}
-    		else{
-
-    			IncrementIdseq();
-				currentdir.createSubDirectory(token[i],owner,get_idseq(),new DateTime());
-
-				for (File newfile: currentdir.getFilesSet()){
-
-					if (newfile.get_name().equals(token[i])){
-
-						currentdir = (Directory) newfile;
-
-						break;
-
-					}
-				}
-
-
-    		}
-    	}
-
-	}
-
-	public String readFile(Directory dir, User user, String filename)throws CantReadDirectoryException, FileNotFoundException, PermitionException{
+    public String readFile(Directory dir, User user, String filename)throws CantReadDirectoryException, FileNotFoundException, PermitionException{
 		try{
 
 			File file = dir.getFile(filename);
@@ -279,8 +137,8 @@ public class FileSystem extends FileSystem_Base {
 				throw new PermitionException(file.get_permission());
 			}
 
-			
-			return file.readfile(); 
+
+			return file.readfile();
 		}catch(FileNotFoundException e){
 			throw e;
 		}
@@ -290,9 +148,9 @@ public class FileSystem extends FileSystem_Base {
 	FileNotFoundException, PermitionException, AccessDeniedException{
 		try{
 
-			
+
 			File file = dir.getFile(filename);
-			
+
 
 			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
 				throw new PermitionException(file.get_permission());
@@ -325,11 +183,11 @@ public class FileSystem extends FileSystem_Base {
 
 		if(!(curdir.hasFile(filename))){
 
-	
+
 			if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
 
 			if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
-		
+
 			IncrementIdseq();
 			DateTime dt = new DateTime();
 
@@ -355,15 +213,15 @@ public class FileSystem extends FileSystem_Base {
 
 		if(!(curdir.hasFile(filename))){
 
-	
+
 			if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
 
 			if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
-		
+
 			IncrementIdseq();
 			DateTime dt = new DateTime();
 
-			
+
 			curdir.createFile(type, filename,user,get_idseq(),dt,content);
 
 			/*if(type.equals("directory")){
@@ -372,7 +230,7 @@ public class FileSystem extends FileSystem_Base {
 					dir.addFiles(direct);
 				}else
 					throw new InvalidContentException(content);
-			} 
+			}
 
 			else if(type.equals("textfile")){
 				TextFile txt = new TextFile(filename, user.get_mask(), get_idseq(), dt, user, content);
@@ -398,43 +256,14 @@ public class FileSystem extends FileSystem_Base {
 				dir.addFiles(link);
 			}else
 				throw new InvalidTypeException(type);
-		
+
 			*/
-		
+
 		}
 	}
 
+	public List<FileDto> listDirectory(Directory dir, User usr)throws PermitionException{
 
-
-
-	public Directory Directoryfrompath(String path){
-
-		int i;
-
-		String[] token = path.split("/");
-
-		Directory aux = getMaindir();
-
-		for(i=1; i<token.length-1; i++){
-
-			for (File file: aux.getFilesSet()){
-
-				if (file.get_name().equals(token[i])){
-
-					aux = (Directory) file;
-
-
-				}
-
-			}
-
-		}
-
-		return aux;
-	}
-
-  //closes issue
-		public String listDirectory(Directory dir, User usr)throws PermitionException{
 
 
 	     if(usr.isRoot() || usr.hasReadPermission(dir)){
@@ -446,10 +275,6 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-	
-
-
-//closes 16
 	public Element xmlExport() {
 
 
@@ -522,4 +347,200 @@ public class FileSystem extends FileSystem_Base {
     }
     throw new UserDoesNotExistException(username);
   }
+
+  public void cleanup() {
+        for (User u: getUsersSet()){
+	    	u.remove();
+        }
+    }
+
+
+/*
+    public void removeFileByPath(User user, String path) throws FileNotFoundException, PermitionException{
+
+
+		Directory parent = Directoryfrompath(path);
+
+		String[] token = path.split("/");
+
+		for (File file: parent.getFilesSet()){
+
+
+
+				if (file.get_name().equals(token[token.length-1])){
+
+					if(user.hasDeletePermission(file) && user.hasDeletePermission(parent)){
+
+						file.remove();
+					}
+					else{
+
+						throw new PermitionException("This user: " + user.get_name() + " has no permission to delete this file. ");
+
+					}
+				}
+
+				else{
+
+					throw new FileNotFoundException("No such file or directory: " + token[token.length-1]);
+
+				}
+
+		}
+
+
+
+	}
+
+	
+
+
+	public void removeFileByName(User user, Directory current, String name) throws FileNotFoundException, PermitionException{
+
+
+		//Directory parent = Directoryfrompath(path);
+
+		//String[] token = path.split("/");
+
+		for (File file: current.getFilesSet()){
+
+
+
+				if (file.get_name().equals(name)){
+
+					if(user.hasDeletePermission(file) && user.hasDeletePermission(current)){
+
+						file.remove();
+					}
+					else{
+
+						throw new PermitionException("This user: " + user.get_name() + " has no permission to delete this file. ");
+
+					}
+				}
+
+				else{
+
+					throw new FileNotFoundException("No such file or directory: " + name);
+
+				}
+
+		}
+
+
+
+	}
+
+
+
+	/*
+
+	public void createTextFile(String name, String permission, int fileid, DateTime timestamp, User owner, String content, Directory cd ){
+
+
+
+			IncrementIdseq();
+			cd.createTextFile(name, permission, get_idseq(), timestamp, owner, content);
+	}
+
+*/
+
+/*
+	public void createDirectory(User owner,String path){
+
+
+		Directory currentdir = getMaindir() ;
+    	String[] token = path.split("/");
+
+    	for (int i=1; i<token.length;i++){
+
+    		if(currentdir.getFilesSet().size()!=0){
+
+				for (File file: currentdir.getFilesSet()){
+
+					if (file.get_name().equals(token[i])){
+
+						currentdir = (Directory) file;
+					}
+					else{
+
+						IncrementIdseq();
+						currentdir.createSubDirectory(token[i],owner,get_idseq(), new DateTime());
+
+						for (File newfile: currentdir.getFilesSet()){
+
+								if (newfile.get_name().equals(token[i])){
+
+								currentdir = (Directory) newfile;
+
+								break;
+
+								}
+						}
+
+						break;
+						}
+
+	    		}
+    		}
+    		else{
+
+    			IncrementIdseq();
+				currentdir.createSubDirectory(token[i],owner,get_idseq(),new DateTime());
+
+				for (File newfile: currentdir.getFilesSet()){
+
+					if (newfile.get_name().equals(token[i])){
+
+						currentdir = (Directory) newfile;
+
+						break;
+
+					}
+				}
+
+
+    		}
+    	}
+
+	}
+
+	*/
+
+	
+
+/*
+
+
+	public Directory Directoryfrompath(String path){
+
+		int i;
+
+		String[] token = path.split("/");
+
+		Directory aux = getMaindir();
+
+		for(i=1; i<token.length-1; i++){
+
+			for (File file: aux.getFilesSet()){
+
+				if (file.get_name().equals(token[i])){
+
+					aux = (Directory) file;
+
+
+				}
+
+			}
+
+		}
+
+		return aux;
+	}
+
+
+	*/
+
+
+		
 }
