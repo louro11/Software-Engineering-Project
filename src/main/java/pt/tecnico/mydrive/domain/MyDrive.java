@@ -282,7 +282,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-		public long loginUser(String username, String password){
+		public long loginUser(String username, String password)throws UserDoesNotExistException {
 
 			try{
 
@@ -294,16 +294,16 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				UpdateLoginList();
 
-				getLoginsSet().add(login);
+				getLoginsSet().add(login);  //override do add!!!!!!! /*TODO*/
 
 				return login.get_token();
 
 			}
 
 			catch( UserDoesNotExistException e ){
-				System.out.println( e.getMessage() );
+				throw e; //System.out.println( e.getMessage() );
 			}
-			return 0;
+			//return 0;
 			}
 
 		public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
@@ -346,6 +346,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	}
 
 	}
+
+
 
 
 }

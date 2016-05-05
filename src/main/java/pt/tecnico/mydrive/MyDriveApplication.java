@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.File;
 
+import pt.tecnico.mydrive.domain.MyDrive;
+
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -30,6 +32,8 @@ public class MyDriveApplication{
 	static final Logger log = LogManager.getRootLogger();
 
     public static void main(String[] args) throws IOException {
+
+	}
 	//
 	//
 	// 	System.out.println("*** Welcome to the MyDrive application! ***");
@@ -53,14 +57,21 @@ public class MyDriveApplication{
 	//
 	//
 	//
-  //   @Atomic
-  //   public static void init() { // empty mydrive
-	//
-  //       log.trace("Init: " + FenixFramework.getDomainRoot());
-	// 	MyDrive.getInstance();
-	// 	/** MyDrive.getInstance().cleanup();    deviamos pensar em fazer isto, pode ser importante  **/
-	//
-  //   }
+    /*@Atomic
+    public static void init() { // empty mydrive
+	
+        log.trace("Init: " + FenixFramework.getDomainRoot());
+	 	MyDrive.getInstance();
+ 	    MyDrive.getInstance().cleanup();  
+	
+    }*/
+
+    	@Atomic
+    	public static void init() { // empty mydrive
+        	log.trace("Init: " + FenixFramework.getDomainRoot());
+			MyDrive.getInstance().getFilesystem().cleanup();
+    	}
+
 	//
 	//
   //   @Atomic
@@ -139,7 +150,7 @@ public class MyDriveApplication{
 	// 	}catch (JDOMException | IOException e) {
 	// 	    e.printStackTrace();
 	// 	}
-    }
+    
 
 
 }
