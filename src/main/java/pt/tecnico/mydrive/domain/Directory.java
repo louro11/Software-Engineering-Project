@@ -293,6 +293,11 @@ public class Directory extends Directory_Base {
 
         return dir;
 	}
-
+	
+	@Override
+	public boolean isDir(){
+		return true;
+	}
+	
 
 }
