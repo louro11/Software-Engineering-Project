@@ -86,7 +86,9 @@ public abstract class File extends File_Base {
     //isto e para fazer override     
     public void remove(){} 
      
-
+    public boolean isDir(){
+    	return false;
+    }
 
     public boolean isEqual(File file){
 		
