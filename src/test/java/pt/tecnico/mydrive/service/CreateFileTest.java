@@ -32,14 +32,18 @@ public class CreateFileTest extends AbstractServiceTest {
 
         MyDrive md = MyDrive.getInstance();
 
-        SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
+        FileSystem fs = MyDriveService.getFilesystem();
 
-        Directory claudiahome = new Directory("claudiahome",123,new DateTime(),"rwxd----", (User)root );
-        
+        //SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
+
+        SuperUser root = fs.getRoot();
+
+        Directory claudiahome = new Directory("claudiahome",123,new DateTime(),"rwxd----", (User)root);
+    
         User claudia = new User("claudiaamorim", "nhanha", "claudia", "rwxd----", claudiahome);
+
         claudiahome.setOwner(claudia);
-        
-        
+           
 
         
 		//long token_rip = md.loginUser("Henrip","Henrip");
@@ -54,8 +58,6 @@ public class CreateFileTest extends AbstractServiceTest {
   private File getFile(String name, long token){
 
         MyDrive md = MyDriveService.getMydrive();
-        FileSystem fs= MyDriveService.getFilesystem();
-
 
         Login login = md.getLoginbyToken(token);
 

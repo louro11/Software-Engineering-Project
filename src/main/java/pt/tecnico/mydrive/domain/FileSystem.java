@@ -51,7 +51,7 @@ public class FileSystem extends FileSystem_Base {
 
 
         setRoot(root);
-        //setMaindir(maindir);
+        //setMaindir(maindir);  a root nao é  iniciada com maindir por nao ter login? ou é feito um login com root?
     }
 
 
