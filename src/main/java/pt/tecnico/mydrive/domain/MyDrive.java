@@ -254,8 +254,10 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				return login.get_token();
 
 			}
+
 			catch( UserDoesNotExistException e ){   throw e; }
 			catch( WrongPasswordException e ){  throw e; }
+
 
 			//return 0;
 		}
