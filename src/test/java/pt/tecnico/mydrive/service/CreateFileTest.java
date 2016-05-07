@@ -33,38 +33,38 @@ public class CreateFileTest extends AbstractServiceTest {
 
 @Mocked
 private MyDrive md;
-	
+
 
     protected void populate() {
 
         md = MyDrive.getInstance();
 
-        FileSystem fs = MyDriveService.getFilesystem();
+        //FileSystem fs = MyDriveService.getFilesystem();
 
-        //SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
+        SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
 
-        SuperUser root = fs.getRoot();
+      //  SuperUser root = fs.getRoot();
 
         Directory claudiahome = new Directory("claudiahome",123,new DateTime(),"rwxd----", (User)root);
-    
+
         User claudia = new User("claudiaamorim", "nhanha", "claudia", "rwxd----", claudiahome);
 
         claudiahome.setOwner(claudia);
-           
 
-        
+
+
 		//long token_rip = md.loginUser("Henrip","Henrip");
 
   }
   private long login(String username, String password){
 
-        MyDrive md = MyDriveService.getMydrive();
+        //MyDrive md = MyDriveService.getMydrive();
         return md.loginUser(username,password);
   }
 
   private File getFile(String name, long token){
 
-        MyDrive md = MyDriveService.getMydrive();
+        //MyDrive md = MyDriveService.getMydrive();
 
         Login login = md.getLoginbyToken(token);
 
@@ -94,11 +94,11 @@ private MyDrive md;
 
         //final String userName = "Henrip";
 
-        
+
         token = login("claudiaamorim","nhanha");
         CreateFileService service = new CreateFileService(token,"README", "textfile", "4Dcinema----> check!");
 
-        
+
 
         CreateFileService service = new CreateFileService(token, "HLgameplan", "file", "4Dcinema----> check!");
         service.execute();
