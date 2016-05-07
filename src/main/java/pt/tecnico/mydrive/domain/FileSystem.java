@@ -29,359 +29,389 @@ import org.jdom2.Element;
 
 public class FileSystem extends FileSystem_Base {
 
-    public FileSystem() {
+		public FileSystem() {
 
-        SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
+			SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
 
-		ResetIdseq();
+			ResetIdseq();
 
-        String mask = root.get_mask();
+			String mask = root.get_mask();
 
-        IncrementIdseq();
-        Directory maindir = new Directory( "/" , get_idseq() , new DateTime(), mask , (User)root );
-        IncrementIdseq();
-        maindir.createSubDirectory("home", (User)root, get_idseq(),new DateTime() );
-
-
-        Directory home = (Directory) maindir.getFile("home");
-        IncrementIdseq();
-        home.createSubDirectory("root",root,get_idseq(), new DateTime());
-
-        Directory main = (Directory) home.getFile("root");
-        root.setHomedirectory(main);
+			IncrementIdseq();
+			Directory maindir = new Directory( "/" , get_idseq() , new DateTime(), mask , (User)root );
+			IncrementIdseq();
+			maindir.createSubDirectory("home", (User)root, get_idseq(),new DateTime() );
 
 
-        setRoot(root);
-      	setMaindir(maindir);
-    }
+			Directory home = (Directory) maindir.getFile("home");
+			IncrementIdseq();
+			home.createSubDirectory("root",root,get_idseq(), new DateTime());
+
+			Directory main = (Directory) home.getFile("root");
+			root.setHomedirectory(main);
+
+
+			setRoot(root);
+			setMaindir(maindir);
+		}
 
 
 
 
-    public String changeCurrentDirectory(Login login, User user, String path) throws FileNotFoundException, AccessDeniedException {
+		public String changeCurrentDirectory(Login login, User user, String path) throws FileNotFoundException, AccessDeniedException {
 
-    	Directory dirtobechanged ;
+			Directory dirtobechanged ;
 
-    	if (path.startsWith("/")) {
-    		dirtobechanged = getMaindir();
-    	}
+			if (path.startsWith("/")) {
+				dirtobechanged = getMaindir();
+			}
 
-    	else{
+			else{
 
-    	dirtobechanged = login.getCurrentdirectory();
+			dirtobechanged = login.getCurrentdirectory();
 
-    	}
+			}
 
-    	String[] dirs = path.split("/");
+			String[] dirs = path.split("/");
 
-    			for (int i=1; i<dirs.length;i++){
+					for (int i=1; i<dirs.length;i++){
 
-    				for (File file: dirtobechanged.getFilesSet()){
+						for (File file: dirtobechanged.getFilesSet()){
 
-						if (file.get_name().equals(dirs[i]) ){
+							if (file.get_name().equals(dirs[i]) ){
 
-							if(!((file.getOwner().get_username()).equals(user.get_username()))){ //nao deixa ler ficheiros de outros users
-									throw new AccessDeniedException(file.getOwner().get_username());
+								if(!((file.getOwner().get_username()).equals(user.get_username()))){ //nao deixa ler ficheiros de outros users
+										throw new AccessDeniedException(file.getOwner().get_username());
+								}
+
+								dirtobechanged = (Directory) file;
+
 							}
+							else{
 
-							dirtobechanged = (Directory) file;
+								throw new FileNotFoundException(dirs[i]);
 
+							}
 						}
-						else{
-
-							throw new FileNotFoundException(dirs[i]);
-
-						}
-    				}
-    			}
+					}
 
 
-    	login.setCurrentdirectory(dirtobechanged);
+			login.setCurrentdirectory(dirtobechanged);
 
-    	return path;
-	}
-
-
-    public void createUser(String username) throws InvalidUserNameException, UserNameAlreadyExistsException{
+			return path;
+		}
 
 
-        try {
-
-          User usr = new User(username);
-
-		  for(User usrtmp : getUsersSet()){
+		public void createUser(String username) throws InvalidUserNameException, UserNameAlreadyExistsException{
 
 
-			if(usrtmp.equals(usr)){
+			try {
 
-				throw new UserNameAlreadyExistsException(username);
-			}
+			  User usr = new User(username);
+
+			  for(User usrtmp : getUsersSet()){
+
+
+				if(usrtmp.equals(usr)){
+
+					throw new UserNameAlreadyExistsException(username);
+				}
+			  }
+
+			 getUsersSet().add(usr);
 		  }
+		  
+		  catch(InvalidUserNameException e){ throw e; }
 
-         getUsersSet().add(usr);
-      }
-      catch(InvalidUserNameException e){ throw e; }
-
-    }
-
-    public String readFile(Directory dir, User user, String filename)throws CantReadDirectoryException, FileNotFoundException, PermitionException{
-		try{
-
-			File file = dir.getFile(filename);
-
-
-			if(!((file.getOwner().get_username()).equals(user.get_username()))){ //nao deixa ler ficheiros de outros users
-				throw new AccessDeniedException(file.getOwner().get_username());
-			}
-
-			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
-				throw new PermitionException(file.get_permission());
-			}
-
-
-			return file.readfile();
-		}catch(FileNotFoundException e){
-			throw e;
 		}
+
+		public String readFile(Directory dir, User user, String filename)throws CantReadDirectoryException, FileNotFoundException, PermitionException{
+			
+			try{
+
+				File file = dir.getFile(filename);
+
+
+				if(!((file.getOwner().get_username()).equals(user.get_username()))){ //nao deixa ler ficheiros de outros users
+					
+					throw new AccessDeniedException(file.getOwner().get_username());
+				}
+
+				if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
+					
+					throw new PermitionException(file.get_permission());
+				}
+
+
+				return file.readfile();
+			}
+			catch(FileNotFoundException e){  throw e;  }
+		}
+
+
+
+		public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException, FileNotFoundException, PermitionException, AccessDeniedException{
+			
+			
+			try{
+
+
+				File file = dir.getFile(filename);
+
+
+				if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
+					
+					throw new PermitionException(file.get_permission());
+				}
+
+				if(!((file.getOwner().get_username()).equals(user.get_username()))){
+					
+					throw new AccessDeniedException(file.getOwner().get_username());
+				}
+
+				file.writefile(content); //posso fazer assim?
+
+			}
+			catch (FileNotFoundException e){  throw e;  }
+
+		}
+
+		public void createFileDirectory(Directory dir, User user, String filename, String type)throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
+			
+			
+			
+			String path = filename + dir.get_name();
+			Directory maindir = getMaindir();
+			Directory curdir=dir ;
+
+			int bars = 0;
+			//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
+			while((!curdir.getParent().isEqual(maindir))){
+
+				path += curdir.get_name();
+				bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
+			}
+
+			if(!(curdir.hasFile(filename))){
+
+
+				if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
+
+				if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
+
+				IncrementIdseq();
+				DateTime dt = new DateTime();
+
+				curdir.createSubDirectory(filename,user,get_idseq(), dt);
+
+			}
+
 	}
 
-	public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException,
-	FileNotFoundException, PermitionException, AccessDeniedException{
-		try{
+		public void createFile (Directory dir, User user, String filename, String type, String content)throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
 
+			String path = filename + dir.get_name(); //o que é isto??
+			Directory maindir = getMaindir();
+			Directory curdir=dir;
 
-			File file = dir.getFile(filename);
+			int bars = 0;
+			//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
+			while((!curdir.getParent().isEqual(maindir))){
 
-
-			if(!(file.get_permission().equals(user.get_mask()))){  //permissao que nao me deixa escrever
-				throw new PermitionException(file.get_permission());
+				path += curdir.get_name();
+				bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
 			}
 
-			if(!((file.getOwner().get_username()).equals(user.get_username()))){
-				throw new AccessDeniedException(file.getOwner().get_username());
-			}
-
-			file.writefile(content); //posso fazer assim?
-
-		}catch (FileNotFoundException e){
-			throw e;
-		}
-
-	}
-
-	public void createFileDirectory(Directory dir, User user, String filename, String type)throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
-		String path = filename + dir.get_name();
-		Directory maindir = getMaindir();
-		Directory curdir=dir ;
-
-		int bars = 0;
-		//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
-		while((!curdir.getParent().isEqual(maindir))){
-
-			path += curdir.get_name();
-			bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
-		}
-
-		if(!(curdir.hasFile(filename))){
+			if(!(curdir.hasFile(filename))){
 
 
-			if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
+				if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
 
-			if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
+				if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
 
-			IncrementIdseq();
-			DateTime dt = new DateTime();
-
-			curdir.createSubDirectory(filename,user,get_idseq(), dt);
-
-	}
-
-}
-
-	public void createFile (Directory dir, User user, String filename, String type, String content)throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
-
-		String path = filename + dir.get_name(); //o que é isto??
-		Directory maindir = getMaindir();
-		Directory curdir=dir;
-
-		int bars = 0;
-		//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
-		while((!curdir.getParent().isEqual(maindir))){
-
-			path += curdir.get_name();
-			bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
-		}
-
-		if(!(curdir.hasFile(filename))){
+				IncrementIdseq();
+				DateTime dt = new DateTime();
 
 
-			if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
+				curdir.createFile(type, filename,user,get_idseq(),dt,content);
 
-			if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
+				/*if(type.equals("directory")){
+					if(content.equals("")){ //directorias nao tem conteudo
+						Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
+						dir.addFiles(direct);
+					}else
+						throw new InvalidContentException(content);
+				}
 
-			IncrementIdseq();
-			DateTime dt = new DateTime();
-
-
-			curdir.createFile(type, filename,user,get_idseq(),dt,content);
-
-			/*if(type.equals("directory")){
-				if(content.equals("")){ //directorias nao tem conteudo
-					Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
-					dir.addFiles(direct);
+				else if(type.equals("textfile")){
+					TextFile txt = new TextFile(filename, user.get_mask(), get_idseq(), dt, user, content);
+					dir.addFiles(txt);
+				}
+				else if(type.equals("app")){
+					Application app = new Application(filename, user.get_mask(), get_idseq(), dt, user, content);
+					dir.addFiles(app);
+				}
+				else if(type.equals("link")){
+					curdir = maindir;
+					String[] token = path.split("/");
+					for (int i=1; i<token.length;i++){
+						if(curdir.getFilesSet().size()!=0){
+							for (File file: curdir.getFilesSet()){
+								if (file.get_name().equals(token[i])){
+									curdir = (Directory) file;
+								}else throw new InvalidContentException(content);
+							}
+						}else throw new InvalidContentException(content);
+					}
+					Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
+					dir.addFiles(link);
 				}else
-					throw new InvalidContentException(content);
-			}
+					throw new InvalidTypeException(type);
 
-			else if(type.equals("textfile")){
-				TextFile txt = new TextFile(filename, user.get_mask(), get_idseq(), dt, user, content);
-				dir.addFiles(txt);
-			}
-			else if(type.equals("app")){
-				Application app = new Application(filename, user.get_mask(), get_idseq(), dt, user, content);
-				dir.addFiles(app);
-			}
-			else if(type.equals("link")){
-				curdir = maindir;
-				String[] token = path.split("/");
-		    	for (int i=1; i<token.length;i++){
-		    		if(curdir.getFilesSet().size()!=0){
-						for (File file: curdir.getFilesSet()){
-							if (file.get_name().equals(token[i])){
-								curdir = (Directory) file;
-							}else throw new InvalidContentException(content);
-						}
-		    		}else throw new InvalidContentException(content);
-		    	}
-		    	Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
-				dir.addFiles(link);
-			}else
-				throw new InvalidTypeException(type);
+				*/
 
-			*/
+			}
+		}
+
+		public List<FileDto> listDirectory(Directory dir, User usr)throws PermitionException{
+
+
+
+			if(usr.isRoot() || usr.hasReadPermission(dir)){
+					
+					return dir.listDirectory();
+			  }
+		 
+			else{
+				
+			throw new PermitionException("This user: " + usr.get_name() + " has no permission to list current directory ");}
+			
 
 		}
-	}
 
-	public List<FileDto> listDirectory(Directory dir, User usr)throws PermitionException{
-
+		public Element xmlExport() {
 
 
-	     if(usr.isRoot() || usr.hasReadPermission(dir)){
-			       return dir.listDirectory();
-           }
-      else{
-        throw new PermitionException("This user: " + usr.get_name() + " has no permission to list current directory ");
-      }
+			Element element = new Element("filesytem");
 
-	}
-
-	public Element xmlExport() {
+			Element UsersElement = new Element("users");
 
 
-		Element element = new Element("filesytem");
+			for (User user: getUsersSet())
+				UsersElement.addContent(user.xmlExport());
 
-		Element UsersElement = new Element("users");
+			element.addContent(UsersElement);
+			return element;
+			}
 
-
-		for (User user: getUsersSet())
-		    UsersElement.addContent(user.xmlExport());
-
-		element.addContent(UsersElement);
-		return element;
-	    }
-
-	public User getUserByUsername(String username) {
+		public User getUserByUsername(String username) {
 
 
-        for (User user : getUsersSet()) {
+			for (User user : getUsersSet()) {
 
 
-            if (user.get_username().equals(username)) {
-                return user;
-            }
-        }
-        return null;
-    }
-
-	public void xmlImport(Element element){ /*throws ImportDocumentException */
-
-		Element userElem = element.getChild("users");
-
-		for (Element node: userElem.getChildren("user")) {
-
-
-		    String username = node.getAttribute("username").getValue();
-
-		    User user = getUserByUsername(username);
-
-		    if (user == null){ // Does not exist
-		    		user = new User(username);
-		    }
-
-		    user.xmlImport(node);
+				if (user.get_username().equals(username)) {
+					return user;
+				}
+			}
+			return null;
 		}
-	}
+
+		public void xmlImport(Element element){ /*throws ImportDocumentException */
+
+			Element userElem = element.getChild("users");
+
+			for (Element node: userElem.getChildren("user")) {
+
+
+				String username = node.getAttribute("username").getValue();
+
+				User user = getUserByUsername(username);
+
+				if (user == null){ // Does not exist
+						user = new User(username);
+				}
+
+				user.xmlImport(node);
+			}
+		}
 
 
 
-	public void IncrementIdseq(){
+		public void IncrementIdseq(){
 
-		set_idseq(get_idseq()+1);
-	}
-
-
-	public void ResetIdseq(){
-
-		set_idseq(0);
-	}
-
-  public User getUserbyUsername(String username) throws UserDoesNotExistException{
-
-    for( User user: getUsersSet()){
-
-      if( user.get_username().equals(username) ){
-
-        return user;
-      }
-
-    }
-    throw new UserDoesNotExistException(username);
-  }
-
-  public void cleanup() {
-        for (User u: getUsersSet()){
-	    	u.remove();
-        }
-    }
+			set_idseq(get_idseq()+1);
+		}
 
 
-  public void executeFile(long token, String path, String[] args)throws FileNotFoundException{
-	 
-	 Directory auxdir = getMaindir();
-	 String[] auxpath = path.split("/");
-	 
-	 int i = 1;
-	 for(File file : auxdir.getFilesSet()){
-		 if(file==null)
-			 throw new InvalidPathException (path);
-		 if(!(file.get_name().equals(auxpath [i])))
-			 throw new FileNotFoundException("No such file or directory: " + file.get_name());
-		 else{ 
-			 //se for app ou link executar, senao passar ao proximo
-			 if(file.isDir()){
-				 auxdir = (Directory) file;
-				 i++;
-			 }else{
-				 TextFile txt = (TextFile) file;
-				 String s = txt.get_content();
-				 //run(s);
-			 }
+		public void ResetIdseq(){
+
+			set_idseq(0);
+		}
+
+		public User getUserbyUsername(String username) throws UserDoesNotExistException{
+
+			for( User user: getUsersSet()){
+
+				if( user.get_username().equals(username) ){
+
+					return user;
+				}
+
+			}
+			throw new UserDoesNotExistException(username);
+		}
+
+
+		public void cleanup() {
+			
+			for (User u: getUsersSet()){
+				
+				u.remove();
+			}
+		}
+
+
+
+		public void executeFile(long token, String path, String[] args)throws FileNotFoundException{
+			 
+			Directory auxdir = getMaindir();
+			String[] auxpath = path.split("/");
+			 
+			int i = 1;
+			
+			for(File file : auxdir.getFilesSet()){
+				
+				if(file==null)
+					 throw new InvalidPathException (path);
 				 
-		 }
-	 }
-	 
- }
+				
+				if(!(file.get_name().equals(auxpath [i])))
+					 throw new FileNotFoundException("No such file or directory: " + file.get_name());
+				
+				else{ 
+					 //se for app ou link executar, senao passar ao proximo
+					 if(file.isDir()){
+						 auxdir = (Directory) file;
+						 i++;
+					 }
+					 
+					 else{
+						 TextFile txt = (TextFile) file;
+						 String s = txt.get_content();
+						 //run(s);
+					 }
+						 
+				 }
+			}
+			 
+		}
+ 
+ 
+ /******************************PLEASE DON'T CROSS THIS LINE: HAZARD, POSSIBLE FATAL DAMAGE**************************************/
+ 
+ 
+ 
   /*
  public void run(String args){
 	 Method method = 
