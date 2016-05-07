@@ -17,6 +17,7 @@ import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
 import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
+import pt.tecnico.mydrive.exceptions.RunException;
 import pt.tecnico.mydrive.exceptions.InvalidFileNameException;
 import pt.tecnico.mydrive.service.dto.FileDto;
 
@@ -398,8 +399,15 @@ public class FileSystem extends FileSystem_Base {
 					 
 					 else{
 						 TextFile txt = (TextFile) file;
-						 String s = txt.get_content();
-						 //run(s);
+						 String content = txt.get_content();
+						 if(args.length>0){
+							 try{
+								 run(content, args);
+							 }catch (RunException e){
+								 throw e;
+							 }
+							
+						 }
 					 }
 						 
 				 }
@@ -408,15 +416,16 @@ public class FileSystem extends FileSystem_Base {
 		}
  
  
+	 
+	 public void run(String content, String []args){
+		 Method method;
+		 Class<?> cls;
+	 }
+		
  /******************************PLEASE DON'T CROSS THIS LINE: HAZARD, POSSIBLE FATAL DAMAGE**************************************/
  
  
- 
-  /*
- public void run(String args){
-	 Method method = 
- }*/
-
+            //Dare me
   
 /*
     public void removeFileByPath(User user, String path) throws FileNotFoundException, PermitionException{
