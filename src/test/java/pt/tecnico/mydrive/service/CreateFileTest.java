@@ -43,8 +43,6 @@ private MyDrive md;
 
         SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
 
-      //  SuperUser root = fs.getRoot();
-
         Directory claudiahome = new Directory("claudiahome",123,new DateTime(),"rwxd----", (User)root);
 
         User claudia = new User("claudiaamorim", "nhanha", "claudia", "rwxd----", claudiahome);

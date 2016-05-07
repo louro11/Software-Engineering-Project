@@ -20,6 +20,7 @@ import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginIsInvalidException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
+import pt.tecnico.mydrive.exceptions.TokenAlreadyExistsException;
 import pt.ist.fenixframework.FenixFramework;
 import pt.tecnico.mydrive.service.dto.FileDto;
 
@@ -292,6 +293,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				login = new Login(user, password);
 
+				CheckToken(login);
+
 				UpdateLoginList();
 
 				getLoginsSet().add(login);  //override do add!!!!!!! /*TODO*/
@@ -303,6 +306,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			catch( UserDoesNotExistException e ){
 				throw e; //System.out.println( e.getMessage() );
 			}
+
+			catch( TokenAlreadyExistsException e ){
+				throw e; //System.out.println( e.getMessage() );
+			}
+
 			//return 0;
 			}
 
@@ -343,6 +351,17 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			if( now.isAfter(log.get_timeout())){
 				getLoginsSet().remove(log);
 			}
+		}
+	}
+
+	public void CheckToken(Login l) throws TokenAlreadyExistsException{
+
+		for(Login log: getLoginsSet()){
+
+			if( l.get_token() == log.get_token()){
+				throw new TokenAlreadyExistsException();
+			}
+
 	}
 
 	}
@@ -350,6 +369,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	public void executeFile(long token, String path, String[] args){
 		getFilesystem().executeFile(token, path, args);
 	}
+
 
 	 public int getFileNameByUser(String userName) throws UserDoesNotExistException {
         // TODO: mockup example
@@ -404,14 +424,5 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		
 	}
 
- 
- 
- 
- 
- 
- 
-	
-	
-	
 
 }
