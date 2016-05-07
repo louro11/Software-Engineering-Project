@@ -1,5 +1,6 @@
 package pt.tecnico.mydrive.domain;
 
+import java.lang.reflect.*;
 import java.util.*;
 
 import pt.tecnico.mydrive.exceptions.AccessDeniedException;
@@ -355,14 +356,18 @@ public class FileSystem extends FileSystem_Base {
     }
 
 
- public void executeFile(long token, String path, String args){
+  public void executeFile(long token, String path, String[] args)throws FileNotFoundException{
 	 
 	 Directory auxdir = getMaindir();
 	 String[] auxpath = path.split("/");
 	 
 	 int i = 1;
 	 for(File file : auxdir.getFilesSet()){
-		 if(file.get_name().equals(auxpath [i])){
+		 if(file==null)
+			 throw new InvalidPathException (path);
+		 if(!(file.get_name().equals(auxpath [i])))
+			 throw new FileNotFoundException("No such file or directory: " + file.get_name());
+		 else{ 
 			 //se for app ou link executar, senao passar ao proximo
 			 if(file.isDir()){
 				 auxdir = (Directory) file;
@@ -370,13 +375,18 @@ public class FileSystem extends FileSystem_Base {
 			 }else{
 				 TextFile txt = (TextFile) file;
 				 String s = txt.get_content();
+				 //run(s);
 			 }
 				 
 		 }
 	 }
 	 
  }
-  
+  /*
+ public void run(String args){
+	 Method method = 
+ }*/
+
   
 /*
     public void removeFileByPath(User user, String path) throws FileNotFoundException, PermitionException{

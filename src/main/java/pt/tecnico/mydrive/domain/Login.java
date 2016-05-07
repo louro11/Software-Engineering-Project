@@ -5,6 +5,7 @@ import java.util.*;
 import org.joda.time.DateTime;
 import pt.tecnico.mydrive.exceptions.WrongPasswordException;
 import pt.tecnico.mydrive.exceptions.InvalidPasswordLengthException;
+import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 
 public class Login extends Login_Base{
 
@@ -30,6 +31,7 @@ public class Login extends Login_Base{
 
       this.set_timeout(limit);
 
+      this.set_token(token);
     }
 
     catch (WrongPasswordException e){ throw e;}
