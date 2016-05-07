@@ -25,10 +25,10 @@ public abstract class AbstractServiceTest {
     @BeforeClass
     public static void setUpBeforeAll() throws Exception {
 
-    	
-		MyDriveApplication.init();
-    }
 
+	MyDriveApplication.init();
+
+}
     @Before
     public void setUp() throws Exception {
         try {

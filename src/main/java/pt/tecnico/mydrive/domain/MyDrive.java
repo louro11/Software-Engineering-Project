@@ -351,5 +351,10 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		getFilesystem().executeFile(token, path, args);
 	}
 
+	 public int getFileNameByUser(String userName) throws UserDoesNotExistException {
+        // TODO: mockup example
+	return 0;
+    }
+
 
 }

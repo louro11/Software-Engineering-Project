@@ -51,10 +51,10 @@ public class FileSystem extends FileSystem_Base {
 
 
         setRoot(root);
-        setMaindir(maindir);  a root nao é  iniciada com maindir por nao ter login? ou é feito um login com root?
+
+        setMaindir(maindir);  
+
     }
-
-
 
 
     public String changeCurrentDirectory(Login login, User user, String path) throws FileNotFoundException, AccessDeniedException {
