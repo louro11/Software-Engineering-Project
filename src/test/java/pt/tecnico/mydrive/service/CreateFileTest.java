@@ -39,11 +39,11 @@ private MyDrive md;
 
         md = MyDrive.getInstance();
 
-        FileSystem fs = MyDriveService.getFilesystem();
+        //FileSystem fs = MyDriveService.getFilesystem();
 
-        //SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
+        SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
 
-        SuperUser root = fs.getRoot();
+        //SuperUser root = fs.getRoot();
 
         Directory claudiahome = new Directory("claudiahome",123,new DateTime(),"rwxd----", (User)root);
     
