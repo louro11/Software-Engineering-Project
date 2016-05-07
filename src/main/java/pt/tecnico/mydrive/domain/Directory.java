@@ -242,8 +242,7 @@ public class Directory extends Directory_Base {
    public void createSubDirectory(String filename, User owner, int fileid, DateTime timestamp){
 
 	    Directory subdirectory = new Directory(filename, fileid, timestamp, owner.get_mask(), owner, this);
-
-      addFiles(subdirectory); // o addFiles tem que ser override?
+      getFilesSet().add(subdirectory);
    }
 
    public boolean hasFile(String name){
@@ -258,7 +257,7 @@ public class Directory extends Directory_Base {
 
         for(File f : getFilesSet()) {
              if(f.get_name().equals(name))
-                  file = f;
+                  return f;
             }
 
           throw new FileNotFoundException(name);

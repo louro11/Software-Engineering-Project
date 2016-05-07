@@ -79,11 +79,6 @@ public class MyDriveApplication{
 		//md.changeCurrentDirectory("/home"); another arguments ---> token
 		//md.createTextFile("README", "lista de utilizadores");
 	
-	
-	
-
-
-	}
 	//
 	//
 	// 	System.out.println("*** Welcome to the MyDrive application! ***");
@@ -116,12 +111,6 @@ public class MyDriveApplication{
 	
     }*/
 
-    	@Atomic
-    	public static void init() { // empty mydrive
-        	log.trace("Init: " + FenixFramework.getDomainRoot());
-			MyDrive.getInstance().getFilesystem().cleanup();
-    	}
-
 	//
 	//
   //   @Atomic
@@ -141,7 +130,7 @@ public class MyDriveApplication{
 	//
 	//
 	//
->>>>>>> 906664e5719943647c9297aba9ab9fa2b6cb275e
+
 	// ////closed exceptions issue
 	//
 	// 	//ponto2
@@ -172,7 +161,7 @@ public class MyDriveApplication{
   //   }
 	//
   //   //ponto 5????
-<<<<<<< HEAD
+
     @Atomic
     public static void printXml() {
 	
@@ -206,7 +195,7 @@ public class MyDriveApplication{
 }
 
 
-=======
+
   //   @Atomic
   //   public static void printXml() {
 	//
@@ -237,6 +226,6 @@ public class MyDriveApplication{
 	// 	    e.printStackTrace();
 	// 	}
     
->>>>>>> 906664e5719943647c9297aba9ab9fa2b6cb275e
+
 
 

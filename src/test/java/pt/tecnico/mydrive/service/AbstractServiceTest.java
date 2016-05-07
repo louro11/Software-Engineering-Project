@@ -28,7 +28,7 @@ public abstract class AbstractServiceTest {
 
 	MyDriveApplication.init();
 
-
+}
     @Before
     public void setUp() throws Exception {
         try {
