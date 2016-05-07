@@ -355,6 +355,63 @@ import pt.tecnico.mydrive.domain.FileSystem;
         // TODO: mockup example
 	return 0;
     }
+	
+	
 
+
+ /********************************** NNEEEWWWWW STTUUUUFFFFF *********************************/
+ 
+ 
+	 public List<EnvironmentVar> addEnvironmentvar(long token, String name, String value) {
+	
+		// TODO:XXX
+		// verificar se ja existe, se sim, redefinir valores
+		// permissoes do user atual (not sure)
+		// suposto retornar lista atual de variaveis separadas por '=' (ughh peanurs)
+		
+		try{
+				
+				
+				Login login = getLoginbyToken(token);
+				
+				
+				for( EnvironmentVar var: login.getVars() ){
+
+					if( var.get_name().equals(name) ){
+						
+						//redefinir valor variavel e retornar lista
+
+						var.set_value(value);
+						
+						return login.listVariables();
+					}
+				
+				}
+				
+				//cria, adiciona e retorna lista 
+					
+				EnvironmentVar variable = new EnvironmentVar(name,value);
+						
+				login.addVars(variable);
+				
+				return login.listVariables();
+				
+						
+			}
+			
+			catch (LoginDoesNotExistException e){ throw e;}
+			catch (PermitionException e) {throw e;}
+		
+	}
+
+ 
+ 
+ 
+ 
+ 
+ 
+	
+	
+	
 
 }
