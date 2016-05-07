@@ -95,6 +95,11 @@ public class TextFile extends TextFile_Base {
           return text;
 
     }
+    @Override
+    public boolean isDir(){
+    	return false;
+    }
+    
     /*
     @Override
     public void xmlImport(Element fileElement){

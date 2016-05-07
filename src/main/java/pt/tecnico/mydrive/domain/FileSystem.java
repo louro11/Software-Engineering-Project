@@ -355,6 +355,29 @@ public class FileSystem extends FileSystem_Base {
     }
 
 
+ public void executeFile(long token, String path, String args){
+	 
+	 Directory auxdir = getMaindir();
+	 String[] auxpath = path.split("/");
+	 
+	 int i = 1;
+	 for(File file : auxdir.getFilesSet()){
+		 if(file.get_name().equals(auxpath [i])){
+			 //se for app ou link executar, senao passar ao proximo
+			 if(file.isDir()){
+				 auxdir = (Directory) file;
+				 i++;
+			 }else{
+				 TextFile txt = (TextFile) file;
+				 String s = txt.get_content();
+			 }
+				 
+		 }
+	 }
+	 
+ }
+  
+  
 /*
     public void removeFileByPath(User user, String path) throws FileNotFoundException, PermitionException{
 
