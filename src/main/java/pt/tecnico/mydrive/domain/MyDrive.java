@@ -347,7 +347,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	}
 
-	public void executeFile(long token, String path, String args){
+	public void executeFile(long token, String path, String[] args){
 		getFilesystem().executeFile(token, path, args);
 	}
 
