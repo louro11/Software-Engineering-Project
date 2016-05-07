@@ -4,6 +4,7 @@ package pt.tecnico.mydrive.domain;
 import java.util.*;
 import org.joda.time.DateTime;
 import pt.tecnico.mydrive.exceptions.WrongPasswordException;
+import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 
 public class Login extends Login_Base{
 
@@ -24,11 +25,13 @@ public class Login extends Login_Base{
       DateTime limit = now.plusHours(2);
 
       this.set_timeout(limit);
+
+      this.set_token(token);
     }
 
     else{
 
-      throw new WrongPasswordException();
+        throw new WrongPasswordException();
 
     }
 
