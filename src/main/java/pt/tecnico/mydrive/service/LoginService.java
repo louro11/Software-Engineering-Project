@@ -3,6 +3,8 @@ import java.util.*;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginIsInvalidException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
+import pt.tecnico.mydrive.exceptions.WrongPasswordException;
+
 
 public class LoginService extends MyDriveService {
 
@@ -62,13 +64,13 @@ public class LoginService extends MyDriveService {
 
   }
 
-  public final void dispatch() throws LoginDoesNotExistException, LoginIsInvalidException, UserDoesNotExistException {
+  public final void dispatch() throws UserDoesNotExistException, WrongPasswordException {
 
     try{
 
      getMydrive().loginUser(username, password);
    } catch (UserDoesNotExistException e){ System.out.println(e.getMessage());}
-
+     catch (WrongPasswordException e) {System.out.println(e.getMessage());}
   }
 
   public final long result(){

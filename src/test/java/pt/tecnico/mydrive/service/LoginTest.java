@@ -47,8 +47,8 @@ private MyDrive md;
     	md = MyDrive.getInstance();
     	SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
     	Directory henriquehome = new Directory("henriquehome",123,new DateTime(),"rwxd----", (User)root);
-    	User henrique = new User("HenriqueCarloss", "nono", "Carloss", "rwxd----", henriquehome);
-
+    	//User henrique = new User("HenriqueCarloss", "nono", "Carloss", "rwxd----", henriquehome);
+    	md.createUser("HenriqueCarloss");
 }
 
 	@Test
@@ -56,7 +56,7 @@ private MyDrive md;
 		Random rand = new Random();
 		final long token = rand.nextLong();
 		final String username = "HenriqueCarloss";
-		final String password = "nono";
+		final String password = "nooooooooo";
 		LoginService service = new LoginService(username, password);
 		service.execute();
 		Login login = md.getLoginbyToken(token);
@@ -66,34 +66,30 @@ private MyDrive md;
    
  
 
-    @Test(expected = UserDoesNotExistException.class)
-    public void testLoginUserNotExist() throws UserDoesNotExistException{
-		final String username = "madLena";
-		final String password = "batata";
+ //    @Test(expected = UserDoesNotExistException.class)
+ //    public void testLoginUserNotExist() throws UserDoesNotExistException{
+	// 	final String username = "madLena";
+	// 	final String password = "batata";
 
-	 new MockUp<LoginService>() {
-	  @Mock
-	  void dispatch() throws MyDriveException {
-	    throw new UserDoesNotExistException(username); }
-	};
+	//  new MockUp<LoginService>() {
+	//   @Mock
+	//   void dispatch() throws MyDriveException {
+	//     throw new UserDoesNotExistException(username); }
+	// };
 
-        new LoginService(username, password).execute();
-    }
+ //        new LoginService(username, password).execute();
+ //    }
 
 
 
-    // @Test(expected = WrongPasswordException.class)
-    // public void testWrongPassword() throws WrongPasswordException{
-    // 	final String password = "tinhas";
+ //    @Test(expected = WrongPasswordException.class)
+ //    public void testWrongPassword() throws WrongPasswordException{
+ //    	final String password = "tinhas";
 
-    //     LoginService service = new LoginService(username, password);
+ //        LoginService service = new LoginService("HenriqueCarloss", password);
 
-    //     service.dispatch();
+ //        service.execute();
 
-    // }
+ //    }
 
   }
-
-
-
-    

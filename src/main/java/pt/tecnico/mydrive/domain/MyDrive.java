@@ -20,6 +20,7 @@ import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.LoginIsInvalidException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
+import pt.tecnico.mydrive.exceptions.WrongPasswordException;
 import pt.ist.fenixframework.FenixFramework;
 import pt.tecnico.mydrive.service.dto.FileDto;
 
@@ -282,7 +283,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 
 
-		public long loginUser(String username, String password)throws UserDoesNotExistException {
+		public long loginUser(String username, String password)throws UserDoesNotExistException, WrongPasswordException{
 
 			try{
 
@@ -301,6 +302,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			}
 
 			catch( UserDoesNotExistException e ){
+				throw e; //System.out.println( e.getMessage() );
+			}			catch( WrongPasswordException e ){
 				throw e; //System.out.println( e.getMessage() );
 			}
 			//return 0;
