@@ -1,7 +1,12 @@
 package pt.tecnico.mydrive.domain;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.*;
+
+
+
 import org.joda.time.DateTime;
 import pt.tecnico.mydrive.exceptions.WrongPasswordException;
 import pt.tecnico.mydrive.exceptions.InvalidPasswordLengthException;
