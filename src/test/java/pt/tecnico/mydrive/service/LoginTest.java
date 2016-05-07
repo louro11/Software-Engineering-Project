@@ -25,6 +25,10 @@ import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.WrongPasswordException;
 import pt.tecnico.mydrive.exceptions.MyDriveException;
+import pt.tecnico.mydrive.exceptions.InvalidPasswordLengthException;
+import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
+
+
 
 
 import pt.tecnico.mydrive.domain.MyDrive;
@@ -38,16 +42,20 @@ import pt.tecnico.mydrive.domain.Login;
 @RunWith(JMockit.class)
 public class LoginTest extends AbstractServiceTest{
 
+	Random rand = new Random();
+		long token = rand.nextLong();
+
 @Mocked
 private MyDrive md;
+
+
 
 
     protected void populate() {
 
     	md = MyDrive.getInstance();
     	md.createUser("HenriqueCarloss");
-    	Random rand = new Random();
-		final long token = rand.nextLong();
+    	
 }
 
 	@Test
@@ -79,7 +87,11 @@ private MyDrive md;
  //        new LoginService(username, password).execute();
  //    }
 
-
+	@Test(expected=LoginDoesNotExistException.class)
+	public void testNotExistToken(){
+		long token = 9999999999L;
+		md.getLoginbyToken(token);
+	}
 
     @Test(expected = WrongPasswordException.class)
     public void testWrongPassword() throws WrongPasswordException{
@@ -88,8 +100,14 @@ private MyDrive md;
 
         LoginService service = new LoginService("HenriqueCarloss", password);
 
-        service.execute();
+        service.dispatch();
 
     }
 
+    @Test(expected = InvalidPasswordLengthException.class)
+    public void testLengthofPassword() throws InvalidPasswordLengthException{
+    	final String password = "ola";
+    	LoginService service = new LoginService("HenriqueCarloss", password);
+   		service.dispatch();
+   }
   }
