@@ -51,7 +51,6 @@ public class FileSystem extends FileSystem_Base {
 
 
         setRoot(root);
-        setMaindir(maindir);
     }
 
 

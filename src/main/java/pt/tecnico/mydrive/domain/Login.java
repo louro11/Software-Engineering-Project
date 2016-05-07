@@ -7,13 +7,13 @@ import pt.tecnico.mydrive.exceptions.WrongPasswordException;
 
 public class Login extends Login_Base{
 
-  public Login(User user, String password) throws WrongPasswordException{
+  public Login(User usr, String password) throws WrongPasswordException{
 
-    if( checkPassword(user, password) ){
+    if( checkPassword(usr, password) ){
 
-      this.setUser(user);
+      this.setUser(usr);
 
-      this.setCurrentdirectory(user.getHomedirectory());
+      this.setCurrentdirectory(usr.getHomedirectory());
 
       Random rand = new Random();
 
@@ -34,6 +34,9 @@ public class Login extends Login_Base{
 
 
   }
+
+  //@Override
+  //public set
 
   private boolean checkPassword( User user, String password ){
 
