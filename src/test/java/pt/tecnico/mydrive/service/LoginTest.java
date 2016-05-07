@@ -45,10 +45,9 @@ private MyDrive md;
     protected void populate() {
 
     	md = MyDrive.getInstance();
-    	SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
-    	Directory henriquehome = new Directory("henriquehome",123,new DateTime(),"rwxd----", (User)root);
-    	//User henrique = new User("HenriqueCarloss", "nono", "Carloss", "rwxd----", henriquehome);
     	md.createUser("HenriqueCarloss");
+    	Random rand = new Random();
+		final long token = rand.nextLong();
 }
 
 	@Test
@@ -82,14 +81,15 @@ private MyDrive md;
 
 
 
- //    @Test(expected = WrongPasswordException.class)
- //    public void testWrongPassword() throws WrongPasswordException{
- //    	final String password = "tinhas";
+    @Test(expected = WrongPasswordException.class)
+    public void testWrongPassword() throws WrongPasswordException{
 
- //        LoginService service = new LoginService("HenriqueCarloss", password);
+    	final String password = "tinhas";
 
- //        service.execute();
+        LoginService service = new LoginService("HenriqueCarloss", password);
 
- //    }
+        service.execute();
+
+    }
 
   }

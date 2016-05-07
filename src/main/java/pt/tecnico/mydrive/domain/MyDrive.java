@@ -254,21 +254,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				return login.get_token();
 
 			}
-			catch( UserDoesNotExistException e ){   throw e; //System.out.println( e.getMessage() );}
-			catch( TokenAlreadyExistsException e ){  throw e; //System.out.println( e.getMessage() ); }
+			catch( UserDoesNotExistException e ){   throw e; }
+			catch( WrongPasswordException e ){  throw e; }
 
 			//return 0;
 		}
-
-
-			catch( UserDoesNotExistException e ){
-				throw e; //System.out.println( e.getMessage() );
-			}			catch( WrongPasswordException e ){
-				throw e; //System.out.println( e.getMessage() );
-			}
-
-
-
 
 		public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
 

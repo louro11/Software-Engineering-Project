@@ -21,6 +21,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 import pt.tecnico.mydrive.domain.User;
 import pt.tecnico.mydrive.domain.SuperUser;
 import pt.tecnico.mydrive.domain.File;
+import pt.tecnico.mydrive.domain.TextFile;
 import pt.tecnico.mydrive.domain.Directory;
 import pt.tecnico.mydrive.domain.Login;
 
@@ -80,7 +81,7 @@ private MyDrive md;
         CreateFileService service = new CreateFileService(token,"README", "textfile", "4Dcinema----> check!");
         service.execute();
 
-        File file = getFile("README",token);
+        TextFile file = (TextFile)getFile("README",token);
         assertNotNull("File was not created",file);
         //assertEquals("Invalid name", "README", file.get_name());
     }
