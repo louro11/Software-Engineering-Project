@@ -4,12 +4,15 @@ package pt.tecnico.mydrive.domain;
 import java.util.*;
 import org.joda.time.DateTime;
 import pt.tecnico.mydrive.exceptions.WrongPasswordException;
+import pt.tecnico.mydrive.exceptions.InvalidPasswordLengthException;
 
 public class Login extends Login_Base{
 
   public Login(User usr, String password) throws WrongPasswordException{
 
-    if( checkPassword(usr, password) ){
+    try{
+
+      checkPassword(usr, password);
 
       this.setUser(usr);
 
@@ -19,18 +22,17 @@ public class Login extends Login_Base{
 
       long token = rand.nextLong();
 
+      this.set_token( token );
+
       DateTime now = new DateTime();
 
       DateTime limit = now.plusHours(2);
 
       this.set_timeout(limit);
-    }
-
-    else{
-
-      throw new WrongPasswordException();
 
     }
+
+    catch (WrongPasswordException e){ throw e;}
 
 
   }
@@ -38,17 +40,26 @@ public class Login extends Login_Base{
   //@Override
   //public set
 
-  private boolean checkPassword( User user, String password ){
+  private boolean checkPassword( User user, String password ) throws InvalidPasswordLengthException, WrongPasswordException{
 
     if(( user.get_password() ).equals( password )){
 
-      return true;
+      if( password.length() >= 8){
+
+              return true;
+      }
+
+      else{
+
+        throw new InvalidPasswordLengthException();
+      }
+
 
     }
 
     else{
 
-      return false;
+      throw new WrongPasswordException();
 
     }
   }
