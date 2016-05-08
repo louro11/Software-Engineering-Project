@@ -75,7 +75,7 @@ public class CreateFileService extends MyDriveService {
 	
 	public final void dispatch() throws InvalidPathSizeException, LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException, PermitionException{
 
-		getMydrive().createFile(_token, _filename, _type, _content);
+		getMydrive().createFile(this.getToken(), this.getfileName(), this.gettype(), this.getcontent());
 
 	}
 }

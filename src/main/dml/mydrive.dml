@@ -38,10 +38,21 @@ class Application extends TextFile;
 
 class Link extends TextFile;
 
+
+class EnvironmentVar{
+
+	String _name;
+	String _value;
+
+}
+
+
 class Login{
       DateTime _timeout;
       long _token;
 }
+
+
 
 
 /**************************************************************/
@@ -73,6 +84,16 @@ relation MyDriveHasLogins{
     MyDrive playsRole mydrive;
     Login playsRole Logins { multiplicity *; }
 }
+
+
+relation LoginHasVars{
+    
+    Login playsRole login;
+    EnvironmentVar playsRole vars { multiplicity *; }
+
+}
+
+
 
 /********FileSystem***********/
 
