@@ -17,6 +17,7 @@ public class CreateFileService extends MyDriveService {
 	private long _token;
 	
 	public CreateFileService(long token, String filename, String type, String content){
+		_token=token;
 		_filename=filename;
 		_type=type;
 		_content=content;

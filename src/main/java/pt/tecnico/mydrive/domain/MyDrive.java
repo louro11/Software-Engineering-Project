@@ -153,6 +153,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		public void createFile(long token, String filename, String type, String content) throws InvalidPathSizeException, LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException, PermitionException{
 
+			System.out.println("chegou ao createFile");
+
 			try{
 
 				Login login = getLoginbyToken(token);
@@ -160,13 +162,15 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				User user = login.getUser();
 
-				if(type.equals("directory")){
+				/*if (type.equals("directory")){
 
+					System.out.println ("boa tarde mininos \n\n\n");
 					getFilesystem().createFileDirectory(dir,user,filename,type);}
 
-				else{
+				else{*/
 
-				    getFilesystem().createFile(dir, user, filename, type, content); }
+					//System.out.println ("boa noite mininos \n\n\n");
+				    getFilesystem().createFile(dir, user, filename, type, content); //}
 
 
 			}

@@ -52,11 +52,12 @@ public class FileSystem extends FileSystem_Base {
 			root.setHomedirectory(main);
 
 
-			setRoot(root);
-			setMaindir(maindir);
-		}
 
+        setRoot(root);
 
+        setMaindir(maindir);  
+
+    }
 
 
 		public String changeCurrentDirectory(Login login, User user, String path) throws FileNotFoundException, AccessDeniedException {
@@ -177,17 +178,15 @@ public class FileSystem extends FileSystem_Base {
 
 		}
 
-		public void createFileDirectory(Directory dir, User user, String filename, String type)throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
-			
-			
-			
-			String path = filename + dir.get_name();
-			Directory maindir = getMaindir();
-			Directory curdir=dir ;
+
+	public void createFileDirectory(Directory curdir, User user, String filename, String type)throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
+		String path = filename + curdir.get_name();
+		Directory maindir = getMaindir();
 
 			int bars = 0;
 			//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
 			while((!curdir.getParent().isEqual(maindir))){
+
 
 				path += curdir.get_name();
 				bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
@@ -196,9 +195,12 @@ public class FileSystem extends FileSystem_Base {
 			if(!(curdir.hasFile(filename))){
 
 
-				if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
+
+
+			if(!(user.hasWritePermission(curdir))){ throw new PermitionException(curdir.get_permission());}
 
 				if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
+
 
 				IncrementIdseq();
 				DateTime dt = new DateTime();
@@ -209,29 +211,41 @@ public class FileSystem extends FileSystem_Base {
 
 	}
 
-		public void createFile (Directory dir, User user, String filename, String type, String content)throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
 
-			String path = filename + dir.get_name(); //o que é isto??
-			Directory maindir = getMaindir();
-			Directory curdir=dir;
+	public void createFile (Directory curdir, User user, String filename, String type, String content)throws InvalidPathSizeException, InvalidTypeException , InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
 
-			int bars = 0;
-			//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
-			while((!curdir.getParent().isEqual(maindir))){
+		String path = filename + curdir.get_name(); //o que é isto??
+		Directory maindir = getMaindir();
 
-				path += curdir.get_name();
-				bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
-			}
+
+		int bars = 0;
+
+		try{
+		//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
+		while((!curdir.getParent().isEqual(maindir))){
+
+			path += curdir.get_name();
+			bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
+		} 
+
 
 			if(!(curdir.hasFile(filename))){
 
-
-				if(!(user.hasWritePermission(dir))){ throw new PermitionException(dir.get_permission());}
+			 if(!(user.hasWritePermission(curdir))){ throw new PermitionException(curdir.get_permission());}
 
 				if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
 
-				IncrementIdseq();
-				DateTime dt = new DateTime();
+			IncrementIdseq();
+			//DateTime dt = new DateTime();
+
+		    curdir.createFile(type, filename,user,get_idseq(), new DateTime() ,content);  
+
+		 }
+		}catch( InvalidTypeException e) {throw e;}
+			/*if(type.equals("directory")){
+				if(content.equals("")){ //directorias nao tem conteudo
+					Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
+					dir.addFiles(direct);
 
 
 				curdir.createFile(type, filename,user,get_idseq(),dt,content);
@@ -266,13 +280,16 @@ public class FileSystem extends FileSystem_Base {
 					}
 					Link link = new Link(filename, user.get_mask(), get_idseq(), dt, user, content);
 					dir.addFiles(link);
+
 				}else
 					throw new InvalidTypeException(type);
 
 				*/
 
-			}
+
+			
 		}
+
 
 		public List<FileDto> listDirectory(Directory dir, User usr)throws PermitionException{
 
