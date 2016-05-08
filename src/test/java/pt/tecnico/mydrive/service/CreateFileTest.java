@@ -21,6 +21,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 import pt.tecnico.mydrive.domain.User;
 import pt.tecnico.mydrive.domain.SuperUser;
 import pt.tecnico.mydrive.domain.File;
+import pt.tecnico.mydrive.domain.Application;
+import pt.tecnico.mydrive.domain.TextFile;
 import pt.tecnico.mydrive.domain.Directory;
 import pt.tecnico.mydrive.domain.Login;
 
@@ -33,27 +35,24 @@ public class CreateFileTest extends AbstractServiceTest {
 
 @Mocked
 private MyDrive md;
-	
+
 
     protected void populate() {
 
         md = MyDrive.getInstance();
 
-        FileSystem fs = MyDriveService.getFilesystem();
-
         SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
 
-        //SuperUser root = fs.getRoot();
 
         Directory claudiahome = new Directory("claudiahome",123,new DateTime(),"rwxd----", (User)root);
-    
+
         User claudia = new User("claudiaamorim", "nhanha", "claudia", "rwxd----", claudiahome);
 
         claudiahome.setOwner(claudia);
 
-
   }
   private long login(String username, String password){
+
 
         return md.loginUser(username,password);
   }
@@ -61,12 +60,14 @@ private MyDrive md;
   private File getFile(String name, long token){
 
 
+
         Login login = md.getLoginbyToken(token);
 
-        Directory maindir = login.getCurrentdirectory();
+        Directory dir = login.getCurrentdirectory();
 
-        return maindir.getFile(name);
-
+        File file = dir.getFile(name);
+        
+        return file;
 
   }
 
@@ -74,31 +75,25 @@ private MyDrive md;
     public void success(){
 
         long token = login("claudiaamorim","nhanha");
-        CreateFileService service = new CreateFileService(token,"README", "textfile", "4Dcinema----> check!");
+        CreateFileService service = new CreateFileService(token,"readme", "textfile", "4Dcinema----> check!");
         service.execute();
 
-        File file = getFile("README",token);
+        TextFile file = (TextFile)this.getFile("readme",token);
+        //TextFile tf = (TextFile)file;
         assertNotNull("File was not created",file);
-        //assertEquals("Invalid name", "README", file.get_name());
+
+        
     }
 
-
-    /*@Test(expected=InvalidTypeException.class)
+    
+    @Test(expected=InvalidTypeException.class)
     public void InvalidType() {
 
-
-        //final String userName = "Henrip";
-
-        
-        token = login("claudiaamorim","nhanha");
-        CreateFileService service = new CreateFileService(token,"README", "textfile", "4Dcinema----> check!");
-
-        
+        long token = login("claudiaamorim","nhanha");
 
         CreateFileService service = new CreateFileService(token, "HLgameplan", "file", "4Dcinema----> check!");
         service.execute();
+			
 
-				//fail("This type: \"textfile\" is inavalid");
-
-    }*/
+    } 
 }

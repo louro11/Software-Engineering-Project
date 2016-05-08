@@ -3,7 +3,6 @@ package pt.tecnico.mydrive;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.File;
 
 import pt.tecnico.mydrive.domain.MyDrive;
 
@@ -21,6 +20,8 @@ import pt.tecnico.mydrive.domain.Application;
 import pt.tecnico.mydrive.domain.Directory;
 import pt.tecnico.mydrive.domain.FileSystem;
 import pt.tecnico.mydrive.domain.Link;
+import pt.tecnico.mydrive.domain.File;
+import pt.tecnico.mydrive.domain.Login;
 import pt.tecnico.mydrive.domain.MyDrive;
 import pt.tecnico.mydrive.domain.SuperUser;
 import pt.tecnico.mydrive.domain.TextFile;
@@ -31,22 +32,51 @@ public class MyDriveApplication{
 
 	static final Logger log = LogManager.getRootLogger();
 
+	//static MyDrive md;
+	static long token;
+
+	static TextFile file ;
+
     public static void main(String[] args) throws IOException {
 
+	//md = new MyDrive();
 	
-	
+	/*
 	 	System.out.println("*** Welcome to the MyDrive application! ***");
 	
-		try {
+		//try {
 	
 		init();
 		setup();
 	
-	 	for (String s: args) scanXml(new File(s));
+	 	/*for (String s: args) scanXml(new File(s));
 			//print();
 		 	printXml();
-	 	}finally { FenixFramework.shutdown(); }
+	 	}finally { FenixFramework.shutdown(); } 
+
+	 	
+	 	MyDrive md = new MyDrive();
+        SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
+
+
+        Directory claudiahome = new Directory("claudiahome",123,new DateTime(),"rwxd----", (User)root);
+
+        User claudia = new User("claudiaamorim", "nhanha", "claudia", "rwxd----", claudiahome);
+
+        claudiahome.setOwner(claudia);
+
+        token = md.loginUser("claudiaamorim","nhanha");
+
+        md.createFile(token, "readme", "textfile", "nhanha");
+        Login login = md.getLoginbyToken(token);
+
+        Directory dir = login.getCurrentdirectory();
+
+        TextFile file = (TextFile) dir.getFile("readme");
+       // file = (TextFile)getFile("readme",token);
+ */
 	
+	 
 	}
     //close issue
 	
@@ -72,6 +102,8 @@ public class MyDriveApplication{
     	FileSystem fs = md.getFilesystem();
     }
 	
+	
+
 		//Directory maindirectory= md.getCurrentdirectory();
 	
         //ponto 1
@@ -162,7 +194,7 @@ public class MyDriveApplication{
 	//
   //   //ponto 5????
 
-    @Atomic
+   /* @Atomic
     public static void printXml() {
 	
 	
@@ -176,7 +208,7 @@ public class MyDriveApplication{
 		} catch (IOException e) { System.out.println(e); }
     }
 	
-    @Atomic
+   /* @Atomic
     public static void scanXml(File file){
 	
 	
@@ -191,7 +223,7 @@ public class MyDriveApplication{
 		}catch (JDOMException | IOException e) {
 		    e.printStackTrace();
 		}
-    }
+    }*/
 }
 
 

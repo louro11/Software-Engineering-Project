@@ -13,6 +13,7 @@ import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
+import pt.tecnico.mydrive.exceptions.InvalidTypeException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 
 import pt.tecnico.mydrive.service.dto.FileDto;
@@ -104,7 +105,7 @@ public class Directory extends Directory_Base {
       if(hasFile(f.get_name()))
         throw new FileAlreadyExistsException(f.get_name());
 
-
+      //getFilesSet().add(f);
       super.addFiles(f);
     }
 
@@ -212,7 +213,9 @@ public class Directory extends Directory_Base {
     }
 
 
-    public void createFile(String type , String filename, User user, int fileid, DateTime timestamp,String content ) throws FileAlreadyExistsException, InvalidContentException{
+    public void createFile(String type , String filename, User user, int fileid, DateTime timestamp,String content ) throws InvalidTypeException, FileAlreadyExistsException, InvalidContentException{
+
+      //if( (!(type.equals("application"))) || (!(type.equals("textfile"))) || (!(type.equals("link"))) ) {throw new InvalidTypeException(type);}
 
       if(type.equals("application")){
 
@@ -221,7 +224,8 @@ public class Directory extends Directory_Base {
       try{ addFiles(app);} catch(FileAlreadyExistsException e){throw e;}
 
       }
-      if(type.equals("textfile")){
+      
+      else if(type.equals("textfile")){
 
 
           TextFile tf = new TextFile(filename, user.get_mask(), fileid , timestamp, user, content);
@@ -229,7 +233,7 @@ public class Directory extends Directory_Base {
       try{ addFiles(tf); } catch(FileAlreadyExistsException e){throw e;}
 
       }
-      if(type.equals("link")){
+      else if(type.equals("link")){
 
           if (!(content.startsWith("/"))){throw new InvalidContentException(content);}
 
@@ -237,9 +241,10 @@ public class Directory extends Directory_Base {
 
        try{ addFiles(link); } catch(FileAlreadyExistsException e){throw e;}
       }
-  }
 
+      else { throw new InvalidTypeException(type); }
 
+    }
 
    public void createSubDirectory(String filename, User owner, int fileid, DateTime timestamp){
 
@@ -255,11 +260,11 @@ public class Directory extends Directory_Base {
 
 
     public File getFile(String name) throws FileNotFoundException{
-        File file= null;
+        //File file= null;
 
-        for(File f : getFilesSet()) {
-             if(f.get_name().equals(name))
-                  return f;
+        for(File file : getFilesSet()) {
+             if(file.get_name().equals(name))
+                  return file;
             }
 
           throw new FileNotFoundException(name);
