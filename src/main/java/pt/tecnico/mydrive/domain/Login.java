@@ -49,7 +49,7 @@ public class Login extends Login_Base{
 
   private boolean checkPassword( User user, String password ) throws InvalidPasswordLengthException, WrongPasswordException{
 
-    if(( user.get_password() ).equals( password )){
+    if(user.get_password().equals(password)){
 
       if( password.length() >= 8){
 

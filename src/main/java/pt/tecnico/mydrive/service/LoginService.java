@@ -66,13 +66,9 @@ public class LoginService extends MyDriveService {
 
   public final void dispatch() throws UserDoesNotExistException, WrongPasswordException {
 
-    try{
-
      getMydrive().loginUser(username, password);
-   } catch (UserDoesNotExistException e){ System.out.println(e.getMessage());}
-     catch (WrongPasswordException e) {System.out.println(e.getMessage());}
-  }
 
+}
   public final long result(){
 
     return getToken();
