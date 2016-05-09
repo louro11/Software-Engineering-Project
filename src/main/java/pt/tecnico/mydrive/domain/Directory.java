@@ -98,7 +98,10 @@ public class Directory extends Directory_Base {
       if(hasFile(f.get_name()))
         throw new FileAlreadyExistsException(f.get_name());
 
-      //getFilesSet().add(f);
+      //adiciona associação ao utilizador
+      User owner = f.getOwner();
+      Association assoc = f.getAssociation();
+      owner.getAssociationSet().add(assoc);
       super.addFiles(f);
     }
 
@@ -178,7 +181,8 @@ public class Directory extends Directory_Base {
 
           Application app = new Application(filename, user.get_mask(), fileid, timestamp, user, content);
 
-      try{ addFiles(app);} catch(FileAlreadyExistsException e){throw e;}
+          addFiles(app);
+
 
       }
       
@@ -187,7 +191,7 @@ public class Directory extends Directory_Base {
 
           TextFile tf = new TextFile(filename, user.get_mask(), fileid , timestamp, user, content);
 
-      try{ addFiles(tf); } catch(FileAlreadyExistsException e){throw e;}
+          addFiles(tf); 
 
       }
 
@@ -197,7 +201,7 @@ public class Directory extends Directory_Base {
 
           Link link = new Link(filename, user.get_mask(), fileid, timestamp, user, content);
 
-       try{ addFiles(link); } catch(FileAlreadyExistsException e){throw e;}
+          addFiles(link); 
       }
 
       else { throw new InvalidTypeException(type); }
