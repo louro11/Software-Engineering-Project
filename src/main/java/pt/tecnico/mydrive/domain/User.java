@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.jdom2.Element;
 import org.joda.time.DateTime;
+import java.util.Date;
 
 public class User extends User_Base {
 
@@ -267,6 +268,20 @@ public class User extends User_Base {
 		return hasPermission(f,3,"d");
 
 	}
+
+  
+    public boolean timeout(DateTime datetime){
+
+    //retorna false (timeout) se a diferença for superior a 2 (2horas)
+
+    Date date = new Date();
+    int currenthour = date.getHours();
+    int relativehour = datetime.toDate().getHours();
+    
+
+    return ((currenthour - relativehour) < 2 );
+    
+  }
 
 	public boolean isRoot(){
 

@@ -1,5 +1,8 @@
 package pt.tecnico.mydrive.domain;
+
 import org.jdom2.Element;
+import org.joda.time.DateTime;
+import java.util.Date;
 
 public class SuperUser extends SuperUser_Base {
 
@@ -23,5 +26,18 @@ public class SuperUser extends SuperUser_Base {
 
     }
 
+    @Override
+    public boolean timeout(DateTime datetime){
+
+    //retorna false (timeout) se a diferença for superior a 2 (2horas)
+
+    Date date = new Date();
+    int currentminutes = date.getMinutes();
+    int relativeminutes = datetime.toDate().getMinutes();
+
+
+    return ((currentminutes - relativeminutes) < 10 );
+    
+  }
 
 }

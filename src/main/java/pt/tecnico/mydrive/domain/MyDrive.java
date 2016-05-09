@@ -240,7 +240,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		}
 
-		public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
+		/*public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
 
 			
 			
@@ -250,7 +250,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 							DateTime now = new DateTime();
 
-							if( now.isAfter(login.get_timeout())){
+							if( login.isAfter(login.get_timeout())){
 
 								throw new LoginIsInvalidException();
 
@@ -268,15 +268,52 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
     	  throw new LoginDoesNotExistException();
 
+	  } */
+
+	  	public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
+	
+			
+			for( Login login: getLoginsSet()){
+
+				if( login.get_token()==token ){
+
+							//DateTime now = new DateTime();
+
+							User userlogged = login.getUser();
+
+							DateTime datelogged = login.get_timeout();
+
+							if(!userlogged.timeout(datelogged)){ throw new LoginIsInvalidException();}
+
+							else{ return login; }
+				}
+
+			}
+
+    	  throw new LoginDoesNotExistException();
+
 	  }
 
-		public void UpdateLoginList(){
+	/*	public void UpdateLoginList(){
 
 				for(Login log: getLoginsSet()){
 
 					DateTime now = new DateTime();
 
 					if( now.isAfter(log.get_timeout())){
+						getLoginsSet().remove(log);
+					}
+				}
+			} */
+
+		public void UpdateLoginList(){
+
+				for(Login log: getLoginsSet()){
+
+					User userlogged = log.getUser();
+					DateTime datelogged = log.get_timeout();
+
+					if( ! userlogged.timeout(datelogged)){
 						getLoginsSet().remove(log);
 					}
 				}
