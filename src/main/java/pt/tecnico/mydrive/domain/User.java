@@ -2,6 +2,7 @@ package pt.tecnico.mydrive.domain;
 
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
 import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
+import pt.tecnico.mydrive.exceptions.InvalidPasswordLengthException;
 
 
 import java.io.UnsupportedEncodingException;
@@ -12,26 +13,31 @@ import org.joda.time.DateTime;
 public class User extends User_Base {
 
     public User(){
-      
-      
+
+
       super();
-    
-    
+
+
     }
 
-    public User(String username, String password, String name, String mask, Directory dir) throws InvalidUserNameException {
+    public User(String username, String password, String name, String mask, Directory dir) throws InvalidPasswordLengthException, InvalidUserNameException {
 
       //Done close issue #1
+      if(password.length() >= 8){
         set_password(password);
+      }
+      else{
+        throw new InvalidPasswordLengthException();
+      }
         set_name(name);
         set_mask(mask);
         setHomedirectory(dir);
         if( username.isEmpty() || username == null){
             throw new InvalidUserNameException("username is empty");
           }
-        
+
         else{
-               
+
                char c;
                for (int i = 0; i < username.length(); i++) {
                       c = username.charAt(i);
@@ -44,28 +50,33 @@ public class User extends User_Base {
       }
 
     public User(String username){
-    	 
+
     	 if( username.isEmpty() || username == null){
-             
+
              throw new InvalidUserNameException("username is empty");
            }
-          
+
          else{
                 char c;
-                
+
                 for (int i = 0; i < username.length(); i++) {
                        c = username.charAt(i);
                        if(!Character.isLetterOrDigit(c)){
                     	   throw new InvalidUserNameException("username contains wrong Character");
                        }
                  }
-               
+
                 set_username(username);
-                set_password(username);
-            	set_name(username);
+                if(username.length() >= 8){
+                  set_password(username);
+                }
+                else{
+                  throw new InvalidPasswordLengthException();
+                }
+                set_name(username);
             	set_mask("rwxd----");
             	Directory dir = new Directory();
-            	dir.set_name("/home/" + username);
+            	dir.set_name(username);
             	setHomedirectory(dir);
            }
 
@@ -187,67 +198,67 @@ public class User extends User_Base {
 		}
 
 	}
-	
+
 
 	//as permissoes fazemos por override dos metodos? ou é melhor assim?
-	
+
 	public boolean hasPermission(File f, int position, String perm){
-		
+
 		User owner = f.getOwner();
 		String file_permissions = f.get_permission();
-		
+
 		if(file_permissions.length() == 8){
-		
+
 			if (this.equals(owner) || this.isRoot()){
-			
+
 				return ((file_permissions.substring(position,position+1)).equals(perm));}
-			
+
 			else{
-				
+
 				return ((file_permissions.substring(position+4,position+5)).equals(perm));}
-			
+
 		}
 		else{
-			
+
 			return false;}
-	
+
 	}
 
 	public void remove() {
        /* for (File f: getHomedirectory().getFilesSet())
-            f.remove(); 
+            f.remove();
         setMyDrive(null); */
         deleteDomainObject();
     }
-	
-	
-	
+
+
+
 	public boolean hasReadPermission(File f){
-		
+
 		return hasPermission(f,0,"r");
-	
+
 	}
-	
+
 	public boolean hasWritePermission(File f){
-		
+
 		return hasPermission(f,1,"w");
-	
+
 	}
-	
+
 	public boolean hasExecutePermission(File f){
-		
+
 		return hasPermission(f,2,"x");
-	
+
 	}
-	
+
 	public boolean hasDeletePermission(File f){
-		
+
 		return hasPermission(f,3,"d");
-	
+
 	}
-	
+
 	public boolean isRoot(){
-		
+
 		return false;
 	}
 
