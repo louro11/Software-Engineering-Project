@@ -76,12 +76,12 @@ import org.joda.time.format.DateTimeFormatter;
          Directory dir = login.getCurrentdirectory();
 
          File file = dir.getFile(name);
-        
+
          return file;
    }
 
 
-      @Test
+    /*  @Test
       public void success(){
 
 
@@ -95,7 +95,7 @@ import org.joda.time.format.DateTimeFormatter;
 
      }
 
-    
+
 
 
     @Test(expected=InvalidTypeException.class)
@@ -105,9 +105,8 @@ import org.joda.time.format.DateTimeFormatter;
 
         CreateFileService service = new CreateFileService(token, "HLgameplan", "file", "4Dcinema----> check!");
         service.execute();
-            
 
-    } 
+
+    } */
 
 }
-
