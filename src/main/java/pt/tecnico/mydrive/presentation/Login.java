@@ -1,12 +1,14 @@
 package pt.tecnico.mydrive.presentation;
+
 import java.io.*;
 import java.util.*;
+import pt.tecnico.mydrive.service.LoginService;
 
 public class Login extends MdCommand{
 
   public Login(Shell sh){
 
-    super.(sh, "login", "login a user");
+    super(sh, "login", "login a user");
 
   }
 
@@ -21,5 +23,5 @@ public class Login extends MdCommand{
     new LoginService(args[0], args[1]).execute();
 
   }
-  
+
 }
