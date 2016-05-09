@@ -23,42 +23,42 @@ public class AddEnvironmentVariableService extends MyDriveService {
 		this.setToken(token);
 		this.setName(name);
 		this.setValue(value);
-	 
+
 	  }
 
 	  public long getToken(){
-	
+
 		return _token;
-	
+
 	  }
 
 	  public void setToken(long token){
-		  
+
 		  _token = token;
 	  }
-	  
-	  
-	  
+
+
+
 	  public String getName(){
-	
+
 		return _name;
-	
+
 	  }
 
 	  public void setName(String name){
-		  
+
 		  _name = name;
 	  }
-	  
-	  
+
+
 	  public String getValue(){
-	
+
 		return _value;
-	
+
 	  }
 
 	  public void setValue(String value){
-		  
+
 		  _value = value;
 	  }
 
@@ -71,21 +71,21 @@ public class AddEnvironmentVariableService extends MyDriveService {
 		//try{
 				 _vars = getMydrive().addEnvironmentvar(this.getToken(), this.getName(), this.getValue());
 		  //}
-		  
+
 		//catch (LoginDoesNotExistException e){ System.out.println(e.getMessage());}
 		//catch (PermitionException e) {System.out.println(e.getMessage());}
 
 	  }
-	  
-	  
-	  
+
+
+
 
 	  public final List<EnvironmentVar> result() {
-			
-			
+
+
 			return _vars;
-	  
-	  
+
+
 	  }
 
 

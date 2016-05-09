@@ -28,10 +28,10 @@ public class LoginTest extends AbstractServiceTest{
     protected void populate() {
 
     	md = MyDrive.getInstance();
-    	md.createUser("HenriqueCarloss");    	
+    	md.createUser("HenriqueCarloss");
 }
 
-	@Test
+/*	@Test
 	public void success(){
 		Random rand = new Random();
 		final long token = rand.nextLong();
@@ -40,11 +40,11 @@ public class LoginTest extends AbstractServiceTest{
 		LoginService service = new LoginService(username, password);
 		service.execute();
 		Login login = md.getLoginbyToken(token);
-		assertNotNull("Login Success",login); 
+		assertNotNull("Login Success",login);
 
-	}
-   
- 
+	}*/
+
+
 
     @Test(expected = UserDoesNotExistException.class)
     public void testLoginUserNotExist() throws Exception{
