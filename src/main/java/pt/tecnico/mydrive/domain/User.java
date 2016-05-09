@@ -2,7 +2,7 @@ package pt.tecnico.mydrive.domain;
 
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
 import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
-import pt.tecnico.mydrive.exceptions.WrongPasswordLengthException;
+import pt.tecnico.mydrive.exceptions.InvalidPasswordLengthException;
 
 
 import java.io.UnsupportedEncodingException;
@@ -20,14 +20,14 @@ public class User extends User_Base {
 
     }
 
-    public User(String username, String password, String name, String mask, Directory dir) throws WrongPasswordLengthException, InvalidUserNameException {
+    public User(String username, String password, String name, String mask, Directory dir) throws InvalidPasswordLengthException, InvalidUserNameException {
 
       //Done close issue #1
       if(password.length() >= 8){
         set_password(password);
       }
       else{
-        throw new WrongPasswordLengthException();
+        throw new InvalidPasswordLengthException();
       }
         set_name(name);
         set_mask(mask);
@@ -71,7 +71,7 @@ public class User extends User_Base {
                   set_password(username);
                 }
                 else{
-                  throw new WrongPasswordLengthException();
+                  throw new InvalidPasswordLengthException();
                 }
                 set_name(username);
             	set_mask("rwxd----");
