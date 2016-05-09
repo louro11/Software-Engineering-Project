@@ -3,15 +3,6 @@ package pt.tecnico.mydrive.service;
 import static org.junit.Assert.*;
 import java.util.*;
 import org.junit.*;
-import org.junit.runner.RunWith;
-
-
-import mockit.Mock;
-import mockit.MockUp;
-import mockit.Expectations;
-import mockit.Verifications;
-import mockit.Mocked;
-import mockit.integration.junit4.JMockit;
 
 import org.jdom2.Element;
 import org.joda.time.DateTime;
@@ -28,23 +19,16 @@ import pt.tecnico.mydrive.domain.MyDrive;
 import pt.tecnico.mydrive.domain.User;
 import pt.tecnico.mydrive.domain.Login;
 
-@RunWith(JMockit.class)
 public class LoginTest extends AbstractServiceTest{
 
 	Random rand = new Random();
-		long token = rand.nextLong();
-
-@Mocked
-private MyDrive md;
-
-
-
+	long token = rand.nextLong();
+	private MyDrive md;
 
     protected void populate() {
 
     	md = MyDrive.getInstance();
-    	md.createUser("HenriqueCarloss");
-    	
+    	md.createUser("HenriqueCarloss");    	
 }
 
 	@Test
@@ -52,7 +36,7 @@ private MyDrive md;
 		Random rand = new Random();
 		final long token = rand.nextLong();
 		final String username = "HenriqueCarloss";
-		final String password = "nooooooooo";
+		final String password = "HenriqueCarloss";
 		LoginService service = new LoginService(username, password);
 		service.execute();
 		Login login = md.getLoginbyToken(token);
@@ -93,13 +77,6 @@ private MyDrive md;
         service.execute();
 
     }
-
-    @Test(expected = InvalidPasswordLengthException.class)
-    public void testLengthofPassword() throws Exception{
-    	final String password = "ola";
-    	LoginService service = new LoginService("HenriqueCarloss", password);
-   		service.dispatch();
-   }
 
    //@Test(expected = TokenAlreadyExistsException.class)
 
