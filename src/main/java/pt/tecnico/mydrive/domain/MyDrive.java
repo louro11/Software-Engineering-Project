@@ -77,11 +77,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				
 				return getFilesystem().listDirectory(dir, usr);
 			
-		
-
 		}
-
-
 
 
         public String changeCurrentDirectory(long token, String path) throws FileNotFoundException, LoginDoesNotExistException, AccessDeniedException{
