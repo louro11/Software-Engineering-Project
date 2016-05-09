@@ -77,11 +77,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				
 				return getFilesystem().listDirectory(dir, usr);
 			
-		
-
 		}
-
-
 
 
         public String changeCurrentDirectory(long token, String path) throws FileNotFoundException, LoginDoesNotExistException, AccessDeniedException{
@@ -339,7 +335,6 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		// verificar se ja existe, se sim, redefinir valores
 		// permissoes do user atual (not sure)
 		// suposto retornar lista atual de variaveis separadas por '=' (ughh peanurs)
-					
 				
 				Login login = getLoginbyToken(token);
 				

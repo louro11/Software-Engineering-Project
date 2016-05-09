@@ -2,6 +2,8 @@ package pt.tecnico.mydrive.domain;
 import org.jdom2.Element;
 import org.joda.time.DateTime;
 
+import pt.tecnico.mydrive.exceptions.ApplicationDoesntHasAssocException;
+
 public class Application extends Application_Base {
     
     public Application() {
@@ -17,6 +19,15 @@ public class Application extends Application_Base {
         set_content(content);   
    } 
 
+   @Override
+   public void setAssociation(Association assoc) throws ApplicationDoesntHasAssocException{
+    throw new ApplicationDoesntHasAssocException();
+   }
+
+   @Override
+   public Association getAssociation() throws ApplicationDoesntHasAssocException{
+    throw new ApplicationDoesntHasAssocException();
+   }
 
     public Element xmlExport() {
 		

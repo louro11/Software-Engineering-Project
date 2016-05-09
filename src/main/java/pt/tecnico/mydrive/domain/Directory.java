@@ -97,8 +97,6 @@ public class Directory extends Directory_Base {
     public void addFiles(File f){
       if(hasFile(f.get_name()))
         throw new FileAlreadyExistsException(f.get_name());
-
-      //getFilesSet().add(f);
       super.addFiles(f);
     }
 
@@ -123,10 +121,6 @@ public class Directory extends Directory_Base {
     super.setFilesystem(fs);
 
     }
-
-
-
-
 
 
   @Override
@@ -178,7 +172,9 @@ public class Directory extends Directory_Base {
 
           Application app = new Application(filename, user.get_mask(), fileid, timestamp, user, content);
 
-      try{ addFiles(app);} catch(FileAlreadyExistsException e){throw e;}
+          
+          getFilesSet().add(app);
+          //addFiles(app);
 
       }
       
@@ -187,7 +183,12 @@ public class Directory extends Directory_Base {
 
           TextFile tf = new TextFile(filename, user.get_mask(), fileid , timestamp, user, content);
 
-      try{ addFiles(tf); } catch(FileAlreadyExistsException e){throw e;}
+          User owner = tf.getOwner();
+          Association assoc = tf.getAssociation();
+          owner.getAssociationSet().add(assoc);
+          
+          getFilesSet().add(tf);
+          //addFiles(tf); 
 
       }
 
@@ -197,7 +198,13 @@ public class Directory extends Directory_Base {
 
           Link link = new Link(filename, user.get_mask(), fileid, timestamp, user, content);
 
-       try{ addFiles(link); } catch(FileAlreadyExistsException e){throw e;}
+          User owner = link.getOwner();
+          Association assoc = link.getAssociation();
+          owner.getAssociationSet().add(assoc);
+          
+          getFilesSet().add(link);
+
+         // addFiles(link); 
       }
 
       else { throw new InvalidTypeException(type); }

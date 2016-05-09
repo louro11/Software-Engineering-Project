@@ -4,6 +4,7 @@ import org.jdom2.Element;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import pt.tecnico.mydrive.exceptions.ApplicationDoesntHasAssocException;
 import org.jdom2.Element;
 
 public abstract class File extends File_Base {
@@ -14,7 +15,7 @@ public abstract class File extends File_Base {
    
    
     }
-    public File(String name, String permission, Integer fileid, DateTime timestamp, User owner) {
+    public File(String name, String permission, Integer fileid, DateTime timestamp, User owner) throws ApplicationDoesntHasAssocException{
     	
     	
     	set_name(name);
@@ -22,6 +23,9 @@ public abstract class File extends File_Base {
     	set_fileid(fileid);
     	set_timestamp(timestamp);
     	setOwner(owner);
+        //cada vez que é criado um ficheiro é criada uma associação à sua extensão
+        Association assoc = new Association((name.split("."))[0],this);
+        setAssociation(assoc);
 
     }
 
