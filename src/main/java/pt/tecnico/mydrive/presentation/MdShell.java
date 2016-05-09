@@ -13,7 +13,7 @@ public class MdShell extends Shell {
 
     new Login(this);
     new Write(this);
-    //new Execute(this);
+    new Execute(this);
 
     
   }
