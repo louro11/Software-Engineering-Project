@@ -11,6 +11,7 @@ public class MdShell extends Shell {
     
     super("MyDrive");
     // exemplo:   new CreatePerson(this);
+    new Write(this);
     
   }
 }
