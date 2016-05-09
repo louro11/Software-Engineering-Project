@@ -218,7 +218,7 @@ public class Directory extends Directory_Base {
 
 
     public File getFile(String name) throws FileNotFoundException{
-        //File file= null;
+
 
       if(name.equals(".")){return this;}
 
@@ -261,11 +261,6 @@ public class Directory extends Directory_Base {
         dir.addContent(dirname);
 
         return dir;
-	}
-	
-	@Override
-	public boolean isDir(){
-		return true;
 	}
 	
 
