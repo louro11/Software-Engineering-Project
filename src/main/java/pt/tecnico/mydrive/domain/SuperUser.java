@@ -14,7 +14,7 @@ public class SuperUser extends SuperUser_Base {
 
     public SuperUser(String username, String password, String name, String mask){
      
-	  set_username(username);
+	    set_username(username);
       set_password(password);
       set_name(name);
       set_mask(mask);
@@ -25,6 +25,8 @@ public class SuperUser extends SuperUser_Base {
     	return super.xmlExport();
 
     }
+
+
 
     @Override
     public boolean timeout(DateTime datetime){

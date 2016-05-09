@@ -26,7 +26,6 @@ public class User extends User_Base {
 
     public User(String username, String password, String name, String mask, Directory dir) throws InvalidPasswordLengthException, InvalidUserNameException {
 
-      //Done close issue #1
       if(password.length() >= 8){
         set_password(password);
       }
@@ -85,6 +84,7 @@ public class User extends User_Base {
            }
 
     }
+
 
 
     public boolean equals(User u){

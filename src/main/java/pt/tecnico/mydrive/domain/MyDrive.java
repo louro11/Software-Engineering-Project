@@ -87,7 +87,6 @@ import pt.tecnico.mydrive.domain.FileSystem;
         public String changeCurrentDirectory(long token, String path) throws FileNotFoundException, LoginDoesNotExistException, AccessDeniedException{
 
 		
-
 				Login login = getLoginbyToken(token);
 
 				User user = login.getUser();
@@ -106,8 +105,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
         		Directory dir = login.getCurrentdirectory();
 
         		User user = login.getUser();
-
-        		
+		
         		return getFilesystem().readFile(dir, user, filename);
 
         	
@@ -117,27 +115,17 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
         public void writeToFile(long token, String filename, String content) throws LoginDoesNotExistException, CantWriteToDirectoryException, PermitionException, AccessDeniedException, FileNotFoundException{
 
-
-        
-
 				Login login = getLoginbyToken(token);
 				Directory dir = login.getCurrentdirectory();
 
 				User user = login.getUser();
-				getFilesystem().writeToFile(dir, user, filename, content);
-
-
-			
-			
-			
+				getFilesystem().writeToFile(dir, user, filename, content);			
         }
 
 
 		public void createFile(long token, String filename, String type, String content) throws InvalidPathSizeException, LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException, PermitionException{
 
-			System.err.println("chegou ao createFile");
-
-		
+				System.err.println("chegou ao createFile");	
 
 				Login login = getLoginbyToken(token);
 				Directory dir = login.getCurrentdirectory();
@@ -153,10 +141,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				}
 
-				else{ 
-
-					
-				    getFilesystem().createFile(dir, user, filename, type, content); }
+				else{ getFilesystem().createFile(dir, user, filename, type, content); }
 
 
 			
@@ -277,14 +262,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				if( login.get_token()==token ){
 
-							//DateTime now = new DateTime();
-
 							User userlogged = login.getUser();
-
 							DateTime datelogged = login.get_timeout();
-
-							if(!userlogged.timeout(datelogged)){ throw new LoginIsInvalidException();}
-
+							//a root nunca deixa de estar logada, é atribuido apenas num novo token
+							if(userlogged.isRoot()){loginUser("root","rwxdr-x-");}
+							else if(!userlogged.timeout(datelogged)){ throw new LoginIsInvalidException();}
 							else{ return login; }
 				}
 
@@ -312,8 +294,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 					User userlogged = log.getUser();
 					DateTime datelogged = log.get_timeout();
-
-					if( ! userlogged.timeout(datelogged)){
+					//a root nunca deixa de estar logada, é atribuido apenas num novo token
+					if(userlogged.isRoot()){loginUser("root","rwxdr-x-");}  
+					else if( ! userlogged.timeout(datelogged)){
 						getLoginsSet().remove(log);
 					}
 				}
