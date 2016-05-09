@@ -139,7 +139,6 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				else{ getFilesystem().createFile(dir, user, filename, type, content); }
 
-
 			
 		}
 
@@ -203,21 +202,14 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		public long loginUser(String username, String password)throws UserDoesNotExistException, WrongPasswordException{
 
 		
-
 				User user = getFilesystem().getUserbyUsername(username);
-
 				Login login;
-
 				login = new Login(user, password);
-
 				CheckToken(login);
-
 				UpdateLoginList();
-
 				getLoginsSet().add(login);  //override do add!!!!!!! /*TODO*/
 
 				return login.get_token();
-
 
 		}
 

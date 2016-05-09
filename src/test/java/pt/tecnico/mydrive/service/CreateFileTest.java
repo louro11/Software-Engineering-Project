@@ -81,7 +81,7 @@ import org.joda.time.format.DateTimeFormatter;
    }
 
 
-    /*  @Test
+   /* @Test
       public void success(){
 
 
@@ -98,7 +98,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 
 
-    @Test(expected=InvalidTypeException.class)
+   /* @Test(expected=InvalidTypeException.class)
     public void InvalidType() {
 
         long token = login("claudiaamorim","nhanha");
