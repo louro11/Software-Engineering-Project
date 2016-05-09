@@ -2,13 +2,17 @@ package pt.tecnico.mydrive.domain;
 
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
 import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
-import pt.tecnico.mydrive.exceptions.WrongPasswordLengthException;
+import pt.tecnico.mydrive.exceptions.GuestDoesntHasDeletePermitionException;
+import pt.tecnico.mydrive.exceptions.GuestDoesntHasWritePermitionException;
+import pt.tecnico.mydrive.exceptions.InvalidPasswordLengthException;
+
 
 
 import java.io.UnsupportedEncodingException;
 
 import org.jdom2.Element;
 import org.joda.time.DateTime;
+import java.util.Date;
 
 public class User extends User_Base {
 
@@ -20,14 +24,14 @@ public class User extends User_Base {
 
     }
 
-    public User(String username, String password, String name, String mask, Directory dir) throws WrongPasswordLengthException, InvalidUserNameException {
+    public User(String username, String password, String name, String mask, Directory dir) throws InvalidPasswordLengthException, InvalidUserNameException {
 
       //Done close issue #1
       if(password.length() >= 8){
         set_password(password);
       }
       else{
-        throw new WrongPasswordLengthException();
+        throw new InvalidPasswordLengthException();
       }
         set_name(name);
         set_mask(mask);
@@ -71,7 +75,7 @@ public class User extends User_Base {
                   set_password(username);
                 }
                 else{
-                  throw new WrongPasswordLengthException();
+                  throw new InvalidPasswordLengthException();
                 }
                 set_name(username);
             	set_mask("rwxd----");
@@ -201,8 +205,9 @@ public class User extends User_Base {
 
 
 	//as permissoes fazemos por override dos metodos? ou é melhor assim?
-
-	public boolean hasPermission(File f, int position, String perm){
+	
+	public boolean hasPermission(File f, int position, String perm) {
+		
 
 		User owner = f.getOwner();
 		String file_permissions = f.get_permission();
@@ -235,11 +240,15 @@ public class User extends User_Base {
 
 	public boolean hasReadPermission(File f){
 
+
 		return hasPermission(f,0,"r");
 
 	}
 
-	public boolean hasWritePermission(File f){
+	public boolean hasWritePermission(File f)throws GuestDoesntHasWritePermitionException{
+
+		if(get_name().equals("Guest")){throw new GuestDoesntHasWritePermitionException();}
+		
 
 		return hasPermission(f,1,"w");
 
@@ -251,11 +260,28 @@ public class User extends User_Base {
 
 	}
 
-	public boolean hasDeletePermission(File f){
+	
+	public boolean hasDeletePermission(File f)throws GuestDoesntHasDeletePermitionException{
+		if(get_name().equals("Guest")){throw new GuestDoesntHasDeletePermitionException();}
+		
 
 		return hasPermission(f,3,"d");
 
 	}
+
+  
+    public boolean timeout(DateTime datetime){
+
+    //retorna false (timeout) se a diferença for superior a 2 (2horas)
+
+    Date date = new Date();
+    int currenthour = date.getHours();
+    int relativehour = datetime.toDate().getHours();
+    
+
+    return ((currenthour - relativehour) < 2 );
+    
+  }
 
 	public boolean isRoot(){
 
