@@ -2,6 +2,8 @@ package pt.tecnico.mydrive.domain;
 
 import pt.tecnico.mydrive.exceptions.ImportDocumentException;
 import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
+import pt.tecnico.mydrive.exceptions.GuestDoesntHasDeletePermitionException;
+import pt.tecnico.mydrive.exceptions.GuestDoesntHasWritePermitionException;
 
 
 import java.io.UnsupportedEncodingException;
@@ -191,7 +193,7 @@ public class User extends User_Base {
 
 	//as permissoes fazemos por override dos metodos? ou é melhor assim?
 	
-	public boolean hasPermission(File f, int position, String perm){
+	public boolean hasPermission(File f, int position, String perm) {
 		
 		User owner = f.getOwner();
 		String file_permissions = f.get_permission();
@@ -223,12 +225,15 @@ public class User extends User_Base {
 	
 	
 	public boolean hasReadPermission(File f){
+
 		
 		return hasPermission(f,0,"r");
 	
 	}
 	
-	public boolean hasWritePermission(File f){
+	public boolean hasWritePermission(File f)throws GuestDoesntHasWritePermitionException{
+
+		if(get_name().equals("Guest")){throw new GuestDoesntHasWritePermitionException();}
 		
 		return hasPermission(f,1,"w");
 	
@@ -240,7 +245,8 @@ public class User extends User_Base {
 	
 	}
 	
-	public boolean hasDeletePermission(File f){
+	public boolean hasDeletePermission(File f)throws GuestDoesntHasDeletePermitionException{
+		if(get_name().equals("Guest")){throw new GuestDoesntHasDeletePermitionException();}
 		
 		return hasPermission(f,3,"d");
 	
