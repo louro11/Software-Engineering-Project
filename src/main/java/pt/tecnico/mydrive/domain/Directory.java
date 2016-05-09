@@ -72,13 +72,6 @@ public class Directory extends Directory_Base {
 
 
 
-
-
-
-
-
-
-
    public List<FileDto> listDirectory(){
 
     //falta retornar o conteudo dos Links existentes quando lista a diretoria

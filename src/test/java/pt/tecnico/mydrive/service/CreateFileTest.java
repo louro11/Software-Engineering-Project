@@ -33,17 +33,16 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
- //@RunWith(JMockit.class)
+
  public class CreateFileTest extends AbstractServiceTest {
 
-// @Mocked
  private MyDrive md;
+
 
 
      protected void populate() {
 
-              md = MyDrive.getInstance();
-
+            md = MyDrive.getInstance();
 
             //FileSystem fs = MyDriveService.getFilesystem();
 
@@ -58,31 +57,33 @@ import org.joda.time.format.DateTimeFormatter;
             //User claudia = new User("claudiaamorim");
             //claudiahome.setOwner(claudia);
 
-  }
 
-  private long login(String username, String password){
+   }
+
+   private long login(String username, String password){
 
 
         return md.loginUser(username,password);
-  }
-
-
-
-   private File getFile(String name, long token){
-
-
-        Login login = md.getLoginbyToken(token);
-
-        Directory dir = login.getCurrentdirectory();
-
-        File file = dir.getFile(name);
-        
-        return file;
    }
 
 
-     @Test
-     public void success(){
+
+    private File getFile(String name, long token){
+
+
+         Login login = md.getLoginbyToken(token);
+
+         Directory dir = login.getCurrentdirectory();
+
+         File file = dir.getFile(name);
+        
+         return file;
+   }
+
+
+      @Test
+      public void success(){
+
 
 
         long token = login("claudiaamorim","claudiaamorim");
@@ -92,22 +93,12 @@ import org.joda.time.format.DateTimeFormatter;
         TextFile file = (TextFile)this.getFile("readme",token);
         assertNotNull("File was not created",file);
 
-        
-    }
+     }
 
     
+
+
     @Test(expected=InvalidTypeException.class)
-    public void InvalidType() {
-
-        long token = login("claudiaamorim","nhanha");
-
-        CreateFileService service = new CreateFileService(token, "HLgameplan", "file", "4Dcinema----> check!");
-        service.execute();
-			
-
-    } 
-
-   /* @Test(expected=InvalidTypeException.class)
     public void InvalidType() {
 
         long token = login("claudiaamorim","nhanha");
@@ -116,6 +107,7 @@ import org.joda.time.format.DateTimeFormatter;
         service.execute();
             
 
-    } */
+    } 
 
 }
+
