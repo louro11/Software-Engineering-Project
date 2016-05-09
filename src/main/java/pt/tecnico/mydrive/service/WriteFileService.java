@@ -17,6 +17,7 @@ public class WriteFileService extends MyDriveService{
 	public WriteFileService(long token, String filename, String content){
 		_filename=filename;
 		_content=content;
+		_token=token;
 	}
 	
 	public String getfileName(){

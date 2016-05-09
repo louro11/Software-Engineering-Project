@@ -14,6 +14,21 @@ public class LoginService extends MyDriveService {
 
   private long token;
 
+
+  public LoginService(String username){
+
+    this.setUsername(username);
+
+    this.setPassword("");
+
+    Random rand = new Random();
+
+    token = rand.nextLong();
+
+    this.setToken(token);
+  }
+
+
   public LoginService(String username, String password){
 
     this.setUsername(username);
@@ -26,6 +41,7 @@ public class LoginService extends MyDriveService {
 
     this.setToken(token);
   }
+
 
   public void setUsername(String usrname){
 
@@ -64,9 +80,11 @@ public class LoginService extends MyDriveService {
 
   }
 
+
   public final void dispatch() throws UserDoesNotExistException, WrongPasswordException {
 
-     getMydrive().loginUser(username, password);
+        getMydrive().loginUser(username, password);
+
 
 }
   public final long result(){

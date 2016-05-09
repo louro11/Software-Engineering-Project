@@ -10,10 +10,14 @@ import java.lang.reflect.*;
 public abstract class Shell {
   
   protected static final Logger log = LogManager.getRootLogger();
- 
+  
+  //Mapa de utilizadores com o token associado
+  private Map<String,Long> activeToken = new TreeMap<String,Long>();
+
   private Map<String,Command> coms = new TreeMap<String,Command>();
   private PrintWriter out;
   private String name;
+  private String activeUser;
 
 /* estes 2 construtores chamam o 3, que vai correr a apresentacao na linha de comandos toda bonita */
 
@@ -108,7 +112,35 @@ public abstract class Shell {
   public Command get(String s) {
       return coms.get(s);
   }
+ 
+
+ /* Manipulacao do mapa dos utilizadores*/
+  boolean addUsers(String user, long token) {
+      return activeToken.put(user, token) == null ? true : false;
+  }
   
+  
+ 
+  
+  public String getActiveUser() {
+      return activeUser;
+  }
+  
+  public long getTokenByUser(String user) {
+      return activeToken.get(user);
+  }
+
+  public void setActiveUsers(String username){
+
+    if (activeToken.containsKey(username)){
+        activeUser = username;
+    }
+
+    //LANÇAR EXCECAO
+  }
+
+
+
   
   /* The unmodifiableCollection() method is used to return an unmodifiable view of the specified collection  */
   

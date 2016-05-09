@@ -10,8 +10,9 @@ public class MdShell extends Shell {
   public MdShell() { // mininos, adicionar os vossos comandos aqui
     
     super("MyDrive");
-    // exemplo:   new CreatePerson(this);
+    new Login(this);
     new Write(this);
+    //new Execute(this);
     
   }
 }
