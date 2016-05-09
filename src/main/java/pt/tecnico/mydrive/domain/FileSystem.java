@@ -19,6 +19,7 @@ import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.tecnico.mydrive.exceptions.RunException;
 import pt.tecnico.mydrive.exceptions.InvalidFileNameException;
+import pt.tecnico.mydrive.exceptions.GuestDoesntHasWritePermitionException;
 import pt.tecnico.mydrive.service.dto.FileDto;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class FileSystem extends FileSystem_Base {
 		public FileSystem() {
 
 			SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
+			Guest guest = new Guest();
 
 			ResetIdseq();
 
@@ -54,7 +56,7 @@ public class FileSystem extends FileSystem_Base {
 
 
         setRoot(root);
-
+        setGuest(guest);
         setMaindir(maindir);  
 
     }
@@ -173,7 +175,7 @@ public class FileSystem extends FileSystem_Base {
 		}
 
 
-	public void createFileDirectory(Directory curdir, User user, String filename, String type)throws InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
+	public void createFileDirectory(Directory curdir, User user, String filename, String type)throws GuestDoesntHasWritePermitionException, InvalidPathSizeException, InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
 		String path = filename + curdir.get_name();
 		Directory maindir = getMaindir();
 
@@ -206,7 +208,7 @@ public class FileSystem extends FileSystem_Base {
 	}
 
 
-	public void createFile (Directory curdir, User user, String filename, String type, String content)throws InvalidPathSizeException, InvalidTypeException , InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
+	public void createFile (Directory curdir, User user, String filename, String type, String content)throws GuestDoesntHasWritePermitionException, InvalidPathSizeException, InvalidTypeException , InvalidContentException, InvalidTypeException, FileAlreadyExistsException,PermitionException{
 
 		String path = filename + curdir.get_name(); //o que é isto??
 		Directory maindir = getMaindir();

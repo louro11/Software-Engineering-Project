@@ -21,6 +21,8 @@ class User{
 
 class SuperUser extends User;
 
+class Guest extends User;
+
 class File{
     String _name;
 	String _permission;
@@ -96,6 +98,11 @@ relation LoginHasVars{
 
 
 /********FileSystem***********/
+
+relation FileSystemHasGuest{
+    FileSystem playsRole filesys;
+    Guest playsRole guest;
+}
 
 relation FileSystemHasRoot{
   	FileSystem playsRole filesys;

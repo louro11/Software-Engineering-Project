@@ -69,7 +69,6 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		public List<FileDto> listDirectory(long token)throws LoginDoesNotExistException, PermitionException{
 
-			try{
 				Login login = getLoginbyToken(token);
 
 
@@ -78,10 +77,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				
 				return getFilesystem().listDirectory(dir, usr);
 			
-			}
-			catch (LoginDoesNotExistException e){ throw e;}
-			catch (PermitionException e) {throw e;}
-
+		
 
 		}
 
@@ -90,8 +86,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
         public String changeCurrentDirectory(long token, String path) throws FileNotFoundException, LoginDoesNotExistException, AccessDeniedException{
 
-			try{
-
+		
 				Login login = getLoginbyToken(token);
 
 				User user = login.getUser();
@@ -99,70 +94,45 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				return getFilesystem().changeCurrentDirectory(login , user, path);
 
 
-			}
-			catch (FileNotFoundException e){throw e;}
-			catch (LoginDoesNotExistException e){throw e;}
-			catch (AccessDeniedException e){throw e;}
 		}
 
 
 
         public String readFile(long token, String filename)throws LoginDoesNotExistException, CantReadDirectoryException, PermitionException, AccessDeniedException, FileNotFoundException{
 
-        	try{
         		
         		Login login = getLoginbyToken(token);
         		Directory dir = login.getCurrentdirectory();
 
         		User user = login.getUser();
-
-        		
+		
         		return getFilesystem().readFile(dir, user, filename);
 
-        	}
-        	catch (LoginDoesNotExistException e){  throw e;}
-        	catch (CantReadDirectoryException e){  throw e;}
-        	catch (PermitionException e){  throw e;}
-        	catch (AccessDeniedException e){  throw e;}
+        	
         }
 
 
 
         public void writeToFile(long token, String filename, String content) throws LoginDoesNotExistException, CantWriteToDirectoryException, PermitionException, AccessDeniedException, FileNotFoundException{
 
-
-        	try{
-
 				Login login = getLoginbyToken(token);
 				Directory dir = login.getCurrentdirectory();
 
 				User user = login.getUser();
-				getFilesystem().writeToFile(dir, user, filename, content);
-
-
-			}
-			catch (LoginDoesNotExistException e){  throw e;}
-			catch (FileNotFoundException e){  throw e;}
-			catch (CantWriteToDirectoryException e){  throw e;}
-			catch (PermitionException e){  throw e;}
-			catch (AccessDeniedException e){  throw e;}
-			
-			
+				getFilesystem().writeToFile(dir, user, filename, content);			
         }
 
 
 		public void createFile(long token, String filename, String type, String content) throws InvalidPathSizeException, LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException, PermitionException{
 
-			System.err.println("chegou ao createFile");
-
-		
+				System.err.println("chegou ao createFile");	
 
 				Login login = getLoginbyToken(token);
 				Directory dir = login.getCurrentdirectory();
 
 				User user = login.getUser();
 
-				/*if (type.equals("directory")){
+				if (type.equals("directory")){
 
 					if(content.equals(""))
 					getFilesystem().createFileDirectory(dir,user,filename,type);
@@ -171,19 +141,10 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				}
 
-				else{ */
-
-					
-				    getFilesystem().createFile(dir, user, filename, type, content); //}
+				else{ getFilesystem().createFile(dir, user, filename, type, content); }
 
 
 			
-			/*catch (LoginDoesNotExistException e){  throw e;  }
-			catch (PermitionException e){  throw e;}
-			catch (InvalidPathSizeException e){  throw e; }
-		
-			catch (InvalidTypeException e){  throw e;  }
-			catch (FileAlreadyExistsException e){  throw e;  }*/
 		}
 
 
@@ -262,11 +223,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				return login.get_token();
 
 
-
-			//return 0;
 		}
 
-		public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
+		/*public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
 
 			
 			
@@ -276,7 +235,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 							DateTime now = new DateTime();
 
-							if( now.isAfter(login.get_timeout())){
+							if( login.isAfter(login.get_timeout())){
 
 								throw new LoginIsInvalidException();
 
@@ -294,15 +253,50 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
     	  throw new LoginDoesNotExistException();
 
+	  } */
+
+	  	public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
+	
+			
+			for( Login login: getLoginsSet()){
+
+				if( login.get_token()==token ){
+
+							User userlogged = login.getUser();
+							DateTime datelogged = login.get_timeout();
+							//a root nunca deixa de estar logada, é atribuido apenas num novo token
+							if(userlogged.isRoot()){loginUser("root","rwxdr-x-");}
+							else if(!userlogged.timeout(datelogged)){ throw new LoginIsInvalidException();}
+							else{ return login; }
+				}
+
+			}
+
+    	  throw new LoginDoesNotExistException();
+
 	  }
 
-		public void UpdateLoginList(){
+	/*	public void UpdateLoginList(){
 
 				for(Login log: getLoginsSet()){
 
 					DateTime now = new DateTime();
 
 					if( now.isAfter(log.get_timeout())){
+						getLoginsSet().remove(log);
+					}
+				}
+			} */
+
+		public void UpdateLoginList(){
+
+				for(Login log: getLoginsSet()){
+
+					User userlogged = log.getUser();
+					DateTime datelogged = log.get_timeout();
+					//a root nunca deixa de estar logada, é atribuido apenas num novo token
+					if(userlogged.isRoot()){loginUser("root","rwxdr-x-");}  
+					else if( ! userlogged.timeout(datelogged)){
 						getLoginsSet().remove(log);
 					}
 				}
@@ -345,9 +339,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		// verificar se ja existe, se sim, redefinir valores
 		// permissoes do user atual (not sure)
 		// suposto retornar lista atual de variaveis separadas por '=' (ughh peanurs)
-		
-		try{
-				
+					
 				
 				Login login = getLoginbyToken(token);
 				
@@ -373,12 +365,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				
 				return login.listVariables();
 				
-						
-			}
 			
-			catch (LoginDoesNotExistException e){ throw e;}
-			catch (PermitionException e) {throw e;}
-		
 	}
 	
 	

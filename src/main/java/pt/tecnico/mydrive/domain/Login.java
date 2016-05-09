@@ -31,10 +31,9 @@ public class Login extends Login_Base{
 
       DateTime now = new DateTime();
 
-      DateTime limit = now.plusHours(2);
+      //now passa a ser a data de criação do login
 
-      this.set_timeout(limit);
-
+      this.set_timeout(now);
 
       this.set_token(token);
     
