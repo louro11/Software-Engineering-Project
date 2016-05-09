@@ -153,9 +153,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		public void createFile(long token, String filename, String type, String content) throws InvalidPathSizeException, LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException, PermitionException{
 
-			System.out.println("chegou ao createFile");
+			System.err.println("chegou ao createFile");
 
-			try{
+		
 
 				Login login = getLoginbyToken(token);
 				Directory dir = login.getCurrentdirectory();
@@ -164,22 +164,26 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				/*if (type.equals("directory")){
 
-					System.out.println ("boa tarde mininos \n\n\n");
-					getFilesystem().createFileDirectory(dir,user,filename,type);}
+					if(content.equals(""))
+					getFilesystem().createFileDirectory(dir,user,filename,type);
 
-				else{*/
+					else{throw new InvalidContentException(content);}
 
-					//System.out.println ("boa noite mininos \n\n\n");
+				}
+
+				else{ */
+
+					
 				    getFilesystem().createFile(dir, user, filename, type, content); //}
 
 
-			}
-			catch (LoginDoesNotExistException e){  throw e;  }
+			
+			/*catch (LoginDoesNotExistException e){  throw e;  }
 			catch (PermitionException e){  throw e;}
 			catch (InvalidPathSizeException e){  throw e; }
-			catch (InvalidContentException e){  throw e; }
+		
 			catch (InvalidTypeException e){  throw e;  }
-			catch (FileAlreadyExistsException e){  throw e;  }
+			catch (FileAlreadyExistsException e){  throw e;  }*/
 		}
 
 
@@ -241,7 +245,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		public long loginUser(String username, String password)throws UserDoesNotExistException, WrongPasswordException{
 
-			try{
+		
 
 				User user = getFilesystem().getUserbyUsername(username);
 
@@ -257,10 +261,6 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				return login.get_token();
 
-			}
-
-			catch( UserDoesNotExistException e ){   throw e; }
-			catch( WrongPasswordException e ){  throw e; }
 
 
 			//return 0;

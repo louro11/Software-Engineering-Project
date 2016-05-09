@@ -33,10 +33,10 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
- @RunWith(JMockit.class)
+ //@RunWith(JMockit.class)
  public class CreateFileTest extends AbstractServiceTest {
 
- @Mocked
+// @Mocked
  private MyDrive md;
 
 
@@ -45,16 +45,18 @@ import org.joda.time.format.DateTimeFormatter;
               md = MyDrive.getInstance();
 
 
-            FileSystem fs = MyDriveService.getFilesystem();
+            //FileSystem fs = MyDriveService.getFilesystem();
 
-            SuperUser root = new SuperUser("root", "***", "Super user", "rwxdr-x-");
+           // SuperUser root = fs.getRoot();//new SuperUser("root", "***", "Super user", "rwxdr-x-");
 
-            Directory claudiahome = new Directory("claudiahome",123,new DateTime(),"rwxd----", (User)root);
+            //Directory claudiahome = new Directory("claudiahome",123,new DateTime(),"rwxd----", (User)root);
 
 
-            User claudia = new User("claudiaamorim", "nhanha", "claudia", "rwxd----", claudiahome);
+            //User claudia = new User("claudiaamorim", "nhanha", "claudia", "rwxd----", claudiahome);
 
-            claudiahome.setOwner(claudia);
+            md.createUser("claudiaamorim");
+            //User claudia = new User("claudiaamorim");
+            //claudiahome.setOwner(claudia);
 
   }
 
@@ -83,12 +85,11 @@ import org.joda.time.format.DateTimeFormatter;
      public void success(){
 
 
-        long token = login("claudiaamorim","nhanha");
+        long token = login("claudiaamorim","claudiaamorim");
         CreateFileService service = new CreateFileService(token,"readme", "textfile", "4Dcinema----> check!");
         service.execute();
 
         TextFile file = (TextFile)this.getFile("readme",token);
-        //TextFile tf = (TextFile)file;
         assertNotNull("File was not created",file);
 
         
@@ -105,5 +106,16 @@ import org.joda.time.format.DateTimeFormatter;
 			
 
     } 
+
+   /* @Test(expected=InvalidTypeException.class)
+    public void InvalidType() {
+
+        long token = login("claudiaamorim","nhanha");
+
+        CreateFileService service = new CreateFileService(token, "HLgameplan", "file", "4Dcinema----> check!");
+        service.execute();
+            
+
+    } */
 
 }

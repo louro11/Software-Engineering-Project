@@ -16,7 +16,7 @@ public class Login extends Login_Base{
 
   public Login(User usr, String password) throws WrongPasswordException{
 
-    try{
+  
 
       checkPassword(usr, password);
 
@@ -38,9 +38,7 @@ public class Login extends Login_Base{
 
 
       this.set_token(token);
-    }
-
-    catch (WrongPasswordException e){ throw e;}
+    
 
 
   }

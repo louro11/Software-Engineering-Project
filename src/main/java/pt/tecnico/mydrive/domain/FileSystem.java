@@ -107,7 +107,6 @@ public class FileSystem extends FileSystem_Base {
 		public void createUser(String username) throws InvalidUserNameException, UserNameAlreadyExistsException{
 
 
-			try {
 
 			  User usr = new User(username);
 
@@ -121,15 +120,13 @@ public class FileSystem extends FileSystem_Base {
 			  }
 
 			 getUsersSet().add(usr);
-		  }
-		  
-		  catch(InvalidUserNameException e){ throw e; }
+	
 
 		}
 
 		public String readFile(Directory dir, User user, String filename)throws CantReadDirectoryException, FileNotFoundException, PermitionException{
 			
-			try{
+
 
 				File file = dir.getFile(filename);
 
@@ -146,8 +143,7 @@ public class FileSystem extends FileSystem_Base {
 
 
 				return file.readfile();
-			}
-			catch(FileNotFoundException e){  throw e;  }
+		
 		}
 
 
@@ -155,7 +151,7 @@ public class FileSystem extends FileSystem_Base {
 		public void writeToFile(Directory dir, User user, String filename, String content) throws CantWriteToDirectoryException, FileNotFoundException, PermitionException, AccessDeniedException{
 			
 			
-			try{
+	
 
 
 				File file = dir.getFile(filename);
@@ -173,8 +169,6 @@ public class FileSystem extends FileSystem_Base {
 
 				file.writefile(content); //posso fazer assim?
 
-			}
-			catch (FileNotFoundException e){  throw e;  }
 
 		}
 
@@ -185,7 +179,7 @@ public class FileSystem extends FileSystem_Base {
 
 			int bars = 0;
 			//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
-			while((!curdir.getParent().isEqual(maindir))){
+			while((!curdir.getDirectory().isEqual(maindir))){
 
 
 				path += curdir.get_name();
@@ -220,9 +214,9 @@ public class FileSystem extends FileSystem_Base {
 
 		int bars = 0;
 
-		try{
+		
 		//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
-		while((!curdir.getParent().isEqual(maindir))){
+		while((!curdir.getDirectory().isEqual(maindir))){
 
 			path += curdir.get_name();
 			bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
@@ -241,7 +235,7 @@ public class FileSystem extends FileSystem_Base {
 		    curdir.createFile(type, filename,user,get_idseq(), new DateTime() ,content);  
 
 		 }
-		}catch( InvalidTypeException e) {throw e;}
+		
 			/*if(type.equals("directory")){
 				if(content.equals("")){ //directorias nao tem conteudo
 					Directory direct = new Directory(filename, get_idseq(), dt,user.get_mask(),user,dir);
@@ -417,20 +411,17 @@ public class FileSystem extends FileSystem_Base {
 					 else{
 						 TextFile txt = (TextFile) file;
 						 String content = txt.get_content();
-						 if(args.length>0){
-							 try{
-								 run(content, args);
-							 }catch (RunException e){
-								 throw e;
-							 }
+						 if(args.length>0) run(content, args);
+						
+									 
 							
-						 }
-					 }
+					}
+				}
 						 
-				 }
 			}
-			 
 		}
+			 
+		
  
  
 	 

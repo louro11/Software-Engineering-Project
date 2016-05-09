@@ -31,27 +31,27 @@ public class Directory extends Directory_Base {
         super();
     }
 
-    public Directory(String name, int fileid, DateTime timestamp, String permission, User owner, Directory parent )
+   /* public Directory(String name, int fileid, DateTime timestamp, String permission, User owner, Directory parent )
     {
 
       //criacao de ponteiros auxiliares com o nome . e .. para pai e ele proprio (resulta???)
-      Directory fatheraux = parent;
+    /*  Directory fatheraux = parent;
       fatheraux.set_name("..");
 
       Directory me = this;
-      me.set_name(".");
+      me.set_name("."); 
 
      set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
-	   setParent(fatheraux); setSelf(me);
+	   //setParent(fatheraux); setSelf(me);
      setFilesystem(owner.getFilesystem());
 
-    }
+    }*/
 
     public Directory(String name, int fileid, DateTime timestamp, String permission, User owner)
     {
       set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
-	   setParent(this);
-	   setSelf(this);
+	   //setParent(this);
+	   //setSelf(this);
        setFilesystem(owner.getFilesystem());
     }
 
@@ -131,45 +131,9 @@ public class Directory extends Directory_Base {
 
     }
 
-  @Override
-    public void setParent(Directory parent) {
-        if (parent == null) {
-            super.setParent(null);
-            return;
-        }
-    super.setParent(parent);
 
-    }
 
-  @Override
-    public void setDir(Directory dir) {
-        if (dir == null) {
-            super.setDir(null);
-            return;
-        }
-    super.setDir(dir);
 
-    }
-
-   @Override
-    public void setSelf(Directory self) {
-        if (self == null) {
-            super.setSelf(null);
-            return;
-        }
-    super.setSelf(self);
-
-    }
-
-    @Override
-    public void setDirctory(Directory dir) {
-        if (dir == null) {
-            super.setDirctory(null);
-            return;
-        }
-    super.setDirctory(dir);
-
-    }
 
 
   @Override
@@ -201,10 +165,10 @@ public class Directory extends Directory_Base {
 
     setUser(null);
     setFilesystem(null);
-    setParent(null);
-    setDir(null);
-    setSelf(null);
-    setDirctory(null);
+    //setParent(null);
+    //setDir(null);
+    //setSelf(null);
+    //setDirctory(null);
     setOwner(null);
     setDirectory(null);
 
@@ -233,6 +197,7 @@ public class Directory extends Directory_Base {
       try{ addFiles(tf); } catch(FileAlreadyExistsException e){throw e;}
 
       }
+
       else if(type.equals("link")){
 
           if (!(content.startsWith("/"))){throw new InvalidContentException(content);}
@@ -248,7 +213,7 @@ public class Directory extends Directory_Base {
 
    public void createSubDirectory(String filename, User owner, int fileid, DateTime timestamp){
 
-	    Directory subdirectory = new Directory(filename, fileid, timestamp, owner.get_mask(), owner, this);
+	    Directory subdirectory = new Directory(filename, fileid, timestamp, owner.get_mask(), owner);
       getFilesSet().add(subdirectory);
    }
 
@@ -262,10 +227,15 @@ public class Directory extends Directory_Base {
     public File getFile(String name) throws FileNotFoundException{
         //File file= null;
 
-        for(File file : getFilesSet()) {
+      if(name.equals(".")){return this;}
+
+      else if(name.equals("..")){return getDirectory();}
+
+      else {for(File file : getFilesSet()) {
              if(file.get_name().equals(name))
                   return file;
             }
+      }
 
           throw new FileNotFoundException(name);
 
