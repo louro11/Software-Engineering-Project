@@ -6,6 +6,7 @@ import pt.tecnico.mydrive.service.ChangeDirectoryService;
 public class ChangeWorkingDirectory extends MdCommand{
 
 	public ChangeWorkingDirectory(Shell sh){
+
 		super(sh, "cwd", "changes the current working directory");
 
 	}
@@ -14,7 +15,7 @@ public class ChangeWorkingDirectory extends MdCommand{
 
 		if(args.length > 1){
 
-			throw new RuntimeException("USAGE: "+name()+ " <path>");
+			throw new RuntimeException("USAGE: "+name()+ " [<path>]");
 
 		}
 
