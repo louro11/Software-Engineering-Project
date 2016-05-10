@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.jdom2.Element;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -93,6 +95,9 @@ public abstract class File extends File_Base {
     public boolean isDir(){
     	return false;
     }
+    public boolean isApp(){
+    	return false;
+    }
 
     public boolean isEqual(File file){
 		
@@ -105,7 +110,13 @@ public abstract class File extends File_Base {
 		return false;
 	}
 	
-
+    public void runApp(String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
+    IllegalArgumentException, IllegalAccessException, InvocationTargetException{}
+    
+    
+    public File runLink(String[]args){
+    	return null;
+    }
 
 
     

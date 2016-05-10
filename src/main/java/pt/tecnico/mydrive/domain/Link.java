@@ -29,6 +29,9 @@ public class Link extends Link_Base {
     }
     
 
-
+    @Override
+    public boolean isApp(){
+   	 return false;
+    }
 
 }

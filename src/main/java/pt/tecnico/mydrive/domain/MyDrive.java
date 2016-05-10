@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 
 import pt.ist.fenixframework.FenixFramework;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 import pt.tecnico.mydrive.exceptions.AccessDeniedException;
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
@@ -303,9 +304,10 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	}
 
-		public void executeFile(long token, String path, String[] args){
+		public void executeFile(long token, String path, String[] args) throws FileNotFoundException, ClassNotFoundException, SecurityException, 
+					NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
 			
-			getFilesystem().executeFile(token, path, args);
+			getFilesystem().executeFile(path, args);
 			
 		}
 
