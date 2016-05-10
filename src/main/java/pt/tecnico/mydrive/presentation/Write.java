@@ -19,8 +19,6 @@ public class Write extends MdCommand{
 			String activeUser = this.shell().getActiveUser();
 			long token = this.shell().getTokenByUser(activeUser);
 
-			//String[] filename = args[0].split("/");
-
 			WriteFileService wfs = new WriteFileService(token, args[0] , args[1]);
 			wfs.execute();
 

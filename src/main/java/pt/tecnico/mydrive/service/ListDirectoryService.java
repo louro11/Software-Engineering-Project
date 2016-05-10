@@ -6,10 +6,8 @@ import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.tecnico.mydrive.domain.MyDrive;
 import pt.tecnico.mydrive.service.dto.FileDto;
 import pt.tecnico.mydrive.domain.Directory;
-import pt.tecnico.mydrive.domain.Login;
 import pt.tecnico.mydrive.domain.File;
-
-
+import pt.tecnico.mydrive.domain.Login;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +24,7 @@ public class ListDirectoryService extends MyDriveService {
     _token = token;
     Login log = getMydrive().getLoginbyToken(token);
     _dir = log.getCurrentdirectory();
+
   }
 
   public ListDirectoryService(long tokenL, String path){
@@ -57,8 +56,8 @@ public class ListDirectoryService extends MyDriveService {
 
   }
 
-
   public void setToken(long token){
+
       _token = token;
 
   }

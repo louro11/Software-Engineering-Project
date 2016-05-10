@@ -10,9 +10,6 @@ public class AddEnvironmentVariableService extends MyDriveService {
 	  private long _token;
 	  private String _name, _value;
 	  private List<EnvironmentVar> _vars;
-
-
-	  //nao e preciso fazer um construtor para o caso em que nao recebe valor?????
 	  
 	  public AddEnvironmentVariableService(long token, String name, String value){
 		  
