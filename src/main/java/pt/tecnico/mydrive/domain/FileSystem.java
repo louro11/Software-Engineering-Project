@@ -218,23 +218,24 @@ public class FileSystem extends FileSystem_Base {
 
 		
 		//calcula o tamanho do path todo + o nome do ficheiro a acrescentar
-		while((!curdir.getDirectory().isEqual(maindir))){
+		/*while((!curdir.getDirectory().isEqual(maindir))){
 
 			path += curdir.get_name();
 			bars++; //a barra nao faz parte do nome da directoria, tenho de contar a parte
-		} 
+		} */
 
 
 			if(!(curdir.hasFile(filename))){
 
 			 if(!(user.hasWritePermission(curdir))){ throw new PermitionException(curdir.get_permission());}
 
-				if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);}
+				if ((path.length()+bars)>=1024){ throw new InvalidPathException(path);} 
 
 			IncrementIdseq();
 			//DateTime dt = new DateTime();
 
 		    curdir.createFile(type, filename,user,get_idseq(), new DateTime() ,content);  
+
 
 		 }
 		
