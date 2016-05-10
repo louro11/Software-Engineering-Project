@@ -1,7 +1,10 @@
 package pt.tecnico.mydrive.service;
-import pt.tecnico.mydrive.exceptions.MyDriveException;
 
-public class ExecuteFileService extends MyDriveService{
+import java.lang.reflect.InvocationTargetException;
+
+import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+
+public class ExecuteFileService extends MyDriveService {
 	
 	private long _token;
 	private String _path;
@@ -55,14 +58,13 @@ public class ExecuteFileService extends MyDriveService{
     	return _args;
 
   	}
-
-	protected void dispatch() throws MyDriveException {
-		try{
-			getMydrive().executeFile(_token, _path, _args);
-		}catch(MyDriveException e){
-			throw e;
-		}
-
+    
+	public final void dispatch()throws FileNotFoundException {
+		
+		//WARNING: alterado por rafa: nao sei se e suposto estar assim, quem estiver com o issue tem que olhar melhorzinho
+		
+	    getMydrive().executeFile(_token, _path, _args);
+		
 	}
 
 }

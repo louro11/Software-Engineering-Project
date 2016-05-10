@@ -7,7 +7,7 @@ public class ChangeWorkingDirectory extends MdCommand{
 
 	public ChangeWorkingDirectory(Shell sh){
 
-		super(sh, "cwd", "changes the current working directory");
+		super(sh, "cwd", "Changes the current working directory and prints the path to the new current working directory.");
 
 	}
 

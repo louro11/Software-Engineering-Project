@@ -5,7 +5,7 @@ import pt.tecnico.mydrive.service.WriteFileService;
 public class Write extends MdCommand{
 
 	public Write(Shell sh){
-		super(sh, "update", "write replaces the file contents of the file referred by the path with text");
+		super(sh, "update", "Replaces the file contents of the file referred by the path with text ");
 
 	}
 

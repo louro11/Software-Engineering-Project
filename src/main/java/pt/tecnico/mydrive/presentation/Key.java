@@ -5,7 +5,7 @@ public class Key extends MdCommand{
 
   public Key(Shell sh){
 
-    super(sh, "token", "Changes the login session. If the arguments are omitted it prints the current session token");
+    super(sh, "token", "The interpreter can keep several user sessions active simultaneously.\nThe token commands allows the interpreter to switch between active sessions.\nThe command prints the token of current active user.\nWhen invoked without arguments, it prints the token and user name of current active user.\nWhen a user is given, it changes the current active user tothe given user, updates the current token accordingly and prints its value.");
 
   }
 

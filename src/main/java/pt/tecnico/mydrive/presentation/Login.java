@@ -6,7 +6,7 @@ public class Login extends MdCommand{
 
   public Login(Shell sh){
 
-    super(sh, "login", "login a user");
+    super(sh, "login", "Performs the user login");
 
   }
 

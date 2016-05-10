@@ -88,7 +88,8 @@ public class Directory extends Directory_Base {
    public List<FileDto> listDirectory(){
 
     //falta retornar o conteudo dos Links existentes quando lista a diretoria
-        List<FileDto> fileArray = new ArrayList<FileDto>();;
+       
+	   List<FileDto> fileArray = new ArrayList<FileDto>();
 
        for(File f : getFilesSet()) {
           if ( f instanceof Link ) { /*TODO:conteudo dos Links*/ }
