@@ -18,6 +18,7 @@ public class Login extends MdCommand{
 
     }
 
+    //caso em que recebe password
     if(args.length == 2) {
 
    		LoginService ls = new LoginService(args[0], args[1]);
@@ -27,6 +28,7 @@ public class Login extends MdCommand{
 
     }
 
+    //caso em que nao recebe password
    	else {
 
    		LoginService ls = new LoginService(args[0]);

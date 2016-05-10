@@ -12,7 +12,7 @@ public class ChangeDirectoryService extends MyDriveService {
 	private String _path;
 	private long _token;
 	
-	//caso em que recebe o caminho
+
 	public ChangeDirectoryService(long token, String path){
 
 		_path=path;
@@ -33,7 +33,7 @@ public class ChangeDirectoryService extends MyDriveService {
 	}
 		
 	public long getToken(){
-		
+	
 		return _token;
 	}
 		
