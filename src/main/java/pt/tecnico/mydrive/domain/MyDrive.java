@@ -304,8 +304,10 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	}
 
+
 		public void executeFile(long token, String path, String[] args) throws FileNotFoundException, ClassNotFoundException, SecurityException, 
 					NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
+
 			
 			getFilesystem().executeFile(path, args);
 			
@@ -323,17 +325,20 @@ import pt.tecnico.mydrive.domain.FileSystem;
  /********************************** NNEEEWWWWW STTUUUUFFFFF *********************************/
  
  
-	 public List<EnvironmentVar> addEnvironmentvar(long token, String name, String value) {
+	 public List<EnvironmentVar> addEnvironmentvar(long token, String name, String value) throws LoginDoesNotExistException {
 	
-		// TODO:XXX
+		// TODO:DONE
 		// verificar se ja existe, se sim, redefinir valores
 		// permissoes do user atual (not sure)
 		// suposto retornar lista atual de variaveis separadas por '=' (ughh peanurs)
 				
 				Login login = getLoginbyToken(token);
 				
+				if(login == null)
+					throw new LoginDoesNotExistException();
 				
-				for( EnvironmentVar var: login.getVars() ){
+				
+				for( EnvironmentVar var: login.getVarsSet()){
 
 					if( var.get_name().equals(name) ){
 						

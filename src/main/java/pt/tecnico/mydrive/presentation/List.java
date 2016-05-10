@@ -1,5 +1,11 @@
 package pt.tecnico.mydrive.presentation;
 
+import java.util.*;
+
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import pt.tecnico.mydrive.domain.File;
 import pt.tecnico.mydrive.service.ListDirectoryService;
 
 import pt.tecnico.mydrive.service.dto.FileDto;
@@ -25,10 +31,22 @@ public class List extends MdCommand{
 
 			String activeUser = this.shell().getActiveUser();
 			long token = this.shell().getTokenByUser(activeUser);
+			
 			ListDirectoryService cwd = new ListDirectoryService(token);
 			cwd.execute();
-			for (String s : cwd.result())
-				System.out.println(s);
+			
+			
+			java.util.List<FileDto> fileArray = cwd.result();
+
+		    for(FileDto f : fileArray) {
+		    	
+		    	DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+		    	String tmstp = fmt.print(f.getTimeStamp());
+			
+		    	System.out.println("Name: " + f.getName() + "\nPermissions: " + f.getPermissions() + "\nTimestamp: " + tmstp + "\nOwner: " + f.getOwner().get_name());
+			
+		    }	
+		    	
 			System.out.println("use 'list <path>' to list a complete entry information");
 
 		}
@@ -38,13 +56,22 @@ public class List extends MdCommand{
 
 			String activeUser = this.shell().getActiveUser();
 			long token = this.shell().getTokenByUser(activeUser);
-			ListDirectoryService cwd = new ListDirectoryService(token, args[0]);
+			
+			ListDirectoryService cwd = new ListDirectoryService(token);
 			cwd.execute();
-			System.out.println("Entries for "+args[0]);
-			for (FileDto f : cwd.result())
-				System.out.println(f.getName() + " " + f.getPermissions() + " " +
-								f.getOwner() + " " + f.getTimeStamp());
+			
+			
+			java.util.List<FileDto> fileArray = cwd.result();
 
+		    for(FileDto f : fileArray) {
+		    	
+		    	DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+		    	String tmstp = fmt.print(f.getTimeStamp());
+			
+		    	System.out.println("Name: " + f.getName() + "\nPermissions: " + f.getPermissions() + "\nTimestamp: " + tmstp + "\nOwner: " + f.getOwner().get_name());
+			
+		    }
+		    
 		}
 
 	}

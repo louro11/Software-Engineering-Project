@@ -1,7 +1,6 @@
 package pt.tecnico.mydrive.service;
 
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
-import pt.tecnico.mydrive.exceptions.PermitionException;
 import pt.tecnico.mydrive.domain.EnvironmentVar;
 
 import java.util.List;
@@ -58,9 +57,11 @@ public class AddEnvironmentVariableService extends MyDriveService {
 
 	  }
 
-	  public final void dispatch() throws LoginDoesNotExistException, PermitionException {
-
-		 _vars = getMydrive().addEnvironmentvar(this.getToken(), this.getName(), this.getValue());
+	  public final void dispatch() throws LoginDoesNotExistException {
+		  
+		  
+		  
+		  	_vars = getMydrive().addEnvironmentvar(this.getToken(), this.getName(), this.getValue());
 	  
 	  }
 

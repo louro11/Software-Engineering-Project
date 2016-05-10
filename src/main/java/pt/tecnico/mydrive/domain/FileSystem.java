@@ -392,6 +392,7 @@ public class FileSystem extends FileSystem_Base {
 	SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
 			
 			Link link;
+
 			Directory auxdir = getMaindir();
 			String[] auxpath = path.split("/");
 			 
@@ -409,8 +410,10 @@ public class FileSystem extends FileSystem_Base {
 				else{ 
 					 //se for app ou link executar, senao passar ao proximo
 					 if(file.isDir()){
+						 
 						 auxdir = (Directory) file;
 						 i++;
+					 
 					 }
 					 
 					 else if(args.length>0 && file.isApp()) 
@@ -428,10 +431,35 @@ public class FileSystem extends FileSystem_Base {
 							 //throw new LoopFoundException();
 						 }
 					 }
+/*
+					 else{
+						 
+						 TextFile txt = (TextFile) file;
+						 String content = txt.get_content();
+						 
+						//WARNING: alterado por rafa: nao sei se e suposto estar assim, quem estiver com o issue tem que olhar melhorzinho
+						 
+						 
+						 if(args.length>0){
+							 
+								try {
+									run(content, args);
+								} 
+								
+								catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+									
+									// do nothing;
+								}
+							
+						 }	
+						
+					}*/
+
 				}
 						 
 			}
-		}
+		
+	}
 			 
 		
  /******************************PLEASE DON'T CROSS THIS LINE: HAZARD, POSSIBLE FATAL DAMAGE**************************************/
