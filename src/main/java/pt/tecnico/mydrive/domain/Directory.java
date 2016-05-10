@@ -15,6 +15,8 @@ import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
 import pt.tecnico.mydrive.exceptions.InvalidTypeException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
+import pt.tecnico.mydrive.exceptions.ApplicationDoesntHasAssocException;
+
 
 import pt.tecnico.mydrive.service.dto.FileDto;
 
@@ -53,9 +55,20 @@ public class Directory extends Directory_Base {
 	   //setParent(this);
 	   //setSelf(this);
        setFilesystem(owner.getFilesystem());
+   
     }
 
     
+   @Override
+   public void setAssociation(Association assoc) throws ApplicationDoesntHasAssocException{
+    throw new ApplicationDoesntHasAssocException();
+   }
+
+   @Override
+   public Association getAssociation() throws ApplicationDoesntHasAssocException{
+    throw new ApplicationDoesntHasAssocException();
+   }
+
 
     @Override
     public String readfile(){
@@ -173,7 +186,7 @@ public class Directory extends Directory_Base {
           Application app = new Application(filename, user.get_mask(), fileid, timestamp, user, content);
 
           
-          getFilesSet().add(app);
+          this.getFilesSet().add(app);
           //addFiles(app);
 
       }
@@ -187,7 +200,7 @@ public class Directory extends Directory_Base {
           Association assoc = tf.getAssociation();
           owner.getAssociationSet().add(assoc);
           
-          getFilesSet().add(tf);
+          this.getFilesSet().add(tf);
           //addFiles(tf); 
 
       }
@@ -202,7 +215,7 @@ public class Directory extends Directory_Base {
           Association assoc = link.getAssociation();
           owner.getAssociationSet().add(assoc);
           
-          getFilesSet().add(link);
+          this.getFilesSet().add(link);
 
          // addFiles(link); 
       }
