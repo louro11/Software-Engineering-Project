@@ -17,7 +17,8 @@ public class Execute extends MdCommand{
 
 		}
 
-		if(args.length > 2){
+		//quando recebe args
+		if(args.length >= 2){
 
 			String activeUser = this.shell().getActiveUser();
 			long token = this.shell().getTokenByUser(activeUser);
@@ -27,19 +28,19 @@ public class Execute extends MdCommand{
 			for(int i=1; i < serviceArgs.length - 1; i++){
 
 				serviceArgs[i] = args[i];
-				
+
 			}
 
 			ExecuteFileService efs = new ExecuteFileService(token, args[0], serviceArgs );
 			efs.execute();
 
 		}
+		//apenas recebe um path
+
 		else{
 
 			String activeUser = this.shell().getActiveUser();
 			long token = this.shell().getTokenByUser(activeUser);
-			
-
 			ExecuteFileService efs = new ExecuteFileService(token, args[0]);
 			efs.execute();
 

@@ -2,6 +2,8 @@ package pt.tecnico.mydrive.service;
 
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
+
+import pt.tecnico.mydrive.domain.MyDrive;
 import pt.tecnico.mydrive.service.dto.FileDto;
 import pt.tecnico.mydrive.domain.Directory;
 import pt.tecnico.mydrive.domain.Login;
@@ -46,31 +48,32 @@ public class ListDirectoryService extends MyDriveService {
 
       _dir = aux;
 
+
   }
 
   public Long getToken(){
+
     return _token;
+
   }
 
-  public void setToken( long token){
+
+  public void setToken(long token){
       _token = token;
+
   }
 
-  public final void dispatch() {
+  public final void dispatch() throws LoginDoesNotExistException, PermitionException{
 
-      try{
-             _files = getMydrive().listDirectory(_token, _dir);
-
-             Collections.sort(_files);
-      }
-      catch (LoginDoesNotExistException e){ System.out.println(e.getMessage());}
-				catch (PermitionException e) {System.out.println(e.getMessage());}
+    _files = getMydrive().listDirectory(_token, _dir);
+    Collections.sort(_files);
 
   }
 
   public final List<FileDto> result() {
-        return _files;
-    }
 
+        return _files;
+
+    }
 
 }

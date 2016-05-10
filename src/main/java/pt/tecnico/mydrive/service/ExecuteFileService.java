@@ -18,7 +18,6 @@ public class ExecuteFileService extends MyDriveService{
 		_token = token;
 		_path = path;
 		
-	
 	}
 
 	public void setToken(long tken){
