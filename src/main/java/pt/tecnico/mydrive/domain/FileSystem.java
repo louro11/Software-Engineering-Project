@@ -388,8 +388,7 @@ public class FileSystem extends FileSystem_Base {
 
 		int counter=0;
 		
-		public void executeFile(String path, String[] args)throws FileNotFoundException, ClassNotFoundException, 
-	SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
+		public void executeFile(String path, String[] args)throws FileNotFoundException{
 			
 			Link link;
 
@@ -417,7 +416,10 @@ public class FileSystem extends FileSystem_Base {
 					 }
 					 
 					 else if(args.length>0 && file.isApp()) 
-						 file.runApp(args);	
+						 try{
+							 file.runApp(args);	
+						 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 
+								 IllegalAccessException | InvocationTargetException e){}
 					 
 					 else if (args.length<0 && !file.isApp()){
 						 link = (Link) file;

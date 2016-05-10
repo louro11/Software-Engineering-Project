@@ -59,24 +59,12 @@ public class ExecuteFileService extends MyDriveService {
 
   	}
     
-	public final void dispatch() {
+	public final void dispatch()throws FileNotFoundException {
 		
 		//WARNING: alterado por rafa: nao sei se e suposto estar assim, quem estiver com o issue tem que olhar melhorzinho
 		
-		try{
-			getMydrive().executeFile(_token, _path, _args);
-		}catch(ClassNotFoundException e){
-			e.printStackTrace();
-		}catch(InvocationTargetException e){
-			e.printStackTrace();
-		}catch(IllegalArgumentException e){
-			e.printStackTrace();
-		}catch(IllegalAccessException e){
-			e.printStackTrace();
-		}catch(NoSuchMethodException e){
-			e.printStackTrace();
-		}
-
+	    getMydrive().executeFile(_token, _path, _args);
+		
 	}
 
 }

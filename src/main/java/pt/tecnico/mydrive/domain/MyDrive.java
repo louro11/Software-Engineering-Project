@@ -305,8 +305,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	}
 
 
-		public void executeFile(long token, String path, String[] args) throws FileNotFoundException, ClassNotFoundException, SecurityException, 
-					NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
+		public void executeFile(long token, String path, String[] args) throws FileNotFoundException{
 
 			
 			getFilesystem().executeFile(path, args);
