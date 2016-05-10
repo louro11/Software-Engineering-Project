@@ -11,7 +11,7 @@ public class Execute extends MdCommand{
 
 	public void execute(String[] args) { 
 
-		if(args.length < 2){
+		if(args.length < 1){
 
 			throw new RuntimeException("USAGE: "+name()+ " <path> [<args>]");
 
@@ -22,16 +22,12 @@ public class Execute extends MdCommand{
 			String activeUser = this.shell().getActiveUser();
 			long token = this.shell().getTokenByUser(activeUser);
 			
-			
-
-
 			String[] serviceArgs = new String[args.length-1];
 
 			for(int i=1; i < serviceArgs.length - 1; i++){
 
 				serviceArgs[i] = args[i];
-
-
+				
 			}
 
 			ExecuteFileService efs = new ExecuteFileService(token, args[0], serviceArgs );

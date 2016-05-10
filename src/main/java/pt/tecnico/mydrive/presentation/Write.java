@@ -2,9 +2,6 @@ package pt.tecnico.mydrive.presentation;
 
 import pt.tecnico.mydrive.service.WriteFileService;
 
-
-// Temos de por o wirte a receber um path!!!!!!!!!!!!!!!!!!!!!!
-
 public class Write extends MdCommand{
 
 	public Write(Shell sh){
@@ -21,7 +18,6 @@ public class Write extends MdCommand{
 		}
 			String activeUser = this.shell().getActiveUser();
 			long token = this.shell().getTokenByUser(activeUser);
-
 			WriteFileService wfs = new WriteFileService(token, args[0] , args[1]);
 			wfs.execute();
 

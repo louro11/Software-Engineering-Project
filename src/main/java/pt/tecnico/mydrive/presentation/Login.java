@@ -14,11 +14,11 @@ public class Login extends MdCommand{
 
     if (args.length < 1 || args.length > 2){
 
-    throw new RuntimeException("USAGE: "+name()+" <username> [<password>]");
+      throw new RuntimeException("USAGE: "+name()+" <username> [<password>]");
 
     }
 
-    if(args.length == 2){
+    if(args.length == 2) {
 
    		LoginService ls = new LoginService(args[0], args[1]);
       ls.execute();
@@ -27,13 +27,15 @@ public class Login extends MdCommand{
 
     }
 
-   	else{
+   	else {
 
    		LoginService ls = new LoginService(args[0]);
       ls.execute();
       this.shell().addUsers(args[0], ls.result());
       this.shell().setActiveUsers(args[0]);
-    }
 
     }
+
+  }
+
 }
