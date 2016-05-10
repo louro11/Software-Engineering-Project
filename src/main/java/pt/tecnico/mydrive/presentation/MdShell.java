@@ -16,7 +16,7 @@ public class MdShell extends Shell {
     new List(this);
     new Execute(this);
     new Write(this);
-    //new Environment(this);
+    new Environment(this);
     new Key(this);
   }
 }

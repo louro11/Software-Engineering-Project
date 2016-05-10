@@ -2,9 +2,8 @@ package pt.tecnico.mydrive.service;
 
 import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
-import pt.tecnico.mydrive.domain.MyDrive;
+import pt.tecnico.mydrive.domain.EnvironmentVar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddEnvironmentVariableService extends MyDriveService {
@@ -14,11 +13,14 @@ public class AddEnvironmentVariableService extends MyDriveService {
 	  private List<EnvironmentVar> _vars;
 
 	  public AddEnvironmentVariableService(long token, String name, String value){
-
-		this.setToken(token);
-		this.setName(name);
-		this.setValue(value);
-
+		  
+		  if(value != null && !value.isEmpty()){
+			  
+			this.setToken(token);
+			this.setName(name);
+			this.setValue(value);
+			
+		  }
 	  }
 
 	  public long getToken(){

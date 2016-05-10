@@ -48,7 +48,7 @@ public class EnvironmentVar extends EnvironmentVar_Base {
     public String getDescription(){
 
 
-      return this.get_name() + "-" + this.get_value();
+      return this.get_name() + "=" + this.get_value();
  
   	}
     
