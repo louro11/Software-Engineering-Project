@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.service;
+
 import java.util.*;
-import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
-import pt.tecnico.mydrive.exceptions.LoginIsInvalidException;
+
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.WrongPasswordException;
 
@@ -14,6 +14,7 @@ public class LoginService extends MyDriveService {
 
   private long token;
 
+  //caso em que faz login sem password 
 
   public LoginService(String username){
 
@@ -28,6 +29,7 @@ public class LoginService extends MyDriveService {
     this.setToken(token);
   }
 
+  //caso em que faz login com password
 
   public LoginService(String username, String password){
 
@@ -80,15 +82,16 @@ public class LoginService extends MyDriveService {
 
   }
 
-
   public final void dispatch() throws UserDoesNotExistException, WrongPasswordException {
 
-        getMydrive().loginUser(username, password);
+    getMydrive().loginUser(username, password);
 
+  }
 
-}
   public final long result(){
 
     return getToken();
+
   }
+  
 }

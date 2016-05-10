@@ -7,14 +7,16 @@ public class MdShell extends Shell {
     sh.execute();
   }
 
-  public MdShell() { // mininos, adicionar os vossos comandos aqui
-    
+  public MdShell() { 
+
     super("MyDrive");
 
     new Login(this);
-    new Write(this);
+    new ChangeWorkingDirectory(this);
+    new List(this);
     new Execute(this);
-
-    
+    new Write(this);
+    //new Environment(this);
+    //new Key(this);
   }
 }
