@@ -2,6 +2,9 @@ package pt.tecnico.mydrive.presentation;
 
 import pt.tecnico.mydrive.service.WriteFileService;
 
+
+// Temos de por o wirte a receber um path!!!!!!!!!!!!!!!!!!!!!!
+
 public class Write extends MdCommand{
 
 	public Write(Shell sh){
@@ -9,7 +12,7 @@ public class Write extends MdCommand{
 
 	}
 
-	public void execute(String[] args) { 
+	public void execute(String[] args) {
 
 		if(args.length <2){
 

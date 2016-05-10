@@ -12,12 +12,14 @@ public class Login extends MdCommand{
 
   public void execute(String[] args){
 
-    if (args.length < 1)
+    if (args.length < 1 || args.length > 2){
 
     throw new RuntimeException("USAGE: "+name()+" <username> [<password>]");
 
-    if(args.length > 1){
-   		
+    }
+
+    if(args.length == 2){
+
    		LoginService ls = new LoginService(args[0], args[1]);
       ls.execute();
       this.shell().addUsers(args[0], ls.result());
