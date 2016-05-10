@@ -388,7 +388,8 @@ public class FileSystem extends FileSystem_Base {
 
 
 
-		public void executeFile(long token, String path, String[] args)throws FileNotFoundException{
+		public void executeFile(long token, String path, String[] args)throws FileNotFoundException, ClassNotFoundException, 
+	SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
 			 
 			Directory auxdir = getMaindir();
 			String[] auxpath = path.split("/");
@@ -414,9 +415,7 @@ public class FileSystem extends FileSystem_Base {
 					 else{
 						 TextFile txt = (TextFile) file;
 						 String content = txt.get_content();
-						 if(args.length>0) run(content, args);
-						
-									 
+						 if(args.length>0) run(content, args);						 
 							
 					}
 				}
@@ -428,9 +427,21 @@ public class FileSystem extends FileSystem_Base {
  
  
 	 
-	 public void run(String content, String []args){
+	 public void run(String content, String []args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
 		 Method method;
 		 Class<?> cls;
+		 String splitcontent[]=content.split("\\.");
+		 String [] auxclassname = Arrays.copyOf(splitcontent, splitcontent.length-1);
+		 String classname = auxclassname.toString();
+		 try{
+			 cls = Class.forName(classname);
+			 Collections.reverse(Arrays.asList(splitcontent));
+			 method = cls.getMethod(splitcontent[0], String[].class);	 
+		 }catch (ClassNotFoundException e) {
+			 throw e;
+			 //TODO other stuff??
+		 }
+		 //TODO method.invoke(null, args);
 	 }
 		
  /******************************PLEASE DON'T CROSS THIS LINE: HAZARD, POSSIBLE FATAL DAMAGE**************************************/

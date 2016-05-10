@@ -20,7 +20,7 @@ public class Key extends MdCommand{
     //invocado com username
     if(args.length == 1) {
 
-      String activeUser = this.shell().setActiveUsers(args[0]);
+      String activeUser = this.shell().getActiveUser();
       long token = this.shell().getTokenByUser(activeUser);
       System.out.println(token);
       
@@ -30,9 +30,9 @@ public class Key extends MdCommand{
    	else {
 
       String activeUser = this.shell().getActiveUser();
-			long token = this.shell().getTokenByUser(activeUser);
+	  long token = this.shell().getTokenByUser(activeUser);
       System.out.println(token);
-      System.out.println(username);
+      System.out.println(activeUser);
 
     }
 
