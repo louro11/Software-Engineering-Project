@@ -19,7 +19,6 @@ public class Application extends Application_Base {
         set_content(content);   
    } 
 
-
    @Override
    public void setAssociation(Association assoc) throws ApplicationDoesntHasAssocException{
     throw new ApplicationDoesntHasAssocException();
