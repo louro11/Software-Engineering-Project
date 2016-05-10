@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 
 import pt.ist.fenixframework.FenixFramework;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 import pt.tecnico.mydrive.exceptions.AccessDeniedException;
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
@@ -303,7 +304,11 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 	}
 
-		public void executeFile(long token, String path, String[] args){
+		public void executeFile(long token, String path, String[] args) throws FileNotFoundException  {
+			
+			
+			//WARNING: alterado por rafa: nao sei se e suposto estar assim, quem estiver com o issue tem que olhar melhorzinho
+
 			
 			getFilesystem().executeFile(token, path, args);
 			
@@ -321,17 +326,20 @@ import pt.tecnico.mydrive.domain.FileSystem;
  /********************************** NNEEEWWWWW STTUUUUFFFFF *********************************/
  
  
-	 public List<EnvironmentVar> addEnvironmentvar(long token, String name, String value) {
+	 public List<EnvironmentVar> addEnvironmentvar(long token, String name, String value) throws LoginDoesNotExistException {
 	
-		// TODO:XXX
+		// TODO:DONE
 		// verificar se ja existe, se sim, redefinir valores
 		// permissoes do user atual (not sure)
 		// suposto retornar lista atual de variaveis separadas por '=' (ughh peanurs)
 				
 				Login login = getLoginbyToken(token);
 				
+				if(login == null)
+					throw new LoginDoesNotExistException();
 				
-				for( EnvironmentVar var: login.getVars() ){
+				
+				for( EnvironmentVar var: login.getVarsSet()){
 
 					if( var.get_name().equals(name) ){
 						

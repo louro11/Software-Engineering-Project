@@ -388,8 +388,7 @@ public class FileSystem extends FileSystem_Base {
 
 
 
-		public void executeFile(long token, String path, String[] args)throws FileNotFoundException, ClassNotFoundException, 
-	SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
+		public void executeFile(long token, String path, String[] args) throws FileNotFoundException {
 			 
 			Directory auxdir = getMaindir();
 			String[] auxpath = path.split("/");
@@ -408,20 +407,39 @@ public class FileSystem extends FileSystem_Base {
 				else{ 
 					 //se for app ou link executar, senao passar ao proximo
 					 if(file.isDir()){
+						 
 						 auxdir = (Directory) file;
 						 i++;
+					 
 					 }
 					 
 					 else{
+						 
 						 TextFile txt = (TextFile) file;
 						 String content = txt.get_content();
-						 if(args.length>0) run(content, args);						 
+						 
+						//WARNING: alterado por rafa: nao sei se e suposto estar assim, quem estiver com o issue tem que olhar melhorzinho
+						 
+						 
+						 if(args.length>0){
+							 
+								try {
+									run(content, args);
+								} 
+								
+								catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+									
+									// do nothing;
+								}
 							
+						 }	
+						
 					}
 				}
 						 
 			}
-		}
+		
+	}
 			 
 		
  
