@@ -36,7 +36,7 @@ public abstract class Shell {
       
       void execute(String[] args) {
 			
-			System.out.println(name + " quit");
+			System.out.println("\n\n" + name + " shutting down...\n");
 			System.exit(0);
       }
       
@@ -79,8 +79,10 @@ public abstract class Shell {
 			
 			if (args.length == 0) {
 				
+				System.out.println("\n");
+				
 				for (String s: shell().list()) System.out.println(s);
-					System.out.println(name() + " name for more command details");
+					System.out.println("\n\n" + name() + " <name> of the command for more command details\n");
 			} 
 			
 			else {
@@ -158,8 +160,8 @@ public abstract class Shell {
 
     if (prompt == null) prompt = "$ ";
     
-    
-    System.out.println(name+" shell ('quit' to leave)");
+    System.out.println("\n\n\nWelcome to " + name + " shell" );
+    System.out.println("\n\"help\" for more details \n\"quit\" to leave shell\n\n");
     System.out.print(prompt);
     
     
@@ -182,7 +184,7 @@ public abstract class Shell {
       } 
       else if (arg[0].length() > 0)
           
-          System.err.println(arg[0]+": command not found. ('help' for command list)");
+          System.err.println(str+": command not found. ('help' for command list)\n");
       
       System.out.print(prompt);
       

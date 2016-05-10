@@ -16,10 +16,7 @@ public class FileDto implements Comparable<FileDto> {
         _timestamp = timestamp;
         _owner = owner;
     }
-// public ContactDto(String name, int phoneNumber, String email) {
-//         this(name, phoneNumber);
-// 	this.email = email;
-//     }
+
 
 
     public final String getName() {

@@ -11,7 +11,7 @@ public class Environment extends MdCommand{
 	
 	public Environment(Shell sh){
 
-	    super(sh, "env", "for creating and editing environment variables on the current session");
+	    super(sh, "env", "Creates or changes the value of the environment variable with the given name.\nIf the value is omited, the value associated with the given name is printed.\nIf no arguments are given, all environment variables are printed with their respective value, separated by ’=’");
 
 	  }
 
