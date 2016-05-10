@@ -13,7 +13,7 @@ public class Write extends MdCommand{
 
 		if(args.length <2){
 
-			throw new RuntimeException("USAGE: "+name()+ " <path> <text>");
+			throw new RuntimeException("USAGE: "+name()+ "<path> <text>");
 
 		}
 			String activeUser = this.shell().getActiveUser();
