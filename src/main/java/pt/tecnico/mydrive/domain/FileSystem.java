@@ -429,7 +429,9 @@ public class FileSystem extends FileSystem_Base {
 							 newpath=newpath+str;
 						 
 						 executeFile(user,token, newpath, args);
-						 if(counter > 10){
+						 //nao vem especificado no enunciado o que fazer com links que redireccionam para outros links
+						 //assumi que 10 e o limite maximo de redireccionamentos
+						 if(counter > 10){    
 							 throw new LoopFoundException();
 						 }
 					 }

@@ -1,4 +1,4 @@
-package pt.tecnico.mydrive.system;
+/*package pt.tecnico.mydrive.system;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -33,4 +33,4 @@ public class SystemTest extends AbstractServiceTest{
  		new Execute(sh).execute(new String[] {"/homeclaudiaamorim/project/sum", "1", "2"} );
  	} */
 
- }
+ //}
