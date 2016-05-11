@@ -108,13 +108,15 @@ public class TextFile extends TextFile_Base {
     }
     
     @Override
+    public boolean isLink(){
+    	return false;
+    }
+    
+    @Override
     public void runApp(String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
     IllegalArgumentException, IllegalAccessException, InvocationTargetException{}
     
-    @Override
-    public File runLink(String[]args){
-    	return null;
-    }
+    
 
     
     /*

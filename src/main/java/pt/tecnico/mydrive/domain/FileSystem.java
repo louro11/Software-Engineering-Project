@@ -422,7 +422,12 @@ public class FileSystem extends FileSystem_Base {
 			if(file == null){
 				throw new FileNotFoundException ("file not found");
 			}
-			if(args.length>0 && file.isApp() && user.hasExecutePermission(file)) 
+			
+			if(file.isLink() && file.isApp() &&user.hasExecutePermission(file)){
+				
+			}
+			
+			else if(args.length>0 && file.isApp() && user.hasExecutePermission(file)) 
 				 try{
 					 file.runApp(args);	
 				 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 
@@ -438,8 +443,8 @@ public class FileSystem extends FileSystem_Base {
 					 newpath=newpath+str;
 				 
 				 executeFile(user,token, newpath, args);
-				 //nao vem especificado no enunciado o que fazer com links que redireccionam para outros links
-				 //assumi que 10 e o limite maximo de redireccionamentos
+				 //loop between links not specified in the rules
+				 //I assumed that the maximum amount of times that a link can be executed is 10d
 				 if(counter > 10){    
 					 throw new LoopFoundException();
 				 }

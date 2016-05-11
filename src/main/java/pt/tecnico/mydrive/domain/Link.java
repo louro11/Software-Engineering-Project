@@ -33,5 +33,9 @@ public class Link extends Link_Base {
     public boolean isApp(){
    	 return false;
     }
+    @Override
+    public boolean isLink(){
+    	return true;
+    }
 
 }

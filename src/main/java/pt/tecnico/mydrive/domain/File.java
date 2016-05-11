@@ -98,6 +98,9 @@ public abstract class File extends File_Base {
     public boolean isApp(){
     	return false;
     }
+    public boolean isLink(){
+    	return false;
+    }
 
     public boolean isEqual(File file){
 		

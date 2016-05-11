@@ -69,5 +69,9 @@ public class Application extends Application_Base {
      public boolean isApp(){
     	 return true;
      }
-    	
+    
+     @Override 
+     public boolean isLink(){
+    	 return false;
+     }
 }

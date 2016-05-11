@@ -1,6 +1,9 @@
 package pt.tecnico.mydrive.service;
 
 import pt.tecnico.mydrive.domain.MyDrive;
+
+import org.junit.Test;
+
 import pt.tecnico.mydrive.domain.Login;
 
 public class AddEnvironmentVariableTest extends AbstractServiceTest{
@@ -24,10 +27,20 @@ public class AddEnvironmentVariableTest extends AbstractServiceTest{
 		
 		md.createUser("louro");
 		
-		long logintoken = this.login("louro", "louro");
+		//long logintoken = this.login("louro", "louro");
 		
 	}
+	
+	@Test
+	public void Success(){
 
+       long token = login("louro","louro");
+       AddEnvironmentVariableService service = new AddEnvironmentVariableService(token,"var1", "something");
+       service.execute();
+
+       
+	
+	 }
 	
 
 }
