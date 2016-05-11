@@ -10,6 +10,8 @@ import org.jdom2.Element;
 
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
+import pt.tecnico.mydrive.exceptions.LoopFoundException;
+import pt.tecnico.mydrive.exceptions.RunException;
 
 public class TextFile extends TextFile_Base {
 
@@ -101,20 +103,11 @@ public class TextFile extends TextFile_Base {
     public boolean isDir(){
     	return false;
     }
+ 
     
     @Override
-    public boolean isApp(){
-    	return false;
-    }
-    
-    @Override
-    public boolean isLink(){
-    	return false;
-    }
-    
-    @Override
-    public void runApp(String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
-    IllegalArgumentException, IllegalAccessException, InvocationTargetException{}
+    public void run(User user, String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
+    		IllegalArgumentException, IllegalAccessException, InvocationTargetException, LoopFoundException, RunException{}
     
     
 

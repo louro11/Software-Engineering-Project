@@ -1,6 +1,11 @@
 package pt.tecnico.mydrive.domain;
+import java.lang.reflect.InvocationTargetException;
+
 import org.jdom2.Element;
 import org.joda.time.DateTime;
+
+import pt.tecnico.mydrive.exceptions.LoopFoundException;
+import pt.tecnico.mydrive.exceptions.RunException;
 
 public class Link extends Link_Base {
     
@@ -28,14 +33,29 @@ public class Link extends Link_Base {
         return link;
     }
     
-
     @Override
-    public boolean isApp(){
-   	 return false;
+    public boolean isDir(){
+    	return false;
     }
+    
+    
+    int limit = 10;
+    int counter = 0;
+    
     @Override
-    public boolean isLink(){
-    	return true;
+    public void run(User user, String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
+    	IllegalArgumentException, IllegalAccessException, InvocationTargetException, LoopFoundException,RunException{
+    	
+    	String path = get_content();
+    	File file = user.getFilesystem().getFile(path);
+    	//loop between links not specified in the rules
+		 //I assumed that the maximum amount of times that a link can be executed is 10d
+		if(counter > limit){    
+			 throw new LoopFoundException();
+		}
+		counter++;
+    	file.run(user, args);
+    	
     }
 
 }

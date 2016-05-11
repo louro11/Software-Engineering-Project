@@ -15,6 +15,7 @@ import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
+import pt.tecnico.mydrive.exceptions.InvalidPathException;
 import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
 import pt.tecnico.mydrive.exceptions.InvalidTypeException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
@@ -307,7 +308,7 @@ public class MyDrive extends MyDrive_Base {
 	}
 
 	
-	public void executeFile(long token, String path, String[] args) throws FileNotFoundException, LoopFoundException{
+	public void executeFile(long token, String path, String[] args) throws FileNotFoundException, LoopFoundException, InvalidPathException{
 		
 		checkLogin(token);
 		Login login = getLoginbyToken(token);

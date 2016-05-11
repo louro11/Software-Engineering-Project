@@ -8,6 +8,8 @@ import org.jdom2.Element;
 import org.joda.time.DateTime;
 
 import pt.tecnico.mydrive.exceptions.ApplicationDoesntHasAssocException;
+import pt.tecnico.mydrive.exceptions.LoopFoundException;
+import pt.tecnico.mydrive.exceptions.RunException;
 
 public class Application extends Application_Base {
     
@@ -45,8 +47,14 @@ public class Application extends Application_Base {
     }
     
     @Override
-    public void runApp(String []args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
-    										IllegalArgumentException, IllegalAccessException, InvocationTargetException{
+    public boolean isDir(){
+    	return false;
+    }
+    
+    @Override
+    public void run(User user, String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
+    										IllegalArgumentException, IllegalAccessException, InvocationTargetException, LoopFoundException, RunException{
+    	
 		 Method method;
 		 Class<?> cls;
 		 String splitcontent[]=get_content().split("\\.");
@@ -65,13 +73,4 @@ public class Application extends Application_Base {
 		 method.invoke(null, (Object)args);
 	 }
     
-     @Override
-     public boolean isApp(){
-    	 return true;
-     }
-    
-     @Override 
-     public boolean isLink(){
-    	 return false;
-     }
 }

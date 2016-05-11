@@ -401,7 +401,7 @@ public class FileSystem extends FileSystem_Base {
 				if(!(file.get_name().equals(auxpath [i])))
 					 throw new FileNotFoundException("No such file or directory: " + file.get_name());
 				
-				 //se for app ou link executar, senao passar ao proximo
+				 //se for app ou link retornar, senao passar ao proximo
 			    if(file.isDir()){
 			    	auxdir = (Directory) file;
 			    	i++;			 
@@ -413,45 +413,26 @@ public class FileSystem extends FileSystem_Base {
 		}
 		
 		
-		int counter=0;
-		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException{
+		
+		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException, InvalidPathException{
 			
-			String auxpath[];
-			Link link;
+			if(path.startsWith("/")){
+				throw new InvalidPathException(path);
+			}
+			
 			File file = getFile(path);
 			if(file == null){
 				throw new FileNotFoundException ("file not found");
 			}
 			
-			if(file.isLink() && file.isApp() &&user.hasExecutePermission(file)){
-				
-			}
-			
-			else if(args.length>0 && file.isApp() && user.hasExecutePermission(file)) 
-				 try{
-					 file.runApp(args);	
+			if(args.length > 0 && user.hasExecutePermission(file)){
+				try{
+					 file.run(user, args);	
 				 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 
 						 IllegalAccessException | InvocationTargetException e){}
 			 
-			else if (args.length<0 && !file.isApp()){
-				 link = (Link) file;
-			 	 String aux = link.get_content();
-			 	 auxpath = aux.split("/");
-			 	 
-			 	 String newpath ="";
-				 for(String str: auxpath)
-					 newpath=newpath+str;
-				 
-				 executeFile(user,token, newpath, args);
-				 //loop between links not specified in the rules
-				 //I assumed that the maximum amount of times that a link can be executed is 10d
-				 if(counter > 10){    
-					 throw new LoopFoundException();
-				 }
-			 }
-						 
-		
-	}
+			}
+		}
 			 
 		
  /******************************PLEASE DON'T CROSS THIS LINE: HAZARD, POSSIBLE FATAL DAMAGE**************************************/

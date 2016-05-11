@@ -7,6 +7,9 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import pt.tecnico.mydrive.exceptions.ApplicationDoesntHasAssocException;
+import pt.tecnico.mydrive.exceptions.LoopFoundException;
+import pt.tecnico.mydrive.exceptions.RunException;
+
 import org.jdom2.Element;
 
 public abstract class File extends File_Base {
@@ -95,33 +98,19 @@ public abstract class File extends File_Base {
     public boolean isDir(){
     	return false;
     }
-    public boolean isApp(){
-    	return false;
-    }
-    public boolean isLink(){
-    	return false;
-    }
+    
 
     public boolean isEqual(File file){
-		
 		
 		if(this.get_fileid().equals(file.get_fileid())){
 			
 			return true;
 		}
-		
 		return false;
 	}
 	
-    public void runApp(String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
-    IllegalArgumentException, IllegalAccessException, InvocationTargetException{}
-    
-    
-    public File runLink(String[]args){
-    	return null;
-    }
-
-
+    public void run(User user, String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
+    IllegalArgumentException, IllegalAccessException, InvocationTargetException, LoopFoundException, RunException{}
     
 
 }
