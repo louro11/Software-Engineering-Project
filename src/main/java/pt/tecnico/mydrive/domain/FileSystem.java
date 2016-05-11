@@ -14,6 +14,7 @@ import pt.tecnico.mydrive.exceptions.InvalidPathException;
 import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
 import pt.tecnico.mydrive.exceptions.InvalidTypeException;
 import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
+import pt.tecnico.mydrive.exceptions.LoopFoundException;
 import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
@@ -386,12 +387,11 @@ public class FileSystem extends FileSystem_Base {
 			}
 		}
 
-		int counter=0;
 		
-		public void executeFile(String path, String[] args)throws FileNotFoundException{
+		int counter=0;
+		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException{
 			
 			Link link;
-
 			Directory auxdir = getMaindir();
 			String[] auxpath = path.split("/");
 			 
@@ -413,7 +413,7 @@ public class FileSystem extends FileSystem_Base {
 						 i++;			 
 					 }
 					 
-					 else if(args.length>0 && file.isApp()) 
+					 else if(args.length>0 && file.isApp() && user.hasExecutePermission(file)) 
 						 try{
 							 file.runApp(args);	
 						 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 
@@ -423,42 +423,18 @@ public class FileSystem extends FileSystem_Base {
 						 link = (Link) file;
 					 	 String aux = link.get_content();
 					 	 auxpath = aux.split("/");
+					 	 
 					 	 String newpath ="";
 						 for(String str: auxpath)
 							 newpath=newpath+str;
-						 executeFile(newpath, args);
+						 
+						 executeFile(user,token, newpath, args);
 						 if(counter > 10){
-							 //throw new LoopFoundException();
+							 throw new LoopFoundException();
 						 }
 					 }
-/*
-					 else{
-						 
-						 TextFile txt = (TextFile) file;
-						 String content = txt.get_content();
-						 
-						//WARNING: alterado por rafa: nao sei se e suposto estar assim, quem estiver com o issue tem que olhar melhorzinho
-						 
-						 
-						 if(args.length>0){
-							 
-								try {
-									run(content, args);
-								} 
-								
-								catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-									
-									// do nothing;
-								}
-							
-						 }	
-						
-					}*/
-
-				}
-						 
-			}
-		
+				}			 
+			}	
 	}
 			 
 		
