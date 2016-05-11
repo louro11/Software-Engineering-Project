@@ -363,6 +363,20 @@ public class MyDrive extends MyDrive_Base {
 
 
 	}
+	 
+	 public long logoutUser(String username, String password) throws UserDoesNotExistException, WrongPasswordException{
+
+		 	
+		    User user = getFilesystem().getUserbyUsername(username); 
+		 
+			if( user == null) return 0;  //so para verificar que o utilizador realmente existe
+			
+			User root = getFilesystem().getUserbyUsername("root");
+			
+			return this.loginUser(root.get_name(), root.get_password());
+
+	}
+	 
 
 
 
