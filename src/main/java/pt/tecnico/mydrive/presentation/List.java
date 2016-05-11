@@ -14,7 +14,7 @@ public class List extends MdCommand{
 
 	public List(Shell sh){
 
-		super(sh, "ls", "Lists the complete entry information of each directory referred to by the given path or the entries of the current working directory, if the path is omitted");
+		super(sh, "ls", "lists the directory specified by the path directory, if the path is omitted it lists the current directory");
 
 	}
 
@@ -51,13 +51,13 @@ public class List extends MdCommand{
 
 		}
 
-		//TODO:XXX -> O List Directory Service ainda nao esta a receber o path!!! caso em que recebe path  
+		//caso em que recebe path
 		else{
 
 			String activeUser = this.shell().getActiveUser();
 			long token = this.shell().getTokenByUser(activeUser);
 			
-			ListDirectoryService cwd = new ListDirectoryService(token);   //favor alterar aqui mininos
+			ListDirectoryService cwd = new ListDirectoryService(token);
 			cwd.execute();
 			
 			

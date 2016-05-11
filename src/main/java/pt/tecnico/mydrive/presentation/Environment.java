@@ -23,6 +23,7 @@ public class Environment extends MdCommand{
 
 	    }
 
+	    //Se o valor for omitido imprime o valor que já lhe tinha sido associado
 	    if(args.length == 1) {
 
 	    	
@@ -36,18 +37,16 @@ public class Environment extends MdCommand{
 		    
 		    varArray = ls.result();
 		    
-		    
 		    for(EnvironmentVar var : varArray) {
 		          
 		          if( var.get_name().equals(args[0]) )
 		        	  System.out.print(var.get_value());
 		         
-		     }
+		    }
 		    
-		    
-
 	    }
 
+	    //Recebe uma variavel de ambiente e retorna o valor associado
 	   	else {
 
 	   		String activeUser = this.shell().getActiveUser();

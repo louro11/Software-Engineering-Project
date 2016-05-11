@@ -46,9 +46,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			//a noção de diretoria atual deixa de ser do mydrive e passa a ser do Login!!!
 
 			setRoot(FenixFramework.getDomainRoot());
-			
+
 			if(this.getFilesystem()==null) {
-				
+
 				setFilesystem(new FileSystem());}
 				setCurrentuser(getFilesystem().getRoot());
 			}
@@ -60,7 +60,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 			if (mydrive != null)
 				return mydrive;
-			
+
 			return new MyDrive();
 		}
 
@@ -68,22 +68,22 @@ import pt.tecnico.mydrive.domain.FileSystem;
 /****************************SERVICES FUNCTIONS***************************/
 
 
-		public List<FileDto> listDirectory(long token)throws LoginDoesNotExistException, PermitionException{
+		public List<FileDto> listDirectory(long token, Directory dir)throws LoginDoesNotExistException, PermitionException{
 
 				Login login = getLoginbyToken(token);
 
 
-				Directory dir = login.getCurrentdirectory();
+			//	Directory dir = login.getCurrentdirectory();
 				User usr = login.getUser();
-				
+
 				return getFilesystem().listDirectory(dir, usr);
-			
+
 		}
 
 
         public String changeCurrentDirectory(long token, String path) throws FileNotFoundException, LoginDoesNotExistException, AccessDeniedException{
 
-		
+
 				Login login = getLoginbyToken(token);
 
 				User user = login.getUser();
@@ -97,15 +97,15 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
         public String readFile(long token, String filename)throws LoginDoesNotExistException, CantReadDirectoryException, PermitionException, AccessDeniedException, FileNotFoundException{
 
-        		
+
         		Login login = getLoginbyToken(token);
         		Directory dir = login.getCurrentdirectory();
 
         		User user = login.getUser();
-		
+
         		return getFilesystem().readFile(dir, user, filename);
 
-        	
+
         }
 
 
@@ -116,13 +116,13 @@ import pt.tecnico.mydrive.domain.FileSystem;
 				Directory dir = login.getCurrentdirectory();
 
 				User user = login.getUser();
-				getFilesystem().writeToFile(dir, user, filename, content);			
+				getFilesystem().writeToFile(dir, user, filename, content);
         }
 
 
 		public void createFile(long token, String filename, String type, String content) throws InvalidPathSizeException, LoginDoesNotExistException, InvalidContentException,InvalidTypeException,FileAlreadyExistsException, PermitionException{
 
-				System.err.println("chegou ao createFile");	
+				System.err.println("chegou ao createFile");
 
 				Login login = getLoginbyToken(token);
 				Directory dir = login.getCurrentdirectory();
@@ -140,7 +140,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 				else{ getFilesystem().createFile(dir, user, filename, type, content); }
 
-			
+
 		}
 
 
@@ -178,9 +178,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 			return doc;
 		}
-		
-		
-		
+
+
+
 
 		public void xmlImport(Element element) {
 
@@ -202,7 +202,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		public long loginUser(String username, String password)throws UserDoesNotExistException, WrongPasswordException{
 
-		
+
 				User user = getFilesystem().getUserbyUsername(username);
 				Login login;
 				login = new Login(user, password);
@@ -216,8 +216,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		/*public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
 
-			
-			
+
+
 			for( Login login: getLoginsSet()){
 
 				if( login.get_token()==token ){
@@ -245,8 +245,8 @@ import pt.tecnico.mydrive.domain.FileSystem;
 	  } */
 
 	  	public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
-	
-			
+
+
 			for( Login login: getLoginsSet()){
 
 				if( login.get_token()==token ){
@@ -284,7 +284,7 @@ import pt.tecnico.mydrive.domain.FileSystem;
 					User userlogged = log.getUser();
 					DateTime datelogged = log.get_timeout();
 					//a root nunca deixa de estar logada, é atribuido apenas num novo token
-					if(userlogged.isRoot()){loginUser("root","rwxdr-x-");}  
+					if(userlogged.isRoot()){loginUser("root","rwxdr-x-");}
 					else if( ! userlogged.timeout(datelogged)){
 						getLoginsSet().remove(log);
 					}
@@ -307,9 +307,9 @@ import pt.tecnico.mydrive.domain.FileSystem;
 
 		public void executeFile(long token, String path, String[] args) throws FileNotFoundException{
 
-			
+
 			getFilesystem().executeFile(path, args);
-			
+
 		}
 
 
@@ -317,55 +317,55 @@ import pt.tecnico.mydrive.domain.FileSystem;
 			// TODO: mockup example
 			return 0;
 		}
-	
-	
+
+
 
 
  /********************************** NNEEEWWWWW STTUUUUFFFFF *********************************/
- 
- 
+
+
 	 public List<EnvironmentVar> addEnvironmentvar(long token, String name, String value) throws LoginDoesNotExistException {
-	
+
 		// TODO:DONE
 		// verificar se ja existe, se sim, redefinir valores
 		// permissoes do user atual (not sure)
 		// suposto retornar lista atual de variaveis separadas por '=' (ughh peanurs)
-				
+
 				Login login = getLoginbyToken(token);
-				
+
 				if(login == null)
 					throw new LoginDoesNotExistException();
-				
-				
+
+
 				for( EnvironmentVar var: login.getVarsSet()){
 
 					if( var.get_name().equals(name) ){
-						
+
 						//redefinir valor variavel e retornar lista
 
 						var.set_value(value);
-						
+
 						return login.listVariables();
 					}
-				
+
 				}
-				
-				//cria, adiciona e retorna lista 
-					
+
+				//cria, adiciona e retorna lista
+
 				EnvironmentVar variable = new EnvironmentVar(name,value);
-						
+
 				login.addVars(variable);
-				
+
 				return login.listVariables();
-				
-			
+
+
 	}
-	
-	
-	
-	
+
+
+
+
 	/******************************PLEASE DON'T CROSS THIS LINE: HAZARD, POSSIBLE FATAL DAMAGE**************************************/
-	
+
 	/*
 
 		public void deleteFileByPath(long token, String path) throws LoginDoesNotExistException, FileNotFoundException, PermitionException  {
@@ -412,10 +412,10 @@ import pt.tecnico.mydrive.domain.FileSystem;
 		}
 
 	*/
-	
-	
-	
-	
+
+
+
+
 
 
 }
