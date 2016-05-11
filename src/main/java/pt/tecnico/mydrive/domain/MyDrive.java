@@ -298,16 +298,17 @@ public class MyDrive extends MyDrive_Base {
 	}
 
 
-	public boolean checkLogin(long token)throws LoginDoesNotExistException{
+	public void checkLogin(long token) throws LoginDoesNotExistException{
 		Login login = getLoginbyToken(token);
 
 		if(login == null)
 			throw new LoginDoesNotExistException();
-		return true;
+		
 	}
 
 	
 	public void executeFile(long token, String path, String[] args) throws FileNotFoundException, LoopFoundException{
+		
 		checkLogin(token);
 		Login login = getLoginbyToken(token);
 		User user = login.getUser();
