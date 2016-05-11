@@ -7,7 +7,7 @@ public class ChangeWorkingDirectory extends MdCommand{
 
 	public ChangeWorkingDirectory(Shell sh){
 
-		super(sh, "cwd", "changes the current working directory");
+		super(sh, "cwd", "Changes the current working directory and prints the path to the new current working directory.");
 
 	}
 
@@ -24,9 +24,9 @@ public class ChangeWorkingDirectory extends MdCommand{
 			String activeUser = this.shell().getActiveUser();
 			long token = this.shell().getTokenByUser(activeUser);
 			ChangeDirectoryService cwd = new ChangeDirectoryService(token, args[0]);
-			System.out.println(args[0]);
 			cwd.execute();
-
+			System.out.println(args[0]);
+			
 		}
 
 	}

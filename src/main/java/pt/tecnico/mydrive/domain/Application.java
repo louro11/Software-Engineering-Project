@@ -1,4 +1,9 @@
 package pt.tecnico.mydrive.domain;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.jdom2.Element;
 import org.joda.time.DateTime;
 
@@ -38,5 +43,31 @@ public class Application extends Application_Base {
         
         return app;
     }
-
+    
+    @Override
+    public void runApp(String []args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
+    										IllegalArgumentException, IllegalAccessException, InvocationTargetException{
+		 Method method;
+		 Class<?> cls;
+		 String splitcontent[]=get_content().split("\\.");
+		 String [] auxclassname = Arrays.copyOf(splitcontent, splitcontent.length-1);
+		 String classname ="";
+		 for(String str: auxclassname)
+			 classname=classname+str;
+		 try{
+			 cls = Class.forName(classname);
+			 Collections.reverse(Arrays.asList(splitcontent));
+			 method = cls.getMethod(splitcontent[0], String[].class);	 
+		 }catch (ClassNotFoundException e) {
+			 throw e;
+			 //TODO other stuff??
+		 }
+		 method.invoke(null, (Object)args);
+	 }
+    
+     @Override
+     public boolean isApp(){
+    	 return true;
+     }
+    	
 }

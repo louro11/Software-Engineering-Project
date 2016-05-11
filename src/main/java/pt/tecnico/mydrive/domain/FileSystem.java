@@ -14,6 +14,7 @@ import pt.tecnico.mydrive.exceptions.InvalidPathException;
 import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
 import pt.tecnico.mydrive.exceptions.InvalidTypeException;
 import pt.tecnico.mydrive.exceptions.InvalidUserNameException;
+import pt.tecnico.mydrive.exceptions.LoopFoundException;
 import pt.tecnico.mydrive.exceptions.UserNameAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
 import pt.tecnico.mydrive.exceptions.PermitionException;
@@ -386,10 +387,11 @@ public class FileSystem extends FileSystem_Base {
 			}
 		}
 
-
-
-		public void executeFile(long token, String path, String[] args)throws FileNotFoundException{
-			 
+		
+		int counter=0;
+		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException{
+			
+			Link link;
 			Directory auxdir = getMaindir();
 			String[] auxpath = path.split("/");
 			 
@@ -408,36 +410,38 @@ public class FileSystem extends FileSystem_Base {
 					 //se for app ou link executar, senao passar ao proximo
 					 if(file.isDir()){
 						 auxdir = (Directory) file;
-						 i++;
+						 i++;			 
 					 }
 					 
-					 else{
-						 TextFile txt = (TextFile) file;
-						 String content = txt.get_content();
-						 if(args.length>0) run(content, args);
-						
-									 
-							
-					}
-				}
+					 else if(args.length>0 && file.isApp() && user.hasExecutePermission(file)) 
+						 try{
+							 file.runApp(args);	
+						 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 
+								 IllegalAccessException | InvocationTargetException e){}
+					 
+					 else if (args.length<0 && !file.isApp()){
+						 link = (Link) file;
+					 	 String aux = link.get_content();
+					 	 auxpath = aux.split("/");
+					 	 
+					 	 String newpath ="";
+						 for(String str: auxpath)
+							 newpath=newpath+str;
 						 
-			}
-		}
+						 executeFile(user,token, newpath, args);
+						 if(counter > 10){
+							 throw new LoopFoundException();
+						 }
+					 }
+				}			 
+			}	
+	}
 			 
 		
- 
- 
-	 
-	 public void run(String content, String []args){
-		 Method method;
-		 Class<?> cls;
-	 }
-		
  /******************************PLEASE DON'T CROSS THIS LINE: HAZARD, POSSIBLE FATAL DAMAGE**************************************/
- 
- 
-            //Dare me
+ //Dare me
   
+		
 /*
     public void removeFileByPath(User user, String path) throws FileNotFoundException, PermitionException{
 

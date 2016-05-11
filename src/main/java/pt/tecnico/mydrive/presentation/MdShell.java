@@ -7,7 +7,7 @@ public class MdShell extends Shell {
     sh.execute();
   }
 
-  public MdShell() { 
+  public MdShell() {
 
     super("MyDrive");
 
@@ -16,7 +16,7 @@ public class MdShell extends Shell {
     new List(this);
     new Execute(this);
     new Write(this);
-    //new Environment(this);
-    //new Key(this);
+    new Environment(this);
+    new Key(this);
   }
 }

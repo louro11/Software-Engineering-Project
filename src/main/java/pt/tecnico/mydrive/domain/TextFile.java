@@ -4,6 +4,8 @@ import org.joda.time.DateTime;
 
 import java.util.Scanner;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+
 import org.jdom2.Element;
 
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
@@ -99,6 +101,21 @@ public class TextFile extends TextFile_Base {
     public boolean isDir(){
     	return false;
     }
+    
+    @Override
+    public boolean isApp(){
+    	return false;
+    }
+    
+    @Override
+    public void runApp(String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
+    IllegalArgumentException, IllegalAccessException, InvocationTargetException{}
+    
+    @Override
+    public File runLink(String[]args){
+    	return null;
+    }
+
     
     /*
     @Override

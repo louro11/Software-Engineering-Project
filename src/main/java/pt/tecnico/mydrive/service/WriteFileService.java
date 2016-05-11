@@ -14,10 +14,15 @@ public class WriteFileService extends MyDriveService{
 	private String _content;
 	private long _token;
 	
-	public WriteFileService(long token, String filename, String content){
-		_filename = filename;
-		_content = content;
+	public WriteFileService(long token, String path, String text){
+
+		_content = text;
 		_token = token;
+	
+		String[] aux = path.split("/");
+
+		_filename = aux[aux.length-1];
+
 	}
 	
 	public String getfileName(){

@@ -79,7 +79,7 @@ public class Login extends Login_Base{
     
         List<EnvironmentVar> varArray = new ArrayList<EnvironmentVar>();
 
-        for(EnvironmentVar var : getVars()) {
+        for(EnvironmentVar var : this.getVarsSet()) {
           
           
            varArray.add(new EnvironmentVar(var.get_name(), var.get_value()));
