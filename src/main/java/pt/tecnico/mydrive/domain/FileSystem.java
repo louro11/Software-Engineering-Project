@@ -386,15 +386,10 @@ public class FileSystem extends FileSystem_Base {
 				u.remove();
 			}
 		}
-
 		
-		int counter=0;
-		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException{
-			
-			Link link;
+		public File getFile (String path){
 			Directory auxdir = getMaindir();
 			String[] auxpath = path.split("/");
-			 
 			int i = 1;
 			
 			for(File file : auxdir.getFilesSet()){
@@ -406,35 +401,51 @@ public class FileSystem extends FileSystem_Base {
 				if(!(file.get_name().equals(auxpath [i])))
 					 throw new FileNotFoundException("No such file or directory: " + file.get_name());
 				
-				else{ 
-					 //se for app ou link executar, senao passar ao proximo
-					 if(file.isDir()){
-						 auxdir = (Directory) file;
-						 i++;			 
-					 }
-					 
-					 else if(args.length>0 && file.isApp() && user.hasExecutePermission(file)) 
-						 try{
-							 file.runApp(args);	
-						 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 
-								 IllegalAccessException | InvocationTargetException e){}
-					 
-					 else if (args.length<0 && !file.isApp()){
-						 link = (Link) file;
-					 	 String aux = link.get_content();
-					 	 auxpath = aux.split("/");
-					 	 
-					 	 String newpath ="";
-						 for(String str: auxpath)
-							 newpath=newpath+str;
+				 //se for app ou link executar, senao passar ao proximo
+			    if(file.isDir()){
+			    	auxdir = (Directory) file;
+			    	i++;			 
+				}
+			    else
+			    	return file;
+			}
+			return null;
+		}
+		
+		
+		int counter=0;
+		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException{
+			
+			String auxpath[];
+			Link link;
+			File file = getFile(path);
+			if(file == null){
+				throw new FileNotFoundException ("file not found");
+			}
+			if(args.length>0 && file.isApp() && user.hasExecutePermission(file)) 
+				 try{
+					 file.runApp(args);	
+				 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 
+						 IllegalAccessException | InvocationTargetException e){}
+			 
+			else if (args.length<0 && !file.isApp()){
+				 link = (Link) file;
+			 	 String aux = link.get_content();
+			 	 auxpath = aux.split("/");
+			 	 
+			 	 String newpath ="";
+				 for(String str: auxpath)
+					 newpath=newpath+str;
+				 
+				 executeFile(user,token, newpath, args);
+				 //nao vem especificado no enunciado o que fazer com links que redireccionam para outros links
+				 //assumi que 10 e o limite maximo de redireccionamentos
+				 if(counter > 10){    
+					 throw new LoopFoundException();
+				 }
+			 }
 						 
-						 executeFile(user,token, newpath, args);
-						 if(counter > 10){
-							 throw new LoopFoundException();
-						 }
-					 }
-				}			 
-			}	
+		
 	}
 			 
 		
