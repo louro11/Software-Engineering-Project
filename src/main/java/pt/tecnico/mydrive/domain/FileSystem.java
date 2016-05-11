@@ -409,10 +409,8 @@ public class FileSystem extends FileSystem_Base {
 				else{ 
 					 //se for app ou link executar, senao passar ao proximo
 					 if(file.isDir()){
-						 
 						 auxdir = (Directory) file;
-						 i++;
-					 
+						 i++;			 
 					 }
 					 
 					 else if(args.length>0 && file.isApp()) 

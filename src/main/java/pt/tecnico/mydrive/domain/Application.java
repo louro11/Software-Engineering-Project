@@ -62,7 +62,7 @@ public class Application extends Application_Base {
 			 throw e;
 			 //TODO other stuff??
 		 }
-		 //TODO method.invoke(null, args);
+		 method.invoke(null, (Object)args);
 	 }
     
      @Override
