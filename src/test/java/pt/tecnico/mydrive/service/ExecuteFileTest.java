@@ -53,9 +53,9 @@ public class ExecuteFileTest extends AbstractServiceTest {
            
            Login loginDonald = md.getLoginbyToken(tokenDonald);
            
-           md.createFile(loginDonald, "FileGenerator", "application", "mydrivedomain.filesystem.createFile");
+           md.createFile(tokenDonald, "FileGenerator", "application", "mydrivedomain.filesystem.createFile");
            
-           md.createFile(loginDonald, "FileGeneratorLink", "link", "/home/DonaldTrump/FileGenerator");
+           md.createFile(tokenDonald, "FileGeneratorLink", "link", "/home/DonaldTrump/FileGenerator");
 
 
   }
