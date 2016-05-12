@@ -49,7 +49,7 @@ public class Link extends Link_Base {
     	String path = get_content();
     	File file = user.getFilesystem().getFile(path);
     	//loop between links not specified in the rules
-		 //I assumed that the maximum amount of times that a link can be executed is 10d
+		 //I assumed that the maximum amount of times that a link can be executed is 10
 		if(counter > limit){    
 			 throw new LoopFoundException();
 		}

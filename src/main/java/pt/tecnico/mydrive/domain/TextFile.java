@@ -107,8 +107,22 @@ public class TextFile extends TextFile_Base {
     
     @Override
     public void run(User user, String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
-    		IllegalArgumentException, IllegalAccessException, InvocationTargetException, LoopFoundException, RunException{}
+    		IllegalArgumentException, IllegalAccessException, InvocationTargetException, LoopFoundException, RunException{
     
+	    String[] lines = this.getContent().split("\n");
+		FileSystem fs = user.getFilesystem();
+		String[] line;
+		for(int i = 0;i<lines.length;i++){
+			line = lines[i].split("\\s+");
+			File file = fs.getFile(line[0]);
+			if (line.length == 1){
+				file.run(user, null);
+			}
+			else{
+				file.run(user,Arrays.copyOfRange(line, 1, line.length -1));
+			}	
+		}
+    }
     
 
     

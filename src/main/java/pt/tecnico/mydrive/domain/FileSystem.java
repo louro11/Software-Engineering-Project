@@ -414,7 +414,8 @@ public class FileSystem extends FileSystem_Base {
 		
 		
 		
-		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException, InvalidPathException{
+		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException, InvalidPathException,
+				AccessDeniedException{
 			
 			if(path.startsWith("/")){
 				throw new InvalidPathException(path);
@@ -425,7 +426,11 @@ public class FileSystem extends FileSystem_Base {
 				throw new FileNotFoundException ("file not found");
 			}
 			
-			if(args.length > 0 && user.hasExecutePermission(file)){
+			if(user.get_username()!=file.get_owner().get_username() && !(user.hasExecutePermission(file))){
+				throw new AccessDeniedException(user.get_username());
+			}
+			
+			if(args.length > 0 ){
 				try{
 					 file.run(user, args);	
 				 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 

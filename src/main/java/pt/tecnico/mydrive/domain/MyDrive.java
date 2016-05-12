@@ -308,7 +308,8 @@ public class MyDrive extends MyDrive_Base {
 	}
 
 	
-	public void executeFile(long token, String path, String[] args) throws FileNotFoundException, LoopFoundException, InvalidPathException{
+	public void executeFile(long token, String path, String[] args) throws FileNotFoundException, LoopFoundException, 
+	InvalidPathException, LoginDoesNotExistException, AccessDeniedException{
 		
 		checkLogin(token);
 		Login login = getLoginbyToken(token);
