@@ -4,6 +4,7 @@ import pt.tecnico.mydrive.domain.MyDrive;
 
 import org.junit.Test;
 
+import pt.tecnico.mydrive.domain.EnvironmentVar;
 import pt.tecnico.mydrive.domain.Login;
 
 public class AddEnvironmentVariableTest extends AbstractServiceTest{
@@ -21,24 +22,32 @@ public class AddEnvironmentVariableTest extends AbstractServiceTest{
 	
 	
 	protected void populate() {
-		// TODO Auto-generated method stub
 		
 		md = MyDrive.getInstance();
-		
 		md.createUser("louro");
-		
 		//long logintoken = this.login("louro", "louro");
 		
 	}
 	
-	@Test
+	
+	@Test //success creating a env variable
 	public void Success(){
 
+	   String var_name="var1";
+	   String var_value="something";
        long token = login("louro","louro");
-       AddEnvironmentVariableService service = new AddEnvironmentVariableService(token,"var1", "something");
+       AddEnvironmentVariableService service = new AddEnvironmentVariableService(token,var_name, var_value);
        service.execute();
 
+       Login login = md.getLoginbyToken(token);
        
+       //O servico devolve a lista, tenho que a ir buscar? ou vou buscar ao retorno do serviço
+       
+       for(EnvironmentVar env: login.getVarsSet()){
+    	   if(env.get_name()==var_name && env.get_value()==var_value){
+    		   
+    	   }
+       }
 	
 	 }
 	
