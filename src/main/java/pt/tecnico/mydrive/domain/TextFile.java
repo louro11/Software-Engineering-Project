@@ -2,6 +2,7 @@ package pt.tecnico.mydrive.domain;
 
 import org.joda.time.DateTime;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -117,10 +118,10 @@ public class TextFile extends TextFile_Base {
 			File file = fs.getFile(line[0]);
 			if (line.length == 1){
 				file.run(user, null);
-			}/*
+			}
 			else{
 				file.run(user,Arrays.copyOfRange(line, 1, line.length -1));
-			}	*/
+			}	
 		}
     }
     
