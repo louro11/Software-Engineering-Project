@@ -51,10 +51,10 @@ public class Link extends Link_Base {
     	File file = user.getFilesystem().getFile(path);
     	//loop between links not specified in the rules
     	//filesystem stores the links that are being visited
-    	if(user.getFilesystem().getVisitedLinks().contains(file))
+    	if(user.getFilesystem().getVisitedLinks().contains(this))
 			 throw new LoopFoundException();
     	else{
-    		user.getFilesystem().getVisitedLinks().add(file);
+    		user.getFilesystem().getVisitedLinks().add(this); //isto e capaz de nao funcionar :c
     		file.run(user, args);
     	}
     	

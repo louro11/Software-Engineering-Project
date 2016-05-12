@@ -2,6 +2,8 @@ package pt.tecnico.mydrive.service;
 
 import pt.tecnico.mydrive.domain.MyDrive;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import pt.tecnico.mydrive.domain.EnvironmentVar;
@@ -22,10 +24,8 @@ public class AddEnvironmentVariableTest extends AbstractServiceTest{
 	
 	
 	protected void populate() {
-		
 		md = MyDrive.getInstance();
 		md.createUser("louro");
-		//long logintoken = this.login("louro", "louro");
 		
 	}
 	
@@ -41,14 +41,16 @@ public class AddEnvironmentVariableTest extends AbstractServiceTest{
 
        Login login = md.getLoginbyToken(token);
        
-       //O servico devolve a lista, tenho que a ir buscar? ou vou buscar ao retorno do serviço
+       int size = service.result().size();
        
-       for(EnvironmentVar env: login.getVarsSet()){
+       
+       for(EnvironmentVar env: service.result()){
     	   if(env.get_name()==var_name && env.get_value()==var_value){
-    		   
+    		   assertEquals(service.result().get(size-1).get_name(), var_name);
+    	       assertEquals(service.result().get(size-1).get_value(), var_value);
     	   }
        }
-	
+		
 	 }
 	
 

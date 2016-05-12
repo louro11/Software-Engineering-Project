@@ -32,7 +32,7 @@ import org.jdom2.Element;
 
 public class FileSystem extends FileSystem_Base {
 	
-		private ArrayList<String> visitedlinks;
+		private ArrayList<File> visitedlinks;
 
 		public FileSystem() {
 
