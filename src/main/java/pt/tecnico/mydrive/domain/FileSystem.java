@@ -426,7 +426,7 @@ public class FileSystem extends FileSystem_Base {
 				throw new FileNotFoundException ("file not found");
 			}
 			
-			if(user.get_username()!=file.get_owner().get_username() && !(user.hasExecutePermission(file))){
+			if(user.get_username()!=file.getOwner().get_username() && !(user.hasExecutePermission(file))){
 				throw new AccessDeniedException(user.get_username());
 			}
 			
