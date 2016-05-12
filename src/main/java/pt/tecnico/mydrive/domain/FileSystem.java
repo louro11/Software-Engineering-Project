@@ -31,6 +31,8 @@ import org.jdom2.Element;
 
 
 public class FileSystem extends FileSystem_Base {
+	
+		private ArrayList<String> visitedlinks;
 
 		public FileSystem() {
 
@@ -412,7 +414,9 @@ public class FileSystem extends FileSystem_Base {
 			return null;
 		}
 		
-		
+		public ArrayList getVisitedLinks(){
+	    	return visitedlinks;
+	    }
 		
 		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException, InvalidPathException,
 				AccessDeniedException{
@@ -432,6 +436,7 @@ public class FileSystem extends FileSystem_Base {
 			
 			if(args.length > 0 ){
 				try{
+					 visitedlinks.clear();
 					 file.run(user, args);	
 				 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 
 						 IllegalAccessException | InvocationTargetException e){}
