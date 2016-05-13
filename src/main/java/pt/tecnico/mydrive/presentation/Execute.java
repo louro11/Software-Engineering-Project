@@ -4,6 +4,8 @@ import pt.tecnico.mydrive.service.ExecuteFileService;
 
 public class Execute extends MdCommand{
 
+	//closes #36
+	
 	public Execute(Shell sh){
 		super(sh, "do", "Execute the file identified by the given path with the given arguments");
 
