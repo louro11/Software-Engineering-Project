@@ -44,7 +44,6 @@ public class Login extends Login_Base{
   private boolean checkPassword( User user, String password ) throws WrongPasswordException{
 
     if(user.get_password().equals(password)){
-
       if(password.length() >= 8){
 
         return true;
@@ -65,7 +64,6 @@ public class Login extends Login_Base{
   protected void resetTimer(){
 
     DateTime now = new DateTime();
-
     DateTime limit = now.plusHours(2);
 
     this.set_timeout(limit);
