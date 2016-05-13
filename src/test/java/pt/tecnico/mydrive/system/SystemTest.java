@@ -14,18 +14,18 @@ import pt.tecnico.mydrive.presentation.*;
 
 public class SystemTest extends AbstractServiceTest{
 
- 	private Shell sh;
+ 	private MdShell sh;
 
  	protected void populate(){
- 		sh = new Shell();
+ 		sh = new MdShell();
  	}
 
 
  	@Test
- 	public void sucess(){
+ 	public void success(){
 
  		//vai ser importado um xml para preencher a base de dados 
- 		new Import(sh).execute(new String[] {"other.xml"});
+ 		//new Import(sh).execute(new String[] {"other.xml"});
  		//verificar se a primeira diretoria é mesmo home+username
  		new ChangeWorkingDirectory(sh).execute(new String[] {"/home/claudiaamorim/project"} );
  		//teste sem password
