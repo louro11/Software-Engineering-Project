@@ -1,8 +1,11 @@
 package pt.tecnico.mydrive.service;
 
 import pt.tecnico.mydrive.domain.MyDrive;
+import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
 
 import static org.junit.Assert.*;
+
+import java.util.List;
 
 import org.junit.Test;
 
@@ -38,8 +41,6 @@ public class AddEnvironmentVariableTest extends AbstractServiceTest{
        long token = login("louro","louro");
        AddEnvironmentVariableService service = new AddEnvironmentVariableService(token,var_name, var_value);
        service.execute();
-
-       Login login = md.getLoginbyToken(token);
        
        int size = service.result().size();
        
@@ -52,6 +53,55 @@ public class AddEnvironmentVariableTest extends AbstractServiceTest{
        }
 		
 	 }
+	
+	@Test //changing varible value
+	public void changeVariableValue(){		
+		
+		String var_name="var1";
+	    String var_value="something";
+	    String var_newvalue = "somethingnew";
+	    long token = login("louro", "louro");   
+		AddEnvironmentVariableService service = new AddEnvironmentVariableService(token,var_name, var_value);
+		service.execute();
+		
+		AddEnvironmentVariableService newservice = new AddEnvironmentVariableService(token,var_name, var_newvalue);
+		newservice.execute();
+	       
+        for(EnvironmentVar env: service.result()){
+		   if(env.get_name()==var_name){
+			   assertEquals(env.get_value(), var_newvalue);
+		   }
+        }
+	}
+	
+	@Test
+	public void printingVariableValue(){
+		String var_name="var1";
+	    String var_value="something";
+		
+	    long token = login("louro", "louro");
+		AddEnvironmentVariableService service = new AddEnvironmentVariableService(token,var_name, var_value);
+		service.execute();
+		
+		List<EnvironmentVar> _vars = service.result();
+		
+		for(EnvironmentVar var : _vars){
+			if(var.get_name().equals(var_name));
+				assertEquals(var.get_value(), var_value);
+		}
+	}
+	
+	@Test(expected = LoginDoesNotExistException.class)
+	public void loginFailTest(){
+		
+		String var_name="var1";
+	    String var_value="something";
+		
+	    long token = login("carlos", "carlos");
+		AddEnvironmentVariableService service = new AddEnvironmentVariableService(token,var_name, var_value);
+		service.execute();
+		
+	}
 	
 
 }
