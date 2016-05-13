@@ -31,6 +31,8 @@ import org.jdom2.Element;
 
 
 public class FileSystem extends FileSystem_Base {
+	
+		private ArrayList<File> visitedlinks;
 
 		public FileSystem() {
 
@@ -386,15 +388,10 @@ public class FileSystem extends FileSystem_Base {
 				u.remove();
 			}
 		}
-
 		
-		int counter=0;
-		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException{
-			
-			Link link;
+		public File getFile (String path){
 			Directory auxdir = getMaindir();
 			String[] auxpath = path.split("/");
-			 
 			int i = 1;
 			
 			for(File file : auxdir.getFilesSet()){
@@ -406,36 +403,46 @@ public class FileSystem extends FileSystem_Base {
 				if(!(file.get_name().equals(auxpath [i])))
 					 throw new FileNotFoundException("No such file or directory: " + file.get_name());
 				
-				else{ 
-					 //se for app ou link executar, senao passar ao proximo
-					 if(file.isDir()){
-						 auxdir = (Directory) file;
-						 i++;			 
-					 }
-					 
-					 else if(args.length>0 && file.isApp() && user.hasExecutePermission(file)) 
-						 try{
-							 file.runApp(args);	
-						 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 
-								 IllegalAccessException | InvocationTargetException e){}
-					 
-					 else if (args.length<0 && !file.isApp()){
-						 link = (Link) file;
-					 	 String aux = link.get_content();
-					 	 auxpath = aux.split("/");
-					 	 
-					 	 String newpath ="";
-						 for(String str: auxpath)
-							 newpath=newpath+str;
-						 
-						 executeFile(user,token, newpath, args);
-						 if(counter > 10){
-							 throw new LoopFoundException();
-						 }
-					 }
-				}			 
-			}	
-	}
+				 //se for app ou link retornar, senao passar ao proximo
+			    if(file.isDir()){
+			    	auxdir = (Directory) file;
+			    	i++;			 
+				}
+			    else
+			    	return file;
+			}
+			return null;
+		}
+		
+		public ArrayList getVisitedLinks(){
+	    	return visitedlinks;
+	    }
+		
+		public void executeFile(User user, long token, String path, String[] args)throws FileNotFoundException, LoopFoundException, InvalidPathException,
+				AccessDeniedException{
+			
+			if(path.startsWith("/")){
+				throw new InvalidPathException(path);
+			}
+			
+			File file = getFile(path);
+			if(file == null){
+				throw new FileNotFoundException ("file not found");
+			}
+			
+			if(user.get_username()!=file.getOwner().get_username() && !(user.hasExecutePermission(file))){
+				throw new AccessDeniedException(user.get_username());
+			}
+			
+			if(args.length > 0 ){
+				try{
+					 visitedlinks.clear();
+					 file.run(user, args);	
+				 }catch (ClassNotFoundException | SecurityException | NoSuchMethodException | IllegalArgumentException | 
+						 IllegalAccessException | InvocationTargetException e){}
+			 
+			}
+		}
 			 
 		
  /******************************PLEASE DON'T CROSS THIS LINE: HAZARD, POSSIBLE FATAL DAMAGE**************************************/

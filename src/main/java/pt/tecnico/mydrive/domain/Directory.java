@@ -14,6 +14,8 @@ import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
 import pt.tecnico.mydrive.exceptions.InvalidTypeException;
+import pt.tecnico.mydrive.exceptions.LoopFoundException;
+import pt.tecnico.mydrive.exceptions.RunException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 import pt.tecnico.mydrive.exceptions.ApplicationDoesntHasAssocException;
 
@@ -21,6 +23,8 @@ import pt.tecnico.mydrive.exceptions.ApplicationDoesntHasAssocException;
 import pt.tecnico.mydrive.service.dto.FileDto;
 
 import java.lang.String;
+import java.lang.reflect.InvocationTargetException;
+
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import org.jdom2.Element;
 
@@ -284,5 +288,12 @@ public class Directory extends Directory_Base {
 		return true;
 	}
 	
+	@Override
+    public void run(User user, String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
+    	IllegalArgumentException, IllegalAccessException, InvocationTargetException, LoopFoundException, RunException{
+    	
+    	throw new RunException();
+    	
+    }
 
 }

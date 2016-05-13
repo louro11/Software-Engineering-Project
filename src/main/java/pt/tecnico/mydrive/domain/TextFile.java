@@ -2,6 +2,7 @@ package pt.tecnico.mydrive.domain;
 
 import org.joda.time.DateTime;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -10,6 +11,8 @@ import org.jdom2.Element;
 
 import pt.tecnico.mydrive.exceptions.CantReadDirectoryException;
 import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
+import pt.tecnico.mydrive.exceptions.LoopFoundException;
+import pt.tecnico.mydrive.exceptions.RunException;
 
 public class TextFile extends TextFile_Base {
 
@@ -101,20 +104,27 @@ public class TextFile extends TextFile_Base {
     public boolean isDir(){
     	return false;
     }
+ 
     
     @Override
-    public boolean isApp(){
-    	return false;
+    public void run(User user, String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
+    		IllegalArgumentException, IllegalAccessException, InvocationTargetException, LoopFoundException, RunException{
+    
+	    String[] lines = this.get_content().split("\n");
+		FileSystem fs = user.getFilesystem();
+		String[] line;
+		for(int i = 0;i<lines.length;i++){
+			line = lines[i].split("\\s+");
+			File file = fs.getFile(line[0]);
+			if (line.length == 1){
+				file.run(user, null);
+			}
+			else{
+				file.run(user,Arrays.copyOfRange(line, 1, line.length -1));
+			}	
+		}
     }
     
-    @Override
-    public void runApp(String[] args)throws ClassNotFoundException, SecurityException, NoSuchMethodException, 
-    IllegalArgumentException, IllegalAccessException, InvocationTargetException{}
-    
-    @Override
-    public File runLink(String[]args){
-    	return null;
-    }
 
     
     /*

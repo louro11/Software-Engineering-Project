@@ -2,7 +2,11 @@ package pt.tecnico.mydrive.service;
 
 import java.lang.reflect.InvocationTargetException;
 
+import pt.tecnico.mydrive.exceptions.AccessDeniedException;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
+import pt.tecnico.mydrive.exceptions.InvalidPathException;
+import pt.tecnico.mydrive.exceptions.LoginDoesNotExistException;
+import pt.tecnico.mydrive.exceptions.LoopFoundException;
 
 public class ExecuteFileService extends MyDriveService {
 	
@@ -59,7 +63,7 @@ public class ExecuteFileService extends MyDriveService {
 
   	}
     
-	public final void dispatch()throws FileNotFoundException {
+	public final void dispatch()throws FileNotFoundException, LoopFoundException, InvalidPathException, AccessDeniedException, LoginDoesNotExistException {
 		
 		//WARNING: alterado por rafa: nao sei se e suposto estar assim, quem estiver com o issue tem que olhar melhorzinho
 		

@@ -2,23 +2,24 @@ package pt.tecnico.mydrive.system;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import pt.tecnico.mydrive.presentation.Shell;
 import pt.tecnico.mydrive.service.AbstractServiceTest;
 import pt.tecnico.mydrive.service.presentation.*;
 
 public class SystemTest extends AbstractServiceTest{
 
- 	private pbShell sh;
+ 	private Shell sh;
 
  	protected void populate(){
- 		sh=new pbShell();
+ 		sh=new Shell();
  	}
 
-/* 
+
  	@Test
  	public void sucess(){
 
  		//vai ser importado um xml para preencher a base de dados 
- 		//new Import(sh).execute(new String[] {"other.xml"});
+ 		new Import(sh).execute(new String[] {"other.xml"});
  		//verificar se a primeira diretoria é mesmo home+username
  		new ChangeWorkingDirectory(sh).execute(new String[] {"/home/claudiaamorim/project"} );
  		//teste sem password
@@ -31,6 +32,6 @@ public class SystemTest extends AbstractServiceTest{
  		new Execute(sh).execute(new String[] {"/homeclaudiaamorim/project/test"} );
  		//sem argumentos 
  		new Execute(sh).execute(new String[] {"/homeclaudiaamorim/project/sum", "1", "2"} );
- 	} */
+ 	} 
 
- }
+}

@@ -15,6 +15,7 @@ import pt.tecnico.mydrive.exceptions.CantWriteToDirectoryException;
 import pt.tecnico.mydrive.exceptions.FileAlreadyExistsException;
 import pt.tecnico.mydrive.exceptions.FileNotFoundException;
 import pt.tecnico.mydrive.exceptions.InvalidContentException;
+import pt.tecnico.mydrive.exceptions.InvalidPathException;
 import pt.tecnico.mydrive.exceptions.InvalidPathSizeException;
 import pt.tecnico.mydrive.exceptions.InvalidTypeException;
 import pt.tecnico.mydrive.exceptions.UserDoesNotExistException;
@@ -256,7 +257,7 @@ public class MyDrive extends MyDrive_Base {
 
 		}
 
-	  throw new LoginDoesNotExistException();
+	    throw new LoginDoesNotExistException();
 
   }
 
@@ -306,7 +307,8 @@ public class MyDrive extends MyDrive_Base {
 	}
 
 	
-	public void executeFile(long token, String path, String[] args) throws FileNotFoundException, LoopFoundException{
+	public void executeFile(long token, String path, String[] args) throws FileNotFoundException, LoopFoundException, 
+	InvalidPathException, LoginDoesNotExistException, AccessDeniedException{
 		
 		checkLogin(token);
 		Login login = getLoginbyToken(token);
@@ -357,6 +359,20 @@ public class MyDrive extends MyDrive_Base {
 
 
 	}
+	 
+	 public long logoutUser(String username, String password) throws UserDoesNotExistException, WrongPasswordException{
+
+		 	
+		    User user = getFilesystem().getUserbyUsername(username); 
+		 
+			if( user == null) return 0;  //so para verificar que o utilizador realmente existe
+			
+			User root = getFilesystem().getUserbyUsername("root");
+			
+			return this.loginUser(root.get_name(), root.get_password());
+
+	}
+	 
 
 
 
