@@ -1,17 +1,23 @@
 package pt.tecnico.mydrive.system;
 import static org.junit.Assert.*;
+
+import org.apache.ojb.jdo.jdoql.Import;
 import org.junit.Test;
 
+import pt.tecnico.mydrive.presentation.ChangeWorkingDirectory;
+import pt.tecnico.mydrive.presentation.Execute;
+import pt.tecnico.mydrive.presentation.Login;
 import pt.tecnico.mydrive.presentation.Shell;
+import pt.tecnico.mydrive.presentation.Write;
 import pt.tecnico.mydrive.service.AbstractServiceTest;
-import pt.tecnico.mydrive.service.presentation.*;
+import pt.tecnico.mydrive.presentation.*;
 
 public class SystemTest extends AbstractServiceTest{
 
  	private Shell sh;
 
  	protected void populate(){
- 		sh=new Shell();
+ 		sh = new Shell();
  	}
 
 
