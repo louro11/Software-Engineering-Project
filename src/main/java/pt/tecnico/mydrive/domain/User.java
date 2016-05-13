@@ -213,18 +213,13 @@ public class User extends User_Base {
 		String file_permissions = f.get_permission();
 
 		if(file_permissions.length() == 8){
-
 			if (this.equals(owner) || this.isRoot()){
-
 				return ((file_permissions.substring(position,position+1)).equals(perm));}
-
 			else{
-
 				return ((file_permissions.substring(position+4,position+5)).equals(perm));}
 
 		}
 		else{
-
 			return false;}
 
 	}
@@ -247,7 +242,7 @@ public class User extends User_Base {
 
 	public boolean hasWritePermission(File f)throws GuestDoesntHasWritePermitionException{
 
-		if(get_name().equals("Guest")){throw new GuestDoesntHasWritePermitionException();}
+		if(get_name().equals("Guest")){ throw new GuestDoesntHasWritePermitionException(); }
 		
 
 		return hasPermission(f,1,"w");
@@ -262,7 +257,7 @@ public class User extends User_Base {
 
 	
 	public boolean hasDeletePermission(File f)throws GuestDoesntHasDeletePermitionException{
-		if(get_name().equals("Guest")){throw new GuestDoesntHasDeletePermitionException();}
+		if(get_name().equals("Guest")){ throw new GuestDoesntHasDeletePermitionException(); }
 		
 
 		return hasPermission(f,3,"d");
@@ -274,9 +269,9 @@ public class User extends User_Base {
 
     //retorna false (timeout) se a diferença for superior a 2 (2horas)
 
-    Date date = new Date();
-    int currenthour = date.getHours();
-    int relativehour = datetime.toDate().getHours();
+    	Date date = new Date();
+    	int currenthour = date.getHours();
+    	int relativehour = datetime.toDate().getHours();
     
 
     return ((currenthour - relativehour) < 2 );

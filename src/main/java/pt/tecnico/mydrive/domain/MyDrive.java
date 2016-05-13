@@ -87,7 +87,6 @@ public class MyDrive extends MyDrive_Base {
 
 
 			Login login = getLoginbyToken(token);
-
 			User user = login.getUser();
 
 			return getFilesystem().changeCurrentDirectory(login , user, path);
@@ -343,13 +342,9 @@ public class MyDrive extends MyDrive_Base {
 
 
 				for( EnvironmentVar var: login.getVarsSet()){
-
 					if( var.get_name().equals(name) ){
-
 						//redefinir valor variavel e retornar lista
-
 						var.set_value(value);
-
 						return login.listVariables();
 					}
 
@@ -358,7 +353,6 @@ public class MyDrive extends MyDrive_Base {
 				//cria, adiciona e retorna lista
 
 				EnvironmentVar variable = new EnvironmentVar(name,value);
-
 				login.addVars(variable);
 
 				return login.listVariables();

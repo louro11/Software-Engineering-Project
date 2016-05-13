@@ -273,18 +273,13 @@ public class Directory extends Directory_Base {
 
         Element dir = new Element("dir");
         dir.setAttribute("id", Integer.toString(get_fileid()));
-
         dir.addContent(super.xmlExport());
-
         Element dirname = new Element(get_name());
-
         for(File file : getFilesSet()){
-
         	dirname.addContent(file.xmlExport());
         }
 
         dir.addContent(dirname);
-
         return dir;
 	}
 	
