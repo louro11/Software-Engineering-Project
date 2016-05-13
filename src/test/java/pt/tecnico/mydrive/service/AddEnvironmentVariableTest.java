@@ -32,6 +32,7 @@ public class AddEnvironmentVariableTest extends AbstractServiceTest{
 		
 	}
 	
+	//closes #49
 	
 	@Test //success creating a env variable
 	public void Success(){

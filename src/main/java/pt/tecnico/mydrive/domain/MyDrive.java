@@ -401,32 +401,25 @@ public class MyDrive extends MyDrive_Base {
 			catch (PermitionException e){throw e;}
 
 		}
-
+*/
 
 		public void deleteFileByName(long token, String name) throws LoginDoesNotExistException, FileNotFoundException, PermitionException{
 
-
-			try{
-
-				Login login = getLoginbyToken(token);
-
-				User user = login.getUser();
-
-				Directory current = login.getCurrentdirectory();
-
-				getFilesystem().removeFileByName(user,current,name);
-			}
-
-
-
-			catch (LoginDoesNotExistException e){ throw e; }
-			catch (FileNotFoundException e){ throw e; }
-			catch (PermitionException e){ throw e; }
+			Login login = getLoginbyToken(token);
+			User user = login.getUser();
+			Directory current = login.getCurrentdirectory();
+	
+			//getFilesystem().removeFileByName(user,current,name);
 
 		}
 
-	*/
-
+	
+		public boolean hasFile(long token, String filename) throws FileNotFoundException{
+			
+			Login login = getLoginbyToken(token);
+			User user = login.getUser();
+			return getFilesystem().hasFile(user, filename);
+		}
 
 
 

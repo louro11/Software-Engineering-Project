@@ -16,6 +16,8 @@ public class LogoutServiceTest extends AbstractServiceTest{
 		// TODO Auto-generated constructor stub
 	}
 
+	//closes #52
+	
 	@Override
 	protected void populate() {
 		md = MyDrive.getInstance();
