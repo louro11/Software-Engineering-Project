@@ -389,7 +389,7 @@ public class FileSystem extends FileSystem_Base {
 			}
 		}
 		
-		public File getFile (String path){
+		public File getFile (String path)throws InvalidPathException, FileNotFoundException{
 			Directory auxdir = getMaindir();
 			String[] auxpath = path.split("/");
 			int i = 1;
@@ -442,6 +442,14 @@ public class FileSystem extends FileSystem_Base {
 						 IllegalAccessException | InvocationTargetException e){}
 			 
 			}
+		}
+		
+		public boolean hasFile(User user, String filename)throws FileNotFoundException, InvalidPathException{
+			
+			if(user.getFilesystem().getFile(filename) == null){
+				return false;
+			}else
+				return true;
 		}
 			 
 		

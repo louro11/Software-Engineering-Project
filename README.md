@@ -3,12 +3,12 @@
 <tr>  
 
     <td align="center">Grupo  2</td>
-
-
-    
+  
+  
 </tr>
 
 </table>
+
 
 
 <table style="width:100%">
