@@ -251,7 +251,7 @@ public class MyDrive extends MyDrive_Base {
 						User userlogged = login.getUser();
 						DateTime datelogged = login.get_timeout();
 						//a root nunca deixa de estar logada, é atribuido apenas num novo token
-						if(userlogged.isRoot()){loginUser("root","rwxdr-x-");}
+						if(userlogged.isRoot()){loginUser("root","***");}
 						else if(!userlogged.timeout(datelogged)){ throw new LoginIsInvalidException();}
 						else{ return login; }
 			}
@@ -371,7 +371,8 @@ public class MyDrive extends MyDrive_Base {
 		 	
 		    User user = getFilesystem().getUserbyUsername(username); 
 		 
-			if( user == null) return 0;  //so para verificar que o utilizador realmente existe
+			if( user == null) 
+				throw new UserDoesNotExistException(username);  //so para verificar que o utilizador realmente existe
 			
 			User root = getFilesystem().getUserbyUsername("root");
 			

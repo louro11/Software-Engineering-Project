@@ -20,7 +20,7 @@ public class LoginService extends MyDriveService {
 
     this.setUsername(username);
 
-    this.setPassword("");
+    this.setPassword(username);
 
     Random rand = new Random();
 
