@@ -4,8 +4,6 @@
 
     <td align="center">Grupo  2</td>
 
-
-  
   
   
 </tr>
