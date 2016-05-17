@@ -223,37 +223,5 @@ public abstract class Shell {
     
     meth.invoke(null, (Object)args); // static method (ignore return)
   }
-
-
-
-
-
-
-
-
-
-/******************************PLEASE DON'T CROSS THIS LINE: HAZARD, POSSIBLE FATAL DAMAGE**************************************/
-
-
-  ///**
-   //*  Simple wildcard processing
-   //*  @param text string to match
-   //*  @param pattern string containing '*' (only) wildcards
-   //*  @return true if text matches the pattern
-   //*/
-  //private static boolean wildcard(String text, String pattern) {
-    //String[] cards = pattern.split("\\*");
-
-    //for (String card : cards) {
-      //int idx = text.indexOf(card);
-      //if(idx == -1) return false; // Card not detected in the text.
-      //text = text.substring(idx + card.length());
-    //}
-    //return true;
-  //}
-  
-  
-  
-  
-  
+ 
 }

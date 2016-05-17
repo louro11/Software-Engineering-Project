@@ -45,7 +45,6 @@ public class MyDrive extends MyDrive_Base {
 
 	public MyDrive(){
 
-		//a noção de diretoria atual deixa de ser do mydrive e passa a ser do Login!!!
 
 		setRoot(FenixFramework.getDomainRoot());
 
@@ -73,9 +72,6 @@ public class MyDrive extends MyDrive_Base {
 	public List<FileDto> listDirectory(long token, Directory dir)throws LoginDoesNotExistException, PermitionException{
 
 			Login login = getLoginbyToken(token);
-
-
-		//	Directory dir = login.getCurrentdirectory();
 			User usr = login.getUser();
 
 			return getFilesystem().listDirectory(dir, usr);
@@ -140,30 +136,12 @@ public class MyDrive extends MyDrive_Base {
 	}
 
 
-	/** nao tinhamos nenhum create_user no mydrive, estou a inventar ass:rafa **/
-
 
 
 	public void createUser(String username){
 
 		getFilesystem().createUser(username);
-
-
-	/** password default: username
-	 * 	nome default: username;
-        mask = "rwxd----";
-        homedir = "/home/" + username;
-
-
-        * */
-
-
-
 	}
-
-
-
-
 
 	public Document xmlExport() {
 
@@ -210,35 +188,6 @@ public class MyDrive extends MyDrive_Base {
 
 	}
 
-	/*public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
-
-
-
-		for( Login login: getLoginsSet()){
-
-			if( login.get_token()==token ){
-
-						DateTime now = new DateTime();
-
-						if( login.isAfter(login.get_timeout())){
-
-							throw new LoginIsInvalidException();
-
-						}
-
-						else{
-
-					return login;
-
-						}
-
-			}
-
-		}
-
-	  throw new LoginDoesNotExistException();
-
-  } */
 
   	public Login getLoginbyToken(long token) throws LoginDoesNotExistException, LoginIsInvalidException {
 
@@ -261,17 +210,6 @@ public class MyDrive extends MyDrive_Base {
 
   }
 
-/*	public void UpdateLoginList(){
-
-			for(Login log: getLoginsSet()){
-
-				DateTime now = new DateTime();
-
-				if( now.isAfter(log.get_timeout())){
-					getLoginsSet().remove(log);
-				}
-			}
-		} */
 
 	public void UpdateLoginList(){
 
@@ -329,14 +267,6 @@ public class MyDrive extends MyDrive_Base {
 
 	 public List<EnvironmentVar> addEnvironmentvar(long token, String name, String value) throws LoginDoesNotExistException {
 
-		// TODO:DONE
-		// verificar se ja existe, se sim, redefinir valores
-		// permissoes do user atual (not sure)
-		// suposto retornar lista atual de variaveis separadas por '=' (ughh peanurs)
-		 		
-		 		//fiz uma funcao que verificava se o login existia
-		 		//so para nao estarmos a repetir codigo, ass: louro
-		 
 		 		Login login = getLoginbyToken(token);
 				checkLogin(token);
 
@@ -377,39 +307,11 @@ public class MyDrive extends MyDrive_Base {
 
 
 
-
-	/******************************PLEASE DON'T CROSS THIS LINE: HAZARD, POSSIBLE FATAL DAMAGE**************************************/
-
-	/*
-
-		public void deleteFileByPath(long token, String path) throws LoginDoesNotExistException, FileNotFoundException, PermitionException  {
-
-
-			try{
-
-				Login login = getLoginbyToken(token);
-
-				User user = login.getUser();
-
-				getFilesystem().removeFileByPath(user,path);
-			}
-
-
-
-			catch (LoginDoesNotExistException e){ throw e;}
-			catch (FileNotFoundException e){throw e;}
-			catch (PermitionException e){throw e;}
-
-		}
-*/
-
 		public void deleteFileByName(long token, String name) throws LoginDoesNotExistException, FileNotFoundException, PermitionException{
 
 			Login login = getLoginbyToken(token);
 			User user = login.getUser();
 			Directory current = login.getCurrentdirectory();
-	
-			//getFilesystem().removeFileByName(user,current,name);
 
 		}
 

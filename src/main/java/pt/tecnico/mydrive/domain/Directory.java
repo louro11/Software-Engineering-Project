@@ -37,21 +37,6 @@ public class Directory extends Directory_Base {
         super();
     }
 
-   /* public Directory(String name, int fileid, DateTime timestamp, String permission, User owner, Directory parent )
-    {
-
-      //criacao de ponteiros auxiliares com o nome . e .. para pai e ele proprio (resulta???)
-    /*  Directory fatheraux = parent;
-      fatheraux.set_name("..");
-
-      Directory me = this;
-      me.set_name("."); 
-
-     set_name(name); set_permission(permission); set_fileid(fileid);set_timestamp(timestamp);setOwner(owner);
-	   //setParent(fatheraux); setSelf(me);
-     setFilesystem(owner.getFilesystem());
-
-    }*/
 
     public Directory(String name, int fileid, DateTime timestamp, String permission, User owner)
     {
@@ -91,21 +76,16 @@ public class Directory extends Directory_Base {
 
    public List<FileDto> listDirectory(){
 
-    //falta retornar o conteudo dos Links existentes quando lista a diretoria
+
        
 	   List<FileDto> fileArray = new ArrayList<FileDto>();
 
        for(File f : getFilesSet()) {
-          if ( f instanceof Link ) { /*TODO:conteudo dos Links*/ }
-
-          else{
+          
             fileArray.add(new FileDto(f.get_name(), f.get_permission(), f.get_timestamp(), f.getOwner()));
           }
 
-	      }
-
         return fileArray;
-
    }
 
 

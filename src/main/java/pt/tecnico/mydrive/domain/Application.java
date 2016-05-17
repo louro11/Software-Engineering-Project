@@ -68,7 +68,6 @@ public class Application extends Application_Base {
 			 method = cls.getMethod(splitcontent[0], String[].class);	 
 		 }catch (ClassNotFoundException e) {
 			 throw e;
-			 //TODO other stuff??
 		 }
 		 method.invoke(null, (Object)args);
 	 }

@@ -40,14 +40,6 @@ public class Sys { // execute a command in the system (outside java)
     } );
     throut.start();
 
-    /* java 1.7 begin (must add an addition \n at the end)
-    if ((input = scan.nextLine()) != null) {
-      writer.write(input);
-      writer.newLine();
-      writer.flush();
-    }
-    java 1.7 end */
-    /* java 1.8 begin */
     for (;;) {
       do
 	       try { Thread.sleep(100);

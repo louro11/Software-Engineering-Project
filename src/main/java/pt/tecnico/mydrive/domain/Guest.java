@@ -33,8 +33,6 @@ public class Guest extends Guest_Base {
 
    @Override
     public boolean timeout(DateTime datetime){
-
-      //retorna true porque não tem timeout 
       return true;
     
   }

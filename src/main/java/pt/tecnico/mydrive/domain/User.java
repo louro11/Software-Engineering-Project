@@ -225,9 +225,6 @@ public class User extends User_Base {
 	}
 
 	public void remove() {
-       /* for (File f: getHomedirectory().getFilesSet())
-            f.remove();
-        setMyDrive(null); */
         deleteDomainObject();
     }
 

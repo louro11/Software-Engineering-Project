@@ -88,10 +88,4 @@ public class Login extends Login_Base{
         return varArray;
 
    }
-  
-
-
-  //as permissoes do login devem ser feitas por override dos getters e setters?
-
-
 }

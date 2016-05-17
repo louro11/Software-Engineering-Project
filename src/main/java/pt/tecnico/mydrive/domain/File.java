@@ -28,7 +28,6 @@ public abstract class File extends File_Base {
     	set_fileid(fileid);
     	set_timestamp(timestamp);
     	setOwner(owner);
-        //cada vez que é criado um ficheiro é criada uma associação à sua extensão
         Association assoc = new Association((name.split("."))[0],this);
         setAssociation(assoc);
 
@@ -75,24 +74,8 @@ public abstract class File extends File_Base {
 	 }
 
 
-    public void xmlImport(Element fileElement){
-    	
-    	
-    	
-    /*  set_name(new String(fileElement.getchild("name").getValue().getBytes("UTF-8")));
-        String username = new String(fileElement.getchild("owner").getValue().getBytes("UTF-8"));
-
-        Directory dir = new Directory(username, 0, new DateTime(),"rwxd----", this.getOwner(),this);
-        set_owner(new User(username, username, username, "rwxd----", dir));
-        set_permission(new String(fileElement.getchild("perm").getValue().getBytes("UTF-8")));
-        set_path(new String(fileElement.getchild("path").getValue().getBytes("UTF-8")));
-        set_timestamp(new DateTime());
-*/
-        //TODO
-
-    }
-
-    //isto e para fazer override     
+    public void xmlImport(Element fileElement){}
+    	 
     public void remove(){} 
      
     public boolean isDir(){
